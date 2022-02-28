@@ -57,6 +57,9 @@ int main() {
 		if(window.IsKeyPressed(GLFW_KEY_ESCAPE)) {
 			std::cout << "Pressed!" << std::endl;
 		}
+
+		std::cout << window.GetMouseScroll_Y() << std::endl;
+
 	}
 
 	// delete all resources as loaded using the resource manager

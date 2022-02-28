@@ -40,10 +40,11 @@ void Window::Init() {
 	glfwSetFramebufferSizeCallback(m_window, [](GLFWwindow* w, int width, int height) {
 			glViewport(0, 0, width, height);
 			Window& window = *(Window*)glfwGetWindowUserPointer(w);
-			window.SetWidth(width);
-			window.SetHeight(height);
+			window.m_width = width;
+			window.m_height = height;
 		});
 
+	// key input
 	glfwSetKeyCallback(m_window, [](GLFWwindow* w, int key, int scancode, int action, int mods)
 		{
 			if (action == GLFW_REPEAT) return;
@@ -53,6 +54,26 @@ void Window::Init() {
 			window.m_keyPressed[(size_t)key] = (action == GLFW_PRESS);
 			window.m_keyReleased[(size_t)key] = (action == GLFW_RELEASE);
 			window.m_keyHeld[(size_t)key] = (action == GLFW_PRESS);
+		});
+
+	// mouse input
+	glfwSetMouseButtonCallback(m_window, [](GLFWwindow* w, int button, int action, int mods)
+		{
+			if (action == GLFW_REPEAT) return;
+
+			Window& window = *(Window*)glfwGetWindowUserPointer(w);
+			if (button >= 8) return;
+			window.m_mousePressed[(size_t)button] = (action == GLFW_PRESS);
+			window.m_mouseReleased[(size_t)button] = (action == GLFW_RELEASE);
+			window.m_mouseHeld[(size_t)button] = (action == GLFW_PRESS);
+		});
+
+	// TODO: 0‚É–ß‚·
+	// mouse scroll
+	glfwSetScrollCallback(m_window, [](GLFWwindow* w, double xoffset, double yoffset) {
+			Window& window = *(Window*)glfwGetWindowUserPointer(w);
+			window.mouse_scroll_x = xoffset;
+			window.mouse_scroll_y = yoffset;
 		});
 
 	// initialize GLAD
