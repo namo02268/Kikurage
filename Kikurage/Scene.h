@@ -38,11 +38,13 @@ public:
 	}
 
 	void update() {
-
+		for (auto& system : systems)
+			system->update();
 	}
 
 	void draw() {
-
+		for (auto& system : systems)
+			system->draw();
 	}
 
 	// TODO : [Add] addComponentFamily function
