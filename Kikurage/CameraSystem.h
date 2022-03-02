@@ -13,13 +13,13 @@ private:
 	Shader m_shader;
 	float m_width;
 	float m_height;
-	Window* window;
+	Window* m_window;
 
 public:
 	CameraSystem(Shader shader, Window* window);
 	~CameraSystem();
 
 	void init() override;
-	void update() override;
+	void update(float dt) override;
 	void draw() override;
 };

@@ -27,6 +27,13 @@ public:
 	// create the entity
 	Entity createEntity() { return m_entityManager->createEntity(); }
 
+	void destroyEntity(Entity e) {
+		for (auto& system : systems) {
+			system->removeEntity(e);
+		}
+		m_entityManager->destroyEnitity(e);
+	}
+
 	void addSystem(std::unique_ptr<System> system) {
 		system->parentScene = this;
 		systems.push_back(std::move(system));
@@ -37,9 +44,9 @@ public:
 			system->init();
 	}
 
-	void update() {
+	void update(float dt) {
 		for (auto& system : systems)
-			system->update();
+			system->update(dt);
 	}
 
 	void draw() {

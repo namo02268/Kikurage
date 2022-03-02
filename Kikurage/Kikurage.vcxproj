@@ -29,7 +29,11 @@
     <ClInclude Include="EntityManager.h" />
     <ClInclude Include="EntityMap.h" />
     <ClInclude Include="IdGenerator.h" />
-    <ClInclude Include="Mesh.h" />
+    <ClInclude Include="InputComponent.h" />
+    <ClInclude Include="InputSystem.h" />
+    <ClInclude Include="Vertex.h" />
+    <ClInclude Include="MotionComponent.h" />
+    <ClInclude Include="MotionSystem.h" />
     <ClInclude Include="ResourceManager.h" />
     <ClInclude Include="Scene.h" />
     <ClInclude Include="Shader.h" />
@@ -44,7 +48,9 @@
   <ItemGroup>
     <ClCompile Include="CameraSystem.cpp" />
     <ClCompile Include="glad.c" />
+    <ClCompile Include="InputSystem.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="MotionSystem.cpp" />
     <ClCompile Include="ResourceManager.cpp" />
     <ClCompile Include="Shader.cpp" />
     <ClCompile Include="SpriteRenderer.cpp" />
@@ -52,8 +58,6 @@
     <ClCompile Include="Window.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="resources\shaders\light_cube.frag" />
-    <None Include="resources\shaders\light_cube.vert" />
     <None Include="resources\shaders\sprite.frag" />
     <None Include="resources\shaders\sprite.vert" />
   </ItemGroup>

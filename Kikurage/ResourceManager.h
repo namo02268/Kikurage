@@ -8,7 +8,6 @@
 #include <assimp/postprocess.h>
 
 #include "Shader.h"
-#include "Mesh.h"
 #include "Texture2D.h"
 
 class ResourceManager {

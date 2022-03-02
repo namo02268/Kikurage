@@ -15,6 +15,8 @@ private:
 	const char* m_title;
 	GLFWwindow* m_window = nullptr;
 
+	bool anyKeyEvent = false;
+	bool anyMouseEvent = false;
 	std::bitset<350> m_keyHeld;
 	std::bitset<350> m_keyPressed;
 	std::bitset<350> m_keyReleased;
@@ -22,8 +24,7 @@ private:
 	std::bitset<8> m_mousePressed;
 	std::bitset<8> m_mouseReleased;
 
-	float mouse_scroll_x = 0;
-	float mouse_scroll_y = 0;
+	float m_mouseScroll = 0;
 
 public:
 	Window(int width, int height, const char* title);
@@ -38,16 +39,17 @@ public:
 	int GetWidth() const { return m_width; }
 	int GetHeight() const { return m_height; }
 
+	bool IsAnyKeyEvent() const { return anyKeyEvent; }
 	bool IsKeyHeld(size_t key) const { return m_keyHeld[key]; }
 	bool IsKeyPressed(size_t key) const { return m_keyPressed[key]; }
 	bool IsKeyReleased(size_t key) const {return m_keyReleased[key]; }
 
+	bool IsAnyMouseEvent() const { return anyMouseEvent; }
 	bool IsMouseHeld(size_t button) const { return m_mouseHeld[button]; }
 	bool IsMousePressed(size_t button) const { return m_mousePressed[button]; }
 	bool IsMouseReleased(size_t button) const { return m_mouseReleased[button]; }
 
-	float GetMouseScroll_X() const { return mouse_scroll_x; }
-	float GetMouseScroll_Y() const { return mouse_scroll_y; }
+	float GetMouseScroll() const { return m_mouseScroll; }
 
 	float GetTime() const { return (float)glfwGetTime(); }
 

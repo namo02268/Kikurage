@@ -6,4 +6,5 @@
 class EntityManager {
 public:
 	Entity createEntity() { return Entity(getEntityID()); }
+	void destroyEnitity(Entity e) {}
 };

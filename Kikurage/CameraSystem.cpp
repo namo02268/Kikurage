@@ -9,7 +9,7 @@
 
 CameraSystem::CameraSystem(Shader shader, Window* window) {
 	this->m_shader = shader;
-	this->window = window;
+	this->m_window = window;
 	this->m_width = window->GetWidth();
 	this->m_height = window->GetHeight();
 
@@ -28,9 +28,9 @@ void CameraSystem::init() {
 
 }
 
-void CameraSystem::update() {
-	this->m_width = window->GetWidth();
-	this->m_height = window->GetHeight();
+void CameraSystem::update(float dt) {
+	this->m_width = m_window->GetWidth();
+	this->m_height = m_window->GetHeight();
 }
 
 void CameraSystem::draw() {

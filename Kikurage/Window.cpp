@@ -14,6 +14,8 @@ void Window::Clear() {
 }
 
 void Window::Update() {
+	this->anyKeyEvent = false;
+	this->anyMouseEvent = false;
 	glfwSwapBuffers(m_window);
 	glfwPollEvents();
 }
@@ -27,6 +29,7 @@ void Window::Init() {
 #ifdef __APPLE__
 	glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
 #endif
+	glfwWindowHint(GLFW_RESIZABLE, false);
 
 	// create GLFW window 
 	m_window = glfwCreateWindow(m_width, m_height, m_title, NULL, NULL);
@@ -54,6 +57,7 @@ void Window::Init() {
 			window.m_keyPressed[(size_t)key] = (action == GLFW_PRESS);
 			window.m_keyReleased[(size_t)key] = (action == GLFW_RELEASE);
 			window.m_keyHeld[(size_t)key] = (action == GLFW_PRESS);
+			window.anyKeyEvent = true;
 		});
 
 	// mouse input
@@ -66,14 +70,15 @@ void Window::Init() {
 			window.m_mousePressed[(size_t)button] = (action == GLFW_PRESS);
 			window.m_mouseReleased[(size_t)button] = (action == GLFW_RELEASE);
 			window.m_mouseHeld[(size_t)button] = (action == GLFW_PRESS);
+			window.anyMouseEvent = true;
 		});
 
 	// TODO: 0‚É–ß‚·
 	// mouse scroll
 	glfwSetScrollCallback(m_window, [](GLFWwindow* w, double xoffset, double yoffset) {
 			Window& window = *(Window*)glfwGetWindowUserPointer(w);
-			window.mouse_scroll_x = xoffset;
-			window.mouse_scroll_y = yoffset;
+			window.m_mouseScroll = yoffset;
+			window.anyMouseEvent = true;
 		});
 
 	// initialize GLAD
