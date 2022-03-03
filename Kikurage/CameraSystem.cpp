@@ -35,8 +35,8 @@ void CameraSystem::update(float dt) {
 
 void CameraSystem::draw() {
 	for (auto& e : m_entityArray) {
-		auto size = parentScene->getComponent<CameraComponent>(e).size;
-		auto position = parentScene->getComponent<TransformComponent>(e).position;
+		auto size = m_parentScene->getComponent<CameraComponent>(e).size;
+		auto position = m_parentScene->getComponent<TransformComponent>(e).position;
 		glm::mat4 projection = glm::ortho(-m_width / m_height * size + position.x, m_width / m_height * size + position.x, size + position.y, -size + position.y, -1.0f, 1.0f);
 		this->m_shader.SetMatrix4("projection", projection);
 	}

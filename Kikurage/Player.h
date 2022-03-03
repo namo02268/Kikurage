@@ -3,13 +3,14 @@
 #include "System.h"
 #include "Window.h"
 
-class InputSystem : public System {
+class Player : public System {
 private:
 	Window* m_window;
+	float m_walkMotionCount = 0;
 
 public:
-	InputSystem(Window* window);
-	~InputSystem();
+	Player(Window* window);
+	~Player();
 
 	void init() override;
 	void update(float dt) override;

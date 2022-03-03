@@ -21,10 +21,10 @@ void MotionSystem::init() {
 
 void MotionSystem::update(float dt) {
 	for (auto& e : m_entityArray) {
-		parentScene->getComponent<TransformComponent>(e).position
-			+= parentScene->getComponent<MotionComponent>(e).velocity * dt;
-		parentScene->getComponent<MotionComponent>(e).velocity
-			+= parentScene->getComponent<MotionComponent>(e).acceleration * dt;
+		m_parentScene->getComponent<TransformComponent>(e).position
+			+= m_parentScene->getComponent<MotionComponent>(e).velocity * dt;
+		m_parentScene->getComponent<MotionComponent>(e).velocity
+			+= m_parentScene->getComponent<MotionComponent>(e).acceleration * dt;
 	}
 }
 

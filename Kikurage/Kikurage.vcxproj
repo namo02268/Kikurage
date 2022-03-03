@@ -21,6 +21,8 @@
   <ItemGroup>
     <ClInclude Include="CameraSystem.h" />
     <ClInclude Include="CameraComponent.h" />
+    <ClInclude Include="ColliderComponent.h" />
+    <ClInclude Include="ColliderSystem.h" />
     <ClInclude Include="Component.h" />
     <ClInclude Include="ComponentManager.h" />
     <ClInclude Include="Defs.h" />
@@ -29,8 +31,8 @@
     <ClInclude Include="EntityManager.h" />
     <ClInclude Include="EntityMap.h" />
     <ClInclude Include="IdGenerator.h" />
-    <ClInclude Include="InputComponent.h" />
-    <ClInclude Include="InputSystem.h" />
+    <ClInclude Include="PlayerComponent.h" />
+    <ClInclude Include="Player.h" />
     <ClInclude Include="Vertex.h" />
     <ClInclude Include="MotionComponent.h" />
     <ClInclude Include="MotionSystem.h" />
@@ -44,11 +46,13 @@
     <ClInclude Include="Texture2D.h" />
     <ClInclude Include="TransformComponent.h" />
     <ClInclude Include="Window.h" />
+    <ClInclude Include="EventHandler.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CameraSystem.cpp" />
+    <ClCompile Include="ColliderSystem.cpp" />
     <ClCompile Include="glad.c" />
-    <ClCompile Include="InputSystem.cpp" />
+    <ClCompile Include="Player.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MotionSystem.cpp" />
     <ClCompile Include="ResourceManager.cpp" />

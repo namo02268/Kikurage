@@ -10,8 +10,6 @@
 class SpriteRenderer : public System {
 private:
 	Shader m_shader;
-	unsigned int m_quadVAO;
-	std::array<Vertex, 4> vertices;
 
 public:
 	SpriteRenderer(Shader shader);

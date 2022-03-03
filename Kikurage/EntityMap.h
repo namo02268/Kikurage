@@ -7,21 +7,21 @@
 
 class EntityMap {
 private:
-	std::map<EntityID, ComponentInstance> entityToInstance;
-	std::array<EntityID, MAX_COMPONENTS_ARRRAY> instanceToEntity;
+	std::map<EntityID, ComponentInstance> m_entityToInstance;
+	std::array<EntityID, MAX_COMPONENTS_ARRRAY> m_instanceToEntity;
 
 public:
-	Entity getEntity(ComponentInstance i) { return instanceToEntity[i]; }
-	ComponentInstance getInstance(Entity e) { return entityToInstance[e.GetID()]; }
+	Entity getEntity(ComponentInstance i) { return m_instanceToEntity[i]; }
+	ComponentInstance getInstance(Entity e) { return m_entityToInstance[e.GetID()]; }
 
 	void add(Entity& e, ComponentInstance i) {
-		entityToInstance.insert({ e.GetID(), i });
-		instanceToEntity[i] = e.GetID();
+		m_entityToInstance.insert({ e.GetID(), i });
+		m_instanceToEntity[i] = e.GetID();
 	}
 
 	void update(Entity& e, ComponentInstance i) {
-		entityToInstance[e.GetID()] = i;
-		instanceToEntity[i] = e.GetID();
+		m_entityToInstance[e.GetID()] = i;
+		m_instanceToEntity[i] = e.GetID();
 	}
-	void remove(Entity& e) { entityToInstance.erase(e.GetID()); }
+	void remove(Entity& e) { m_entityToInstance.erase(e.GetID()); }
 };

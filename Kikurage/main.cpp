@@ -11,20 +11,22 @@
 #include "SpriteRenderer.h"
 #include "CameraSystem.h"
 #include "MotionSystem.h"
-#include "InputSystem.h"
+#include "Player.h"
+#include "EventHandler.h"
 
 #include "TransformComponent.h"
 #include "SpriteComponent.h"
 #include "CameraComponent.h"
 #include "MotionComponent.h"
-#include "InputComponent.h"
+#include "PlayerComponent.h"
 
 int main() {
 	Window window(800, 600, "Kikurage");
 
 	//-------------------------------initialize scene-------------------------------//
 	auto entityManager = std::make_unique<EntityManager>();
-	Scene scene(std::move(entityManager));
+	auto eventHandler = std::make_shared<EventHandler>();
+	Scene scene(std::move(entityManager), eventHandler);
 
 	//-----------------------------------resource-----------------------------------//
 	ResourceManager::LoadShaderFromFile("resources/shaders/sprite.vert", 
@@ -38,7 +40,7 @@ int main() {
 	auto motionSystem = std::make_unique<MotionSystem>();
 	scene.addSystem(std::move(motionSystem));
 	// Input
-	auto inputSystem = std::make_unique<InputSystem>(&window);
+	auto inputSystem = std::make_unique<Player>(&window);
 	scene.addSystem(std::move(inputSystem));
 	// sprite
 	auto spriteRenderer = std::make_unique<SpriteRenderer>(ResourceManager::GetShader("sprite"));
@@ -52,14 +54,20 @@ int main() {
 
 	// player
 	auto player = scene.createEntity();
-	scene.addComponent<TransformComponent>(player, glm::vec2(0.0f), glm::vec2(1.0f), 0.0f);
+	scene.addComponent<TransformComponent>(player, glm::vec2(3.0f, 3.0f), glm::vec2(1.0f), 0.0f);
 	scene.addComponent<SpriteComponent>(player, 
-		ResourceManager::LoadTexture("resources/textures/block.png", false, "block"), 
-		glm::vec3(1.0f, 0.0f, 0.0f));
+		ResourceManager::LoadTexture("resources/textures/chara/pipo-charachip001.png", true, "Chara"), 
+		glm::vec3(1.0f, 1.0f, 1.0f), 4, 3);
 	scene.addComponent<MotionComponent>(player);
-	scene.addComponent<InputComponent>(player);
+	scene.addComponent<PlayerComponent>(player);
 
-	std::cout << sizeof(SpriteComponent) << std::endl;
+	// enemy
+	/*
+	auto enemy = scene.createEntity();
+	scene.addComponent<TransformComponent>(enemy, glm::vec2(0.0f), glm::vec2(2.0f), 0.0f);
+	scene.addComponent<SpriteComponent>(enemy,
+		ResourceManager::LoadTexture("resources/textures/block.png", false, "block"),
+		glm::vec3(1.0f, 0.0f, 0.0f));*/
 
 	// init
 	scene.init();

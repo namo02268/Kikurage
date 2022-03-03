@@ -4,6 +4,7 @@
 
 #include "Entity.h"
 #include "Defs.h"
+#include "EventHandler.h"
 
 class Scene;
 
@@ -12,7 +13,8 @@ protected:
 	std::vector<Entity> m_entityArray;
 
 public:
-	Scene* parentScene;
+	Scene* m_parentScene;
+	std::shared_ptr<EventHandler> m_eventHandler;
 	ComponentFamily m_requiredComponent;
 
 public:
@@ -37,7 +39,4 @@ public:
 			}
 		}
 	}
-
-
-
 };

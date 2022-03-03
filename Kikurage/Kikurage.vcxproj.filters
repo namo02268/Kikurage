@@ -96,10 +96,19 @@
     <ClInclude Include="MotionSystem.h">
       <Filter>ソース ファイル\Systems</Filter>
     </ClInclude>
-    <ClInclude Include="InputComponent.h">
+    <ClInclude Include="PlayerComponent.h">
       <Filter>ソース ファイル\Components</Filter>
     </ClInclude>
-    <ClInclude Include="InputSystem.h">
+    <ClInclude Include="Player.h">
+      <Filter>ソース ファイル\Systems</Filter>
+    </ClInclude>
+    <ClInclude Include="EventHandler.h">
+      <Filter>ソース ファイル\ECS</Filter>
+    </ClInclude>
+    <ClInclude Include="ColliderComponent.h">
+      <Filter>ソース ファイル\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="ColliderSystem.h">
       <Filter>ソース ファイル\Systems</Filter>
     </ClInclude>
   </ItemGroup>
@@ -131,7 +140,10 @@
     <ClCompile Include="MotionSystem.cpp">
       <Filter>ソース ファイル\Systems</Filter>
     </ClCompile>
-    <ClCompile Include="InputSystem.cpp">
+    <ClCompile Include="Player.cpp">
+      <Filter>ソース ファイル\Systems</Filter>
+    </ClCompile>
+    <ClCompile Include="ColliderSystem.cpp">
       <Filter>ソース ファイル\Systems</Filter>
     </ClCompile>
   </ItemGroup>
