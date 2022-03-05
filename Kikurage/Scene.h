@@ -34,8 +34,8 @@ public:
 	}
 
 	void addSystem(std::unique_ptr<System> system) {
-		system->parentScene = this;
-		system->eventHandler = m_eventHandler;
+		system->m_parentScene = this;
+		system->m_eventHandler = m_eventHandler;
 		m_systems.push_back(std::move(system));
 	}
 

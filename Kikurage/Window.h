@@ -6,6 +6,7 @@
 
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
+#include <glm/glm.hpp>
 
 class Window
 {
@@ -48,6 +49,9 @@ public:
 	bool IsMouseHeld(size_t button) const { return m_mouseHeld[button]; }
 	bool IsMousePressed(size_t button) const { return m_mousePressed[button]; }
 	bool IsMouseReleased(size_t button) const { return m_mouseReleased[button]; }
+	glm::vec2 GetCursorPosition() const;
+	void disableMouseCursor() const;
+	void normalMouseCursor() const;
 
 	float GetMouseScroll() const { return m_mouseScroll; }
 

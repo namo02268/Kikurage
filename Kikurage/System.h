@@ -13,8 +13,8 @@ protected:
 	std::vector<Entity> m_entityArray;
 
 public:
-	Scene* parentScene;
-	std::shared_ptr<EventHandler> eventHandler;
+	Scene* m_parentScene;
+	std::shared_ptr<EventHandler> m_eventHandler;
 	ComponentFamily m_requiredComponent;
 
 public:

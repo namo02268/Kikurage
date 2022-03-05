@@ -60,7 +60,7 @@ void Window::Init() {
 			window.anyKeyEvent = true;
 		});
 
-	// mouse input
+	// mouse button input
 	glfwSetMouseButtonCallback(m_window, [](GLFWwindow* w, int button, int action, int mods)
 		{
 			if (action == GLFW_REPEAT) return;
@@ -73,7 +73,6 @@ void Window::Init() {
 			window.anyMouseEvent = true;
 		});
 
-	// TODO: 0‚É–ß‚·
 	// mouse scroll
 	glfwSetScrollCallback(m_window, [](GLFWwindow* w, double xoffset, double yoffset) {
 		Window& window = *(Window*)glfwGetWindowUserPointer(w);
@@ -93,4 +92,18 @@ void Window::Init() {
 
 void Window::Terminate() {
 	glfwTerminate();
+}
+
+glm::vec2 Window::GetCursorPosition() const {
+	double x, y;
+	glfwGetCursorPos(m_window, &x, &y);
+	return glm::vec2(float(x), float(y));
+}
+
+void Window::disableMouseCursor() const {
+	glfwSetInputMode(m_window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+}
+
+void Window::normalMouseCursor() const {
+	glfwSetInputMode(m_window, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
 }
