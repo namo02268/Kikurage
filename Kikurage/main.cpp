@@ -8,17 +8,20 @@
 #include "Shader.h"
 #include "ResourceManager.h"
 
+#include "EventHandler.h"
+
 #include "SpriteRenderer.h"
 #include "CameraSystem.h"
 #include "MotionSystem.h"
 #include "Player.h"
-#include "EventHandler.h"
+#include "ColliderSystem.h"
 
 #include "TransformComponent.h"
 #include "SpriteComponent.h"
 #include "CameraComponent.h"
 #include "MotionComponent.h"
 #include "PlayerComponent.h"
+#include "ColliderComponent.h"
 
 int main() {
 	Window window(800, 600, "Kikurage");
@@ -45,12 +48,23 @@ int main() {
 	// sprite
 	auto spriteRenderer = std::make_unique<SpriteRenderer>(ResourceManager::GetShader("sprite"));
 	scene.addSystem(std::move(spriteRenderer));
+	// collider
+	auto colliderSystem = std::make_unique<ColliderSystem>();
+	scene.addSystem(std::move(colliderSystem));
 
 	//---------------------------------add entities---------------------------------//
 	// camera
 	auto camera = scene.createEntity();
 	scene.addComponent<TransformComponent>(camera, glm::vec2(0.0f, 0.0f), glm::vec2(1.0f), 0.0f);
 	scene.addComponent<CameraComponent>(camera);
+
+	// enemy
+	auto enemy = scene.createEntity();
+	scene.addComponent<TransformComponent>(enemy, glm::vec2(0.0f), glm::vec2(1.0f), 0.0f);
+	scene.addComponent<SpriteComponent>(enemy,
+		ResourceManager::LoadTexture("resources/textures/block.png", false, "block"),
+		glm::vec3(1.0f, 0.0f, 0.0f), 1, 1);
+	scene.addComponent<ColliderComponent>(enemy, false);
 
 	// player
 	auto player = scene.createEntity();
@@ -60,14 +74,8 @@ int main() {
 		glm::vec3(1.0f, 1.0f, 1.0f), 4, 3);
 	scene.addComponent<MotionComponent>(player);
 	scene.addComponent<PlayerComponent>(player);
-
-	// enemy
-	/*
-	auto enemy = scene.createEntity();
-	scene.addComponent<TransformComponent>(enemy, glm::vec2(0.0f), glm::vec2(2.0f), 0.0f);
-	scene.addComponent<SpriteComponent>(enemy,
-		ResourceManager::LoadTexture("resources/textures/block.png", false, "block"),
-		glm::vec3(1.0f, 0.0f, 0.0f));*/
+	scene.addComponent<MotionComponent>(player);
+	scene.addComponent<ColliderComponent>(player, true);
 
 	// init
 	scene.init();

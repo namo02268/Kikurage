@@ -23,6 +23,7 @@
     <ClInclude Include="CameraComponent.h" />
     <ClInclude Include="ColliderComponent.h" />
     <ClInclude Include="ColliderSystem.h" />
+    <ClInclude Include="CollisionEvent.h" />
     <ClInclude Include="Component.h" />
     <ClInclude Include="ComponentManager.h" />
     <ClInclude Include="Defs.h" />

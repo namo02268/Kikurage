@@ -1,9 +1,9 @@
 #pragma once
 
+#include <array>
+
 #include "System.h"
 #include "Shader.h"
-
-#include <array>
 
 #include "Vertex.h"
 

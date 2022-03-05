@@ -4,6 +4,8 @@
 #include "TransformComponent.h"
 #include "ColliderComponent.h"
 
+#include "CollisionEvent.h"
+
 bool checkCollision(AABB a, AABB b);
 
 ColliderSystem::ColliderSystem() {
@@ -22,18 +24,27 @@ void ColliderSystem::init() {
 }
 
 void ColliderSystem::update(float dt) {
-	for (auto& e1 : m_entityArray) {
-		auto& e1_colliderComponent = m_parentScene->getComponent<ColliderComponent>(e1);
-		if (e1_colliderComponent.doCollision) {
-			for (auto& e2 : m_entityArray) {
-				if (e1.GetID() != e2.GetID()) {
-					auto& e2_colliderComponent = m_parentScene->getComponent<ColliderComponent>(e2);
+	for (auto& a : m_entityArray) {
+		auto& aCollider = m_parentScene->getComponent<ColliderComponent>(a);
+		if (aCollider.doCollision) {
 
-					auto& e1_aabb = e1_colliderComponent.aabb;
-					auto& e2_aabb = e2_colliderComponent.aabb;
+			for (auto& b : m_entityArray) {
+				if (a.GetID() != b.GetID()) {
+					auto& bCollider = m_parentScene->getComponent<ColliderComponent>(b);
+					auto& aPosition = m_parentScene->getComponent<TransformComponent>(a).position;
+					auto& bPosition = m_parentScene->getComponent<TransformComponent>(b).position;
 
-					if (checkCollision(e1_aabb, e2_aabb)) {
+					AABB aAABB = aCollider.aabb;
+					AABB bAABB = bCollider.aabb;
 
+					aAABB.max += aPosition;
+					aAABB.min += aPosition;
+					bAABB.max += bPosition;
+					bAABB.min += bPosition;
+
+					if (checkCollision(aAABB, bAABB)) {
+						CollisionEvent collisionEvent(a, b);
+						m_eventHandler->publish(&collisionEvent);
 					}
 				}
 			}
@@ -46,9 +57,15 @@ void ColliderSystem::draw() {
 }
 
 bool checkCollision(AABB a, AABB b) {
-	if (a.max.x < b.min.x ||
-		a.min.x < b.max.x) return false;
-	if (a.max.y < b.min.y ||
-		a.min.y < b.max.y) return false;
+	float d1x = b.min.x - a.max.x;
+	float d1y = b.min.y - a.max.y;
+	float d2x = a.min.x - b.max.x;
+	float d2y = a.min.y - b.max.y;
+	if (d1x > 0.0f || d1y > 0.0f)
+		return false;
+
+	if (d2x > 0.0f || d2y > 0.0f)
+		return false;
+
 	return true;
 }

@@ -27,7 +27,7 @@ Player::~Player() {
 }
 
 void Player::init() {
-
+	m_eventHandler->subscribe(this, &Player::OnCollisionEvent);
 }
 
 void Player::update(float dt) {
@@ -36,31 +36,47 @@ void Player::update(float dt) {
 		if (!m_window->IsAnyKeyEvent()) {
 			float walkspeed = m_parentScene->getComponent<PlayerComponent>(e).walkspeed;
 			auto& spriteComponent = m_parentScene->getComponent<SpriteComponent>(e);
-			m_walkMotionCount += dt;
 
 			if (m_window->IsKeyPressed(GLFW_KEY_W)) {
 				motionComponent.velocity.y = -walkspeed;
-				if(m_walkMotionCount > 1)
 				spriteComponent.UVoffset = 11;
 			}
-			if (m_window->IsKeyPressed(GLFW_KEY_S)) {
+			else if (m_window->IsKeyPressed(GLFW_KEY_S)) {
 				motionComponent.velocity.y = walkspeed;
 				spriteComponent.UVoffset = 2;
 			}
-			if (m_window->IsKeyPressed(GLFW_KEY_A)) {
+			else if (m_window->IsKeyPressed(GLFW_KEY_A)) {
 				motionComponent.velocity.x = -walkspeed;
 				spriteComponent.UVoffset = 5;
 			}
-			if (m_window->IsKeyPressed(GLFW_KEY_D)) {
+			else if (m_window->IsKeyPressed(GLFW_KEY_D)) {
 				motionComponent.velocity.x = walkspeed;
 				spriteComponent.UVoffset = 8;
 			}
 		}
 		else {
-			m_walkMotionCount = 0.0f;
 			motionComponent.velocity = glm::vec2(0.0f);
 		}
 	}
 }
 void Player::draw() {
+}
+
+void Player::OnCollisionEvent(CollisionEvent* collision) {
+	auto& a_Trans = m_parentScene->getComponent<MotionComponent>(collision->a);
+	auto& b_Trans = m_parentScene->getComponent<MotionComponent>(collision->b);
+
+	if (m_window->IsKeyPressed(GLFW_KEY_W)) {
+		a_Trans.velocity = -a_Trans.velocity;
+	}
+	if (m_window->IsKeyPressed(GLFW_KEY_S)) {
+//		a_Trans.position.y = b_Trans.position.y - b_Trans.size.y;
+	}
+	if (m_window->IsKeyPressed(GLFW_KEY_A)) {
+//		a_Trans.position.x = b_Trans.position.x + b_Trans.size.x;
+	}
+	if (m_window->IsKeyPressed(GLFW_KEY_D)) {
+//		a_Trans.position.x = b_Trans.position.x - b_Trans.size.x;
+	}
+
 }

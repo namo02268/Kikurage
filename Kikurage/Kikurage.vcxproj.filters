@@ -25,6 +25,9 @@
     <Filter Include="ソース ファイル\Resource">
       <UniqueIdentifier>{e81201cf-a340-45f6-91bb-c75a537c5db7}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ソース ファイル\Events">
+      <UniqueIdentifier>{af46905a-a40d-474f-845a-a6b12fd2f16e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Component.h">
@@ -110,6 +113,9 @@
     </ClInclude>
     <ClInclude Include="ColliderSystem.h">
       <Filter>ソース ファイル\Systems</Filter>
+    </ClInclude>
+    <ClInclude Include="CollisionEvent.h">
+      <Filter>ソース ファイル\Events</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
