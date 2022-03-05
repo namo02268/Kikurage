@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Defs.h"
+#include "ECS_def.h"
 
 inline EntityID getEntityID() {
 	static EntityID entityID = 0;
@@ -14,5 +14,15 @@ inline ComponentTypeID getComponentTypeID() {
 
 template <typename T> inline ComponentTypeID getComponentTypeID() noexcept {
 	static ComponentTypeID typeID = getComponentTypeID();
+	return typeID;
+}
+
+inline EventTypeID getEventTypeID() {
+	static EventTypeID eventID = 0;
+	return eventID++;
+}
+
+template <typename T> inline EventTypeID getEventTypeID() noexcept {
+	static EventTypeID typeID = getEventTypeID();
 	return typeID;
 }

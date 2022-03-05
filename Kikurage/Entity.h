@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Defs.h"
+#include "ECS_def.h"
 
 class Entity {
 private:

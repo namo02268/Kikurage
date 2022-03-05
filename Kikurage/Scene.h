@@ -3,65 +3,69 @@
 #include <iostream>
 #include "ComponentManager.h"
 #include "EntityManager.h"
-#include "Defs.h"
+#include "ECS_def.h"
 #include "System.h"
+#include "EventHandler.h"
 
 class Scene {
 private:
 	// entity manager
 	std::unique_ptr<EntityManager> m_entityManager;
-	// entity mask
-	std::map<Entity, std::bitset<MAX_COMPONENTS_FAMILY>> entityMasks;
+	// event handler
+	std::shared_ptr<EventHandler> m_eventHandler;
 	// bit array of component managers ID
 	ComponentFamily m_componentFamily;
 	// array of component managers
 	std::array<std::unique_ptr<BaseComponentManager>, MAX_COMPONENTS_FAMILY> m_componentManagers;
 	// systems
-	std::vector<std::unique_ptr<System>> systems;
+	std::vector<std::unique_ptr<System>> m_systems;
 
 public:
-	// constructor
-	explicit Scene(std::unique_ptr<EntityManager> entityManager)
-		: m_entityManager(std::move(entityManager)) {};
+	explicit Scene(std::unique_ptr<EntityManager> entityManager, std::shared_ptr<EventHandler> eventHandler)
+		: m_entityManager(std::move(entityManager)), m_eventHandler(eventHandler) {};
 
-	// create the entity
 	Entity createEntity() { return m_entityManager->createEntity(); }
+
+	void destroyEntity(Entity e) {
+		for (auto& system : m_systems) {
+			system->removeEntity(e);
+		}
+		m_entityManager->destroyEnitity(e);
+	}
 
 	void addSystem(std::unique_ptr<System> system) {
 		system->parentScene = this;
-		systems.push_back(std::move(system));
+		system->eventHandler = m_eventHandler;
+		m_systems.push_back(std::move(system));
 	}
 
 	void init() {
-		for (auto& system : systems)
+		for (auto& system : m_systems)
 			system->init();
 	}
 
-	void update() {
-
+	void update(float dt) {
+		for (auto& system : m_systems)
+			system->update(dt);
 	}
 
 	void draw() {
-
+		for (auto& system : m_systems)
+			system->draw();
 	}
 
-	// TODO : [Add] addComponentFamily function
 	template<typename ComponentType, typename... TArgs>
 	void addComponent(Entity& e, TArgs&&... mArgs) {
 		auto family = getComponentTypeID<ComponentType>();
 		e.m_componentMap[family] = true;
 
-		// if the component manager already exists
-		if (m_componentFamily[family]) {
-			static_cast<ComponentManager<ComponentType>&>(*m_componentManagers[family]).addComponent(e, std::forward<TArgs>(mArgs)...);
-		}
-		else {
-			auto m = std::make_unique<ComponentManager<ComponentType>>();
-			m->addComponent(e, std::forward<TArgs>(mArgs)...);
-			m_componentManagers[family] = (std::move(m));
+		// if the component manager didn't exists
+		if (!m_componentFamily[family]) {
+			m_componentManagers[family] = std::make_unique<ComponentManager<ComponentType>>();
 			m_componentFamily[family] = true;
 		}
 
+		static_cast<ComponentManager<ComponentType>&>(*m_componentManagers[family]).addComponent(e, std::forward<TArgs>(mArgs)...);
 		updateComponentMap(e, family);
 	}
 
@@ -81,7 +85,7 @@ public:
 	}
 
 	void updateComponentMap(Entity& e, ComponentTypeID family) {
-		for (auto& system : systems) {
+		for (auto& system : m_systems) {
 			auto componentMap = e.m_componentMap;
 			auto requiredComponent = system->m_requiredComponent;
 			if (requiredComponent[family]) {

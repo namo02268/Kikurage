@@ -3,7 +3,8 @@
 #include <vector>
 
 #include "Entity.h"
-#include "Defs.h"
+#include "ECS_def.h"
+#include "EventHandler.h"
 
 class Scene;
 
@@ -13,6 +14,7 @@ protected:
 
 public:
 	Scene* parentScene;
+	std::shared_ptr<EventHandler> eventHandler;
 	ComponentFamily m_requiredComponent;
 
 public:
@@ -20,7 +22,7 @@ public:
 
 	virtual void init() = 0;
 
-	virtual void update() = 0;
+	virtual void update(float dt) = 0;
 
 	virtual void draw() = 0;
 
@@ -37,7 +39,4 @@ public:
 			}
 		}
 	}
-
-
-
 };

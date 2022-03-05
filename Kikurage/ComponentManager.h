@@ -11,7 +11,7 @@ template<typename ComponentType>
 class ComponentManager : public BaseComponentManager {
 private:
 	std::array<std::unique_ptr<ComponentType>, MAX_COMPONENTS_ARRRAY> m_componentArray;
-	EntityMap entityMap;
+	EntityMap m_entityMap;
 	ComponentInstance m_newInstance = 0;
 
 public:
@@ -20,26 +20,26 @@ public:
 		ComponentType* c = new ComponentType(std::forward<TArgs>(mArgs)...);
 		std::unique_ptr<ComponentType> uPtr(c);
 		m_componentArray[m_newInstance] = std::move(uPtr);
-		entityMap.add(e, m_newInstance);
+		m_entityMap.add(e, m_newInstance);
 
 		m_newInstance++;
 	}
 
 	ComponentType& getComponent(Entity& e) {
-		ComponentInstance instance = entityMap.getInstance(e);
+		ComponentInstance instance = m_entityMap.getInstance(e);
 		return *m_componentArray[instance];
 	}
 
 	void removeComponent(Entity& e) {
-		ComponentInstance instance = entityMap.getInstance(e);
+		ComponentInstance instance = m_entityMap.getInstance(e);
 		ComponentInstance lastInstance = m_newInstance - 1;
-		Entity lastEntity = entityMap.getEntity(lastInstance);
+		Entity lastEntity = m_entityMap.getEntity(lastInstance);
 
-		entityMap.remove(e);
+		m_entityMap.remove(e);
 
 		if (instance != lastInstance) {
 			m_componentArray[instance] = std::move(m_componentArray[lastInstance]);
-			entityMap.update(lastEntity, instance);
+			m_entityMap.update(lastEntity, instance);
 		}
 
 		m_newInstance--;
