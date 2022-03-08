@@ -3,6 +3,9 @@
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 
+#define STB_IMAGE_IMPLEMENTATION
+#include "stb_image.h"
+
 #include "Window.h"
 #include "Scene.h"
 #include "Shader.h"
@@ -28,16 +31,19 @@ int main() {
 	Scene scene(std::move(entityManager), eventHandler);
 
 	//-----------------------------------resource-----------------------------------//
+	stbi_set_flip_vertically_on_load(true);
+
 	ResourceManager::LoadShaderFromFile("resources/shaders/Simple.vert", "resources/shaders/PBR_nonTexture.frag", nullptr, "PBR");
 	ResourceManager::LoadShaderFromFile("resources/shaders/cubemap.vert", "resources/shaders/equirectangular_to_cubemap.frag", nullptr, "equirectangularToCubemapShader");
+	ResourceManager::LoadShaderFromFile("resources/shaders/cubemap.vert", "resources/shaders/irradiance_convolution.frag", nullptr, "irradianceShader");
 	ResourceManager::LoadShaderFromFile("resources/shaders/background.vert", "resources/shaders/background.frag", nullptr, "backgroundShader");
 	ResourceManager::LoadMeshFromFile("resources/objects/suzanne/suzanne.obj", "suzanne");
-	ResourceManager::LoadTexture("resources/HDRIs/Newport_Loft/Newport_Loft_Env.hdr", TextureType::HDR, " hdrTexture");
+	ResourceManager::LoadTexture("resources/HDRIs/photo_studio_loft_hall/photo_studio_loft_hall_4k.hdr", TextureType::HDR, "hdrTexture");
 
-	/*
-	Shader backgroundShader = ResourceManager::GetShader("backgroundShader");
-	backgroundShader.Use();
-	backgroundShader.SetInteger("environmentMap", 0);
+	//----------------------------------background----------------------------------//
+	Shader* backgroundShader = ResourceManager::GetShader("backgroundShader");
+	backgroundShader->Use();
+	backgroundShader->SetInteger("environmentMap", 0);
 
 	// pbr: setup framebuffer
 	unsigned int captureFBO;
@@ -59,7 +65,7 @@ int main() {
 	glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
 	glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
 	glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_R, GL_CLAMP_TO_EDGE);
-	glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
 	glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 
 	// pbr: set up projection and view matrices for capturing data onto the 6 cubemap face directions
@@ -75,10 +81,10 @@ int main() {
 	};
 
 	// pbr: convert HDR equirectangular environment map to cubemap equivalent
-	Shader equirectangularToCubemapShader = ResourceManager::GetShader("equirectangularToCubemapShader");
-	equirectangularToCubemapShader.Use();
-	equirectangularToCubemapShader.SetInteger("equirectangularMap", 0);
-	equirectangularToCubemapShader.SetMatrix4("projection", captureProjection);
+	Shader* equirectangularToCubemapShader = ResourceManager::GetShader("equirectangularToCubemapShader");
+	equirectangularToCubemapShader->Use();
+	equirectangularToCubemapShader->SetInteger("equirectangularMap", 0);
+	equirectangularToCubemapShader->SetMatrix4("projection", captureProjection);
 	glActiveTexture(GL_TEXTURE0);
 	glBindTexture(GL_TEXTURE_2D, ResourceManager::GetTexture("hdrTexture").ID);
 
@@ -86,18 +92,66 @@ int main() {
 	glBindFramebuffer(GL_FRAMEBUFFER, captureFBO);
 	for (unsigned int i = 0; i < 6; ++i)
 	{
-		equirectangularToCubemapShader.SetMatrix4("view", captureViews[i]);
+		equirectangularToCubemapShader->SetMatrix4("view", captureViews[i]);
 		glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_CUBE_MAP_POSITIVE_X + i, envCubemap, 0);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 		renderCube();
 	}
 	glBindFramebuffer(GL_FRAMEBUFFER, 0);
-	*/
+
+	// then let OpenGL generate mipmaps from first mip face (combatting visible dots artifact)
+	glBindTexture(GL_TEXTURE_CUBE_MAP, envCubemap);
+	glGenerateMipmap(GL_TEXTURE_CUBE_MAP);
+
+	//----------------------------------irradiance----------------------------------//
+	unsigned int irradianceMap;
+	glGenTextures(1, &irradianceMap);
+	glBindTexture(GL_TEXTURE_CUBE_MAP, irradianceMap);
+	for (unsigned int i = 0; i < 6; ++i)
+	{
+		glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_X + i, 0, GL_RGB16F, 32, 32, 0, GL_RGB, GL_FLOAT, nullptr);
+	}
+	glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+	glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+	glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_R, GL_CLAMP_TO_EDGE);
+	glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+
+	glBindFramebuffer(GL_FRAMEBUFFER, captureFBO);
+	glBindRenderbuffer(GL_RENDERBUFFER, captureRBO);
+	glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH_COMPONENT24, 32, 32);
+
+	// pbr: solve diffuse integral by convolution to create an irradiance (cube)map.
+	// -----------------------------------------------------------------------------
+	Shader* irradianceShader = ResourceManager::GetShader("irradianceShader");
+	irradianceShader->Use();
+	irradianceShader->SetInteger("environmentMap", 0);
+	irradianceShader->SetMatrix4("projection", captureProjection);
+	glActiveTexture(GL_TEXTURE0);
+	glBindTexture(GL_TEXTURE_CUBE_MAP, envCubemap);
+
+	glViewport(0, 0, 32, 32); // don't forget to configure the viewport to the capture dimensions.
+	glBindFramebuffer(GL_FRAMEBUFFER, captureFBO);
+	for (unsigned int i = 0; i < 6; ++i)
+	{
+		irradianceShader->SetMatrix4("view", captureViews[i]);
+		glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_CUBE_MAP_POSITIVE_X + i, irradianceMap, 0);
+		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+		renderCube();
+	}
+	glBindFramebuffer(GL_FRAMEBUFFER, 0);
+
+	//-----------------------------pre-filter cubemap-----------------------------//
+
+
 
 	//-----------------------------add systems to scene-----------------------------//
 	// camera system
-	auto cameraSystem = std::make_unique<CameraSystem>(&window, ResourceManager::GetShader("PBR"));
+	auto cameraSystem = std::make_unique<CameraSystem>(&window);
+	cameraSystem->addShader(ResourceManager::GetShader("PBR"));
+	cameraSystem->addShader(backgroundShader);
 	scene.addSystem(std::move(cameraSystem));
 	// renderer
 	auto renderer = std::make_unique<Renderer>(ResourceManager::GetShader("PBR"));
@@ -122,12 +176,13 @@ int main() {
 	float deltaTime = 0.0f;
 	float lastFrame = 0.0f;
 
-	/*
 	// then before rendering, configure the viewport to the original framebuffer's screen dimensions
 	int scrWidth, scrHeight;
 	glfwGetFramebufferSize(window.GetWindow(), &scrWidth, &scrHeight);
 	glViewport(0, 0, scrWidth, scrHeight);
-	*/
+
+	Shader* pbrShader = ResourceManager::GetShader("PBR");
+
 	//--------------------------------------render loop--------------------------------------//
 	while (!window.Closed())
 	{
@@ -140,13 +195,23 @@ int main() {
 			window.Clear();
 
 			scene.update(deltaTime);
+
+
+			pbrShader->Use();
+			pbrShader->SetInteger("irradianceMap", 0);
+			// bind pre-computed IBL data
+			glActiveTexture(GL_TEXTURE0);
+			glBindTexture(GL_TEXTURE_CUBE_MAP, irradianceMap);
+
 			scene.draw();
 
-			window.Update();
+			backgroundShader->Use();
+			glActiveTexture(GL_TEXTURE0);
+			glBindTexture(GL_TEXTURE_CUBE_MAP, envCubemap);
+			//glBindTexture(GL_TEXTURE_CUBE_MAP, irradianceMap); // display irradiance map
+			renderCube();
 
-			if (window.IsKeyPressed(GLFW_KEY_ESCAPE)) {
-				std::cout << "Pressed!" << std::endl;
-			}
+			window.Update();
 		}
 	}
 

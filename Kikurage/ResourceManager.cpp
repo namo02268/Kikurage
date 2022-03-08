@@ -4,7 +4,6 @@
 #include <sstream>
 #include <fstream>
 
-#define STB_IMAGE_IMPLEMENTATION
 #include "stb_image.h"
 
 std::map<std::string, std::unique_ptr<Shader>> ResourceManager::Shaders;

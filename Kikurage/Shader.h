@@ -13,8 +13,9 @@ public:
 	// state
 	unsigned int ID;
 
-	//constructor
-	Shader() { std::cout << "Shader" << std::endl; }
+	// constructor/destructor
+	Shader() {}
+	~Shader() {}
 	 
 	// sets the current shader as active
 	Shader& Use();

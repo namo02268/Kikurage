@@ -8,15 +8,17 @@
 class CameraSystem : public System {
 private:
 	Window* m_window;
-	Shader* m_shader;
+	std::vector<Shader*> m_shaders;
 
 	float lastX = 0.0f;
 	float lastY = 0.0f;
 	bool firstMouse = true;
 
 public:
-	CameraSystem(Window* window, Shader* shader);
+	CameraSystem(Window* window);
 	~CameraSystem();
+
+	void addShader(Shader* shader);
 
 	void init() override;
 	void update(float dt) override;

@@ -29,7 +29,6 @@ void Window::Init() {
 #ifdef __APPLE__
 	glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
 #endif
-	glfwWindowHint(GLFW_RESIZABLE, false);
 
 	// create GLFW window 
 	m_window = glfwCreateWindow(m_width, m_height, m_title, NULL, NULL);
@@ -88,6 +87,8 @@ void Window::Init() {
 	// OpenGL configuration
 	glEnable(GL_DEPTH_TEST);
 	glDepthFunc(GL_LEQUAL);
+	// enable seamless cubemap sampling for lower mip levels in the pre-filter map.
+	glEnable(GL_TEXTURE_CUBE_MAP_SEAMLESS);
 }
 
 void Window::Terminate() {

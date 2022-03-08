@@ -57,6 +57,7 @@
     <None Include="resources\shaders\background.vert" />
     <None Include="resources\shaders\cubemap.vert" />
     <None Include="resources\shaders\equirectangular_to_cubemap.frag" />
+    <None Include="resources\shaders\irradiance_convolution.frag" />
     <None Include="resources\shaders\PBR_nonTexture.frag" />
     <None Include="resources\shaders\Phong.frag" />
     <None Include="resources\shaders\Simple.vert" />
