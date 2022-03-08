@@ -93,6 +93,9 @@
     <ClInclude Include="CameraComponent.h">
       <Filter>ソース ファイル\Components</Filter>
     </ClInclude>
+    <ClInclude Include="IBL.h">
+      <Filter>ソース ファイル\Systems</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -119,6 +122,9 @@
     <ClCompile Include="CameraSystem.cpp">
       <Filter>ソース ファイル\Systems</Filter>
     </ClCompile>
+    <ClCompile Include="IBL.cpp">
+      <Filter>ソース ファイル\Systems</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="resources\shaders\Phong.frag">
@@ -143,6 +149,15 @@
       <Filter>リソース ファイル</Filter>
     </None>
     <None Include="resources\shaders\irradiance_convolution.frag">
+      <Filter>リソース ファイル</Filter>
+    </None>
+    <None Include="resources\shaders\brdf.frag">
+      <Filter>リソース ファイル</Filter>
+    </None>
+    <None Include="resources\shaders\brdf.vert">
+      <Filter>リソース ファイル</Filter>
+    </None>
+    <None Include="resources\shaders\prefilter.frag">
       <Filter>リソース ファイル</Filter>
     </None>
   </ItemGroup>
