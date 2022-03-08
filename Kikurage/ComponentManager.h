@@ -17,9 +17,7 @@ private:
 public:
 	template<typename... TArgs>
 	void addComponent(Entity& e, TArgs&&... mArgs) {
-		ComponentType* c = new ComponentType(std::forward<TArgs>(mArgs)...);
-		std::unique_ptr<ComponentType> uPtr(c);
-		m_componentArray[m_newInstance] = std::move(uPtr);
+		m_componentArray[m_newInstance] = std::make_unique<ComponentType>(std::forward<TArgs>(mArgs)...);
 		m_entityMap.add(e, m_newInstance);
 
 		m_newInstance++;

@@ -5,10 +5,10 @@
 
 class Renderer : public System {
 private:
-	Shader m_shader;
+	Shader* m_shader;
 
 public:
-	Renderer(Shader shader);
+	Renderer(Shader* shader);
 	~Renderer();
 
 	void init() override;

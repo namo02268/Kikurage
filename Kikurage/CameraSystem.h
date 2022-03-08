@@ -8,14 +8,14 @@
 class CameraSystem : public System {
 private:
 	Window* m_window;
-	Shader m_shader;
+	Shader* m_shader;
 
 	float lastX = 0.0f;
 	float lastY = 0.0f;
 	bool firstMouse = true;
 
 public:
-	CameraSystem(Window* window, Shader shader);
+	CameraSystem(Window* window, Shader* shader);
 	~CameraSystem();
 
 	void init() override;

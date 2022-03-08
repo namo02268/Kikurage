@@ -7,23 +7,14 @@
 #define STB_IMAGE_IMPLEMENTATION
 #include "stb_image.h"
 
-std::map<std::string, Shader> ResourceManager::Shaders;
+std::map<std::string, std::unique_ptr<Shader>> ResourceManager::Shaders;
 std::map<std::string, Texture2D> ResourceManager::Textures;
 std::map<std::string, Mesh> ResourceManager::Meshes;
 
+// TODO: template‰»
 
 //------------------------Shader------------------------//
 void ResourceManager::LoadShaderFromFile(const char* vShaderFile, const char* fShaderFile, const char* gShaderFile, std::string name)
-{
-    Shaders[name] = loadShaderFromFile(vShaderFile, fShaderFile, gShaderFile);
-}
-
-Shader ResourceManager::GetShader(std::string name)
-{
-    return Shaders[name];
-}
-
-Shader ResourceManager::loadShaderFromFile(const char* vShaderFile, const char* fShaderFile, const char* gShaderFile)
 {
     // 1. retrieve the vertex/fragment source code from filePath
     std::string vertexCode;
@@ -62,9 +53,14 @@ Shader ResourceManager::loadShaderFromFile(const char* vShaderFile, const char* 
     const char* fShaderCode = fragmentCode.c_str();
     const char* gShaderCode = geometryCode.c_str();
     // 2. now create shader object from source code
-    Shader shader;
-    shader.Compile(vShaderCode, fShaderCode, gShaderFile != nullptr ? gShaderCode : nullptr);
-    return shader;
+    auto shader = std::make_unique<Shader>();
+    shader->Compile(vShaderCode, fShaderCode, gShaderFile != nullptr ? gShaderCode : nullptr);
+    Shaders[name] = std::move(shader);
+}
+
+Shader* ResourceManager::GetShader(std::string name)
+{
+    return Shaders[name].get();
 }
 
 //------------------------Texture------------------------//
@@ -185,5 +181,5 @@ void ResourceManager::Clear()
 {
     // (properly) delete all shaders	
     for (auto& iter : Shaders)
-        glDeleteProgram(iter.second.ID);
+        glDeleteProgram(iter.second->ID);
 }

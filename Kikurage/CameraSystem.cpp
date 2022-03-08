@@ -7,7 +7,7 @@
 #include "TransformComponent.h"
 #include "CameraComponent.h"
 
-CameraSystem::CameraSystem(Window* window, Shader shader) {
+CameraSystem::CameraSystem(Window* window, Shader* shader) {
 	this->m_window = window;
 	this->m_shader = shader;
 	auto family = getComponentTypeID<TransformComponent>();
@@ -96,7 +96,7 @@ void CameraSystem::update(float dt) {
 }
 
 void CameraSystem::draw() {
-	this->m_shader.Use();
+	this->m_shader->Use();
 	for (auto& e : m_entityArray) {
 		auto& transfromComponent = m_parentScene->getComponent<TransformComponent>(e);
 		auto& cameraComponent = m_parentScene->getComponent<CameraComponent>(e);
@@ -104,8 +104,8 @@ void CameraSystem::draw() {
 		glm::mat4 projection = glm::perspective(glm::radians(cameraComponent.Zoom), (float)m_window->GetWidth() / (float)m_window->GetHeight(), 0.1f, 100.0f);
 		glm::mat4 view = glm::lookAt(transfromComponent.position, transfromComponent.position + cameraComponent.Front, cameraComponent.Up);
 
-		this->m_shader.SetVector3f("cameraPos", transfromComponent.position);
-		this->m_shader.SetMatrix4("projection", projection);
-		this->m_shader.SetMatrix4("view", view);
+		this->m_shader->SetVector3f("cameraPos", transfromComponent.position);
+		this->m_shader->SetMatrix4("projection", projection);
+		this->m_shader->SetMatrix4("view", view);
 	}
 }

@@ -22,7 +22,7 @@ enum class TextureType {
 class ResourceManager {
 public:
 	// resource storage
-	static std::map<std::string, Shader> Shaders;
+	static std::map<std::string, std::unique_ptr<Shader>> Shaders;
 	static std::map<std::string, Texture2D> Textures;
 	static std::map<std::string, Mesh> Meshes;
 
@@ -31,7 +31,7 @@ public:
 	static void LoadShaderFromFile(const char* vShdaerFile, const char* fShaderFile, const char* gShaderFile, std::string name);
 
 	// retrieves a stored shader
-	static Shader GetShader(std::string name);
+	static Shader* GetShader(std::string name);
 
 	//-------------------------Model-------------------------//
 	// load a mesh form file
@@ -53,10 +53,6 @@ public:
 
 private:
 	ResourceManager() {}
-
-	//------------------------Shader------------------------//
-	// loads and generates a shader from file
-	static Shader loadShaderFromFile(const char* vertShaderFile, const char* fragShaderFile, const char* geomShaderFile = nullptr);
 
 	//------------------------Texture------------------------//
 	// loads a single texture from file
