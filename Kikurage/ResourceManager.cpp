@@ -8,6 +8,7 @@
 #include "stb_image.h"
 
 std::map<std::string, Shader> ResourceManager::Shaders;
+std::map<std::string, Texture2D> ResourceManager::Textures;
 std::map<std::string, Mesh> ResourceManager::Meshes;
 
 
@@ -64,6 +65,45 @@ Shader ResourceManager::loadShaderFromFile(const char* vShaderFile, const char* 
     Shader shader;
     shader.Compile(vShaderCode, fShaderCode, gShaderFile != nullptr ? gShaderCode : nullptr);
     return shader;
+}
+
+//------------------------Texture------------------------//
+void ResourceManager::LoadTexture(const char* file, TextureType type, std::string name)
+{
+    Textures[name] = loadTextureFromFile(file, type);
+}
+
+Texture2D ResourceManager::GetTexture(std::string name)
+{
+    return Textures[name];
+}
+
+Texture2D ResourceManager::loadTextureFromFile(const char* file, TextureType type)
+{
+    // create texture object
+    Texture2D texture;
+    if (type == TextureType::RGB) {
+        texture.Internal_Format = GL_RGB;
+        texture.Image_Format = GL_RGB;
+    }
+    if (type == TextureType::RGBA) {
+        texture.Internal_Format = GL_RGBA;
+        texture.Image_Format = GL_RGBA;
+    }
+    if (type == TextureType::HDR) {
+        texture.Internal_Format = GL_RGB16F;
+        texture.Image_Format = GL_RGB;
+        texture.Wrap_S = GL_CLAMP_TO_EDGE;
+        texture.Wrap_T = GL_CLAMP_TO_EDGE;
+    }
+    // load image
+    int width, height, nrChannels;
+    unsigned char* data = stbi_load(file, &width, &height, &nrChannels, 0);
+    // now generate texture
+    texture.Generate(width, height, data);
+    // and finally free image data
+    stbi_image_free(data);
+    return texture;
 }
 
 //------------------------Model------------------------//

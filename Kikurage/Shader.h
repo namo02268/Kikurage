@@ -2,6 +2,8 @@
 
 #include <string>
 
+#include <iostream>
+
 #include <glad/glad.h>
 #include <glm/glm.hpp>
 #include <glm/gtc/type_ptr.hpp>
@@ -12,8 +14,8 @@ public:
 	unsigned int ID;
 
 	//constructor
-	Shader() {}
-
+	Shader() { std::cout << "Shader" << std::endl; }
+	 
 	// sets the current shader as active
 	Shader& Use();
 

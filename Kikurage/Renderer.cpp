@@ -37,7 +37,15 @@ void Renderer::draw() {
 	for (auto& e : m_entityArray) {
 		auto& transfromComponent = m_parentScene->getComponent<TransformComponent>(e);
 		auto& meshComponent = m_parentScene->getComponent<MeshComponent>(e);
+		auto& materialComponent = m_parentScene->getComponent<MaterialComponent>(e);
 
+		// material
+		this->m_shader.SetVector3f("albedo", materialComponent.albedo);
+		this->m_shader.SetFloat("metallic", materialComponent.metallic);
+		this->m_shader.SetFloat("roughness", materialComponent.roughness);
+		this->m_shader.SetFloat("ao", materialComponent.ao);
+
+		// model
 		glm::mat4 model = glm::mat4(1.0f);
 		model = glm::translate(model, transfromComponent.position);
 		model = glm::rotate(model, glm::radians(transfromComponent.rotation.x), Xaxis);

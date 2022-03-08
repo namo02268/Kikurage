@@ -9,8 +9,8 @@ Window::Window(int width, int height, const char* title)
 Window::~Window() { Terminate(); }
 
 void Window::Clear() {
-	glClearColor(0.5f, 0.5f, 0.5f, 1.0f);
-	glClear(GL_COLOR_BUFFER_BIT);
+	glClearColor(0.2f, 0.2f, 0.2f, 1.0f);
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 }
 
 void Window::Update() {
@@ -86,8 +86,8 @@ void Window::Init() {
 	}
 
 	// OpenGL configuration
-	glEnable(GL_BLEND);
-	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+	glEnable(GL_DEPTH_TEST);
+	glDepthFunc(GL_LEQUAL);
 }
 
 void Window::Terminate() {

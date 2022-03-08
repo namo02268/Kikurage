@@ -7,13 +7,23 @@
 #include <assimp/scene.h>
 #include <assimp/postprocess.h>
 
+
+
 #include "Shader.h"
+#include "Texture2D.h"
 #include "Mesh.h"
+
+enum class TextureType {
+	RGB,
+	RGBA,
+	HDR
+};
 
 class ResourceManager {
 public:
 	// resource storage
 	static std::map<std::string, Shader> Shaders;
+	static std::map<std::string, Texture2D> Textures;
 	static std::map<std::string, Mesh> Meshes;
 
 	//------------------------Shader------------------------//
@@ -31,6 +41,11 @@ public:
 	static Mesh GetMesh(std::string name);
 
 	//------------------------Texture------------------------//
+		// loads a texture from file
+	static void LoadTexture(const char* file, TextureType type, std::string name);
+
+	// retrieves a stored texture
+	static Texture2D GetTexture(std::string name);
 
 	//-------------------------Utils-------------------------//
 	// properly de-allocates all loaded resources
@@ -42,6 +57,10 @@ private:
 	//------------------------Shader------------------------//
 	// loads and generates a shader from file
 	static Shader loadShaderFromFile(const char* vertShaderFile, const char* fragShaderFile, const char* geomShaderFile = nullptr);
+
+	//------------------------Texture------------------------//
+	// loads a single texture from file
+	static Texture2D loadTextureFromFile(const char* file, TextureType type);
 
 	//-------------------------Model-------------------------//
 	static void processNode(aiNode* node, const aiScene* scene, Mesh& mesh);

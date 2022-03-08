@@ -63,14 +63,14 @@ void CameraSystem::update(float dt) {
 				lastX = mousePos.x;
 				lastY = mousePos.y;
 				firstMouse = false;
-				std::cout << "first mouse" << std::endl;
+//				std::cout << "first mouse" << std::endl;
 			}
 
 
 			m_window->disableMouseCursor();
 			float xoffset = mousePos.x - lastX;
 			float yoffset = lastY - mousePos.y;
-			std::cout << xoffset << " : " << mousePos.x << " : " << lastX << std::endl;
+//			std::cout << xoffset << " : " << mousePos.x << " : " << lastX << std::endl;
 
 			lastX = mousePos.x;
 			lastY = mousePos.y;
@@ -92,16 +92,20 @@ void CameraSystem::update(float dt) {
 			firstMouse = true;
 			m_window->normalMouseCursor();
 		}
-
-		// make mat
-		glm::mat4 projection = glm::perspective(glm::radians(cameraComponent.Zoom), (float)m_window->GetWidth() / (float)m_window->GetHeight(), 0.1f, 100.0f);
-		glm::mat4 view = glm::lookAt(transfromComponent.position, transfromComponent.position + cameraComponent.Front, cameraComponent.Up);
-
-		this->m_shader.Use();this->m_shader.SetMatrix4("projection", projection);
-		this->m_shader.SetMatrix4("view", view);
 	}
 }
 
 void CameraSystem::draw() {
+	this->m_shader.Use();
+	for (auto& e : m_entityArray) {
+		auto& transfromComponent = m_parentScene->getComponent<TransformComponent>(e);
+		auto& cameraComponent = m_parentScene->getComponent<CameraComponent>(e);
 
+		glm::mat4 projection = glm::perspective(glm::radians(cameraComponent.Zoom), (float)m_window->GetWidth() / (float)m_window->GetHeight(), 0.1f, 100.0f);
+		glm::mat4 view = glm::lookAt(transfromComponent.position, transfromComponent.position + cameraComponent.Front, cameraComponent.Up);
+
+		this->m_shader.SetVector3f("cameraPos", transfromComponent.position);
+		this->m_shader.SetMatrix4("projection", projection);
+		this->m_shader.SetMatrix4("view", view);
+	}
 }

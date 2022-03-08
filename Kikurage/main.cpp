@@ -26,16 +26,16 @@ int main() {
 	Scene scene(std::move(entityManager), eventHandler);
 
 	//-----------------------------------resource-----------------------------------//
-	ResourceManager::LoadShaderFromFile("resources/shaders/Phong.vert", "resources/shaders/Phong.frag", nullptr, "Phong");
+	ResourceManager::LoadShaderFromFile("resources/shaders/Simple.vert", "resources/shaders/PBR_nonTexture.frag", nullptr, "PBR");
 	ResourceManager::LoadMeshFromFile("resources/objects/suzanne/suzanne.obj", "suzanne");
-
+	ResourceManager::LoadTexture("resources/HDRIs/Newport_Loft/Newport_Loft_Env.hdr", TextureType::HDR, "HDRI");
 
 	//-----------------------------add systems to scene-----------------------------//
 	// camera system
-	auto cameraSystem = std::make_unique<CameraSystem>(&window, ResourceManager::GetShader("Phong"));
+	auto cameraSystem = std::make_unique<CameraSystem>(&window, ResourceManager::GetShader("PBR"));
 	scene.addSystem(std::move(cameraSystem));
 	// renderer
-	auto renderer = std::make_unique<Renderer>(ResourceManager::GetShader("Phong"));
+	auto renderer = std::make_unique<Renderer>(ResourceManager::GetShader("PBR"));
 	scene.addSystem(std::move(renderer));
 
 	//---------------------------------add entities---------------------------------//
