@@ -20,11 +20,13 @@
 #include "CameraSystem.h"
 #include "IBL.h"
 #include "GUI.h"
+#include "MotionSystem.h"
 
 #include "CameraComponent.h"
 #include "TransformComponent.h"
 #include "MeshComponent.h"
 #include "MaterialComponent.h"
+#include "MotionComponent.h"
 
 int main() {
 	Window window(800, 600, "Kikurage");
@@ -43,6 +45,10 @@ int main() {
 	ResourceManager::LoadMeshFromFile("resources/objects/sphere/sphere.obj", "sphere");
 
 	//-----------------------------add systems to scene-----------------------------//
+	// motion system
+	auto motionSystem = std::make_unique<MotionSystem>();
+	scene.addSystem(std::move(motionSystem));
+
 	// camera system
 	auto cameraSystem = std::make_unique<CameraSystem>(&window);
 	cameraSystem->addShader(ResourceManager::GetShader("PBR"));
@@ -57,12 +63,28 @@ int main() {
 	// GUI
 	auto gui = std::make_unique<GUI>(&window);
 	scene.addSystem(std::move(gui));
-
 	//---------------------------------add entities---------------------------------//
 	// camera
 	auto cameraEntity = scene.createEntity();
 	scene.addComponent<TransformComponent>(cameraEntity, glm::vec3(0.0f, 0.0f, 3.0f), glm::vec3(1.0f), glm::vec3(0.0f));
 	scene.addComponent<CameraComponent>(cameraEntity);
+
+	/*
+	for (int i = 0; i < 20; i++) {
+		for (int j = 0; j < 20; j++) {
+			auto sphere = scene.createEntity();
+			scene.addComponent<TransformComponent>(sphere, glm::vec3(4.0f * i, 0.0f, 4.0f * j), glm::vec3(1.0f), glm::vec3(0.0f));
+			scene.addComponent<MotionComponent>(sphere, glm::vec3(0.0f), 
+														glm::vec3(0.0f), 
+														glm::vec3((float)rand() / RAND_MAX * 50, (float)rand() / RAND_MAX * 50, (float)rand() / RAND_MAX * 50),
+														glm::vec3(0.0f), 
+														glm::vec3(0.0f), 
+														glm::vec3(0.0f));
+			scene.addComponent<MeshComponent>(sphere, ResourceManager::GetMesh("suzanne"));
+			scene.addComponent<MaterialComponent>(sphere, glm::vec3((float)rand() / RAND_MAX, rand() % 2, (float)rand() / RAND_MAX), (float)rand() / RAND_MAX, (float)rand() / RAND_MAX, 1.0f);
+		} 
+	}
+	*/
 
 	// suzanne
 	auto suzanne = scene.createEntity();
@@ -193,7 +215,6 @@ int main() {
 			ImGui::PopID();
 
 			ImGui::End();
-
 
 			scene.draw();
 

@@ -10,6 +10,9 @@ public:
 	float MouseSensitivity = 0.1f;
 	float Zoom = 45.0f;
 
+	float Near = 0.1f;
+	float Far = 200.0f;
+
 	bool constrainPitch = true;
 
 	glm::vec3 Front = glm::vec3(0.0f, 0.0f, -1.0f);

@@ -20,32 +20,12 @@ void IBL::init() {
 	ResourceManager::LoadShaderFromFile("resources/shaders/cubemap.vert", "resources/shaders/irradiance_convolution.frag", nullptr, "irradianceShader");
 	ResourceManager::LoadShaderFromFile("resources/shaders/cubemap.vert", "resources/shaders/prefilter.frag", nullptr, "prefilterShader");
 	ResourceManager::LoadShaderFromFile("resources/shaders/brdf.vert", "resources/shaders/brdf.frag", nullptr, "brdfShader");
+	ResourceManager::LoadTexture("resources/HDRIs/Newport_Loft/Newport_Loft_Ref.hdr", TextureType::HDR, "hdrTexture");
 
 	equirectangularToCubemapShader = ResourceManager::GetShader("equirectangularToCubemapShader");
 	irradianceShader = ResourceManager::GetShader("irradianceShader");
 	prefilterShader = ResourceManager::GetShader("prefilterShader");
 	brdfShader = ResourceManager::GetShader("brdfShader");
-
-	int width, height, nrComponents;
-	float* data = stbi_loadf("resources/HDRIs/Newport_Loft/Newport_Loft_Ref.hdr", &width, &height, &nrComponents, 0);
-	unsigned int hdrTexture;
-	if (data)
-	{
-		glGenTextures(1, &hdrTexture);
-		glBindTexture(GL_TEXTURE_2D, hdrTexture);
-		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB16F, width, height, 0, GL_RGB, GL_FLOAT, data); // note how we specify the texture's data value to be float
-
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-
-		stbi_image_free(data);
-	}
-	else
-	{
-		std::cout << "Failed to load HDR image." << std::endl;
-	}
 
 	//----------------------------------background----------------------------------//
 	pbrShader->Use();
@@ -97,7 +77,7 @@ void IBL::init() {
 	equirectangularToCubemapShader->SetInteger("equirectangularMap", 0);
 	equirectangularToCubemapShader->SetMatrix4("projection", captureProjection);
 	glActiveTexture(GL_TEXTURE0);
-	glBindTexture(GL_TEXTURE_2D, hdrTexture);
+	glBindTexture(GL_TEXTURE_2D, ResourceManager::GetTexture("hdrTexture").ID);
 
 	glViewport(0, 0, 512, 512); // don't forget to configure the viewport to the capture dimensions.
 	glBindFramebuffer(GL_FRAMEBUFFER, captureFBO);

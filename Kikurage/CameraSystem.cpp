@@ -103,7 +103,7 @@ void CameraSystem::draw() {
 		auto& transfromComponent = m_parentScene->getComponent<TransformComponent>(e);
 		auto& cameraComponent = m_parentScene->getComponent<CameraComponent>(e);
 
-		glm::mat4 projection = glm::perspective(glm::radians(cameraComponent.Zoom), (float)m_window->GetWidth() / (float)m_window->GetHeight(), 0.1f, 100.0f);
+		glm::mat4 projection = glm::perspective(glm::radians(cameraComponent.Zoom), (float)m_window->GetWidth() / (float)m_window->GetHeight(), cameraComponent.Near, cameraComponent.Far);
 		glm::mat4 view = glm::lookAt(transfromComponent.position, transfromComponent.position + cameraComponent.Front, cameraComponent.Up);
 
 		for (auto& shader : m_shaders) {

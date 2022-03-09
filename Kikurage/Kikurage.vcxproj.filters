@@ -129,6 +129,12 @@
     <ClInclude Include="imgui\imstb_truetype.h">
       <Filter>ソース ファイル\imGUI</Filter>
     </ClInclude>
+    <ClInclude Include="MotionComponent.h">
+      <Filter>ソース ファイル\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="MotionSystem.h">
+      <Filter>ソース ファイル\Systems</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -181,6 +187,9 @@
     </ClCompile>
     <ClCompile Include="imgui\imgui_widgets.cpp">
       <Filter>ソース ファイル\imGUI</Filter>
+    </ClCompile>
+    <ClCompile Include="MotionSystem.cpp">
+      <Filter>ソース ファイル\Systems</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
