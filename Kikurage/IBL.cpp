@@ -1,5 +1,6 @@
 #include "IBL.h"
 #include "ResourceManager.h"
+#include "stb_image.h"
 
 void renderCube();
 void renderQuad();
@@ -19,14 +20,38 @@ void IBL::init() {
 	ResourceManager::LoadShaderFromFile("resources/shaders/cubemap.vert", "resources/shaders/irradiance_convolution.frag", nullptr, "irradianceShader");
 	ResourceManager::LoadShaderFromFile("resources/shaders/cubemap.vert", "resources/shaders/prefilter.frag", nullptr, "prefilterShader");
 	ResourceManager::LoadShaderFromFile("resources/shaders/brdf.vert", "resources/shaders/brdf.frag", nullptr, "brdfShader");
-	ResourceManager::LoadTexture("resources/HDRIs/photo_studio_loft_hall/photo_studio_loft_hall_4k.hdr", TextureType::HDR, "hdrTexture");
 
 	equirectangularToCubemapShader = ResourceManager::GetShader("equirectangularToCubemapShader");
 	irradianceShader = ResourceManager::GetShader("irradianceShader");
 	prefilterShader = ResourceManager::GetShader("prefilterShader");
 	brdfShader = ResourceManager::GetShader("brdfShader");
 
+	int width, height, nrComponents;
+	float* data = stbi_loadf("resources/HDRIs/Newport_Loft/Newport_Loft_Ref.hdr", &width, &height, &nrComponents, 0);
+	unsigned int hdrTexture;
+	if (data)
+	{
+		glGenTextures(1, &hdrTexture);
+		glBindTexture(GL_TEXTURE_2D, hdrTexture);
+		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB16F, width, height, 0, GL_RGB, GL_FLOAT, data); // note how we specify the texture's data value to be float
+
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+
+		stbi_image_free(data);
+	}
+	else
+	{
+		std::cout << "Failed to load HDR image." << std::endl;
+	}
+
 	//----------------------------------background----------------------------------//
+	pbrShader->Use();
+	pbrShader->SetInteger("irradianceMap", 0);
+	pbrShader->SetInteger("prefilterMap", 1);
+	pbrShader->SetInteger("brdfLUT", 2);
 	backgroundShader->Use();
 	backgroundShader->SetInteger("environmentMap", 0);
 
@@ -45,12 +70,15 @@ void IBL::init() {
 	glGenTextures(1, &envCubemap);
 	glBindTexture(GL_TEXTURE_CUBE_MAP, envCubemap);
 	for (unsigned int i = 0; i < 6; ++i)
+	{
 		glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_X + i, 0, GL_RGB16F, 512, 512, 0, GL_RGB, GL_FLOAT, nullptr);
+	}
 	glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
 	glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
 	glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_R, GL_CLAMP_TO_EDGE);
-	glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
+	glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR); // enable pre-filter mipmap sampling (combatting visible dots artifact)
 	glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+
 
 	// pbr: set up projection and view matrices for capturing data onto the 6 cubemap face directions
 	glm::mat4 captureProjection = glm::perspective(glm::radians(90.0f), 1.0f, 0.1f, 10.0f);
@@ -69,7 +97,7 @@ void IBL::init() {
 	equirectangularToCubemapShader->SetInteger("equirectangularMap", 0);
 	equirectangularToCubemapShader->SetMatrix4("projection", captureProjection);
 	glActiveTexture(GL_TEXTURE0);
-	glBindTexture(GL_TEXTURE_2D, ResourceManager::GetTexture("hdrTexture").ID);
+	glBindTexture(GL_TEXTURE_2D, hdrTexture);
 
 	glViewport(0, 0, 512, 512); // don't forget to configure the viewport to the capture dimensions.
 	glBindFramebuffer(GL_FRAMEBUFFER, captureFBO);
@@ -82,6 +110,7 @@ void IBL::init() {
 		renderCube();
 	}
 	glBindFramebuffer(GL_FRAMEBUFFER, 0);
+
 
 	// then let OpenGL generate mipmaps from first mip face (combatting visible dots artifact)
 	glBindTexture(GL_TEXTURE_CUBE_MAP, envCubemap);
@@ -103,6 +132,7 @@ void IBL::init() {
 	glBindFramebuffer(GL_FRAMEBUFFER, captureFBO);
 	glBindRenderbuffer(GL_RENDERBUFFER, captureRBO);
 	glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH_COMPONENT24, 32, 32);
+
 
 	// pbr: solve diffuse integral by convolution to create an irradiance (cube)map.
 	irradianceShader->Use();
@@ -197,14 +227,7 @@ void IBL::init() {
 }
 
 void IBL::update(float dt) {
-
-}
-
-void IBL::draw() {
 	pbrShader->Use();
-	pbrShader->SetInteger("irradianceMap", 0);
-	pbrShader->SetInteger("prefilterMap", 1);
-	pbrShader->SetInteger("brdfLUT", 2);
 	// bind pre-computed IBL data
 	glActiveTexture(GL_TEXTURE0);
 	glBindTexture(GL_TEXTURE_CUBE_MAP, irradianceMap);
@@ -212,11 +235,13 @@ void IBL::draw() {
 	glBindTexture(GL_TEXTURE_CUBE_MAP, prefilterMap);
 	glActiveTexture(GL_TEXTURE2);
 	glBindTexture(GL_TEXTURE_2D, brdfLUTTexture);
+}
 
+void IBL::draw() {
 	backgroundShader->Use();
 	glActiveTexture(GL_TEXTURE0);
 	glBindTexture(GL_TEXTURE_CUBE_MAP, envCubemap);
-	//glBindTexture(GL_TEXTURE_CUBE_MAP, irradianceMap); // display irradiance map
+//	glBindTexture(GL_TEXTURE_CUBE_MAP, irradianceMap); // display irradiance map
 	renderCube();
 }
 

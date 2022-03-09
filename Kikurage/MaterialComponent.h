@@ -5,9 +5,9 @@
 
 class MaterialComponent : public Component {
 public:
-	glm::vec3 albedo = glm::vec3(0.5f);
-	float metallic = 1.0f;
-	float roughness = 0.2f;
+	glm::vec3 albedo = glm::vec3(0.2f, 0.2f, 0.7f);
+	float metallic = 0.0f;
+	float roughness = 0.8f;
 	float ao = 1.0f;
 
 public:

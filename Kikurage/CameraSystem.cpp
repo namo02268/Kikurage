@@ -59,7 +59,7 @@ void CameraSystem::update(float dt) {
 			transfromComponent.position -= cameraComponent.Up * velocity;
 
 		// mouse input
-		if (m_window->IsMousePressed(GLFW_MOUSE_BUTTON_LEFT)) {
+		if (m_window->IsMousePressed(GLFW_MOUSE_BUTTON_RIGHT)) {
 			glm::vec2 mousePos = m_window->GetCursorPosition();
 			if (firstMouse)
 			{
