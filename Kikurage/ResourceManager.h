@@ -23,8 +23,8 @@ class ResourceManager {
 public:
 	// resource storage
 	static std::map<std::string, std::unique_ptr<Shader>> Shaders;
-	static std::map<std::string, Texture2D> Textures;
-	static std::map<std::string, Mesh> Meshes;
+	static std::map<std::string, std::unique_ptr<Texture2D>> Textures;
+	static std::map<std::string, std::unique_ptr<Mesh>> Meshes;
 
 	//------------------------Shader------------------------//
 	// loads a shader program from file
@@ -38,14 +38,14 @@ public:
 	static void LoadMeshFromFile(const char* modelFile, std::string name);
 
 	// retrieves a stored mesh
-	static Mesh GetMesh(std::string name);
+	static Mesh* GetMesh(std::string name);
 
 	//------------------------Texture------------------------//
 		// loads a texture from file
 	static void LoadTexture(const char* file, TextureType type, std::string name);
 
 	// retrieves a stored texture
-	static Texture2D GetTexture(std::string name);
+	static Texture2D* GetTexture(std::string name);
 
 	//-------------------------Utils-------------------------//
 	// properly de-allocates all loaded resources
@@ -54,12 +54,8 @@ public:
 private:
 	ResourceManager() {}
 
-	//------------------------Texture------------------------//
-	// loads a single texture from file
-	static Texture2D loadTextureFromFile(const char* file, TextureType type);
-
 	//-------------------------Model-------------------------//
-	static void processNode(aiNode* node, const aiScene* scene, Mesh& mesh);
+	static void processNode(aiNode* node, const aiScene* scene, Mesh* mesh);
 
-	static void processMesh(aiMesh* aimesh, const aiScene* scene, Mesh& mesh);
+	static void processMesh(aiMesh* aimesh, const aiScene* scene, Mesh* mesh);
 };

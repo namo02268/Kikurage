@@ -6,11 +6,11 @@
 
 class MeshComponent : public Component {
 public:
-	Mesh mesh;
+	Mesh* mesh;
 	unsigned int VAO, VBO, EBO;
 
 public:
-	MeshComponent(Mesh mesh) : mesh(mesh) { setupMesh(); }
+	MeshComponent(Mesh* mesh) : mesh(mesh) { setupMesh(); }
 	~MeshComponent() {
 		glDeleteVertexArrays(1, &VAO);
 		glDeleteBuffers(1, &VBO);
@@ -27,10 +27,10 @@ private:
 		glBindVertexArray(VAO);
 
 		glBindBuffer(GL_ARRAY_BUFFER, VBO);
-		glBufferData(GL_ARRAY_BUFFER, this->mesh.vertices.size() * sizeof(Vertex), &this->mesh.vertices[0], GL_STATIC_DRAW);
+		glBufferData(GL_ARRAY_BUFFER, this->mesh->vertices.size() * sizeof(Vertex), &this->mesh->vertices[0], GL_STATIC_DRAW);
 
 		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
-		glBufferData(GL_ELEMENT_ARRAY_BUFFER, this->mesh.indices.size() * sizeof(unsigned int), &this->mesh.indices[0], GL_STATIC_DRAW);
+		glBufferData(GL_ELEMENT_ARRAY_BUFFER, this->mesh->indices.size() * sizeof(unsigned int), &this->mesh->indices[0], GL_STATIC_DRAW);
 
 		// set the vertex attribute pointers
 		// positions

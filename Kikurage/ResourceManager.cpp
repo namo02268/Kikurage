@@ -7,8 +7,8 @@
 #include "stb_image.h"
 
 std::map<std::string, std::unique_ptr<Shader>> ResourceManager::Shaders;
-std::map<std::string, Texture2D> ResourceManager::Textures;
-std::map<std::string, Mesh> ResourceManager::Meshes;
+std::map<std::string, std::unique_ptr<Texture2D>> ResourceManager::Textures;
+std::map<std::string, std::unique_ptr<Mesh>> ResourceManager::Meshes;
 
 // TODO: template‰»
 
@@ -65,40 +65,36 @@ Shader* ResourceManager::GetShader(std::string name)
 //------------------------Texture------------------------//
 void ResourceManager::LoadTexture(const char* file, TextureType type, std::string name)
 {
-    Textures[name] = loadTextureFromFile(file, type);
-}
-
-Texture2D ResourceManager::GetTexture(std::string name)
-{
-    return Textures[name];
-}
-
-Texture2D ResourceManager::loadTextureFromFile(const char* file, TextureType type)
-{
     // create texture object
-    Texture2D texture;
+    auto texture = std::make_unique<Texture2D>();
     if (type == TextureType::RGB) {
-        texture.Internal_Format = GL_RGB;
-        texture.Image_Format = GL_RGB;
+        texture->Internal_Format = GL_RGB;
+        texture->Image_Format = GL_RGB;
     }
     if (type == TextureType::RGBA) {
-        texture.Internal_Format = GL_RGBA;
-        texture.Image_Format = GL_RGBA;
+        texture->Internal_Format = GL_RGBA;
+        texture->Image_Format = GL_RGBA;
     }
     if (type == TextureType::HDR) {
-        texture.Internal_Format = GL_RGB16F;
-        texture.Image_Format = GL_RGB;
-        texture.Wrap_S = GL_CLAMP_TO_EDGE;
-        texture.Wrap_T = GL_CLAMP_TO_EDGE;
+        texture->Internal_Format = GL_RGB16F;
+        texture->Image_Format = GL_RGB;
+        texture->Wrap_S = GL_CLAMP_TO_EDGE;
+        texture->Wrap_T = GL_CLAMP_TO_EDGE;
     }
     // load image
     int width, height, nrChannels;
     unsigned char* data = stbi_load(file, &width, &height, &nrChannels, 0);
     // now generate texture
-    texture.Generate(width, height, data);
+    texture->Generate(width, height, data);
     // and finally free image data
     stbi_image_free(data);
-    return texture;
+
+    Textures[name] = std::move(texture);
+}
+
+Texture2D* ResourceManager::GetTexture(std::string name)
+{
+    return Textures[name].get();
 }
 
 //------------------------Model------------------------//
@@ -113,18 +109,19 @@ void ResourceManager::LoadMeshFromFile(const char* modelFile, std::string name) 
     }
 
     // process ASSIMP's root node recursively(Ä‹A“I)
-    Mesh mesh;
+    Mesh* mesh = new Mesh();
     processNode(scene->mRootNode, scene, mesh);
 
-    Meshes[name] = mesh;
+    std::unique_ptr<Mesh> Uptr(mesh);
+    Meshes[name] = std::move(Uptr);
 }
 
-Mesh ResourceManager::GetMesh(std::string name)
+Mesh* ResourceManager::GetMesh(std::string name)
 {
-    return Meshes[name];
+    return Meshes[name].get();
 }
 
-void ResourceManager::processNode(aiNode* node, const aiScene* scene, Mesh& mesh) {
+void ResourceManager::processNode(aiNode* node, const aiScene* scene, Mesh* mesh) {
     for (unsigned int i = 0; i < node->mNumMeshes; i++) {
         aiMesh* aimesh = scene->mMeshes[node->mMeshes[i]];
         processMesh(aimesh, scene, mesh);
@@ -134,7 +131,7 @@ void ResourceManager::processNode(aiNode* node, const aiScene* scene, Mesh& mesh
     }
 }
 
-void ResourceManager::processMesh(aiMesh* aimesh, const aiScene* scene, Mesh& mesh) {
+void ResourceManager::processMesh(aiMesh* aimesh, const aiScene* scene, Mesh* mesh) {
     // walk through each of the mesh's vertices
     for (unsigned int i = 0; i < aimesh->mNumVertices; i++) {
         Vertex vertex;
@@ -163,14 +160,14 @@ void ResourceManager::processMesh(aiMesh* aimesh, const aiScene* scene, Mesh& me
             vertex.TexCoords = glm::vec2(0.0f);
         }
 
-        mesh.vertices.push_back(vertex);
+        mesh->vertices.push_back(vertex);
     }
 
     // walk through each of the mesh's face
     for (unsigned int i = 0; i < aimesh->mNumFaces; i++) {
         aiFace face = aimesh->mFaces[i];
         for (unsigned int j = 0; j < face.mNumIndices; j++)
-            mesh.indices.push_back(face.mIndices[j]);
+            mesh->indices.push_back(face.mIndices[j]);
     }
 }
 

@@ -56,7 +56,7 @@ void Renderer::draw() {
 		this->m_shader->SetMatrix4("model", model);
 
 		glBindVertexArray(meshComponent.VAO);
-		glDrawElements(GL_TRIANGLES, meshComponent.mesh.indices.size(), GL_UNSIGNED_INT, 0);
+		glDrawElements(GL_TRIANGLES, meshComponent.mesh->indices.size(), GL_UNSIGNED_INT, 0);
 		glBindVertexArray(0);
 	}
 }
