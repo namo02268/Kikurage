@@ -4,19 +4,19 @@
 
 class Texture2D {
 public:
-	// holds the ID of the texture object
+	// texture ID
 	unsigned int ID;
 
-	// texture image dimensions
+	// texture dimention
 	unsigned int Width, Height;
 
 	//texture Format
-	unsigned int Internal_Format;	// format of texture object
-	unsigned int Image_Format;		// format of loaded image
+	unsigned int Internal_Format;
+	unsigned int Image_Format;
 
 	// texture configuration
-	unsigned int Wrap_S; // wrapping mode on S axis
-	unsigned int Wrap_T; // wrapping mode on T axis
+	unsigned int Wrap_S;
+	unsigned int Wrap_T;
 	unsigned int Filter_Min;
 	unsigned int Filter_Max;
 

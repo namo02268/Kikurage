@@ -135,6 +135,12 @@
     <ClInclude Include="MotionSystem.h">
       <Filter>ソース ファイル\Systems</Filter>
     </ClInclude>
+    <ClInclude Include="CubaMap.h">
+      <Filter>ソース ファイル\Resource</Filter>
+    </ClInclude>
+    <ClInclude Include="GUIComponent.h">
+      <Filter>ソース ファイル\Components</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -190,6 +196,9 @@
     </ClCompile>
     <ClCompile Include="MotionSystem.cpp">
       <Filter>ソース ファイル\Systems</Filter>
+    </ClCompile>
+    <ClCompile Include="CubaMap.cpp">
+      <Filter>ソース ファイル\Resource</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

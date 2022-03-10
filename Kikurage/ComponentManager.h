@@ -2,6 +2,7 @@
 
 #include "EntityMap.h"
 
+
 class BaseComponentManager {
 public:
 	virtual ~BaseComponentManager() {}

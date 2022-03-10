@@ -27,6 +27,7 @@
 #include "MeshComponent.h"
 #include "MaterialComponent.h"
 #include "MotionComponent.h"
+#include "GUIComponent.h"
 
 int main() {
 	Window window(800, 600, "Kikurage");
@@ -63,6 +64,7 @@ int main() {
 	// GUI
 	auto gui = std::make_unique<GUI>(&window);
 	scene.addSystem(std::move(gui));
+
 	//---------------------------------add entities---------------------------------//
 	// camera
 	auto cameraEntity = scene.createEntity();
@@ -91,21 +93,26 @@ int main() {
 	scene.addComponent<TransformComponent>(suzanne);
 	scene.addComponent<MeshComponent>(suzanne, ResourceManager::GetMesh("suzanne"));
 	scene.addComponent<MaterialComponent>(suzanne);
+	scene.addComponent<MotionComponent>(suzanne);
+	scene.addComponent<GUIComponent>(suzanne);
 
 	auto sphere1 = scene.createEntity();
 	scene.addComponent<TransformComponent>(sphere1, glm::vec3(2.0f, 0.0f, 0.0f), glm::vec3(1.0f), glm::vec3(0.0f));
 	scene.addComponent<MeshComponent>(sphere1, ResourceManager::GetMesh("sphere"));
 	scene.addComponent<MaterialComponent>(sphere1);
+	scene.addComponent<GUIComponent>(sphere1);
 
 	auto sphere2 = scene.createEntity();
 	scene.addComponent<TransformComponent>(sphere2, glm::vec3(4.0f, 0.0f, 0.0f), glm::vec3(1.0f), glm::vec3(0.0f));
 	scene.addComponent<MeshComponent>(sphere2, ResourceManager::GetMesh("sphere"));
 	scene.addComponent<MaterialComponent>(sphere2);
+	scene.addComponent<GUIComponent>(sphere2);
 
 	auto sphere3 = scene.createEntity();
 	scene.addComponent<TransformComponent>(sphere3, glm::vec3(6.0f, 0.0f, 0.0f), glm::vec3(1.0f), glm::vec3(0.0f));
 	scene.addComponent<MeshComponent>(sphere3, ResourceManager::GetMesh("sphere"));
 	scene.addComponent<MaterialComponent>(sphere3);
+	scene.addComponent<GUIComponent>(sphere3);
 
 	// init
 	scene.init();
@@ -130,91 +137,6 @@ int main() {
 			window.Clear();
 
 			scene.update(deltaTime);
-
-			// UI
-			ImGui::NewFrame();
-			ImGui::SetNextWindowPos(ImVec2(window.GetWidth() - 300, 0.0));
-			ImGui::SetNextWindowSize(ImVec2(300, window.GetHeight()));
-			bool open;
-
-			ImGui::Begin("Model", &open, ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoMove);
-			ImGui::PushID(suzanne.GetID());
-			if (ImGui::CollapsingHeader("Suzanne")) {
-				if (ImGui::TreeNode("Transform")) {
-					ImGui::DragFloat3("Position", &scene.getComponent<TransformComponent>(suzanne).position.x, 0.01f);
-					ImGui::DragFloat3("Scale", &scene.getComponent<TransformComponent>(suzanne).scale.x, 0.01f);
-					ImGui::DragFloat3("Rotation", &scene.getComponent<TransformComponent>(suzanne).rotation.x, 1.0f);
-					ImGui::TreePop();
-				}
-				ImGui::Separator();
-				if (ImGui::TreeNode("Material")) {
-					ImGui::ColorEdit3("Albedo", &scene.getComponent<MaterialComponent>(suzanne).albedo.x);
-					ImGui::SliderFloat("Metallic", &scene.getComponent<MaterialComponent>(suzanne).metallic, 0.0f, 1.0f);
-					ImGui::SliderFloat("Roughness", &scene.getComponent<MaterialComponent>(suzanne).roughness, 0.0f, 1.0f);
-					ImGui::SliderFloat("ao", &scene.getComponent<MaterialComponent>(suzanne).ao, 0.0f, 1.0f);
-					ImGui::TreePop();
-				}
-			}
-			ImGui::PopID();
-
-			ImGui::PushID(sphere1.GetID());
-			if (ImGui::CollapsingHeader("sphere1")) {
-				if (ImGui::TreeNode("Transform")) {
-					ImGui::DragFloat3("Position", &scene.getComponent<TransformComponent>(sphere1).position.x, 0.01f);
-					ImGui::DragFloat3("Scale", &scene.getComponent<TransformComponent>(sphere1).scale.x, 0.01f);
-					ImGui::DragFloat3("Rotation", &scene.getComponent<TransformComponent>(sphere1).rotation.x, 1.0f);
-					ImGui::TreePop();
-				}
-				ImGui::Separator();
-				if (ImGui::TreeNode("Material")) {
-					ImGui::ColorEdit3("Albedo", &scene.getComponent<MaterialComponent>(sphere1).albedo.x);
-					ImGui::SliderFloat("Metallic", &scene.getComponent<MaterialComponent>(sphere1).metallic, 0.0f, 1.0f);
-					ImGui::SliderFloat("Roughness", &scene.getComponent<MaterialComponent>(sphere1).roughness, 0.0f, 1.0f);
-					ImGui::SliderFloat("ao", &scene.getComponent<MaterialComponent>(sphere1).ao, 0.0f, 1.0f);
-					ImGui::TreePop();
-				}
-			}
-			ImGui::PopID();
-
-			ImGui::PushID(sphere2.GetID());
-			if (ImGui::CollapsingHeader("sphere2")) {
-				if (ImGui::TreeNode("Transform")) {
-					ImGui::DragFloat3("Position", &scene.getComponent<TransformComponent>(sphere2).position.x, 0.01f);
-					ImGui::DragFloat3("Scale", &scene.getComponent<TransformComponent>(sphere2).scale.x, 0.01f);
-					ImGui::DragFloat3("Rotation", &scene.getComponent<TransformComponent>(sphere2).rotation.x, 1.0f);
-					ImGui::TreePop();
-				}
-				ImGui::Separator();
-				if (ImGui::TreeNode("Material")) {
-					ImGui::ColorEdit3("Albedo", &scene.getComponent<MaterialComponent>(sphere2).albedo.x);
-					ImGui::SliderFloat("Metallic", &scene.getComponent<MaterialComponent>(sphere2).metallic, 0.0f, 1.0f);
-					ImGui::SliderFloat("Roughness", &scene.getComponent<MaterialComponent>(sphere2).roughness, 0.0f, 1.0f);
-					ImGui::SliderFloat("ao", &scene.getComponent<MaterialComponent>(sphere2).ao, 0.0f, 1.0f);
-					ImGui::TreePop();
-				}
-			}
-			ImGui::PopID();
-
-			ImGui::PushID(sphere3.GetID());
-			if (ImGui::CollapsingHeader("sphere3")) {
-				if (ImGui::TreeNode("Transform")) {
-					ImGui::DragFloat3("Position", &scene.getComponent<TransformComponent>(sphere3).position.x, 0.01f);
-					ImGui::DragFloat3("Scale", &scene.getComponent<TransformComponent>(sphere3).scale.x, 0.01f);
-					ImGui::DragFloat3("Rotation", &scene.getComponent<TransformComponent>(sphere3).rotation.x, 1.0f);
-					ImGui::TreePop();
-				}
-				ImGui::Separator();
-				if (ImGui::TreeNode("Material")) {
-					ImGui::ColorEdit3("Albedo", &scene.getComponent<MaterialComponent>(sphere3).albedo.x);
-					ImGui::SliderFloat("Metallic", &scene.getComponent<MaterialComponent>(sphere3).metallic, 0.0f, 1.0f);
-					ImGui::SliderFloat("Roughness", &scene.getComponent<MaterialComponent>(sphere3).roughness, 0.0f, 1.0f);
-					ImGui::SliderFloat("ao", &scene.getComponent<MaterialComponent>(sphere3).ao, 0.0f, 1.0f);
-					ImGui::TreePop();
-				}
-			}
-			ImGui::PopID();
-
-			ImGui::End();
 
 			scene.draw();
 

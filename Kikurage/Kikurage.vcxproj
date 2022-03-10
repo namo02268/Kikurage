@@ -23,12 +23,14 @@
     <ClInclude Include="CameraComponent.h" />
     <ClInclude Include="Component.h" />
     <ClInclude Include="ComponentManager.h" />
+    <ClInclude Include="CubaMap.h" />
     <ClInclude Include="ECS_def.h" />
     <ClInclude Include="Entity.h" />
     <ClInclude Include="EntityManager.h" />
     <ClInclude Include="EntityMap.h" />
     <ClInclude Include="EventHandler.h" />
     <ClInclude Include="GUI.h" />
+    <ClInclude Include="GUIComponent.h" />
     <ClInclude Include="IBL.h" />
     <ClInclude Include="IdGenerator.h" />
     <ClInclude Include="imgui\imconfig.h" />
@@ -57,6 +59,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CameraSystem.cpp" />
+    <ClCompile Include="CubaMap.cpp" />
     <ClCompile Include="glad.c" />
     <ClCompile Include="GUI.cpp" />
     <ClCompile Include="IBL.cpp" />

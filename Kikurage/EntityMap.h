@@ -1,5 +1,5 @@
 #pragma once
-#include <map>
+#include <unordered_map>
 #include <array>
 
 #include "Entity.h"
@@ -7,7 +7,7 @@
 
 class EntityMap {
 private:
-	std::map<EntityID, ComponentInstance> m_entityToInstance;
+	std::unordered_map<EntityID, ComponentInstance> m_entityToInstance;
 	std::array<EntityID, MAX_COMPONENTS_ARRRAY> m_instanceToEntity;
 
 public:

@@ -1,6 +1,7 @@
 #pragma once
 
 #include <iostream>
+
 #include "ComponentManager.h"
 #include "EntityManager.h"
 #include "ECS_def.h"
@@ -24,6 +25,7 @@ public:
 	explicit Scene(std::unique_ptr<EntityManager> entityManager, std::shared_ptr<EventHandler> eventHandler)
 		: m_entityManager(std::move(entityManager)), m_eventHandler(eventHandler) {};
 
+	//---------------------------------------------Entity---------------------------------------------//
 	Entity createEntity() { return m_entityManager->createEntity(); }
 
 	void destroyEntity(Entity e) {
@@ -33,6 +35,7 @@ public:
 		m_entityManager->destroyEnitity(e);
 	}
 
+	//---------------------------------------------System---------------------------------------------//
 	void addSystem(std::unique_ptr<System> system) {
 		system->m_parentScene = this;
 		system->m_eventHandler = m_eventHandler;
@@ -54,27 +57,38 @@ public:
 			system->draw();
 	}
 
+	//---------------------------------------------Component---------------------------------------------//
 	template<typename ComponentType, typename... TArgs>
 	void addComponent(Entity& e, TArgs&&... mArgs) {
 		auto family = getComponentTypeID<ComponentType>();
-		e.m_componentMap[family] = true;
+		if (!e.attachedComponent[family]) {
+			e.attachedComponent[family] = true;
 
-		// if the component manager didn't exists
-		if (!m_componentFamily[family]) {
-			m_componentManagers[family] = std::make_unique<ComponentManager<ComponentType>>();
-			m_componentFamily[family] = true;
+			// if the component manager didn't exists
+			if (!m_componentFamily[family]) {
+				m_componentManagers[family] = std::make_unique<ComponentManager<ComponentType>>();
+				m_componentFamily[family] = true;
+			}
+
+			static_cast<ComponentManager<ComponentType>&>(*m_componentManagers[family]).addComponent(e, std::forward<TArgs>(mArgs)...);
+			updateComponentMap(e, family);
 		}
-
-		static_cast<ComponentManager<ComponentType>&>(*m_componentManagers[family]).addComponent(e, std::forward<TArgs>(mArgs)...);
-		updateComponentMap(e, family);
+		else {
+			std::cout << typeid(ComponentType).name() << " is already attached! Entity ID:" << e.GetID() << std::endl;
+		}
 	}
 
 	template<typename ComponentType>
 	void removeComponent(Entity& e) {
 		auto family = getComponentTypeID<ComponentType>();
-		e.m_componentMap[family] = false;
-		static_cast<ComponentManager<ComponentType>&>(*m_componentManagers[family]).removeComponent(e);
-		updateComponentMap(e, family);
+		if (e.attachedComponent[family]) {
+			e.attachedComponent[family] = false;
+			static_cast<ComponentManager<ComponentType>&>(*m_componentManagers[family]).removeComponent(e);
+			updateComponentMap(e, family);
+		}
+		else {
+			std::cout << typeid(ComponentType).name() << " does not exist! Entity ID:" << e.GetID() << std::endl;
+		}
 	}
 
 	// TODO : [Add] error handling
@@ -86,7 +100,7 @@ public:
 
 	void updateComponentMap(Entity& e, ComponentTypeID family) {
 		for (auto& system : m_systems) {
-			auto componentMap = e.m_componentMap;
+			auto componentMap = e.attachedComponent;
 			auto requiredComponent = system->m_requiredComponent;
 			if (requiredComponent[family]) {
 				auto andbit = requiredComponent & componentMap;
