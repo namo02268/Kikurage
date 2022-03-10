@@ -3,7 +3,7 @@
 #include <vector>
 
 #include "Entity.h"
-#include "Defs.h"
+#include "ECS_def.h"
 #include "EventHandler.h"
 
 class Scene;

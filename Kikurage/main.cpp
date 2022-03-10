@@ -39,23 +39,23 @@ int main() {
 	// camera
 	auto cameraSystem = std::make_unique<CameraSystem>(ResourceManager::GetShader("sprite"), &window);
 	scene.addSystem(std::move(cameraSystem));
-	// motion
-	auto motionSystem = std::make_unique<MotionSystem>();
-	scene.addSystem(std::move(motionSystem));
 	// Input
 	auto inputSystem = std::make_unique<Player>(&window);
 	scene.addSystem(std::move(inputSystem));
-	// sprite
-	auto spriteRenderer = std::make_unique<SpriteRenderer>(ResourceManager::GetShader("sprite"));
-	scene.addSystem(std::move(spriteRenderer));
+	// motion
+	auto motionSystem = std::make_unique<MotionSystem>();
+	scene.addSystem(std::move(motionSystem));
 	// collider
 	auto colliderSystem = std::make_unique<ColliderSystem>();
 	scene.addSystem(std::move(colliderSystem));
+	// sprite
+	auto spriteRenderer = std::make_unique<SpriteRenderer>(ResourceManager::GetShader("sprite"));
+	scene.addSystem(std::move(spriteRenderer));
 
 	//---------------------------------add entities---------------------------------//
 	// camera
 	auto camera = scene.createEntity();
-	scene.addComponent<TransformComponent>(camera, glm::vec2(0.0f, 0.0f), glm::vec2(1.0f), 0.0f);
+	scene.addComponent<TransformComponent>(camera, glm::vec2(0.0f), glm::vec2(1.0f), 0.0f);
 	scene.addComponent<CameraComponent>(camera);
 
 	// enemy
@@ -74,7 +74,6 @@ int main() {
 		glm::vec3(1.0f, 1.0f, 1.0f), 4, 3);
 	scene.addComponent<MotionComponent>(player);
 	scene.addComponent<PlayerComponent>(player);
-	scene.addComponent<MotionComponent>(player);
 	scene.addComponent<ColliderComponent>(player, true);
 
 	// init

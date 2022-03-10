@@ -63,20 +63,19 @@ void Player::draw() {
 }
 
 void Player::OnCollisionEvent(CollisionEvent* collision) {
-	auto& a_Trans = m_parentScene->getComponent<MotionComponent>(collision->a);
-	auto& b_Trans = m_parentScene->getComponent<MotionComponent>(collision->b);
+	auto& a_Trans = m_parentScene->getComponent<TransformComponent>(collision->a);
+	auto& b_Trans = m_parentScene->getComponent<TransformComponent>(collision->b);
 
 	if (m_window->IsKeyPressed(GLFW_KEY_W)) {
-		a_Trans.velocity = -a_Trans.velocity;
+		a_Trans.position.y = b_Trans.position.y + b_Trans.size.y * 1.01;
 	}
-	if (m_window->IsKeyPressed(GLFW_KEY_S)) {
-//		a_Trans.position.y = b_Trans.position.y - b_Trans.size.y;
+	else if (m_window->IsKeyPressed(GLFW_KEY_S)) {
+		a_Trans.position.y = b_Trans.position.y - b_Trans.size.y * 1.01;
 	}
-	if (m_window->IsKeyPressed(GLFW_KEY_A)) {
-//		a_Trans.position.x = b_Trans.position.x + b_Trans.size.x;
+	else if (m_window->IsKeyPressed(GLFW_KEY_A)) {
+		a_Trans.position.x = b_Trans.position.x + b_Trans.size.x * 1.01;
 	}
-	if (m_window->IsKeyPressed(GLFW_KEY_D)) {
-//		a_Trans.position.x = b_Trans.position.x - b_Trans.size.x;
+	else if (m_window->IsKeyPressed(GLFW_KEY_D)) {
+		a_Trans.position.x = b_Trans.position.x - b_Trans.size.x * 1.01;
 	}
-
 }

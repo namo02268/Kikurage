@@ -1,4 +1,5 @@
 #pragma once
+
 #include <bitset>
 
 constexpr unsigned int MAX_COMPONENTS_FAMILY = 32;

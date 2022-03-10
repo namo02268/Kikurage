@@ -36,7 +36,7 @@
     <ClInclude Include="ComponentManager.h">
       <Filter>ソース ファイル\ECS</Filter>
     </ClInclude>
-    <ClInclude Include="Defs.h">
+    <ClInclude Include="ECS_def.h">
       <Filter>ソース ファイル\ECS</Filter>
     </ClInclude>
     <ClInclude Include="Entity.h">
