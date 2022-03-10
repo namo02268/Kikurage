@@ -43,17 +43,17 @@ public:
 	}
 
 	void init() {
-		for (auto& system : m_systems)
+		for (const auto& system : m_systems)
 			system->init();
 	}
 
 	void update(float dt) {
-		for (auto& system : m_systems)
+		for (const auto& system : m_systems)
 			system->update(dt);
 	}
 
 	void draw() {
-		for (auto& system : m_systems)
+		for (const auto& system : m_systems)
 			system->draw();
 	}
 
@@ -99,7 +99,7 @@ public:
 	}
 
 	void updateComponentMap(Entity& e, ComponentTypeID family) {
-		for (auto& system : m_systems) {
+		for (const auto& system : m_systems) {
 			auto componentMap = e.attachedComponent;
 			auto requiredComponent = system->m_requiredComponent;
 			if (requiredComponent[family]) {

@@ -28,6 +28,9 @@
     <Filter Include="ソース ファイル\imGUI">
       <UniqueIdentifier>{bc86514c-dbf6-4c05-b366-a6988b4f0d1f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ソース ファイル\Systems\GUI">
+      <UniqueIdentifier>{05262074-102d-4877-a4bd-5826d66853e1}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Component.h">
@@ -99,9 +102,6 @@
     <ClInclude Include="IBL.h">
       <Filter>ソース ファイル\Systems</Filter>
     </ClInclude>
-    <ClInclude Include="GUI.h">
-      <Filter>ソース ファイル\Systems</Filter>
-    </ClInclude>
     <ClInclude Include="imgui\imconfig.h">
       <Filter>ソース ファイル\imGUI</Filter>
     </ClInclude>
@@ -141,6 +141,12 @@
     <ClInclude Include="GUIComponent.h">
       <Filter>ソース ファイル\Components</Filter>
     </ClInclude>
+    <ClInclude Include="GUI.h">
+      <Filter>ソース ファイル\Systems\GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="ComponentGUIs.h">
+      <Filter>ソース ファイル\Systems\GUI</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -170,9 +176,6 @@
     <ClCompile Include="IBL.cpp">
       <Filter>ソース ファイル\Systems</Filter>
     </ClCompile>
-    <ClCompile Include="GUI.cpp">
-      <Filter>ソース ファイル\Systems</Filter>
-    </ClCompile>
     <ClCompile Include="imgui\imgui.cpp">
       <Filter>ソース ファイル\imGUI</Filter>
     </ClCompile>
@@ -199,6 +202,9 @@
     </ClCompile>
     <ClCompile Include="CubaMap.cpp">
       <Filter>ソース ファイル\Resource</Filter>
+    </ClCompile>
+    <ClCompile Include="GUI.cpp">
+      <Filter>ソース ファイル\Systems\GUI</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

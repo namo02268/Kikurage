@@ -1,7 +1,10 @@
 #include "GUI.h"
+#include "Scene.h"
 #include "GUIComponent.h"
+#include "ComponentGUIs.h"
 
-void imgui_theme(ImVec4 color_for_text, ImVec4 color_for_head, ImVec4 color_for_area, ImVec4 color_for_body, ImVec4 color_for_pops);
+
+void imgui_theme();
 
 GUI::GUI(Window* window) {
 	this->parentWindow = window;
@@ -23,15 +26,12 @@ void GUI::init() {
 	ImGui::CreateContext();
 	ImGuiIO& io = ImGui::GetIO(); (void)io;
 
-	imgui_theme(ImVec4(0.0f, 0.0f, 0.0f, 1.0f),		// text color
-		ImVec4(0.9f, 0.9f, 0.9f, 1.0f),		// header color
-		ImVec4(0.8f, 0.8f, 0.8f, 1.0f),		// area color
-		ImVec4(0.8f, 0.8f, 0.8f, 1.0f),		// body color
-		ImVec4(0.0f, 0.0f, 0.0f, 1.0f));	// pops color
-
 	const char* glsl_version = "#version 330";
 	ImGui_ImplGlfw_InitForOpenGL(parentWindow->GetWindow(), true);
 	ImGui_ImplOpenGL3_Init(glsl_version);
+
+	// imgui configuration
+	imgui_theme();
 
 	// add Component GUIs
 	auto transformComponentGUI = std::make_unique<TransfromComponentGUI>(m_parentScene);
@@ -70,6 +70,19 @@ void GUI::draw() {
 				}
 			}
 		}
+		if (ImGui::Button("Add Component"))
+			ImGui::OpenPopup("Component");
+
+		if (ImGui::BeginPopup("Component"))
+		{
+			if (ImGui::Selectable("Transform"))
+				m_parentScene->addComponent<TransformComponent>(e);
+			if (ImGui::Selectable("Material"))
+				m_parentScene->addComponent<MaterialComponent>(e);
+			if (ImGui::Selectable("Motion"))
+				m_parentScene->addComponent<MotionComponent>(e);
+			ImGui::EndPopup();
+		}
 		ImGui::PopID();
 	}
 
@@ -79,8 +92,7 @@ void GUI::draw() {
 	ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
 }
 
-void imgui_theme(ImVec4 color_for_text, ImVec4 color_for_head, ImVec4 color_for_area, ImVec4 color_for_body, ImVec4 color_for_pops)
-{
+void imgui_theme() {
 	ImGuiStyle& style = ImGui::GetStyle();
 
 	style.WindowRounding = 0.0f;
@@ -106,9 +118,9 @@ void imgui_theme(ImVec4 color_for_text, ImVec4 color_for_head, ImVec4 color_for_
 	style.Colors[ImGuiCol_CheckMark] = ImVec4(0.9f, 0.9f, 0.9f, 0.80f);
 	style.Colors[ImGuiCol_SliderGrab] = ImVec4(0.3f, 0.3f, 0.3f, 0.50f);
 	style.Colors[ImGuiCol_SliderGrabActive] = ImVec4(0.3f, 0.3f, 0.3f, 1.00f);
-	style.Colors[ImGuiCol_Button] = ImVec4(0.9f, 0.9f, 0.9f, 0.50f);
-	style.Colors[ImGuiCol_ButtonHovered] = ImVec4(0.9f, 0.9f, 0.9f, 0.86f);
-	style.Colors[ImGuiCol_ButtonActive] = ImVec4(0.9f, 0.9f, 0.9f, 1.00f);
+	style.Colors[ImGuiCol_Button] = ImVec4(0.6f, 0.8f, 0.8f, 0.80f);
+	style.Colors[ImGuiCol_ButtonHovered] = ImVec4(0.6f, 0.8f, 0.8f, 0.86f);
+	style.Colors[ImGuiCol_ButtonActive] = ImVec4(0.6f, 0.8f, 0.8f, 1.00f);
 	style.Colors[ImGuiCol_Header] = ImVec4(0.80f, 0.80f, 0.80f, 0.95f);
 	style.Colors[ImGuiCol_HeaderHovered] = ImVec4(0.9f, 0.9f, 0.9f, 0.95f);
 	style.Colors[ImGuiCol_HeaderActive] = ImVec4(0.9f, 0.9f, 0.9f, 1.00f);
@@ -120,5 +132,5 @@ void imgui_theme(ImVec4 color_for_text, ImVec4 color_for_head, ImVec4 color_for_
 	style.Colors[ImGuiCol_PlotHistogram] = ImVec4(0.0f, 0.0f, 0.0f, 0.63f);
 	style.Colors[ImGuiCol_PlotHistogramHovered] = ImVec4(0.9f, 0.9f, 0.9f, 1.00f);
 	style.Colors[ImGuiCol_TextSelectedBg] = ImVec4(0.9f, 0.9f, 0.9f, 0.43f);
-	style.Colors[ImGuiCol_PopupBg] = ImVec4(0.0f, 0.0f, 0.0f, 0.92f);
+	style.Colors[ImGuiCol_PopupBg] = ImVec4(0.6f, 0.6f, 0.8f, 0.92f);
 }

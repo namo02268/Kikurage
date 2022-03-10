@@ -22,6 +22,7 @@
     <ClInclude Include="CameraSystem.h" />
     <ClInclude Include="CameraComponent.h" />
     <ClInclude Include="Component.h" />
+    <ClInclude Include="ComponentGUIs.h" />
     <ClInclude Include="ComponentManager.h" />
     <ClInclude Include="CubaMap.h" />
     <ClInclude Include="ECS_def.h" />
