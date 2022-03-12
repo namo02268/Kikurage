@@ -86,6 +86,7 @@ int main() {
 			scene.addComponent<MaterialComponent>(sphere, glm::vec3((float)rand() / RAND_MAX, rand() % 2, (float)rand() / RAND_MAX), (float)rand() / RAND_MAX, (float)rand() / RAND_MAX, 1.0f);
 		} 
 	}
+
 	*/
 
 	// suzanne
