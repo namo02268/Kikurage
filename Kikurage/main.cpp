@@ -34,8 +34,8 @@ int main() {
 
 	//-------------------------------initialize scene-------------------------------//
 	auto entityManager = std::make_unique<EntityManager>();
-	auto eventHandler = std::make_shared<EventHandler>();
-	Scene scene(std::move(entityManager), eventHandler);
+	auto eventHandler = std::make_unique<EventHandler>();
+	Scene scene(std::move(entityManager), std::move(eventHandler));
 
 	//-----------------------------------Resources-----------------------------------//
 	stbi_set_flip_vertically_on_load(true);

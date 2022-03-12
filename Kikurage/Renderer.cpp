@@ -5,6 +5,8 @@
 #include "MeshComponent.h"
 #include "MaterialComponent.h"
 
+#include <glm/gtx/quaternion.hpp>
+
 #define Xaxis glm::vec3(1.0, 0.0, 0.0)
 #define Yaxis glm::vec3(0.0, 1.0, 0.0)
 #define Zaxis glm::vec3(0.0, 0.0, 1.0)
@@ -48,9 +50,18 @@ void Renderer::draw() {
 		// model
 		glm::mat4 model = glm::mat4(1.0f);
 		model = glm::translate(model, transfromComponent.position);
-		model = glm::rotate(model, glm::radians(transfromComponent.rotation.x), Xaxis);
-		model = glm::rotate(model, glm::radians(transfromComponent.rotation.y), Yaxis);
 		model = glm::rotate(model, glm::radians(transfromComponent.rotation.z), Zaxis);
+		model = glm::rotate(model, glm::radians(transfromComponent.rotation.y), Yaxis);
+		model = glm::rotate(model, glm::radians(transfromComponent.rotation.x), Xaxis);
+		/*
+		glm::vec3 Radians = glm::radians(transfromComponent.rotation) - oldRadians;
+		glm::quat q = glm::quat(Radians);
+		q = q * oldQuat;
+		oldRadians = glm::radians(transfromComponent.rotation);
+		oldQuat = glm::quat(oldRadians);
+		model *= glm::toMat4(q);
+		model *= glm::toMat4(glm::quat(glm::radians(transfromComponent.rotation)));
+		*/
 		model = glm::scale(model, transfromComponent.scale);
 
 		this->m_shader->SetMatrix4("model", model);

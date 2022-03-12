@@ -14,7 +14,7 @@ protected:
 
 public:
 	Scene* m_parentScene;
-	std::shared_ptr<EventHandler> m_eventHandler;
+	EventHandler* m_eventHandler;
 	ComponentFamily m_requiredComponent;
 
 public:

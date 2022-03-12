@@ -6,6 +6,8 @@
 class Renderer : public System {
 private:
 	Shader* m_shader;
+	glm::quat oldQuat = glm::quat(glm::vec3(0.0f));
+	glm::vec3 oldRadians = glm::vec3(0.0f);
 
 public:
 	Renderer(Shader* shader);
