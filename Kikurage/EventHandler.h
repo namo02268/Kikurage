@@ -6,7 +6,7 @@
 
 #include "IdGenerator.h"
 
-class Event {
+struct Event {
 public:
 	virtual ~Event() {}
 };
