@@ -60,46 +60,52 @@
     <ClCompile Include="vendor\Glad\glad.c">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="src\GUI\Editor.cpp">
+    <ClCompile Include="src\Kikurage\GUI\Editor.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="src\GUI\ImGuiLayer.cpp">
+    <ClCompile Include="src\Kikurage\GUI\ImGuiLayer.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="src\GUI\SceneWindow.cpp">
+    <ClCompile Include="src\Kikurage\GUI\SceneWindow.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
     <ClCompile Include="src\OpenGL\OpenGLWindow.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="src\Resources\ResourceManager\ResourceManager.cpp">
+    <ClCompile Include="src\Kikurage\Resource\ResourceManager\ResourceManager.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="src\Resources\Shader\Shader.cpp">
+    <ClCompile Include="src\Kikurage\Resource\Shader\Shader.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="src\Resources\Texture\Texture2D.cpp">
+    <ClCompile Include="src\Kikurage\Resource\Texture\Texture2D.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="src\Systems\Camera\CameraSystem.cpp">
+    <ClCompile Include="src\Kikurage\Systems\Camera\CameraSystem.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="src\Systems\Collision\CollisionSystem.cpp">
+    <ClCompile Include="src\Kikurage\Systems\Collision\CollisionSystem.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="src\Systems\Collision\PlaneCollider.cpp">
+    <ClCompile Include="src\Kikurage\Systems\Collision\PlaneCollider.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="src\Systems\Collision\SphereCollider.cpp">
+    <ClCompile Include="src\Kikurage\Systems\Collision\SphereCollider.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="src\Systems\IBL\IBL.cpp">
+    <ClCompile Include="src\Kikurage\Systems\IBL\IBL.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="src\Systems\MeshRenderer\MeshRenderer.cpp">
+    <ClCompile Include="src\Kikurage\Systems\MeshRenderer\MeshRenderer.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="src\Systems\Physics\Physics.cpp">
+    <ClCompile Include="src\Kikurage\Systems\Physics\Physics.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Kikurage\Core\Application.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Kikurage\Scene\Scene3D.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
   </ItemGroup>
@@ -170,115 +176,121 @@
     <ClInclude Include="vendor\stb_image\stb_image.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="src\Components\CameraComponent.h">
+    <ClInclude Include="src\Kikurage\Components\CameraComponent.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="src\Components\CollisionComponent.h">
+    <ClInclude Include="src\Kikurage\Components\CollisionComponent.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="src\Components\MaterialComponent.h">
+    <ClInclude Include="src\Kikurage\Components\MaterialComponent.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="src\Components\MeshComponent.h">
+    <ClInclude Include="src\Kikurage\Components\MeshComponent.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="src\Components\RigidBodyComponent.h">
+    <ClInclude Include="src\Kikurage\Components\RigidBodyComponent.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="src\Components\TransformComponent.h">
+    <ClInclude Include="src\Kikurage\Components\TransformComponent.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="src\ECS\Component.h">
+    <ClInclude Include="src\Kikurage\ECS\Component.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="src\ECS\ComponentManager.h">
+    <ClInclude Include="src\Kikurage\ECS\ComponentManager.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="src\ECS\ECS_def.h">
+    <ClInclude Include="src\Kikurage\ECS\ECS_def.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="src\ECS\Entity.h">
+    <ClInclude Include="src\Kikurage\ECS\Entity.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="src\ECS\EntityManager.h">
+    <ClInclude Include="src\Kikurage\ECS\EntityManager.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="src\ECS\EntityMap.h">
+    <ClInclude Include="src\Kikurage\ECS\EntityMap.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="src\ECS\EventHandler.h">
+    <ClInclude Include="src\Kikurage\ECS\EventHandler.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="src\ECS\IdGenerator.h">
+    <ClInclude Include="src\Kikurage\ECS\IdGenerator.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="src\ECS\Scene.h">
+    <ClInclude Include="src\Kikurage\ECS\Scene.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="src\ECS\System.h">
+    <ClInclude Include="src\Kikurage\ECS\System.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="src\GUI\ComponentEditors.h">
+    <ClInclude Include="src\Kikurage\GUI\ComponentEditors.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="src\GUI\Editor.h">
+    <ClInclude Include="src\Kikurage\GUI\Editor.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="src\GUI\ImGuiLayer.h">
+    <ClInclude Include="src\Kikurage\GUI\ImGuiLayer.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="src\GUI\SceneWindow.h">
+    <ClInclude Include="src\Kikurage\GUI\SceneWindow.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
     <ClInclude Include="src\OpenGL\OpenGLWindow.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="src\OpenGL\Window.h">
+    <ClInclude Include="src\Kikurage\Core\Window.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="src\Resources\Mesh\Mesh.h">
+    <ClInclude Include="src\Kikurage\Resource\Mesh\Mesh.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="src\Resources\ResourceManager\ResourceManager.h">
+    <ClInclude Include="src\Kikurage\Resource\ResourceManager\ResourceManager.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="src\Resources\Shader\Shader.h">
+    <ClInclude Include="src\Kikurage\Resource\Shader\Shader.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="src\Resources\Texture\Texture2D.h">
+    <ClInclude Include="src\Kikurage\Resource\Texture\Texture2D.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="src\Systems\Camera\CameraSystem.h">
+    <ClInclude Include="src\Kikurage\Systems\Camera\CameraSystem.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="src\Systems\Collision\Collider.h">
+    <ClInclude Include="src\Kikurage\Systems\Collision\Collider.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="src\Systems\Collision\CollisionAlgorithm.h">
+    <ClInclude Include="src\Kikurage\Systems\Collision\CollisionAlgorithm.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="src\Systems\Collision\CollisionEvent.h">
+    <ClInclude Include="src\Kikurage\Systems\Collision\CollisionEvent.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="src\Systems\Collision\CollisionPoints.h">
+    <ClInclude Include="src\Kikurage\Systems\Collision\CollisionPoints.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="src\Systems\Collision\CollisionSystem.h">
+    <ClInclude Include="src\Kikurage\Systems\Collision\CollisionSystem.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="src\Systems\Collision\PlaneCollider.h">
+    <ClInclude Include="src\Kikurage\Systems\Collision\PlaneCollider.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="src\Systems\Collision\SphereCollider.h">
+    <ClInclude Include="src\Kikurage\Systems\Collision\SphereCollider.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="src\Systems\IBL\IBL.h">
+    <ClInclude Include="src\Kikurage\Systems\IBL\IBL.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="src\Systems\MeshRenderer\MeshRenderer.h">
+    <ClInclude Include="src\Kikurage\Systems\MeshRenderer\MeshRenderer.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="src\Systems\Physics\Physics.h">
+    <ClInclude Include="src\Kikurage\Systems\Physics\Physics.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Kikurage\Core\Application.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Kikurage\Scene\Scene3D.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
   </ItemGroup>

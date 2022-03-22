@@ -7,7 +7,7 @@
 #include <GLFW/glfw3.h>
 #include <glm/glm.hpp>
 
-#include "OpenGL/Window.h"
+#include "Kikurage/Core/Window.h"
 
 class OpenGLWindow : public Window
 {
