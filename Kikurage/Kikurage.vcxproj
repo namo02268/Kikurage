@@ -19,67 +19,32 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="CameraSystem.h" />
-    <ClInclude Include="CameraComponent.h" />
-    <ClInclude Include="Component.h" />
-    <ClInclude Include="ComponentGUIs.h" />
-    <ClInclude Include="ComponentManager.h" />
-    <ClInclude Include="CubaMap.h" />
-    <ClInclude Include="ECS_def.h" />
-    <ClInclude Include="Entity.h" />
-    <ClInclude Include="EntityManager.h" />
-    <ClInclude Include="EntityMap.h" />
-    <ClInclude Include="EventHandler.h" />
-    <ClInclude Include="GUI.h" />
-    <ClInclude Include="GUIComponent.h" />
-    <ClInclude Include="IBL.h" />
-    <ClInclude Include="IdGenerator.h" />
-    <ClInclude Include="imgui\imconfig.h" />
-    <ClInclude Include="imgui\imgui.h" />
-    <ClInclude Include="imgui\imgui_impl_glfw.h" />
-    <ClInclude Include="imgui\imgui_impl_opengl3.h" />
-    <ClInclude Include="imgui\imgui_impl_opengl3_loader.h" />
-    <ClInclude Include="imgui\imgui_internal.h" />
-    <ClInclude Include="imgui\imstb_rectpack.h" />
-    <ClInclude Include="imgui\imstb_textedit.h" />
-    <ClInclude Include="imgui\imstb_truetype.h" />
-    <ClInclude Include="MaterialComponent.h" />
-    <ClInclude Include="Mesh.h" />
-    <ClInclude Include="MotionComponent.h" />
-    <ClInclude Include="MotionSystem.h" />
-    <ClInclude Include="Renderer.h" />
-    <ClInclude Include="ResourceManager.h" />
-    <ClInclude Include="Scene.h" />
-    <ClInclude Include="Shader.h" />
-    <ClInclude Include="MeshComponent.h" />
-    <ClInclude Include="stb_image.h" />
-    <ClInclude Include="System.h" />
-    <ClInclude Include="Texture2D.h" />
-    <ClInclude Include="TransformComponent.h" />
-    <ClInclude Include="Window.h" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="CameraSystem.cpp" />
-    <ClCompile Include="CubaMap.cpp" />
-    <ClCompile Include="glad.c" />
-    <ClCompile Include="GUI.cpp" />
-    <ClCompile Include="IBL.cpp" />
-    <ClCompile Include="imgui\imgui.cpp" />
-    <ClCompile Include="imgui\imgui_demo.cpp" />
-    <ClCompile Include="imgui\imgui_draw.cpp" />
-    <ClCompile Include="imgui\imgui_impl_glfw.cpp" />
-    <ClCompile Include="imgui\imgui_impl_opengl3.cpp" />
-    <ClCompile Include="imgui\imgui_tables.cpp" />
-    <ClCompile Include="imgui\imgui_widgets.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="MotionSystem.cpp" />
-    <ClCompile Include="Renderer.cpp" />
-    <ClCompile Include="ResourceManager.cpp" />
-    <ClCompile Include="Shader.cpp" />
-    <ClCompile Include="Texture2D.cpp" />
-    <ClCompile Include="Window.cpp" />
+    <ClCompile Include="src\GUI\Editor.cpp" />
+    <ClCompile Include="src\GUI\ImGuiLayer.cpp" />
+    <ClCompile Include="src\GUI\SceneWindow.cpp" />
+    <ClCompile Include="src\OpenGL\OpenGLWindow.cpp" />
+    <ClCompile Include="src\Resources\ResourceManager\ResourceManager.cpp" />
+    <ClCompile Include="src\Resources\Shader\Shader.cpp" />
+    <ClCompile Include="src\Resources\Texture\Texture2D.cpp" />
+    <ClCompile Include="src\Systems\Camera\CameraSystem.cpp" />
+    <ClCompile Include="src\Systems\Collision\CollisionSystem.cpp" />
+    <ClCompile Include="src\Systems\Collision\PlaneCollider.cpp" />
+    <ClCompile Include="src\Systems\Collision\SphereCollider.cpp" />
+    <ClCompile Include="src\Systems\IBL\IBL.cpp" />
+    <ClCompile Include="src\Systems\MeshRenderer\MeshRenderer.cpp" />
+    <ClCompile Include="src\Systems\Physics\Physics.cpp" />
+    <ClCompile Include="vendor\Glad\glad.c" />
+    <ClCompile Include="vendor\imgui\imgui.cpp" />
+    <ClCompile Include="vendor\imgui\imgui_demo.cpp" />
+    <ClCompile Include="vendor\imgui\imgui_draw.cpp" />
+    <ClCompile Include="vendor\imgui\imgui_impl_glfw.cpp" />
+    <ClCompile Include="vendor\imgui\imgui_impl_opengl3.cpp" />
+    <ClCompile Include="vendor\imgui\imgui_tables.cpp" />
+    <ClCompile Include="vendor\imgui\imgui_widgets.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="imgui.ini" />
     <None Include="resources\shaders\background.frag" />
     <None Include="resources\shaders\background.vert" />
     <None Include="resources\shaders\brdf.frag" />
@@ -91,6 +56,55 @@
     <None Include="resources\shaders\Phong.frag" />
     <None Include="resources\shaders\prefilter.frag" />
     <None Include="resources\shaders\Simple.vert" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="src\Components\CameraComponent.h" />
+    <ClInclude Include="src\Components\CollisionComponent.h" />
+    <ClInclude Include="src\Components\MaterialComponent.h" />
+    <ClInclude Include="src\Components\MeshComponent.h" />
+    <ClInclude Include="src\Components\RigidBodyComponent.h" />
+    <ClInclude Include="src\Components\TransformComponent.h" />
+    <ClInclude Include="src\ECS\Component.h" />
+    <ClInclude Include="src\ECS\ComponentManager.h" />
+    <ClInclude Include="src\ECS\ECS_def.h" />
+    <ClInclude Include="src\ECS\Entity.h" />
+    <ClInclude Include="src\ECS\EntityManager.h" />
+    <ClInclude Include="src\ECS\EntityMap.h" />
+    <ClInclude Include="src\ECS\EventHandler.h" />
+    <ClInclude Include="src\ECS\IdGenerator.h" />
+    <ClInclude Include="src\ECS\Scene.h" />
+    <ClInclude Include="src\ECS\System.h" />
+    <ClInclude Include="src\GUI\ComponentEditors.h" />
+    <ClInclude Include="src\GUI\Editor.h" />
+    <ClInclude Include="src\GUI\ImGuiLayer.h" />
+    <ClInclude Include="src\GUI\SceneWindow.h" />
+    <ClInclude Include="src\OpenGL\OpenGLWindow.h" />
+    <ClInclude Include="src\OpenGL\Window.h" />
+    <ClInclude Include="src\Resources\Mesh\Mesh.h" />
+    <ClInclude Include="src\Resources\ResourceManager\ResourceManager.h" />
+    <ClInclude Include="src\Resources\Shader\Shader.h" />
+    <ClInclude Include="src\Resources\Texture\Texture2D.h" />
+    <ClInclude Include="src\Systems\Camera\CameraSystem.h" />
+    <ClInclude Include="src\Systems\Collision\Collider.h" />
+    <ClInclude Include="src\Systems\Collision\CollisionAlgorithm.h" />
+    <ClInclude Include="src\Systems\Collision\CollisionEvent.h" />
+    <ClInclude Include="src\Systems\Collision\CollisionPoints.h" />
+    <ClInclude Include="src\Systems\Collision\CollisionSystem.h" />
+    <ClInclude Include="src\Systems\Collision\PlaneCollider.h" />
+    <ClInclude Include="src\Systems\Collision\SphereCollider.h" />
+    <ClInclude Include="src\Systems\IBL\IBL.h" />
+    <ClInclude Include="src\Systems\MeshRenderer\MeshRenderer.h" />
+    <ClInclude Include="src\Systems\Physics\Physics.h" />
+    <ClInclude Include="vendor\imgui\imconfig.h" />
+    <ClInclude Include="vendor\imgui\imgui.h" />
+    <ClInclude Include="vendor\imgui\imgui_impl_glfw.h" />
+    <ClInclude Include="vendor\imgui\imgui_impl_opengl3.h" />
+    <ClInclude Include="vendor\imgui\imgui_impl_opengl3_loader.h" />
+    <ClInclude Include="vendor\imgui\imgui_internal.h" />
+    <ClInclude Include="vendor\imgui\imstb_rectpack.h" />
+    <ClInclude Include="vendor\imgui\imstb_textedit.h" />
+    <ClInclude Include="vendor\imgui\imstb_truetype.h" />
+    <ClInclude Include="vendor\stb_image\stb_image.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
@@ -155,8 +169,8 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
-    <IncludePath>$(SolutionDir)include;$(IncludePath)</IncludePath>
-    <LibraryPath>$(SolutionDir)lib;$(LibraryPath)</LibraryPath>
+    <IncludePath>$(IncludePath)</IncludePath>
+    <LibraryPath>$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -206,6 +220,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;IMGUI_IMPL_OPENGL_LOADER_GL3W;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>$(SolutionDir)include;$(ProjectDir)src;$(ProjectDir)vendor;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -213,6 +228,7 @@
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalDependencies>opengl32.lib;glfw3.lib;assimp.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(SolutionDir)lib</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

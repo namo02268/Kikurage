@@ -79,18 +79,17 @@ void main() {
     F0 = mix(F0, albedo, metallic);
 
     // light
-    vec3 lightPositions[] = {
-        vec3(-10.0f,  10.0f, 10.0f),
-        vec3( 10.0f,  10.0f, 10.0f),
-        vec3(-10.0f, -10.0f, 10.0f),
-        vec3( 10.0f, -10.0f, 10.0f),
-    };
-    vec3 lightColors[] = {
-        vec3(300.0f, 300.0f, 300.0f),
-        vec3(300.0f, 300.0f, 300.0f),
-        vec3(300.0f, 300.0f, 300.0f),
-        vec3(300.0f, 300.0f, 300.0f)
-    };
+    vec3 lightPositions[4];
+    lightPositions[0] = vec3(-10.0f,  10.0f, 10.0f);
+    lightPositions[1] = vec3( 10.0f,  10.0f, 10.0f);
+    lightPositions[2] = vec3(-10.0f, -10.0f, 10.0f);
+    lightPositions[3] = vec3( 10.0f, -10.0f, 10.0f);
+
+    vec3 lightColors[4];
+    lightColors[0] = vec3(300.0f, 300.0f, 300.0f);
+    lightColors[1] = vec3(300.0f, 300.0f, 300.0f);
+    lightColors[2] = vec3(300.0f, 300.0f, 300.0f);
+    lightColors[3] = vec3(300.0f, 300.0f, 300.0f);
 
 
     // reflectance equation
