@@ -1,6 +1,7 @@
 #pragma once
 
 #include <bitset>
+#include "Kikurage/Resource/Texture/Texture2D.h"
 
 class Window {
 protected:
@@ -25,6 +26,8 @@ protected:
 
 public:
 	virtual ~Window() = default;
+
+	virtual void Draw(Texture2D renderTexture) = 0;
 
 	int GetWidth() const { return m_width; }
 	int GetHeight() const { return m_height; }

@@ -27,6 +27,7 @@ Scene3D::Scene3D(Window* window) : m_window(window) {
 
 Scene3D::~Scene3D() {
 	delete m_scene;
+	delete renderer;
 }
 
 void Scene3D::Init() {
@@ -34,6 +35,8 @@ void Scene3D::Init() {
 	auto entityManager = std::make_unique<EntityManager>();
 	auto eventHandler = std::make_unique<EventHandler>();
 	m_scene = new Scene(std::move(entityManager), std::move(eventHandler));
+
+	renderer = new Renderer();
 
 	//-----------------------------------Resources-----------------------------------//
 	stbi_set_flip_vertically_on_load(true);
@@ -94,5 +97,9 @@ void Scene3D::Update(float dt) {
 }
 
 void Scene3D::Draw() {
+	renderer->BindFBO();
 	m_scene->draw();
+	renderer->UnbindFBO();
+
+	m_window->Draw(renderer->GetRenderTexture());
 }

@@ -20,6 +20,7 @@ int main() {
 	ImGuiLayer guiLayer(&window);
 	SceneWindow sceneWindow(800, 600, "Scene");
 
+//	Scene3D scene3d(&sceneWindow);
 	Scene3D scene3d(&sceneWindow);
 	SceneEditor sceneEditor(scene3d.GetScene());
 
@@ -40,16 +41,11 @@ int main() {
 				guiLayer.begin();
 
 				{
-					window.BindFBO();
-					window.Clear();
-
 					scene3d.Update(deltaTime);
 					scene3d.Draw();
 
-					window.UnbindFBO();
 				}
-
-				sceneWindow.draw(window.getRenderTexture());
+				
 				sceneEditor.draw();
 				guiLayer.end();
 			}

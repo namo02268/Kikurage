@@ -21,9 +21,11 @@
   <ItemGroup>
     <ClCompile Include="main.cpp" />
     <ClCompile Include="src\Kikurage\Core\Application.cpp" />
+    <ClCompile Include="src\Kikurage\Core\Renderer.cpp" />
     <ClCompile Include="src\Kikurage\GUI\Editor.cpp" />
     <ClCompile Include="src\Kikurage\GUI\ImGuiLayer.cpp" />
     <ClCompile Include="src\Kikurage\GUI\SceneWindow.cpp" />
+    <ClCompile Include="src\Kikurage\Scene\PBR_Renderer.cpp" />
     <ClCompile Include="src\Kikurage\Scene\Scene3D.cpp" />
     <ClCompile Include="src\OpenGL\OpenGLWindow.cpp" />
     <ClCompile Include="src\Kikurage\Resource\ResourceManager\ResourceManager.cpp" />
@@ -57,6 +59,8 @@
     <None Include="resources\shaders\PBR_nonTexture.frag" />
     <None Include="resources\shaders\Phong.frag" />
     <None Include="resources\shaders\prefilter.frag" />
+    <None Include="resources\shaders\screen.frag" />
+    <None Include="resources\shaders\screen.vert" />
     <None Include="resources\shaders\Simple.vert" />
   </ItemGroup>
   <ItemGroup>
@@ -67,6 +71,7 @@
     <ClInclude Include="src\Kikurage\Components\RigidBodyComponent.h" />
     <ClInclude Include="src\Kikurage\Components\TransformComponent.h" />
     <ClInclude Include="src\Kikurage\Core\Application.h" />
+    <ClInclude Include="src\Kikurage\Core\Renderer.h" />
     <ClInclude Include="src\Kikurage\ECS\Component.h" />
     <ClInclude Include="src\Kikurage\ECS\ComponentManager.h" />
     <ClInclude Include="src\Kikurage\ECS\ECS_def.h" />
@@ -81,6 +86,7 @@
     <ClInclude Include="src\Kikurage\GUI\Editor.h" />
     <ClInclude Include="src\Kikurage\GUI\ImGuiLayer.h" />
     <ClInclude Include="src\Kikurage\GUI\SceneWindow.h" />
+    <ClInclude Include="src\Kikurage\Scene\PBR_Renderer.h" />
     <ClInclude Include="src\Kikurage\Scene\Scene3D.h" />
     <ClInclude Include="src\OpenGL\OpenGLWindow.h" />
     <ClInclude Include="src\Kikurage\Core\Window.h" />
