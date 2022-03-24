@@ -46,3 +46,11 @@ void SceneWindow::Draw(Texture2D renderTexture) {
 	ImGui::PopID();
 	ImGui::End();
 }
+
+void SceneWindow::disableMouseCursor() const {
+//	ImGui::SetMouseCursor(ImGuiMouseCursor_None);
+}
+
+void SceneWindow::normalMouseCursor() const {
+//	ImGui::SetMouseCursor(ImGuiMouseCursor_Arrow);
+}

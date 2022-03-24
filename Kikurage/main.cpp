@@ -20,8 +20,8 @@ int main() {
 	ImGuiLayer guiLayer(&window);
 	SceneWindow sceneWindow(800, 600, "Scene");
 
-//	Scene3D scene3d(&sceneWindow);
 	Scene3D scene3d(&sceneWindow);
+//	Scene3D scene3d(&window);
 	SceneEditor sceneEditor(scene3d.GetScene());
 
 	// timing

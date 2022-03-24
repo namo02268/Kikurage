@@ -9,4 +9,7 @@ public:
 	~SceneWindow() = default;
 
 	void Draw(Texture2D renderTexture) override;
+
+	void disableMouseCursor() const override;
+	void normalMouseCursor() const override;
 };

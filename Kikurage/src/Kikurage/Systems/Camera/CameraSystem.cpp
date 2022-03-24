@@ -66,14 +66,12 @@ void CameraSystem::update(float dt) {
 				lastX = mousePos[0];
 				lastY = mousePos[1];
 				firstMouse = false;
-//				std::cout << "first mouse" << std::endl;
 			}
 
 
-//			m_window->disableMouseCursor();
+			m_window->disableMouseCursor();
 			float xoffset = mousePos[0] - lastX;
 			float yoffset = lastY - mousePos[1];
-//			std::cout << xoffset << " : " << mousePos.x << " : " << lastX << std::endl;
 
 			lastX = mousePos[0];
 			lastY = mousePos[1];
@@ -93,7 +91,7 @@ void CameraSystem::update(float dt) {
 		}
 		else {
 			firstMouse = true;
-//			m_window->normalMouseCursor();
+			m_window->normalMouseCursor();
 		}
 	}
 }

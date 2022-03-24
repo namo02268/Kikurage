@@ -42,4 +42,6 @@ public:
 	bool IsMousePressed(size_t button) const { return m_mousePressed[button]; }
 	bool IsMouseReleased(size_t button) const { return m_mouseReleased[button]; }
 	const double* GetCursorPos() const { return m_cursorPos; }
+	virtual void disableMouseCursor() const {}
+	virtual void normalMouseCursor() const {}
 };

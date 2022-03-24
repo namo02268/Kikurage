@@ -31,11 +31,10 @@ Scene3D::~Scene3D() {
 }
 
 void Scene3D::Init() {
-	//-------------------------------add scene-------------------------------//
+	//-------------------------------add scene & renderer-------------------------------//
 	auto entityManager = std::make_unique<EntityManager>();
 	auto eventHandler = std::make_unique<EventHandler>();
 	m_scene = new Scene(std::move(entityManager), std::move(eventHandler));
-
 	renderer = new Renderer();
 
 	//-----------------------------------Resources-----------------------------------//
@@ -74,7 +73,7 @@ void Scene3D::Init() {
 
 	// plane
 	auto plane = m_scene->createEntity();
-	m_scene->addComponent<TransformComponent>(plane, glm::vec3(0.0f, -3.0f, 0.0f), glm::vec3(3.0f), glm::vec3(0.0f));
+	m_scene->addComponent<TransformComponent>(plane, glm::vec3(0.0f, -3.0f, 0.0f), glm::vec3(5.0f), glm::vec3(0.0f));
 	m_scene->addComponent<MeshComponent>(plane, ResourceManager::GetMesh("plane"));
 	m_scene->addComponent<MaterialComponent>(plane);
 	m_scene->addComponent<RigidBodyComponent>(plane, false, true);

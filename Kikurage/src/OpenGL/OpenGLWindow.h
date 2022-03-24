@@ -32,8 +32,8 @@ public:
 
 	float GetTime() const { return (float)glfwGetTime(); }
 
-	void disableMouseCursor() const;
-	void normalMouseCursor() const;
+	void disableMouseCursor() const override;
+	void normalMouseCursor() const override;
 	float GetMouseScroll() const { return m_mouseScroll; }
 
 private:
