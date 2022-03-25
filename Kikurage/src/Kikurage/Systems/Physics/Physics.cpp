@@ -20,18 +20,18 @@ void Physics::init() {
 }
 
 void Physics::update(float dt) {
+	m_parentScene->iterateAll<RigidBodyComponent>([&](RigidBodyComponent* c) {
+		if (c->isGravity) {
+			c->force += c->mass * m_gravity;
+		}
+		c->velocity += c->force / c->mass * dt;
+		c->force = glm::vec3(0.0f);
+	});
+
 	for (auto& e : m_entityArray) {
 		auto transfromComponent = m_parentScene->getComponent<TransformComponent>(e);
 		auto rigidBodyComponent = m_parentScene->getComponent<RigidBodyComponent>(e);
-
-		if (rigidBodyComponent->isGravity) {
-			rigidBodyComponent->force += rigidBodyComponent->mass * m_gravity;
-		}
-
-		rigidBodyComponent->velocity += rigidBodyComponent->force / rigidBodyComponent->mass * dt;
 		transfromComponent->position += rigidBodyComponent->velocity * dt;
-
-		rigidBodyComponent->force = glm::vec3(0.0f);
 	}
 }
 

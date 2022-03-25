@@ -1,5 +1,7 @@
 #pragma once
 
+#include <functional>
+
 #include "Kikurage/ECS/EntityMap.h"
 
 class BaseComponentManager {
@@ -48,5 +50,11 @@ public:
 	ComponentType* getComponent(Entity& e) {
 		ComponentInstance instance = m_entityMap.getInstance(e);
 		return &m_componentArray->at(instance);
+	}
+
+	void iterateAll(std::function<void(ComponentType* c)> lambda) {
+		for (int i = 0; i < m_newInstance; i++) {
+			lambda(&m_componentArray->at(i));
+		}
 	}
 };

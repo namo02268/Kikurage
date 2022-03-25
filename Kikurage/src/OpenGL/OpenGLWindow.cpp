@@ -127,6 +127,7 @@ void OpenGLWindow::Init() {
 	glEnable(GL_DEPTH_TEST);
 	glDepthFunc(GL_LEQUAL);
 	glEnable(GL_MULTISAMPLE);
+	glfwSwapInterval(1);
 
 	// enable seamless cubemap sampling for lower mip levels in the pre-filter map.
 	glEnable(GL_TEXTURE_CUBE_MAP_SEAMLESS);

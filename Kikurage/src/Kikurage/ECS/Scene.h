@@ -81,7 +81,7 @@ public:
 	}
 
 	//---------------------------------------------Component---------------------------------------------//
-	template<typename ComponentType, typename... TArgs>
+	template<typename ComponentType>
 	void addComponent(Entity& e, ComponentType&& c) {
 		auto family = getComponentTypeID<ComponentType>();
 		if (!m_componentMask[e.GetID()][family]) {
@@ -115,7 +115,6 @@ public:
 		}
 	}
 
-	// TODO : [Add] error handling
 	template<typename ComponentType>
 	ComponentType* getComponent(Entity& e) {
 		auto family = getComponentTypeID<ComponentType>();
@@ -126,6 +125,12 @@ public:
 			std::cout << typeid(ComponentType).name() << " does not exist! Entity ID:" << e.GetID() << std::endl;
 			return nullptr;
 		}
+	}
+
+	template<typename ComponentType>
+	void iterateAll(std::function<void(ComponentType* c)> lambda) {
+		auto family = getComponentTypeID<ComponentType>();
+		static_cast<ComponentManager<ComponentType>&>(*m_componentManagers[family]).iterateAll(lambda);
 	}
 
 	ComponentFamily getComponentMask(Entity& e) {

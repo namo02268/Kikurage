@@ -33,24 +33,21 @@ int main() {
 	{
 		float currentFrame = window.GetTime();
 		deltaTime = currentFrame - lastFrame;
-		if (deltaTime >= 1.0f / 120.0f) {
-			lastFrame = currentFrame;
+		lastFrame = currentFrame;
 
-			window.Clear();
+		std::cout << deltaTime << std::endl;
+
+		window.Clear();
+		{
+			guiLayer.begin();
 			{
-				guiLayer.begin();
-
-				{
-					scene3d.Update(deltaTime);
-					scene3d.Draw();
-
-				}
-				
-				sceneEditor.draw();
-				guiLayer.end();
+				scene3d.Update(deltaTime);
+				scene3d.Draw();
 			}
-			window.Update();
+			sceneEditor.draw();
+			guiLayer.end();
 		}
+		window.Update();
 	}
 
 	// delete all resources as loaded using the resource manager
