@@ -1,5 +1,8 @@
 #pragma once
 
+#include <glad/glad.h>
+#include <GLFW/glfw3.h>
+
 #include "Kikurage/Resource/Mesh/Mesh.h"
 #include "Kikurage/ECS/Component.h"
 
@@ -15,6 +18,35 @@ public:
 		glDeleteVertexArrays(1, &VAO);
 		glDeleteBuffers(1, &VBO);
 		glDeleteBuffers(1, &EBO);
+	}
+	MeshComponent(const MeshComponent&) = delete;
+	MeshComponent& operator=(const MeshComponent&) = delete;
+
+	MeshComponent(MeshComponent&& other) noexcept {
+		this->mesh = std::move(other.mesh);
+
+		this->VAO = other.VAO;
+		other.VAO = 0;
+		this->VBO = other.VBO;
+		other.VBO = 0;
+		this->EBO = other.EBO;
+		other.EBO = 0;
+	}
+
+	MeshComponent& operator=(MeshComponent&& other) noexcept {
+		if (this != &other) {
+
+			this->mesh = std::move(other.mesh);
+
+			this->VAO = other.VAO;
+			other.VAO = 0;
+			this->VBO = other.VBO;
+			other.VBO = 0;
+			this->EBO = other.EBO;
+			other.EBO = 0;
+
+		}
+		return *this;
 	}
 
 private:

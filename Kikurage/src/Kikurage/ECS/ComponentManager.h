@@ -10,14 +10,21 @@ public:
 template<typename ComponentType>
 class ComponentManager : public BaseComponentManager {
 private:
-	std::array<std::unique_ptr<ComponentType>, MAX_COMPONENTS_ARRRAY> m_componentArray;
+	std::array<ComponentType, MAX_ENTITIES>* m_componentArray;
 	EntityMap m_entityMap;
 	ComponentInstance m_newInstance = 0;
 
 public:
-	template<typename... TArgs>
-	void addComponent(Entity& e, TArgs&&... mArgs) {
-		m_componentArray[m_newInstance] = std::make_unique<ComponentType>(std::forward<TArgs>(mArgs)...);
+	ComponentManager() {
+		m_componentArray = static_cast<std::array<ComponentType, MAX_ENTITIES> *>(malloc(sizeof(ComponentType) * MAX_ENTITIES));
+	}
+
+	~ComponentManager() {
+		free(m_componentArray);
+	}
+
+	void addComponent(Entity& e, ComponentType&& c) {
+		m_componentArray->at(m_newInstance) = std::forward<ComponentType>(c);
 		m_entityMap.add(e, m_newInstance);
 
 		m_newInstance++;
@@ -31,7 +38,7 @@ public:
 		m_entityMap.remove(e);
 
 		if (instance != lastInstance) {
-			m_componentArray[instance] = std::move(m_componentArray[lastInstance]);
+			m_componentArray->at(instance) = m_componentArray->at(lastInstance);
 			m_entityMap.update(lastEntity, instance);
 		}
 
@@ -40,6 +47,6 @@ public:
 
 	ComponentType* getComponent(Entity& e) {
 		ComponentInstance instance = m_entityMap.getInstance(e);
-		return m_componentArray[instance].get();
+		return &m_componentArray->at(instance);
 	}
 };

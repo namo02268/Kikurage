@@ -8,7 +8,7 @@
 class EntityMap {
 private:
 	std::unordered_map<EntityID, ComponentInstance> m_entityToInstance;
-	std::array<EntityID, MAX_COMPONENTS_ARRRAY> m_instanceToEntity;
+	std::array<EntityID, MAX_ENTITIES> m_instanceToEntity;
 
 public:
 	Entity getEntity(ComponentInstance i) { return m_instanceToEntity[i]; }

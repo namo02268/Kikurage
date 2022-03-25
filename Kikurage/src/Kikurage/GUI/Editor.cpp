@@ -57,11 +57,11 @@ void SceneEditor::draw() {
 		if (ImGui::BeginPopup("Component"))
 		{
 			if (ImGui::Selectable("Transform"))
-				m_parentScene->addComponent<TransformComponent>(entityArray[selected]);
+				m_parentScene->addComponent<TransformComponent>(entityArray[selected], TransformComponent());
 			if (ImGui::Selectable("Material"))
-				m_parentScene->addComponent<MaterialComponent>(entityArray[selected]);
+				m_parentScene->addComponent<MaterialComponent>(entityArray[selected], MaterialComponent());
 			if (ImGui::Selectable("RigidBody"))
-				m_parentScene->addComponent<RigidBodyComponent>(entityArray[selected]);
+				m_parentScene->addComponent<RigidBodyComponent>(entityArray[selected], RigidBodyComponent());
 			ImGui::EndPopup();
 		}
 		ImGui::PopID();

@@ -10,17 +10,17 @@ struct Collider {
 	virtual CollisionPoints TestCollision(
 		const TransformComponent* transform,
 		const Collider* collider,
-		const TransformComponent* colliderTransform) const = 0;
+		const TransformComponent* colliderTransform) const { return{}; }
 
 	virtual CollisionPoints TestCollision(
 		const TransformComponent* transform,
 		const SphereCollider* sphere,
-		const TransformComponent* sphereTransform) const = 0;
+		const TransformComponent* sphereTransform) const { return{}; }
 
 	virtual CollisionPoints TestCollision(
 		const TransformComponent* transform,
 		const PlaneCollider* plane,
-		const TransformComponent* planeTransform) const = 0;
+		const TransformComponent* planeTransform) const { return{}; }
 };
 
 

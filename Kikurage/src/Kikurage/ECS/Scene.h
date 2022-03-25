@@ -35,7 +35,7 @@ public:
 	//---------------------------------------------Entity---------------------------------------------//
 	Entity createEntity() {
 		Entity e = m_entityManager->createEntity();
-		m_allEntityArray.emplace_back(e); 
+		m_allEntityArray.emplace_back(e);
 		return e;
 	}
 
@@ -82,7 +82,7 @@ public:
 
 	//---------------------------------------------Component---------------------------------------------//
 	template<typename ComponentType, typename... TArgs>
-	void addComponent(Entity& e, TArgs&&... mArgs) {
+	void addComponent(Entity& e, ComponentType&& c) {
 		auto family = getComponentTypeID<ComponentType>();
 		if (!m_componentMask[e.GetID()][family]) {
 			m_componentMask[e.GetID()][family] = true;
@@ -94,7 +94,7 @@ public:
 				m_componentFamily[family] = true;
 			}
 
-			static_cast<ComponentManager<ComponentType>&>(*m_componentManagers[family]).addComponent(e, std::forward<TArgs>(mArgs)...);
+			static_cast<ComponentManager<ComponentType>&>(*m_componentManagers[family]).addComponent(e, std::forward<ComponentType>(c));
 			updateComponentMap(e, family);
 		}
 		else {

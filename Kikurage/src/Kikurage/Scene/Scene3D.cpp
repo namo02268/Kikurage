@@ -68,16 +68,41 @@ void Scene3D::Init() {
 	//---------------------------------add entities---------------------------------//
 	// camera
 	auto cameraEntity = m_scene->createEntity();
-	m_scene->addComponent<TransformComponent>(cameraEntity, glm::vec3(20.0f, 5.0f, 20.0f), glm::vec3(1.0f), glm::vec3(0.0f));
-	m_scene->addComponent<CameraComponent>(cameraEntity);
+	m_scene->addComponent<TransformComponent>(cameraEntity, TransformComponent(glm::vec3(20.0f, 5.0f, 20.0f), glm::vec3(1.0f), glm::vec3(0.0f)));
+	m_scene->addComponent<CameraComponent>(cameraEntity, CameraComponent());
 
 	// plane
 	auto plane = m_scene->createEntity();
-	m_scene->addComponent<TransformComponent>(plane, glm::vec3(0.0f, -3.0f, 0.0f), glm::vec3(5.0f), glm::vec3(0.0f));
-	m_scene->addComponent<MeshComponent>(plane, ResourceManager::GetMesh("plane"));
-	m_scene->addComponent<MaterialComponent>(plane);
-	m_scene->addComponent<RigidBodyComponent>(plane, false, true);
-	m_scene->addComponent<CollisionComponent>(plane, new PlaneCollider(glm::vec3(0.0f, 1.0f, 0.0f), 0.0f));
+	m_scene->addComponent<TransformComponent>(plane, TransformComponent(glm::vec3(0.0f, -3.0f, 0.0f), glm::vec3(5.0f), glm::vec3(0.0f)));
+	m_scene->addComponent<MeshComponent>(plane, MeshComponent(ResourceManager::GetMesh("plane")));
+	m_scene->addComponent<MaterialComponent>(plane, MaterialComponent());
+	m_scene->addComponent<RigidBodyComponent>(plane, RigidBodyComponent(false, true));
+	m_scene->addComponent<CollisionComponent>(plane, CollisionComponent(new PlaneCollider(glm::vec3(0.0f, 1.0f, 0.0f), 0.0f)));
+
+	// sphere1
+	auto sphere1 = m_scene->createEntity();
+	m_scene->addComponent<TransformComponent>(sphere1, TransformComponent(glm::vec3(2.0f, 5.0f, 0.0f), glm::vec3(1.0f), glm::vec3(0.0f)));
+	m_scene->addComponent<MeshComponent>(sphere1, MeshComponent(ResourceManager::GetMesh("sphere")));
+	m_scene->addComponent<MaterialComponent>(sphere1, MaterialComponent());
+	m_scene->addComponent<RigidBodyComponent>(sphere1, RigidBodyComponent(true, false));
+	m_scene->addComponent<CollisionComponent>(sphere1, CollisionComponent(new SphereCollider(glm::vec3(0.0f), 1.0f)));
+
+	// sphere2
+	auto sphere2 = m_scene->createEntity();
+	m_scene->addComponent<TransformComponent>(sphere2, TransformComponent(glm::vec3(5.0f, 5.0f, 0.0f), glm::vec3(1.0f), glm::vec3(0.0f)));
+	m_scene->addComponent<MeshComponent>(sphere2, MeshComponent(ResourceManager::GetMesh("sphere")));
+	m_scene->addComponent<MaterialComponent>(sphere2, MaterialComponent());
+	m_scene->addComponent<RigidBodyComponent>(sphere2, RigidBodyComponent(true, false));
+	m_scene->addComponent<CollisionComponent>(sphere2, CollisionComponent(new SphereCollider(glm::vec3(0.0f), 1.0f)));
+
+	// sphere3
+	auto sphere3 = m_scene->createEntity();
+	m_scene->addComponent<TransformComponent>(sphere3, TransformComponent(glm::vec3(8.0f, 5.0f, 0.0f), glm::vec3(1.0f), glm::vec3(0.0f)));
+	m_scene->addComponent<MeshComponent>(sphere3, MeshComponent(ResourceManager::GetMesh("sphere")));
+	m_scene->addComponent<MaterialComponent>(sphere3, MaterialComponent());
+	m_scene->addComponent<RigidBodyComponent>(sphere3, RigidBodyComponent(true, false));
+	m_scene->addComponent<CollisionComponent>(sphere3, CollisionComponent(new SphereCollider(glm::vec3(0.0f), 1.0f)));
+
 
 	// init
 	m_scene->init();
@@ -86,11 +111,11 @@ void Scene3D::Init() {
 void Scene3D::Update(float dt) {
 	if (m_window->IsKeyPressed(GLFW_KEY_X)) {
 		auto sphere = m_scene->createEntity();
-		m_scene->addComponent<TransformComponent>(sphere, glm::vec3((float)rand() / RAND_MAX * 2, 10.0f, (float)rand() / RAND_MAX * 2), glm::vec3(1.0f), glm::vec3(0.0f));
-		m_scene->addComponent<MeshComponent>(sphere, ResourceManager::GetMesh("sphere"));
-		m_scene->addComponent<MaterialComponent>(sphere, glm::vec3((float)rand() / RAND_MAX, rand() % 2, (float)rand() / RAND_MAX), (float)rand() / RAND_MAX, (float)rand() / RAND_MAX, 1.0f);
-		m_scene->addComponent<RigidBodyComponent>(sphere, true, false);
-		m_scene->addComponent<CollisionComponent>(sphere, new SphereCollider(glm::vec3(0.0f), 1.0f));
+		m_scene->addComponent<TransformComponent>(sphere, TransformComponent(glm::vec3((float)rand() / RAND_MAX * 2, 10.0f, (float)rand() / RAND_MAX * 2), glm::vec3(1.0f), glm::vec3(0.0f)));
+		m_scene->addComponent<MeshComponent>(sphere, MeshComponent(ResourceManager::GetMesh("sphere")));
+		m_scene->addComponent<MaterialComponent>(sphere, MaterialComponent(glm::vec3((float)rand() / RAND_MAX, rand() % 2, (float)rand() / RAND_MAX), (float)rand() / RAND_MAX, (float)rand() / RAND_MAX, 1.0f));
+		m_scene->addComponent<RigidBodyComponent>(sphere, RigidBodyComponent(true, false));
+		m_scene->addComponent<CollisionComponent>(sphere, CollisionComponent(new SphereCollider(glm::vec3(0.0f), 1.0f)));
 	}
 	m_scene->update(dt);
 }

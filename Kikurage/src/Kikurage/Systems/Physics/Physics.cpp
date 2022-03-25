@@ -57,6 +57,7 @@ void Physics::onCollisionEvent(CollisionEvent* collision) {
 		// impulse solver
 		auto r_velocity = b_rigid->velocity - a_rigid->velocity;
 		auto n_velocity = glm::dot(r_velocity, collision->points.Normal);
+		if (std::isnan(n_velocity)) n_velocity = 0.0f;
 
 		if (n_velocity >= 0)
 			return;
@@ -73,10 +74,12 @@ void Physics::onCollisionEvent(CollisionEvent* collision) {
 		// friction solver
 		r_velocity = b_rigid->velocity - a_rigid->velocity;
 		n_velocity = glm::dot(r_velocity, collision->points.Normal);
+		if (std::isnan(n_velocity)) n_velocity = 0.0f;
 
 		glm::vec3 tangent = glm::normalize(r_velocity - n_velocity * collision->points.Normal);
 		if (std::isnan(tangent.x) || std::isnan(tangent.y) || std::isnan(tangent.z)) tangent = glm::vec3(0.0f);
 		auto f_velocity = glm::dot(r_velocity, tangent);
+		if (std::isnan(f_velocity)) f_velocity = 0.0f;
 
 		auto mu = glm::length(glm::vec2(a_rigid->staticFriction, b_rigid->staticFriction));
 		auto f = -f_velocity / (a_rigid->mass + b_rigid->mass);
@@ -87,7 +90,7 @@ void Physics::onCollisionEvent(CollisionEvent* collision) {
 
 		}
 		else {
-			mu = glm::length(glm::vec2(a_rigid->dynamicFriction, b_rigid->dynamicFriction));
+			mu = (a_rigid->dynamicFriction + b_rigid->dynamicFriction) / 2;
 			friction = -j * tangent * mu;
 		}
 
