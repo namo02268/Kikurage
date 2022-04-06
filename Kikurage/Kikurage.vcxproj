@@ -78,7 +78,7 @@
     <ClInclude Include="src\Kikurage\ECS\Entity.h" />
     <ClInclude Include="src\Kikurage\ECS\EntityManager.h" />
     <ClInclude Include="src\Kikurage\ECS\EntityMap.h" />
-    <ClInclude Include="src\Kikurage\ECS\EventHandler.h" />
+    <ClInclude Include="src\Kikurage\Core\EventHandler.h" />
     <ClInclude Include="src\Kikurage\ECS\IdGenerator.h" />
     <ClInclude Include="src\Kikurage\ECS\Scene.h" />
     <ClInclude Include="src\Kikurage\ECS\System.h" />

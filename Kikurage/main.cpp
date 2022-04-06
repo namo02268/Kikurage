@@ -35,8 +35,6 @@ int main() {
 		deltaTime = currentFrame - lastFrame;
 		lastFrame = currentFrame;
 
-		std::cout << deltaTime << std::endl;
-
 		window.Clear();
 		{
 			guiLayer.begin();

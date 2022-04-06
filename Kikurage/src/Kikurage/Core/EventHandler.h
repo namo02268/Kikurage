@@ -4,7 +4,17 @@
 #include <list>
 #include <map>
 
-#include "Kikurage/ECS/IdGenerator.h"
+using EventTypeID = unsigned int;
+
+inline EventTypeID getEventTypeID() {
+	static EventTypeID eventID = 0;
+	return eventID++;
+}
+
+template <typename T> inline EventTypeID getEventTypeID() noexcept {
+	static EventTypeID typeID = getEventTypeID();
+	return typeID;
+}
 
 struct Event {
 public:
@@ -45,11 +55,11 @@ using HandlerList = std::list<std::unique_ptr<HandlerFunctionBase>>;
 
 class EventHandler {
 private:
-	std::map<EventTypeID, std::unique_ptr<HandlerList>> m_subscribers;
+	static std::map<EventTypeID, std::unique_ptr<HandlerList>> m_subscribers;
 
 public:
 	template<typename EventType>
-	void publish(EventType* event) {
+	static void publish(EventType* event) {
 		if (m_subscribers[getEventTypeID<EventType>()] == nullptr) {
 			return;
 		}
@@ -61,7 +71,7 @@ public:
 	}
 
 	template<typename T, typename EventType>
-	void subscribe(T* instance, void (T::* memberFunction)(EventType*)) {
+	static void subscribe(T* instance, void (T::* memberFunction)(EventType*)) {
 		if (m_subscribers[getEventTypeID<EventType>()] == nullptr) {
 			m_subscribers[getEventTypeID<EventType>()] = std::make_unique<HandlerList>();
 		}

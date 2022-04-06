@@ -220,7 +220,7 @@
     <ClInclude Include="src\Kikurage\ECS\EntityMap.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="src\Kikurage\ECS\EventHandler.h">
+    <ClInclude Include="src\Kikurage\Core\EventHandler.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
     <ClInclude Include="src\Kikurage\ECS\IdGenerator.h">

@@ -4,7 +4,7 @@
 
 #include "Kikurage/ECS/Entity.h"
 #include "Kikurage/ECS/ECS_def.h"
-#include "Kikurage/ECS/EventHandler.h"
+#include "Kikurage/Core/EventHandler.h"
 
 class Scene;
 

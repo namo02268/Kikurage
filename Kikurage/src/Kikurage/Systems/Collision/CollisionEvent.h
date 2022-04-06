@@ -1,6 +1,5 @@
 #pragma once
 
-#include "Kikurage/ECS/EventHandler.h"
 #include "Kikurage/ECS/Entity.h"
 #include "Kikurage/Systems/Collision/CollisionPoints.h"
 
