@@ -102,9 +102,6 @@
     <ClCompile Include="src\Kikurage\Systems\Physics\Physics.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="src\Kikurage\Core\Application.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
     <ClCompile Include="src\Kikurage\Scene\Scene3D.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
@@ -112,6 +109,9 @@
       <Filter>ソース ファイル</Filter>
     </ClCompile>
     <ClCompile Include="src\Kikurage\Core\Renderer.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Kikurage\Core\Application.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
   </ItemGroup>
@@ -295,9 +295,6 @@
     <ClInclude Include="src\Kikurage\Systems\Physics\Physics.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="src\Kikurage\Core\Application.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
     <ClInclude Include="src\Kikurage\Scene\Scene3D.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
@@ -305,6 +302,12 @@
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
     <ClInclude Include="src\Kikurage\Core\Renderer.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Kikurage\Core\Event.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Kikurage\Core\Application.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
   </ItemGroup>

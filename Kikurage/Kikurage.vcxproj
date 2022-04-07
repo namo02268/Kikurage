@@ -19,8 +19,8 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="main.cpp" />
     <ClCompile Include="src\Kikurage\Core\Application.cpp" />
+    <ClCompile Include="main.cpp" />
     <ClCompile Include="src\Kikurage\Core\Renderer.cpp" />
     <ClCompile Include="src\Kikurage\GUI\Editor.cpp" />
     <ClCompile Include="src\Kikurage\GUI\ImGuiLayer.cpp" />
@@ -64,13 +64,14 @@
     <None Include="resources\shaders\Simple.vert" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\Kikurage\Core\Application.h" />
     <ClInclude Include="src\Kikurage\Components\CameraComponent.h" />
     <ClInclude Include="src\Kikurage\Components\CollisionComponent.h" />
     <ClInclude Include="src\Kikurage\Components\MaterialComponent.h" />
     <ClInclude Include="src\Kikurage\Components\MeshComponent.h" />
     <ClInclude Include="src\Kikurage\Components\RigidBodyComponent.h" />
     <ClInclude Include="src\Kikurage\Components\TransformComponent.h" />
-    <ClInclude Include="src\Kikurage\Core\Application.h" />
+    <ClInclude Include="src\Kikurage\Core\Event.h" />
     <ClInclude Include="src\Kikurage\Core\Renderer.h" />
     <ClInclude Include="src\Kikurage\ECS\Component.h" />
     <ClInclude Include="src\Kikurage\ECS\ComponentManager.h" />

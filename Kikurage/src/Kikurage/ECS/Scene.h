@@ -6,7 +6,7 @@
 #include "Kikurage/ECS/EntityManager.h"
 #include "Kikurage/ECS/ECS_def.h"
 #include "Kikurage/ECS/System.h"
-#include "Kikurage/Core/EventHandler.h"
+#include "Kikurage/CORE/EventHandler.h"
 
 class Scene {
 private:

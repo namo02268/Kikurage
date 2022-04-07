@@ -55,11 +55,11 @@ using HandlerList = std::list<std::unique_ptr<HandlerFunctionBase>>;
 
 class EventHandler {
 private:
-	static std::map<EventTypeID, std::unique_ptr<HandlerList>> m_subscribers;
+	std::map<EventTypeID, std::unique_ptr<HandlerList>> m_subscribers;
 
 public:
 	template<typename EventType>
-	static void publish(EventType* event) {
+	void publish(EventType* event) {
 		if (m_subscribers[getEventTypeID<EventType>()] == nullptr) {
 			return;
 		}
@@ -71,7 +71,7 @@ public:
 	}
 
 	template<typename T, typename EventType>
-	static void subscribe(T* instance, void (T::* memberFunction)(EventType*)) {
+	void subscribe(T* instance, void (T::* memberFunction)(EventType*)) {
 		if (m_subscribers[getEventTypeID<EventType>()] == nullptr) {
 			m_subscribers[getEventTypeID<EventType>()] = std::make_unique<HandlerList>();
 		}
