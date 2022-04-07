@@ -14,7 +14,6 @@ protected:
 
 public:
 	Scene* m_parentScene;
-	EventHandler* m_eventHandler;
 	ComponentFamily m_requiredComponent;
 
 public:

@@ -15,6 +15,8 @@ Application::Application() {
 	m_sceneWindow = new SceneWindow(800, 600, "Scene");
 	m_scene3d = new Scene3D(m_sceneWindow);
 	m_sceneEditor = new SceneEditor(m_scene3d->GetScene());
+
+	m_eventHandler = new EventHandler();
 }
 
 Application::~Application() {
@@ -25,6 +27,7 @@ Application::~Application() {
 	delete m_sceneWindow;
 	delete m_scene3d;
 	delete m_sceneEditor;
+	delete m_eventHandler;
 }
 
 void Application::Run() {

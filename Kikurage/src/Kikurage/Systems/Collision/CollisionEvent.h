@@ -3,7 +3,7 @@
 #include "Kikurage/ECS/Entity.h"
 #include "Kikurage/Systems/Collision/CollisionPoints.h"
 
-class CollisionEvent : public Event {
+class CollisionEvent : public EventBase {
 public:
 	Entity a;
 	Entity b;

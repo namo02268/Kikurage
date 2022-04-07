@@ -14,8 +14,6 @@ private:
 	std::unique_ptr<EntityManager> m_entityManager;
 	// entity array
 	std::vector<Entity> m_allEntityArray;
-	// event handler
-	std::unique_ptr<EventHandler> m_eventHandler;
 	// ComponentMask
 	std::unordered_map<EntityID, ComponentFamily> m_componentMask;
 	// bit array of component managers ID
@@ -26,8 +24,8 @@ private:
 	std::vector<std::unique_ptr<System>> m_systems;
 
 public:
-	Scene(std::unique_ptr<EntityManager> entityManager, std::unique_ptr<EventHandler> eventHandler)
-		: m_entityManager(std::move(entityManager)), m_eventHandler(std::move(eventHandler)) {};
+	Scene(std::unique_ptr<EntityManager> entityManager)
+		: m_entityManager(std::move(entityManager)) {};
 	Scene(const Scene&) = delete;
 	Scene& operator=(const Scene&) = delete;
 	~Scene() = default;
@@ -61,7 +59,6 @@ public:
 	//---------------------------------------------System---------------------------------------------//
 	void addSystem(std::unique_ptr<System> system) {
 		system->m_parentScene = this;
-		system->m_eventHandler = m_eventHandler.get();
 		m_systems.push_back(std::move(system));
 	}
 

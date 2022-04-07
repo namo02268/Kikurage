@@ -4,6 +4,8 @@
 #include "Kikurage/Components/TransformComponent.h"
 #include "Kikurage/Components/RigidBodyComponent.h"
 
+#include "Kikurage/Core/Event.h"
+
 Physics::Physics() {
 	auto family = getComponentTypeID<TransformComponent>();
 	m_requiredComponent[family] = true;
@@ -16,7 +18,8 @@ Physics::~Physics() {
 }
 
 void Physics::init() {
-	m_eventHandler->subscribe(this, &Physics::onCollisionEvent);
+//	m_eventHandler->subscribe(this, &Physics::onCollisionEvent);
+	Event::subscribe(this, &Physics::onCollisionEvent);
 }
 
 void Physics::update(float dt) {

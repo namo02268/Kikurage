@@ -16,20 +16,20 @@ template <typename T> inline EventTypeID getEventTypeID() noexcept {
 	return typeID;
 }
 
-struct Event {
+struct EventBase {
 public:
-	virtual ~Event() {}
+	virtual ~EventBase() {}
 };
 
 class HandlerFunctionBase {
 public:
 	virtual ~HandlerFunctionBase() {}
-	void exec(Event* event) {
+	void exec(EventBase* event) {
 		call(event);
 	}
 
 private:
-	virtual void call(Event* event) = 0;
+	virtual void call(EventBase* event) = 0;
 };
 
 template<typename T, typename EventType>
@@ -46,7 +46,7 @@ public:
 	MemberFunctionHandler(T* instance, MemberFunction memberFunction)
 		: m_instance{ instance }, m_memberFunction(memberFunction) {}
 
-	void call(Event* event) {
+	void call(EventBase* event) {
 		(m_instance->*m_memberFunction)(static_cast<EventType*>(event));
 	}
 };
@@ -71,11 +71,13 @@ public:
 	}
 
 	template<typename T, typename EventType>
-	void subscribe(T* instance, void (T::* memberFunction)(EventType*)) {
+	void subscribe(T* instance, void (T::*memberFunction)(EventType*)) {
+		std::cout << "Test" << std::endl;
 		if (m_subscribers[getEventTypeID<EventType>()] == nullptr) {
 			m_subscribers[getEventTypeID<EventType>()] = std::make_unique<HandlerList>();
 		}
 
 		m_subscribers[getEventTypeID<EventType>()]->push_back(std::make_unique<MemberFunctionHandler<T, EventType>>(instance, memberFunction));
+		std::cout << "Test" << std::endl;
 	}
 };

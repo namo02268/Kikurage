@@ -33,8 +33,7 @@ Scene3D::~Scene3D() {
 void Scene3D::Init() {
 	//-------------------------------add scene & renderer-------------------------------//
 	auto entityManager = std::make_unique<EntityManager>();
-	auto eventHandler = std::make_unique<EventHandler>();
-	m_scene = new Scene(std::move(entityManager), std::move(eventHandler));
+	m_scene = new Scene(std::move(entityManager));
 	renderer = new Renderer();
 
 	//-----------------------------------Resources-----------------------------------//

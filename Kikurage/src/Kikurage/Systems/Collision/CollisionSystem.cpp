@@ -5,6 +5,8 @@
 #include "Kikurage/Components/TransformComponent.h"
 #include "Kikurage/Components/CollisionComponent.h"
 
+#include "Kikurage/Core/Event.h"
+
 CollisionSystem::CollisionSystem() {
 	auto family = getComponentTypeID<TransformComponent>();
 	m_requiredComponent[family] = true;
@@ -34,7 +36,8 @@ void CollisionSystem::update(float dt) {
 				b_trans);
 			if (points.HasCollision) {
 				CollisionEvent event(a, b, points);
-				m_eventHandler->publish(&event);
+				Event::publish(&event);
+//				m_eventHandler->publish(&event);
 			}
 		}
 	}
