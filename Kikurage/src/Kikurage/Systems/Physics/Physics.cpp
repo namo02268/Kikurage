@@ -4,6 +4,7 @@
 #include "Kikurage/Components/TransformComponent.h"
 #include "Kikurage/Components/RigidBodyComponent.h"
 
+#include "Kikurage/Core/Application.h"
 #include "Kikurage/Core/Event.h"
 
 Physics::Physics() {
@@ -18,7 +19,6 @@ Physics::~Physics() {
 }
 
 void Physics::init() {
-//	m_eventHandler->subscribe(this, &Physics::onCollisionEvent);
 	Event::subscribe(this, &Physics::onCollisionEvent);
 }
 

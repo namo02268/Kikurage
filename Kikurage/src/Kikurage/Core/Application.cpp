@@ -13,10 +13,12 @@ Application::Application() {
 	m_window = new OpenGLWindow(1200, 800, "Kikurage");
 	m_guiLayer = new ImGuiLayer(m_window);
 	m_sceneWindow = new SceneWindow(800, 600, "Scene");
+
+	m_eventHandler = new EventHandler();
+
 	m_scene3d = new Scene3D(m_sceneWindow);
 	m_sceneEditor = new SceneEditor(m_scene3d->GetScene());
 
-	m_eventHandler = new EventHandler();
 }
 
 Application::~Application() {

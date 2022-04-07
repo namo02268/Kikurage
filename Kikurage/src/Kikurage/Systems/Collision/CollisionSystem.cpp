@@ -5,6 +5,7 @@
 #include "Kikurage/Components/TransformComponent.h"
 #include "Kikurage/Components/CollisionComponent.h"
 
+#include "Kikurage/Core/Application.h"
 #include "Kikurage/Core/Event.h"
 
 CollisionSystem::CollisionSystem() {
@@ -37,7 +38,6 @@ void CollisionSystem::update(float dt) {
 			if (points.HasCollision) {
 				CollisionEvent event(a, b, points);
 				Event::publish(&event);
-//				m_eventHandler->publish(&event);
 			}
 		}
 	}

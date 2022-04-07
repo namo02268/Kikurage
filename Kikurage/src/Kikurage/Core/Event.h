@@ -2,7 +2,7 @@
 
 #include "Kikurage/Core/Application.h"
 
-class Event{
+class Event {
 public:
 	template<typename EventType>
 	static void publish(EventType* event) {
@@ -10,7 +10,7 @@ public:
 	}
 
 	template<typename T, typename EventType>
-	static void subscribe(T* instance, void (T::*memberFunction)(EventType*)) {
-//		Application::GetInstance().GetEventHandler().subscribe(instance, memberFunction);
+	static void subscribe(T* instance, void (T::* memberFunction)(EventType*)) {
+		Application::GetInstance().GetEventHandler().subscribe(instance, memberFunction);
 	}
 };

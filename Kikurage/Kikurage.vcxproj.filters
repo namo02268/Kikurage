@@ -304,10 +304,10 @@
     <ClInclude Include="src\Kikurage\Core\Renderer.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="src\Kikurage\Core\Event.h">
+    <ClInclude Include="src\Kikurage\Core\Application.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="src\Kikurage\Core\Application.h">
+    <ClInclude Include="src\Kikurage\Core\Event.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
   </ItemGroup>
