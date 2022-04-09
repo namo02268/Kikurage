@@ -1,6 +1,6 @@
 ﻿#include "OpenGL/OpenGLWindow.h"
 #include "Kikurage/Resource/ResourceManager/ResourceManager.h"
-
+#include "Kikurage/Events/WindowResizeEvent.h"
 
 OpenGLWindow::OpenGLWindow(int width, int height, const char* title) {
 	m_width = width;

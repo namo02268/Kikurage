@@ -20,5 +20,8 @@ private:
 	Scene* m_scene;
 	Renderer* renderer;
 	// TODO : SkyBox* skyBox;
+
+	int m_width = 600;
+	int m_height = 800;
 };
 

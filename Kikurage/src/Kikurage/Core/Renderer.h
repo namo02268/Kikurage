@@ -3,11 +3,14 @@
 #include <GLFW/glfw3.h>
 
 #include "Kikurage/Resource/Texture/Texture2D.h"
+#include "Kikurage/Events/WindowResizeEvent.h"
 
 class Renderer {
 public:
-	Renderer() { GenerateRenderTexture(); }
-	virtual ~Renderer() { glDeleteFramebuffers(1, &framebuffer); }
+	Renderer();
+	virtual ~Renderer();
+
+	void ResizeBuffer(WindowResizeEvent* event);
 
 	void BindFBO();
 	void UnbindFBO();
@@ -17,6 +20,7 @@ public:
 private:
 	// Render FBO & Texture
 	unsigned int framebuffer;
+	unsigned int rbo;
 	Texture2D textureColorbuffer;
 
 	void GenerateRenderTexture();

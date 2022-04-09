@@ -271,7 +271,7 @@
     <ClInclude Include="src\Kikurage\Systems\Collision\CollisionAlgorithm.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="src\Kikurage\Systems\Collision\CollisionEvent.h">
+    <ClInclude Include="src\Kikurage\Events\CollisionEvent.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
     <ClInclude Include="src\Kikurage\Systems\Collision\CollisionPoints.h">
@@ -308,6 +308,9 @@
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
     <ClInclude Include="src\Kikurage\Core\Event.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Kikurage\Events\WindowResizeEvent.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
   </ItemGroup>

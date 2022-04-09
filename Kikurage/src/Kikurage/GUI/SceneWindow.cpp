@@ -41,7 +41,7 @@ void SceneWindow::Draw(Texture2D renderTexture) {
 	// window size
 	m_width = ImGui::GetWindowWidth();
 	m_height = ImGui::GetWindowHeight();
-	ImGui::Image((void*)renderTexture.ID, ImVec2(m_width, m_height), ImVec2(0, (float)m_height / 1080), ImVec2((float)m_width / 1920, 0));
+	ImGui::Image((void*)renderTexture.ID, ImVec2(m_width, m_height), ImVec2(0, 1), ImVec2(1, 0));
 
 	ImGui::PopID();
 	ImGui::End();

@@ -72,12 +72,10 @@ public:
 
 	template<typename T, typename EventType>
 	void subscribe(T* instance, void (T::*memberFunction)(EventType*)) {
-		std::cout << "Test" << std::endl;
 		if (m_subscribers[getEventTypeID<EventType>()] == nullptr) {
 			m_subscribers[getEventTypeID<EventType>()] = std::make_unique<HandlerList>();
 		}
 
 		m_subscribers[getEventTypeID<EventType>()]->push_back(std::make_unique<MemberFunctionHandler<T, EventType>>(instance, memberFunction));
-		std::cout << "Test" << std::endl;
 	}
 };

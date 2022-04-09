@@ -3,7 +3,6 @@
 
 int main() {
 	new Application();
-	std::cout << &Application::GetInstance() << std::endl;
 
 	Application::GetInstance().Run();
 

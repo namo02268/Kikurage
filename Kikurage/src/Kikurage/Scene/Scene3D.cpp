@@ -3,6 +3,7 @@
 //------------Resource------------
 #include "stb_image/stb_image.h"
 #include "Kikurage/Resource/ResourceManager/ResourceManager.h"
+#include "Kikurage/Core/Event.h"
 
 //------------Systems------------
 #include "Kikurage/Systems/MeshRenderer/MeshRenderer.h"
@@ -108,6 +109,15 @@ void Scene3D::Init() {
 }
 
 void Scene3D::Update(float dt) {
+	auto new_width = m_window->GetWidth();
+	auto new_height = m_window->GetHeight();
+	if (m_width != new_width || m_height != new_height) {
+		m_width = new_width;
+		m_height = new_height;
+		WindowResizeEvent event(m_width, m_height);
+		Event::publish(&event);
+	}
+
 	if (m_window->IsKeyPressed(GLFW_KEY_X)) {
 		auto sphere = m_scene->createEntity();
 		m_scene->addComponent<TransformComponent>(sphere, TransformComponent(glm::vec3((float)rand() / RAND_MAX * 2, 10.0f, (float)rand() / RAND_MAX * 2), glm::vec3(1.0f), glm::vec3(0.0f)));
