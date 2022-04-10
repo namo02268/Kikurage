@@ -1,12 +1,16 @@
 #include "Application.h"
+#include <assert.h>
 
 //------------Resource------------
 #define STB_IMAGE_IMPLEMENTATION
 #include "stb_image/stb_image.h"
 #include "Kikurage/Resource/ResourceManager/ResourceManager.h"
 
-Application* Application::s_Instance = nullptr;
-
+/*
+====================================================
+Application::Application
+====================================================
+*/
 Application::Application() {
 	s_Instance = this;
 
@@ -21,6 +25,11 @@ Application::Application() {
 
 }
 
+/*
+====================================================
+Application::~Application
+====================================================
+*/
 Application::~Application() {
 	ResourceManager::Clear();
 
@@ -32,13 +41,20 @@ Application::~Application() {
 	delete m_eventHandler;
 }
 
+/*
+====================================================
+Application::Run
+====================================================
+*/
 void Application::Run() {
-	// timing
+	this->m_isRunning = true;
+
+	// Timing
 	float deltaTime = 0.0f;
 	float lastFrame = m_window->GetTime();
 
-	//--------------------------------------render loop--------------------------------------//
-	while (!m_window->Closed())
+	// Render Loop
+	while (m_window->IsOpen())
 	{
 		float currentFrame = m_window->GetTime();
 		deltaTime = currentFrame - lastFrame;
@@ -56,5 +72,5 @@ void Application::Run() {
 		}
 		m_window->Update();
 	}
-
+	this->m_isRunning = false;
 }

@@ -2,7 +2,9 @@
 
 #include <iostream>
 #include <list>
-#include <map>
+#include <unordered_map>
+
+#include "EventBase.h"
 
 using EventTypeID = unsigned int;
 
@@ -16,10 +18,7 @@ template <typename T> inline EventTypeID getEventTypeID() noexcept {
 	return typeID;
 }
 
-struct EventBase {
-public:
-	virtual ~EventBase() {}
-};
+
 
 class HandlerFunctionBase {
 public:
@@ -34,12 +33,11 @@ private:
 
 template<typename T, typename EventType>
 class MemberFunctionHandler : public HandlerFunctionBase {
-	typedef void (T::* MemberFunction)(EventType*);
-
 private:
 	// instance of system class
 	T* m_instance;
 	// member function of the above instance
+	typedef void (T::* MemberFunction)(EventType*);
 	MemberFunction m_memberFunction;
 
 public:
@@ -55,7 +53,7 @@ using HandlerList = std::list<std::unique_ptr<HandlerFunctionBase>>;
 
 class EventHandler {
 private:
-	std::map<EventTypeID, std::unique_ptr<HandlerList>> m_subscribers;
+	std::unordered_map<EventTypeID, std::unique_ptr<HandlerList>> m_subscribers;
 
 public:
 	template<typename EventType>

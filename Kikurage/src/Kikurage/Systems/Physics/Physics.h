@@ -2,7 +2,7 @@
 #include <glm/glm.hpp>
 #include "Kikurage/ECS/System.h"
 
-#include "Kikurage/Systems/Collision/CollisionEvent.h"
+#include "Kikurage/Events/CollisionEvent.h"
 
 class Physics : public System {
 private:

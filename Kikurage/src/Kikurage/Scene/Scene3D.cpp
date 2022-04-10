@@ -103,7 +103,6 @@ void Scene3D::Init() {
 	m_scene->addComponent<RigidBodyComponent>(sphere3, RigidBodyComponent(true, false));
 	m_scene->addComponent<CollisionComponent>(sphere3, CollisionComponent(new SphereCollider(glm::vec3(0.0f), 1.0f)));
 
-
 	// init
 	m_scene->init();
 }

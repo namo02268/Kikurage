@@ -26,7 +26,7 @@ public:
 
 	void Clear();
 	void Update();
-	bool Closed() { return glfwWindowShouldClose(m_window); }
+	bool IsOpen() { return !glfwWindowShouldClose(m_window); }
 
 	GLFWwindow* GetWindow() { return m_window; }
 

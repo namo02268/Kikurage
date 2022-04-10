@@ -1,6 +1,12 @@
 ﻿#include "Kikurage/Core/Application.h"
 #include <iostream>
 
+/*
+====================================================
+main
+====================================================
+*/
+
 int main() {
 	new Application();
 

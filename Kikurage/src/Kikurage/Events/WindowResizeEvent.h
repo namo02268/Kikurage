@@ -1,8 +1,8 @@
 #pragma once
 
-#include "Kikurage/Core/EventHandler.h"
+#include "Kikurage/Events/EventBase.h"
 
-class WindowResizeEvent : public EventBase {
+struct WindowResizeEvent : public EventBase {
 public:
 	int width;
 	int height;

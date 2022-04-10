@@ -1,10 +1,10 @@
 #pragma once
 
 #include "Kikurage/ECS/Entity.h"
-#include "Kikurage/Core/EventHandler.h"
+#include "Kikurage/Events/EventBase.h"
 #include "Kikurage/Systems/Collision/CollisionPoints.h"
 
-class CollisionEvent : public EventBase {
+struct CollisionEvent : public EventBase {
 public:
 	Entity a;
 	Entity b;
