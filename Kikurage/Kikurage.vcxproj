@@ -19,6 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\Kikurage\Systems\HandTracking\HandTracking.cpp" />
     <ClCompile Include="src\Kikurage\Core\Application.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="src\Kikurage\Core\Renderer.cpp" />
@@ -46,6 +47,8 @@
     <ClCompile Include="vendor\imgui\imgui_impl_opengl3.cpp" />
     <ClCompile Include="vendor\imgui\imgui_tables.cpp" />
     <ClCompile Include="vendor\imgui\imgui_widgets.cpp" />
+    <ClCompile Include="vendor\Leap\LeapC++.cpp" />
+    <ClCompile Include="vendor\Leap\LeapImplementationC++.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="imgui.ini" />
@@ -64,6 +67,8 @@
     <None Include="resources\shaders\Simple.vert" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\Kikurage\Components\IOControllerComponent.h" />
+    <ClInclude Include="src\Kikurage\Systems\HandTracking\HandTracking.h" />
     <ClInclude Include="src\Kikurage\Core\Application.h" />
     <ClInclude Include="src\Kikurage\Components\CameraComponent.h" />
     <ClInclude Include="src\Kikurage\Components\CollisionComponent.h" />
@@ -79,6 +84,7 @@
     <ClInclude Include="src\Kikurage\ECS\Entity.h" />
     <ClInclude Include="src\Kikurage\ECS\EntityManager.h" />
     <ClInclude Include="src\Kikurage\ECS\EntityMap.h" />
+    <ClInclude Include="src\Kikurage\Events\CollisionEvent.h" />
     <ClInclude Include="src\Kikurage\Events\EventBase.h" />
     <ClInclude Include="src\Kikurage\Events\EventHandler.h" />
     <ClInclude Include="src\Kikurage\ECS\IdGenerator.h" />
@@ -116,6 +122,9 @@
     <ClInclude Include="vendor\imgui\imstb_rectpack.h" />
     <ClInclude Include="vendor\imgui\imstb_textedit.h" />
     <ClInclude Include="vendor\imgui\imstb_truetype.h" />
+    <ClInclude Include="vendor\Leap\LeapC++.h" />
+    <ClInclude Include="vendor\Leap\LeapImplementationC++.h" />
+    <ClInclude Include="vendor\Leap\LeapMath.h" />
     <ClInclude Include="vendor\stb_image\stb_image.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
@@ -240,7 +249,7 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>opengl32.lib;glfw3.lib;assimp.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>opengl32.lib;glfw3.lib;assimp.lib;LeapC.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>$(SolutionDir)lib</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
