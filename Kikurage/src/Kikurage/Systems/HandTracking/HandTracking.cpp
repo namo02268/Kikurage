@@ -30,7 +30,7 @@ void HandTracking::update(float dt) {
 			// Get fingers
 			const Leap::Hand hand = *hl;
 			const Leap::FingerList fingers = hand.fingers();
-			auto target = fingers[controllerComponent->fingerType].bone(static_cast<Leap::Bone::Type>(3)).nextJoint();
+			auto target = fingers[static_cast<int>(controllerComponent->fingerType)].bone(static_cast<Leap::Bone::Type>(controllerComponent->boneType)).nextJoint();
 
 			if (target.x != 0.0f) {
 				indexFinger = glm::vec3(target.x / 20, target.y / 20, target.z / 20);

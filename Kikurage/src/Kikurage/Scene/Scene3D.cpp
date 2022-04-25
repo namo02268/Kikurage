@@ -91,7 +91,7 @@ void Scene3D::Init() {
 	m_scene->addComponent<MaterialComponent>(hand0, MaterialComponent(glm::vec3(1.0f, 0.0f, 0.0f), 0.0f, 0.0f, 1.0f));
 	m_scene->addComponent<RigidBodyComponent>(hand0, RigidBodyComponent(false, false));
 	m_scene->addComponent<CollisionComponent>(hand0, CollisionComponent(new SphereCollider(glm::vec3(0.0f), 1.0f)));
-	m_scene->addComponent<IOControllerComponent>(hand0, IOControllerComponent(0));
+	m_scene->addComponent<IOControllerComponent>(hand0, IOControllerComponent(Finger::Thumb, Bone::Distal));
 
 	// hand1
 	auto hand1 = m_scene->createEntity();
@@ -100,7 +100,7 @@ void Scene3D::Init() {
 	m_scene->addComponent<MaterialComponent>(hand1, MaterialComponent(glm::vec3(1.0f, 0.0f, 0.0f), 0.0f, 0.0f, 1.0f));
 	m_scene->addComponent<RigidBodyComponent>(hand1, RigidBodyComponent(false, false));
 	m_scene->addComponent<CollisionComponent>(hand1, CollisionComponent(new SphereCollider(glm::vec3(0.0f), 1.0f)));
-	m_scene->addComponent<IOControllerComponent>(hand1, IOControllerComponent(1));
+	m_scene->addComponent<IOControllerComponent>(hand1, IOControllerComponent(Finger::Index, Bone::Distal));
 
 	// hand2
 	auto hand2 = m_scene->createEntity();
@@ -109,7 +109,7 @@ void Scene3D::Init() {
 	m_scene->addComponent<MaterialComponent>(hand2, MaterialComponent(glm::vec3(1.0f, 0.0f, 0.0f), 0.0f, 0.0f, 1.0f));
 	m_scene->addComponent<RigidBodyComponent>(hand2, RigidBodyComponent(false, false));
 	m_scene->addComponent<CollisionComponent>(hand2, CollisionComponent(new SphereCollider(glm::vec3(0.0f), 1.0f)));
-	m_scene->addComponent<IOControllerComponent>(hand2, IOControllerComponent(2));
+	m_scene->addComponent<IOControllerComponent>(hand2, IOControllerComponent(Finger::Middle, Bone::Distal));
 
 	// hand3
 	auto hand3 = m_scene->createEntity();
@@ -118,7 +118,7 @@ void Scene3D::Init() {
 	m_scene->addComponent<MaterialComponent>(hand3, MaterialComponent(glm::vec3(1.0f, 0.0f, 0.0f), 0.0f, 0.0f, 1.0f));
 	m_scene->addComponent<RigidBodyComponent>(hand3, RigidBodyComponent(false, false));
 	m_scene->addComponent<CollisionComponent>(hand3, CollisionComponent(new SphereCollider(glm::vec3(0.0f), 1.0f)));
-	m_scene->addComponent<IOControllerComponent>(hand3, IOControllerComponent(3));
+	m_scene->addComponent<IOControllerComponent>(hand3, IOControllerComponent(Finger::Ring, Bone::Distal));
 
 	// hand4
 	auto hand4 = m_scene->createEntity();
@@ -127,7 +127,7 @@ void Scene3D::Init() {
 	m_scene->addComponent<MaterialComponent>(hand4, MaterialComponent(glm::vec3(1.0f, 0.0f, 0.0f), 0.0f, 0.0f, 1.0f));
 	m_scene->addComponent<RigidBodyComponent>(hand4, RigidBodyComponent(false, false));
 	m_scene->addComponent<CollisionComponent>(hand4, CollisionComponent(new SphereCollider(glm::vec3(0.0f), 1.0f)));
-	m_scene->addComponent<IOControllerComponent>(hand4, IOControllerComponent(4));
+	m_scene->addComponent<IOControllerComponent>(hand4, IOControllerComponent(Finger::Pinky, Bone::Distal));
 
 	// sphere
 	auto bigSphere = m_scene->createEntity();
