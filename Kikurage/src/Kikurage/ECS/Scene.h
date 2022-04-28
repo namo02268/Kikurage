@@ -115,13 +115,7 @@ public:
 	template<typename ComponentType>
 	ComponentType* getComponent(Entity& e) {
 		auto family = getComponentTypeID<ComponentType>();
-		if (m_componentMask[e.GetID()][family]) {
-			return static_cast<ComponentManager<ComponentType>&>(*m_componentManagers[family]).getComponent(e);
-		}
-		else {
-			std::cout << typeid(ComponentType).name() << " does not exist! Entity ID:" << e.GetID() << std::endl;
-			return nullptr;
-		}
+		return static_cast<ComponentManager<ComponentType>&>(*m_componentManagers[family]).getComponent(e);
 	}
 
 	template<typename ComponentType>
