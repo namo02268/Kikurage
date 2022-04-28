@@ -53,6 +53,8 @@ void Application::Run() {
 	float deltaTime = 0.0f;
 	float lastFrame = m_window->GetTime();
 
+	float time = 0.0f;
+
 	// Render Loop
 	while (m_window->IsOpen())
 	{
@@ -71,6 +73,11 @@ void Application::Run() {
 			m_guiLayer->end();
 		}
 		m_window->Update();
+
+		time += deltaTime;
+		if (time > 5.0f) {
+			break;
+		}
 	}
 	this->m_isRunning = false;
 }

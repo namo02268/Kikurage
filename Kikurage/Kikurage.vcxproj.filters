@@ -313,5 +313,8 @@
     <ClInclude Include="src\Kikurage\Events\EventBase.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
+    <ClInclude Include="src\Kikurage\Events\CollisionEvent.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

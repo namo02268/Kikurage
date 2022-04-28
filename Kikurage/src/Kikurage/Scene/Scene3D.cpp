@@ -103,6 +103,17 @@ void Scene3D::Init() {
 	m_scene->addComponent<RigidBodyComponent>(sphere3, RigidBodyComponent(true, false));
 	m_scene->addComponent<CollisionComponent>(sphere3, CollisionComponent(new SphereCollider(glm::vec3(0.0f), 1.0f)));
 
+	for (int i = 0; i < 300; i++) {
+		auto sphere = m_scene->createEntity();
+		m_scene->addComponent<TransformComponent>(sphere, TransformComponent(glm::vec3((float)rand() / RAND_MAX * 2, 10.0f, (float)rand() / RAND_MAX * 2), glm::vec3(1.0f), glm::vec3(0.0f)));
+		m_scene->addComponent<MeshComponent>(sphere, MeshComponent(ResourceManager::GetMesh("sphere")));
+		m_scene->addComponent<MaterialComponent>(sphere, MaterialComponent(glm::vec3((float)rand() / RAND_MAX, rand() % 2, (float)rand() / RAND_MAX), (float)rand() / RAND_MAX, (float)rand() / RAND_MAX, 1.0f));
+		m_scene->addComponent<RigidBodyComponent>(sphere, RigidBodyComponent(true, false));
+		m_scene->addComponent<CollisionComponent>(sphere, CollisionComponent(new SphereCollider(glm::vec3(0.0f), 1.0f)));
+
+	}
+
+
 	// init
 	m_scene->init();
 }

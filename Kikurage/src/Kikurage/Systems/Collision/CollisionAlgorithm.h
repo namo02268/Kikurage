@@ -13,12 +13,12 @@ namespace algo {
 		glm::vec3 A = a->Center + ta->position;
 		glm::vec3 B = b->Center + tb->position;
 
-		float Ar = a->Radius * ta->scale.x;
-		float Br = b->Radius * tb->scale.x;
+		auto Ar = a->Radius * ta->scale.x;
+		auto Br = b->Radius * tb->scale.x;
 
 		glm::vec3 AtoB = B - A;
 
-		if (glm::length(AtoB) > Ar + Br) {
+		if (glm::length2(AtoB) > (Ar + Br) * (Ar + Br)) {
 			return {
 				glm::vec3(0.0f),
 				glm::vec3(0.0f),
