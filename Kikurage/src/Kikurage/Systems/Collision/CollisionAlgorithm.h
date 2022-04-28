@@ -17,7 +17,6 @@ namespace algo {
 		float Br = b->Radius * tb->scale.x;
 
 		glm::vec3 AtoB = B - A;
-		glm::vec3 BtoA = A - B;
 
 		if (glm::length(AtoB) > Ar + Br) {
 			return {
@@ -28,6 +27,8 @@ namespace algo {
 				false
 			};
 		}
+
+		glm::vec3 BtoA = A - B;
 
 		A += glm::normalize(AtoB) * Ar;
 		B += glm::normalize(BtoA) * Br;
