@@ -37,7 +37,7 @@ public:
 		ComponentInstance lastInstance = m_newInstance - 1;
 		Entity lastEntity = m_entityMap.getEntity(lastInstance);
 
-		m_entityMap.remove(e);
+//		m_entityMap.remove(e);
 
 		if (instance != lastInstance) {
 			m_componentArray->at(instance) = m_componentArray->at(lastInstance);
@@ -49,7 +49,7 @@ public:
 
 	ComponentType* getComponent(Entity& e) {
 		ComponentInstance instance = m_entityMap.getInstance(e);
-		return &m_componentArray->at(instance);
+		return &(*m_componentArray)[instance];
 	}
 
 	void iterateAll(std::function<void(ComponentType* c)> lambda) {
