@@ -79,30 +79,40 @@ void Scene3D::Init() {
 	m_scene->addComponent<RigidBodyComponent>(plane, RigidBodyComponent(false, true));
 	m_scene->addComponent<CollisionComponent>(plane, CollisionComponent(new PlaneCollider(glm::vec3(0.0f, 1.0f, 0.0f), 0.0f)));
 
+	// pSphere
+	auto pSphere = m_scene->createEntity();
+	m_scene->addComponent<TransformComponent>(pSphere, TransformComponent(glm::vec3(0.0f, 5.0f, 0.0f), glm::vec3(1.0f), glm::vec3(0.0f)));
+	m_scene->addComponent<MeshComponent>(pSphere, MeshComponent(ResourceManager::GetMesh("sphere")));
+	m_scene->addComponent<MaterialComponent>(pSphere, MaterialComponent());
+	m_scene->addComponent<RigidBodyComponent>(pSphere, RigidBodyComponent(false, true));
+	m_scene->addComponent<CollisionComponent>(pSphere, CollisionComponent(new SphereCollider(glm::vec3(0.0f), 1.0f)));
+
 	// sphere1
 	auto sphere1 = m_scene->createEntity();
 	m_scene->addComponent<TransformComponent>(sphere1, TransformComponent(glm::vec3(2.0f, 5.0f, 0.0f), glm::vec3(1.0f), glm::vec3(0.0f)));
 	m_scene->addComponent<MeshComponent>(sphere1, MeshComponent(ResourceManager::GetMesh("sphere")));
 	m_scene->addComponent<MaterialComponent>(sphere1, MaterialComponent());
-	m_scene->addComponent<RigidBodyComponent>(sphere1, RigidBodyComponent(true, false));
+	m_scene->addComponent<RigidBodyComponent>(sphere1, RigidBodyComponent(false, true));
 	m_scene->addComponent<CollisionComponent>(sphere1, CollisionComponent(new SphereCollider(glm::vec3(0.0f), 1.0f)));
+	m_scene->getComponent<Relationship>(sphere1)->parent = pSphere;
 
 	// sphere2
 	auto sphere2 = m_scene->createEntity();
 	m_scene->addComponent<TransformComponent>(sphere2, TransformComponent(glm::vec3(5.0f, 5.0f, 0.0f), glm::vec3(1.0f), glm::vec3(0.0f)));
 	m_scene->addComponent<MeshComponent>(sphere2, MeshComponent(ResourceManager::GetMesh("sphere")));
 	m_scene->addComponent<MaterialComponent>(sphere2, MaterialComponent());
-	m_scene->addComponent<RigidBodyComponent>(sphere2, RigidBodyComponent(true, false));
+	m_scene->addComponent<RigidBodyComponent>(sphere2, RigidBodyComponent(false, true));
 	m_scene->addComponent<CollisionComponent>(sphere2, CollisionComponent(new SphereCollider(glm::vec3(0.0f), 1.0f)));
+	m_scene->getComponent<Relationship>(sphere2)->parent = pSphere;
 
 	// sphere3
 	auto sphere3 = m_scene->createEntity();
 	m_scene->addComponent<TransformComponent>(sphere3, TransformComponent(glm::vec3(8.0f, 5.0f, 0.0f), glm::vec3(1.0f), glm::vec3(0.0f)));
 	m_scene->addComponent<MeshComponent>(sphere3, MeshComponent(ResourceManager::GetMesh("sphere")));
 	m_scene->addComponent<MaterialComponent>(sphere3, MaterialComponent());
-	m_scene->addComponent<RigidBodyComponent>(sphere3, RigidBodyComponent(true, false));
+	m_scene->addComponent<RigidBodyComponent>(sphere3, RigidBodyComponent(false, true));
 	m_scene->addComponent<CollisionComponent>(sphere3, CollisionComponent(new SphereCollider(glm::vec3(0.0f), 1.0f)));
-
+	m_scene->getComponent<Relationship>(sphere3)->parent = pSphere;
 
 	// init
 	m_scene->init();

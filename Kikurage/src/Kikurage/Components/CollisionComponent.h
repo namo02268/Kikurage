@@ -4,7 +4,7 @@
 #include "Kikurage/Systems/Collision/Collider.h"
 
 
-class CollisionComponent : public Component {
+struct CollisionComponent : public Component {
 public:
 	Collider* collider = nullptr;
 

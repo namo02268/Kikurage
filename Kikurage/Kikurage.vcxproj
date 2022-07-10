@@ -64,6 +64,7 @@
     <None Include="resources\shaders\Simple.vert" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\Kikurage\Components\Relationship.h" />
     <ClInclude Include="src\Kikurage\Core\Application.h" />
     <ClInclude Include="src\Kikurage\Components\CameraComponent.h" />
     <ClInclude Include="src\Kikurage\Components\CollisionComponent.h" />

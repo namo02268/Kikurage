@@ -8,6 +8,8 @@
 #include "Kikurage/ECS/System.h"
 #include "Kikurage/CORE/EventHandler.h"
 
+#include "Kikurage/Components/Relationship.h"
+
 class Scene {
 private:
 	// entity manager
@@ -34,13 +36,14 @@ public:
 	Entity createEntity() {
 		Entity e = m_entityManager->createEntity();
 		m_allEntityArray.emplace_back(e);
+		addComponent<Relationship>(e, Relationship());
 		return e;
 	}
 
 	void destroyEntity(Entity e) {
 		for (auto itr = m_allEntityArray.begin(); itr != m_allEntityArray.end(); ++itr) {
 			Entity e_itr = *itr;
-			if (e_itr.GetID() == e.GetID()) {
+			if (e_itr == e) {
 				m_allEntityArray.erase(itr);
 				return;
 			}
@@ -81,8 +84,8 @@ public:
 	template<typename ComponentType>
 	void addComponent(Entity& e, ComponentType&& c) {
 		auto family = getComponentTypeID<ComponentType>();
-		if (!m_componentMask[e.GetID()][family]) {
-			m_componentMask[e.GetID()][family] = true;
+		if (!m_componentMask[e][family]) {
+			m_componentMask[e][family] = true;
 
 
 			// if the component manager didn't exists
@@ -95,31 +98,31 @@ public:
 			updateComponentMap(e, family);
 		}
 		else {
-			std::cout << typeid(ComponentType).name() << " is already attached! Entity ID:" << e.GetID() << std::endl;
+			std::cout << typeid(ComponentType).name() << " is already attached! Entity ID:" << e << std::endl;
 		}
 	}
 
 	template<typename ComponentType>
 	void removeComponent(Entity& e) {
 		auto family = getComponentTypeID<ComponentType>();
-		if (m_componentMask[e.GetID()][family]) {
-			m_componentMask[e.GetID()][family] = false;
+		if (m_componentMask[e][family]) {
+			m_componentMask[e][family] = false;
 			static_cast<ComponentManager<ComponentType>&>(*m_componentManagers[family]).removeComponent(e);
 			updateComponentMap(e, family);
 		}
 		else {
-			std::cout << typeid(ComponentType).name() << " does not exist! Entity ID:" << e.GetID() << std::endl;
+			std::cout << typeid(ComponentType).name() << " does not exist! Entity ID:" << e << std::endl;
 		}
 	}
 
 	template<typename ComponentType>
 	ComponentType* getComponent(Entity& e) {
 		auto family = getComponentTypeID<ComponentType>();
-		if (m_componentMask[e.GetID()][family]) {
+		if (m_componentMask[e][family]) {
 			return static_cast<ComponentManager<ComponentType>&>(*m_componentManagers[family]).getComponent(e);
 		}
 		else {
-			std::cout << typeid(ComponentType).name() << " does not exist! Entity ID:" << e.GetID() << std::endl;
+			std::cout << typeid(ComponentType).name() << " does not exist! Entity ID:" << e << std::endl;
 			return nullptr;
 		}
 	}
@@ -131,13 +134,13 @@ public:
 	}
 
 	ComponentFamily getComponentMask(Entity& e) {
-		return m_componentMask[e.GetID()];
+		return m_componentMask[e];
 	}
 
 private:
 	void updateComponentMap(Entity& e, ComponentTypeID family) {
 		for (const auto& system : m_systems) {
-			auto& componentMap = m_componentMask[e.GetID()];
+			auto& componentMap = m_componentMask[e];
 			auto requiredComponent = system->m_requiredComponent;
 			if (requiredComponent[family]) {
 				auto andbit = requiredComponent & componentMap;

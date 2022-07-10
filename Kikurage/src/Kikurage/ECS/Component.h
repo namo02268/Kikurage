@@ -1,6 +1,5 @@
 #pragma once
 
-class Component {
-public:
+struct Component {
 	virtual ~Component() {}
 };

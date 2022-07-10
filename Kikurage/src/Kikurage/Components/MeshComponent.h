@@ -7,7 +7,7 @@
 #include "Kikurage/ECS/Component.h"
 
 
-class MeshComponent : public Component {
+struct MeshComponent : public Component {
 public:
 	Mesh* mesh;
 	unsigned int VAO, VBO, EBO;

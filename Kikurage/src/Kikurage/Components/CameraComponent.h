@@ -2,7 +2,7 @@
 
 #include "Kikurage/ECS/Component.h"
 
-class CameraComponent : public Component {
+struct CameraComponent : public Component {
 public:
 	float Yaw = -90.0f;
 	float Pitch = 0.0f;
