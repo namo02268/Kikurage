@@ -13,4 +13,8 @@ public:
 	TransformComponent() {}
 	TransformComponent(glm::vec3 position, glm::vec3 scale, glm::vec3 rotation)
 		: position(position), scale(scale), rotation(rotation) {}
+	TransformComponent operator+=(const TransformComponent& rhs) {
+		this->position += rhs.position;
+		return *this;
+	}
 };

@@ -3,6 +3,7 @@
 
 #include "Kikurage/Components/TransformComponent.h"
 #include "Kikurage/Components/RigidBodyComponent.h"
+#include "Kikurage/Components/Relationship.h"
 
 #include "Kikurage/Core/Application.h"
 #include "Kikurage/Core/Event.h"
@@ -11,6 +12,8 @@ Physics::Physics() {
 	auto family = getComponentTypeID<TransformComponent>();
 	m_requiredComponent[family] = true;
 	family = getComponentTypeID<RigidBodyComponent>();
+	m_requiredComponent[family] = true;
+	family = getComponentTypeID<Relationship>();
 	m_requiredComponent[family] = true;
 }
 
