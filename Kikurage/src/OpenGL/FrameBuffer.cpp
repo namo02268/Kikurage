@@ -1,4 +1,4 @@
-#include "Kikurage/Resource/FrameBuffer/FrameBuffer.h"
+#include "OpenGL/FrameBuffer.h"
 
 FrameBuffer::FrameBuffer() {
 	glGenFramebuffers(1, &this->id);

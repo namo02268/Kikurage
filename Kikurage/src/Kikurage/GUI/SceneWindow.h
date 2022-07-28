@@ -1,7 +1,7 @@
 #pragma once
 
 #include "Kikurage/Core/Window.h"
-#include "Kikurage/Resource/Texture/Texture2D.h"
+#include "OpenGL/Texture2D.h"
 
 class SceneWindow : public Window {
 public:

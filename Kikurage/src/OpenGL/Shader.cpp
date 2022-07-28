@@ -1,4 +1,4 @@
-#include "Kikurage/Resource/Shader/Shader.h"
+#include "OpenGL/Shader.h"
 
 #include <iostream>
 

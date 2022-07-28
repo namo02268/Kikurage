@@ -1,7 +1,7 @@
 #pragma once
 
 #include "Kikurage/ECS/System.h"
-#include "Kikurage/Resource/Shader/Shader.h"
+#include "OpenGL//Shader.h"
 
 class MeshRenderer : public System {
 private:

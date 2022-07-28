@@ -1,7 +1,7 @@
 #pragma once
 
 #include <glad/glad.h>
-#include "Kikurage/Resource/FrameBuffer/FrameBuffer.h"
+#include "OpenGL/FrameBuffer.h"
 
 class RenderBuffer {
 public:

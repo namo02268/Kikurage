@@ -1,4 +1,4 @@
-#include "Kikurage/Resource/Texture/Texture2D.h"
+#include "OpenGL/Texture2D.h"
 
 Texture2D::Texture2D() {
 	glGenTextures(1, &this->id);

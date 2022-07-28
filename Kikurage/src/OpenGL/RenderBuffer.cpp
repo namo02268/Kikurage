@@ -1,4 +1,4 @@
-#include "Kikurage/Resource/RenderBuffer/RenderBuffer.h"
+#include "OpenGL/RenderBuffer.h"
 
 RenderBuffer::RenderBuffer() {
 	glGenRenderbuffers(1, &this->id);

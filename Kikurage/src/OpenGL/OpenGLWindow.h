@@ -8,7 +8,7 @@
 #include <glm/glm.hpp>
 
 #include "Kikurage/Core/Window.h"
-#include "Kikurage/Resource/Shader/Shader.h"
+#include "OpenGL/Shader.h"
 
 class OpenGLWindow : public Window
 {

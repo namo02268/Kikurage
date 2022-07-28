@@ -1,7 +1,7 @@
 #pragma once
 
 #include <bitset>
-#include "Kikurage/Resource/Texture/Texture2D.h"
+#include "OpenGL/Texture2D.h"
 
 class Window {
 protected:

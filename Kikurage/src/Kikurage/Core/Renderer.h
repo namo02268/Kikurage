@@ -2,9 +2,9 @@
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 
-#include "Kikurage/Resource/Texture/Texture2D.h"
-#include "Kikurage/Resource/FrameBuffer/FrameBuffer.h"
-#include "Kikurage/Resource/RenderBuffer/RenderBuffer.h"
+#include "OpenGL/Texture2D.h"
+#include "OpenGL/FrameBuffer.h"
+#include "OpenGL/RenderBuffer.h"
 #include "Kikurage/Events/WindowResizeEvent.h"
 
 class Renderer {

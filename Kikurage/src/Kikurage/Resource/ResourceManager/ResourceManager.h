@@ -7,8 +7,8 @@
 #include <assimp/scene.h>
 #include <assimp/postprocess.h>
 
-#include "Kikurage/Resource/Shader/Shader.h"
-#include "Kikurage/Resource/Texture/Texture2D.h"
+#include "OpenGL/Shader.h"
+#include "OpenGL/Texture2D.h"
 #include "Kikurage/Resource/Mesh/Mesh.h"
 
 enum class TextureType {

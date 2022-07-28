@@ -1,7 +1,7 @@
 #pragma once
 
 #include <glad/glad.h>
-#include "Kikurage/Resource/Texture/Texture2D.h"
+#include "OpenGL/Texture2D.h"
 
 class FrameBuffer {
 public:
