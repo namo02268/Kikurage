@@ -5,7 +5,6 @@
 #include "Kikurage/Components/TransformComponent.h"
 #include "Kikurage/Components/CollisionComponent.h"
 
-#include "Kikurage/Core/Application.h"
 #include "Kikurage/Core/Event.h"
 
 CollisionSystem::CollisionSystem() {

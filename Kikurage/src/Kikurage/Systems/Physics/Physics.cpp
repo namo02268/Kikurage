@@ -4,7 +4,6 @@
 #include "Kikurage/Components/TransformComponent.h"
 #include "Kikurage/Components/RigidBodyComponent.h"
 
-#include "Kikurage/Core/Application.h"
 #include "Kikurage/Core/Event.h"
 
 Physics::Physics() {

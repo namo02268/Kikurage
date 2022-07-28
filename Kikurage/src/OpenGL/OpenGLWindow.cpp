@@ -38,10 +38,10 @@ OpenGLWindow::OpenGLWindow(int width, int height, const char* title) {
 
 OpenGLWindow::~OpenGLWindow() { Terminate(); }
 
-void OpenGLWindow::Draw(Texture2D renderTexture) {
+void OpenGLWindow::Draw(Texture2D* renderTexture) {
 	screenShader->Use();
 	glBindVertexArray(renderVAO);
-	glBindTexture(GL_TEXTURE_2D, renderTexture.ID);
+	glBindTexture(GL_TEXTURE_2D, renderTexture->id);
 	glDrawArrays(GL_TRIANGLES, 0, 6);
 }
 

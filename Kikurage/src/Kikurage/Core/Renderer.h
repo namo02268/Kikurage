@@ -3,6 +3,8 @@
 #include <GLFW/glfw3.h>
 
 #include "Kikurage/Resource/Texture/Texture2D.h"
+#include "Kikurage/Resource/FrameBuffer/FrameBuffer.h"
+#include "Kikurage/Resource/RenderBuffer/RenderBuffer.h"
 #include "Kikurage/Events/WindowResizeEvent.h"
 
 class Renderer {
@@ -15,13 +17,13 @@ public:
 	void BindFBO();
 	void UnbindFBO();
 
-	Texture2D& GetRenderTexture() { return textureColorbuffer; }
+	Texture2D* GetRenderTexture() { return &textureColorbuffer; }
 
 private:
 	// Render FBO & Texture
-	unsigned int framebuffer;
-	unsigned int rbo;
 	Texture2D textureColorbuffer;
+	FrameBuffer frameBuffer;
+	RenderBuffer renderBuffer;
 
 	void GenerateRenderTexture();
 };

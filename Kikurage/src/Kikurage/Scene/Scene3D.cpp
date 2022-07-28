@@ -6,7 +6,7 @@
 #include "Kikurage/Core/Event.h"
 
 //------------Systems------------
-#include "Kikurage/Systems/MeshRenderer/MeshRenderer.h"
+#include "Kikurage/Systems/Renderer/MeshRenderer.h"
 #include "Kikurage/Systems/Camera/CameraSystem.h"
 #include "Kikurage/Systems/IBL/IBL.h"
 #include "Kikurage/Systems/Physics/Physics.h"

@@ -1,4 +1,4 @@
-#include "Kikurage/Systems/MeshRenderer/MeshRenderer.h"
+#include "Kikurage/Systems/Renderer/MeshRenderer.h"
 #include "Kikurage/ECS/Scene.h"
 
 #include <glm/gtx/quaternion.hpp>

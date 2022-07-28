@@ -19,12 +19,14 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\Kikurage\Core\Application.cpp" />
+    <ClCompile Include="src\Kikurage\Core\Application\Application.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="src\Kikurage\Core\Renderer.cpp" />
     <ClCompile Include="src\Kikurage\GUI\Editor.cpp" />
     <ClCompile Include="src\Kikurage\GUI\ImGuiLayer.cpp" />
     <ClCompile Include="src\Kikurage\GUI\SceneWindow.cpp" />
+    <ClCompile Include="src\Kikurage\Resource\FrameBuffer\FrameBuffer.cpp" />
+    <ClCompile Include="src\Kikurage\Resource\RenderBuffer\RenderBuffer.cpp" />
     <ClCompile Include="src\Kikurage\Scene\PBR_Renderer.cpp" />
     <ClCompile Include="src\Kikurage\Scene\Scene3D.cpp" />
     <ClCompile Include="src\OpenGL\OpenGLWindow.cpp" />
@@ -36,7 +38,7 @@
     <ClCompile Include="src\Kikurage\Systems\Collision\PlaneCollider.cpp" />
     <ClCompile Include="src\Kikurage\Systems\Collision\SphereCollider.cpp" />
     <ClCompile Include="src\Kikurage\Systems\IBL\IBL.cpp" />
-    <ClCompile Include="src\Kikurage\Systems\MeshRenderer\MeshRenderer.cpp" />
+    <ClCompile Include="src\Kikurage\Systems\Renderer\MeshRenderer.cpp" />
     <ClCompile Include="src\Kikurage\Systems\Physics\Physics.cpp" />
     <ClCompile Include="vendor\Glad\glad.c" />
     <ClCompile Include="vendor\imgui\imgui.cpp" />
@@ -65,7 +67,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Kikurage\Components\Relationship.h" />
-    <ClInclude Include="src\Kikurage\Core\Application.h" />
+    <ClInclude Include="src\Kikurage\Core\Application\Application.h" />
     <ClInclude Include="src\Kikurage\Components\CameraComponent.h" />
     <ClInclude Include="src\Kikurage\Components\CollisionComponent.h" />
     <ClInclude Include="src\Kikurage\Components\MaterialComponent.h" />
@@ -89,8 +91,11 @@
     <ClInclude Include="src\Kikurage\GUI\Editor.h" />
     <ClInclude Include="src\Kikurage\GUI\ImGuiLayer.h" />
     <ClInclude Include="src\Kikurage\GUI\SceneWindow.h" />
+    <ClInclude Include="src\Kikurage\Resource\FrameBuffer\FrameBuffer.h" />
+    <ClInclude Include="src\Kikurage\Resource\RenderBuffer\RenderBuffer.h" />
     <ClInclude Include="src\Kikurage\Scene\PBR_Renderer.h" />
     <ClInclude Include="src\Kikurage\Scene\Scene3D.h" />
+    <ClInclude Include="src\Kikurage\Systems\Renderer\CameraController.h" />
     <ClInclude Include="src\OpenGL\OpenGLWindow.h" />
     <ClInclude Include="src\Kikurage\Core\Window.h" />
     <ClInclude Include="src\Kikurage\Resource\Mesh\Mesh.h" />
@@ -105,7 +110,7 @@
     <ClInclude Include="src\Kikurage\Systems\Collision\PlaneCollider.h" />
     <ClInclude Include="src\Kikurage\Systems\Collision\SphereCollider.h" />
     <ClInclude Include="src\Kikurage\Systems\IBL\IBL.h" />
-    <ClInclude Include="src\Kikurage\Systems\MeshRenderer\MeshRenderer.h" />
+    <ClInclude Include="src\Kikurage\Systems\Renderer\MeshRenderer.h" />
     <ClInclude Include="src\Kikurage\Systems\Physics\Physics.h" />
     <ClInclude Include="vendor\imgui\imconfig.h" />
     <ClInclude Include="vendor\imgui\imgui.h" />
