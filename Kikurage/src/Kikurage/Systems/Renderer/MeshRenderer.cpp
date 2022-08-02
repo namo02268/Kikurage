@@ -40,35 +40,21 @@ void MeshRenderer::update(float dt) {
 void MeshRenderer::draw() {
 	this->m_shader->Use();
 	for (auto& e : m_entityArray) {
-		auto trans = m_parentScene->getComponent<TransformComponent>(e);
-		auto mesh = m_parentScene->getComponent<MeshComponent>(e);
-		auto mat = m_parentScene->getComponent<MaterialComponent>(e);
-		auto parent = m_parentScene->getComponent<Relationship>(e)->parent;
+		auto cTrans = m_parentScene->getComponent<TransformComponent>(e);
+		auto cMesh = m_parentScene->getComponent<MeshComponent>(e);
+		auto cMat = m_parentScene->getComponent<MaterialComponent>(e);
+		auto cParent = m_parentScene->getComponent<Relationship>(e)->parent;
 
 		// material
-		this->m_shader->SetVector3f("albedo", mat->albedo);
-		this->m_shader->SetFloat("metallic", mat->metallic);
-		this->m_shader->SetFloat("roughness", mat->roughness);
-		this->m_shader->SetFloat("ao", mat->ao);
+		this->m_shader->SetVector3f("albedo", cMat->albedo);
+		this->m_shader->SetFloat("metallic", cMat->metallic);
+		this->m_shader->SetFloat("roughness", cMat->roughness);
+		this->m_shader->SetFloat("ao", cMat->ao);
 
 		// model
-		glm::mat4 model = glm::mat4(1.0f);
-
-		if (parent) {
-			auto ptrans = m_parentScene->getComponent<TransformComponent>(parent);
-			model = glm::translate(model, ptrans->position);
-		}
-
-		model = glm::translate(model, trans->position);
-		model = glm::rotate(model, glm::radians(trans->rotation.z), Zaxis);
-		model = glm::rotate(model, glm::radians(trans->rotation.y), Yaxis);
-		model = glm::rotate(model, glm::radians(trans->rotation.x), Xaxis);
-		model = glm::scale(model, trans->scale);
-
-		this->m_shader->SetMatrix4("model", model);
-
-		glBindVertexArray(mesh->VAO);
-		glDrawElements(GL_TRIANGLES, mesh->mesh->indices.size(), GL_UNSIGNED_INT, 0);
+		this->m_shader->SetMatrix4("model", cTrans->model);
+		glBindVertexArray(cMesh->mesh->VAO);
+		glDrawElements(GL_TRIANGLES, cMesh->mesh->indiceCount, GL_UNSIGNED_INT, 0);
 		glBindVertexArray(0);
 	}
 }

@@ -6,6 +6,7 @@
 #include "Kikurage/Core/Event.h"
 
 //------------Systems------------
+#include "Kikurage/Systems/Transform/TransformUpdator.h"
 #include "Kikurage/Systems/Renderer/MeshRenderer.h"
 #include "Kikurage/Systems/Camera/CameraSystem.h"
 #include "Kikurage/Systems/IBL/IBL.h"
@@ -47,6 +48,10 @@ void Scene3D::Init() {
 	ResourceManager::LoadMeshFromFile("resources/objects/plane/plane.obj", "plane");
 
 	//-----------------------------add systems to scene-----------------------------//
+	// TransformUpdator
+	auto transformUpdator = std::make_unique<TransformUpdator>();
+	m_scene->addSystem(std::move(transformUpdator));
+
 	// camera system
 	auto cameraSystem = std::make_unique<CameraSystem>(m_window);
 	cameraSystem->addShader(ResourceManager::GetShader("PBR"));

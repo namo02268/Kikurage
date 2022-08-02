@@ -20,9 +20,7 @@ void Renderer::GenerateRenderTexture() {
 
 void Renderer::ResizeBuffer(WindowResizeEvent* event) {
 	textureColorbuffer.Generate(event->width, event->height, NULL);
-	frameBuffer.AttachTexture(textureColorbuffer);
 	renderBuffer.InitStorage(event->width, event->height);
-	renderBuffer.LinkToFrameBuffer(frameBuffer);
 }
 
 void Renderer::BindFBO() {

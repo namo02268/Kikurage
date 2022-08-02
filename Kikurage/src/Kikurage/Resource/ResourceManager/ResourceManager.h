@@ -51,9 +51,4 @@ public:
 
 private:
 	ResourceManager() {}
-
-	//-------------------------Model-------------------------//
-	static void processNode(aiNode* node, const aiScene* scene, Mesh* mesh);
-
-	static void processMesh(aiMesh* aimesh, const aiScene* scene, Mesh* mesh);
 };

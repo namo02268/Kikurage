@@ -3,6 +3,7 @@
 #include <glad/glad.h>
 
 class Texture2D {
+// TODO : make variables private
 public:
 	unsigned int id = 0;
 
@@ -17,9 +18,12 @@ public:
 	unsigned int Filter_Min = GL_LINEAR;
 	unsigned int Filter_Max = GL_LINEAR;
 
+public:
 	Texture2D();
 	Texture2D(const Texture2D&) = delete;
+	Texture2D(Texture2D&& texture) noexcept;
 	Texture2D& operator=(const Texture2D& texture) = delete;
+	Texture2D& operator=(Texture2D&& texture) noexcept;
 	~Texture2D();
 
 	void Generate(unsigned int width, unsigned int height, unsigned char* data);

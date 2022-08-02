@@ -4,6 +4,34 @@ Texture2D::Texture2D() {
 	glGenTextures(1, &this->id);
 }
 
+Texture2D::Texture2D(Texture2D&& texture) noexcept {
+	this->id = texture.id;
+	this->width = texture.width;
+	this->height = texture.height;
+
+	this->Internal_Format = texture.Internal_Format;
+	this->Image_Format = texture.Image_Format;
+	this->Wrap_S = texture.Wrap_S;
+	this->Wrap_T = texture.Wrap_T;
+	this->Filter_Min = texture.Filter_Min;
+	this->Filter_Max = texture.Filter_Max;
+}
+
+Texture2D& Texture2D::operator=(Texture2D&& texture) noexcept {
+	this->id = texture.id;
+	this->width = texture.width;
+	this->height = texture.height;
+
+	this->Internal_Format = texture.Internal_Format;
+	this->Image_Format = texture.Image_Format;
+	this->Wrap_S = texture.Wrap_S;
+	this->Wrap_T = texture.Wrap_T;
+	this->Filter_Min = texture.Filter_Min;
+	this->Filter_Max = texture.Filter_Max;
+
+	return *this;
+}
+
 Texture2D::~Texture2D() {
 	this->FreeTexture();
 }

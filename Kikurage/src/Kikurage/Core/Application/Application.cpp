@@ -33,22 +33,14 @@ Application::~Application() {
 }
 
 void Application::Run() {
-	// timing
-	float deltaTime = 0.0f;
-	float lastFrame = m_window->GetTime();
-
-	//--------------------------------------render loop--------------------------------------//
 	while (!m_window->Closed())
 	{
-		float currentFrame = m_window->GetTime();
-		deltaTime = currentFrame - lastFrame;
-		lastFrame = currentFrame;
-
+		UpdateTime();
 		m_window->Clear();
 		{
 			m_guiLayer->begin();
 			{
-				m_scene3d->Update(deltaTime);
+				m_scene3d->Update(this->deltaTime);
 				m_scene3d->Draw();
 			}
 			m_sceneEditor->draw();
@@ -56,5 +48,26 @@ void Application::Run() {
 		}
 		m_window->Update();
 	}
+}
 
+void Application::UpdateTime() {
+	static float lastFrame = m_window->GetTime();
+	static float lastSecond = m_window->GetTime();
+	static std::size_t frameCount = 0;
+
+	float currentFrame = m_window->GetTime();
+
+	// TODO : ADD if(paused)
+
+	frameCount++;
+	if (lastFrame - lastSecond >= 1.0f) {
+		this->FPS = frameCount;
+		std::cout << FPS << std::endl;
+		lastSecond = currentFrame;
+		frameCount = 0;
+	}
+
+	this->deltaTime = this->timeScale * (currentFrame - lastFrame);
+	// TODO : ADD this->totalTime += this->deltaTime;
+	lastFrame = currentFrame;
 }
