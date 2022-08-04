@@ -8,24 +8,63 @@
 
 void processNode(aiNode* node, const aiScene* scene, MeshInfo& mesh);
 void processMesh(aiMesh* aimesh, const aiScene* scene, MeshInfo& mesh);
+std::pair<glm::vec3, glm::vec3> MinMaxVector(glm::vec3* vertices, size_t size);
 
 MeshInfo MeshLoader::LoadFromFile(const char* path) {
+    ObjectInfo object;
     MeshInfo mesh;
 
     // read file via ASSIMP
     Assimp::Importer importer;
     const aiScene* scene = importer.ReadFile(path, aiProcess_Triangulate | aiProcess_GenSmoothNormals | aiProcess_FlipUVs | aiProcess_CalcTangentSpace);
-    // check for errors
     if (!scene || scene->mFlags & AI_SCENE_FLAGS_INCOMPLETE || !scene->mRootNode) {
         std::cout << "ERROR::ASSIMP::" << importer.GetErrorString() << std::endl;
         return mesh;
     }
 
+    object.meshes.reserve((size_t)scene->mNumMeshes);
+
+    std::cout << "Meshes : " << scene->mNumMeshes << std::endl;
+    std::cout << "materials : " << scene->mNumMaterials << std::endl;
+
+
+    /*
+    glm::vec3 minVec{};
+    glm::vec3 maxVec{};
+
+    for (size_t i = 0; i < scene->mNumMeshes; ++i) {
+        auto& mesh = scene->mMeshes[i];
+        auto coords = MinMaxVector((glm::vec3*)mesh->mVertices, (size_t)mesh->mNumVertices);
+
+        minVec = coords.first;
+        maxVec = coords.second;
+    }
+
+    std::cout << minVec.x << std::endl;
+    std::cout << maxVec.x << std::endl;
+    */
+
+    for (size_t i = 0; i < (size_t)scene->mNumMeshes; ++i) {
+        auto& mesh = scene->mMeshes[i];
+        std::cout << mesh->mName.C_Str() << std::endl;
+    }
     // process ASSIMP's root node recursively(Ä‹A“I)
-    processNode(scene->mRootNode, scene, mesh);
+//    processNode(scene->mRootNode, scene, mesh);
 
     return mesh;
 }
+
+std::pair<glm::vec3, glm::vec3> MinMaxVector(glm::vec3* vertices, size_t size) {
+    glm::vec3 maxVec{ -1.0f * std::numeric_limits<float>::max() };
+    glm::vec3 minVec{ std::numeric_limits<float>::max() };
+    for (size_t i = 0; i < size; ++i) {
+        minVec = glm::min(minVec, vertices[i]);
+        maxVec = glm::max(maxVec, vertices[i]);
+    }
+
+    return { minVec, maxVec };
+}
+
 
 void processNode(aiNode* node, const aiScene* scene, MeshInfo& mesh) {
     for (unsigned int i = 0; i < node->mNumMeshes; i++) {
