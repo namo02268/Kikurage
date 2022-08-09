@@ -1,5 +1,7 @@
 #pragma once
 
+#include "Kikurage/Resource/Mesh/AABB.h"
+
 class Mesh {
 public:
 	unsigned int VAO = 0;
@@ -9,6 +11,8 @@ public:
 
 	unsigned int vertexCount = 0;
 	unsigned int indiceCount = 0;
+
+	AABB aabb;
 
 public:
 	Mesh();

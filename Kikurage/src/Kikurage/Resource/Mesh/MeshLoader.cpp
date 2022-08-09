@@ -6,53 +6,99 @@
 #include <assimp/scene.h>
 #include <assimp/postprocess.h>
 
-void processNode(aiNode* node, const aiScene* scene, MeshInfo& mesh);
-void processMesh(aiMesh* aimesh, const aiScene* scene, MeshInfo& mesh);
+#include "Utils/Math.h"
+
 std::pair<glm::vec3, glm::vec3> MinMaxVector(glm::vec3* vertices, size_t size);
 
-MeshInfo MeshLoader::LoadFromFile(const char* path) {
+ObjectInfo MeshLoader::LoadFromFile(const char* path) {
     ObjectInfo object;
-    MeshInfo mesh;
 
     // read file via ASSIMP
     Assimp::Importer importer;
     const aiScene* scene = importer.ReadFile(path, aiProcess_Triangulate | aiProcess_GenSmoothNormals | aiProcess_FlipUVs | aiProcess_CalcTangentSpace);
     if (!scene || scene->mFlags & AI_SCENE_FLAGS_INCOMPLETE || !scene->mRootNode) {
         std::cout << "ERROR::ASSIMP::" << importer.GetErrorString() << std::endl;
-        return mesh;
+        return object;
     }
 
-    object.meshes.reserve((size_t)scene->mNumMeshes);
+    object.meshes.resize((size_t)scene->mNumMeshes);
 
     std::cout << "Meshes : " << scene->mNumMeshes << std::endl;
     std::cout << "materials : " << scene->mNumMaterials << std::endl;
 
-
-    /*
-    glm::vec3 minVec{};
-    glm::vec3 maxVec{};
-
-    for (size_t i = 0; i < scene->mNumMeshes; ++i) {
-        auto& mesh = scene->mMeshes[i];
-        auto coords = MinMaxVector((glm::vec3*)mesh->mVertices, (size_t)mesh->mNumVertices);
-
-        minVec = coords.first;
-        maxVec = coords.second;
-    }
-
-    std::cout << minVec.x << std::endl;
-    std::cout << maxVec.x << std::endl;
-    */
-
     for (size_t i = 0; i < (size_t)scene->mNumMeshes; ++i) {
         auto& mesh = scene->mMeshes[i];
-        std::cout << mesh->mName.C_Str() << std::endl;
-    }
-    // process ASSIMP's root node recursively(Ä‹A“I)
-//    processNode(scene->mRootNode, scene, mesh);
+        auto& meshInfo = object.meshes[i];
 
-    return mesh;
+        meshInfo.name = mesh->mName.C_Str();
+        meshInfo.hasNormals = mesh->HasNormals();
+        meshInfo.hasTextureCoords = mesh->HasTextureCoords(0);
+        
+        // vertices
+        meshInfo.vertices.resize((size_t)mesh->mNumVertices);
+        for (size_t i = 0; i < (size_t)mesh->mNumVertices; ++i) {
+            meshInfo.vertices[i].Position = glm::vec3(mesh->mVertices[i].x, mesh->mVertices[i].y, mesh->mVertices[i].z);
+            meshInfo.vertices[i].Normal = glm::vec3(mesh->mNormals[i].x, mesh->mNormals[i].y, mesh->mNormals[i].z);
+
+            if (meshInfo.hasTextureCoords) {
+                meshInfo.vertices[i].TexCoords = glm::vec2(mesh->mTextureCoords[0][i].x, mesh->mTextureCoords[0][i].y);
+            }
+        }
+
+        // aabb
+        float MinX = std::numeric_limits<float>::max();
+        float MaxX = -std::numeric_limits<float>::max();
+        float MinY = std::numeric_limits<float>::max();
+        float MaxY = -std::numeric_limits<float>::max();
+        float MinZ = std::numeric_limits<float>::max();
+        float MaxZ = -std::numeric_limits<float>::max();
+
+        for (size_t i = 0; i < (size_t)mesh->mNumVertices; ++i) {
+            MinX = std::min(mesh->mVertices[i].x, MinX);
+            MaxX = std::max(mesh->mVertices[i].y, MaxX);
+            MinY = std::min(mesh->mVertices[i].z, MinY);
+            MaxY = std::max(mesh->mVertices[i].x, MaxY);
+            MinZ = std::min(mesh->mVertices[i].y, MinZ);
+            MaxZ = std::max(mesh->mVertices[i].z, MaxZ);
+        }
+
+        meshInfo.aabb = { glm::vec3(MinX, MinY, MinZ), glm::vec3(MaxX, MaxY, MaxZ) };
+
+        // indices
+        meshInfo.indices.resize((size_t)mesh->mNumFaces * 3);
+        for (size_t i = 0; i < (size_t)mesh->mNumFaces; ++i) {
+            if (mesh->mFaces[i].mNumIndices == 3) {
+                meshInfo.indices[3 * i + 0] = mesh->mFaces[i].mIndices[0];
+                meshInfo.indices[3 * i + 1] = mesh->mFaces[i].mIndices[1];
+                meshInfo.indices[3 * i + 2] = mesh->mFaces[i].mIndices[2];
+            }
+        }
+    }
+    return object;
 }
+
+void MeshLoader::GenerateNormals(std::vector<Vertex>& vertices, std::vector<unsigned int>& indices) {
+    for (auto& vertex : vertices) {
+        vertex.Normal = glm::vec3(0.0f);
+    }
+
+    for (size_t i = 0; i < indices.size() / 3; ++i) {
+        auto normal = GetNormal(
+            vertices[indices[3 * i + 0]].Position,
+            vertices[indices[3 * i + 1]].Position,
+            vertices[indices[3 * i + 2]].Position
+        );
+
+        vertices[indices[3 * i + 0]].Normal += normal;
+        vertices[indices[3 * i + 1]].Normal += normal;
+        vertices[indices[3 * i + 2]].Normal += normal;
+    }
+
+    for (auto& vertex : vertices) {
+        vertex.Normal = glm::normalize(vertex.Normal);
+    }
+}
+
 
 std::pair<glm::vec3, glm::vec3> MinMaxVector(glm::vec3* vertices, size_t size) {
     glm::vec3 maxVec{ -1.0f * std::numeric_limits<float>::max() };
@@ -63,55 +109,4 @@ std::pair<glm::vec3, glm::vec3> MinMaxVector(glm::vec3* vertices, size_t size) {
     }
 
     return { minVec, maxVec };
-}
-
-
-void processNode(aiNode* node, const aiScene* scene, MeshInfo& mesh) {
-    for (unsigned int i = 0; i < node->mNumMeshes; i++) {
-        aiMesh* aimesh = scene->mMeshes[node->mMeshes[i]];
-        processMesh(aimesh, scene, mesh);
-    }
-    for (unsigned int i = 0; i < node->mNumChildren; i++) {
-        processNode(node->mChildren[i], scene, mesh);
-    }
-}
-
-void processMesh(aiMesh* aimesh, const aiScene* scene, MeshInfo& mesh) {
-    // walk through each of the mesh's vertices
-    for (unsigned int i = 0; i < aimesh->mNumVertices; i++) {
-        Vertex vertex;
-        glm::vec3 vector;
-
-        // positions
-        vector.x = aimesh->mVertices[i].x;
-        vector.y = aimesh->mVertices[i].y;
-        vector.z = aimesh->mVertices[i].z;
-        vertex.Position = vector;
-        // normals
-        if (aimesh->HasNormals()) {
-            vector.x = aimesh->mNormals[i].x;
-            vector.y = aimesh->mNormals[i].y;
-            vector.z = aimesh->mNormals[i].z;
-            vertex.Normal = vector;
-        }
-        // texture coords
-        if (aimesh->mTextureCoords[0]) {
-            glm::vec2 vec;
-            vec.x = aimesh->mTextureCoords[0][i].x;
-            vec.y = aimesh->mTextureCoords[0][i].y;
-            vertex.TexCoords = vec;
-        }
-        else {
-            vertex.TexCoords = glm::vec2(0.0f);
-        }
-
-        mesh.vertices.push_back(vertex);
-    }
-
-    // walk through each of the mesh's face
-    for (unsigned int i = 0; i < aimesh->mNumFaces; i++) {
-        aiFace face = aimesh->mFaces[i];
-        for (unsigned int j = 0; j < face.mNumIndices; j++)
-            mesh.indices.push_back(face.mIndices[j]);
-    }
 }

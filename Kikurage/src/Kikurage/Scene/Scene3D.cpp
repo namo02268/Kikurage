@@ -46,6 +46,7 @@ void Scene3D::Init() {
 	ResourceManager::LoadMeshFromFile("resources/objects/suzanne/suzanne.obj", "suzanne");
 	ResourceManager::LoadMeshFromFile("resources/objects/sphere/sphere.obj", "sphere");
 	ResourceManager::LoadMeshFromFile("resources/objects/plane/plane.obj", "plane");
+	ResourceManager::LoadMeshFromFile("resources/objects/sponza/sponza.obj", "sponza");
 
 	//-----------------------------add systems to scene-----------------------------//
 	// TransformUpdator
@@ -75,6 +76,12 @@ void Scene3D::Init() {
 	auto cameraEntity = m_scene->createEntity();
 	m_scene->addComponent<TransformComponent>(cameraEntity, TransformComponent(glm::vec3(20.0f, 5.0f, 20.0f), glm::vec3(1.0f), glm::vec3(0.0f)));
 	m_scene->addComponent<CameraComponent>(cameraEntity, CameraComponent());
+
+	// sponza
+	auto sponza = m_scene->createEntity();
+	m_scene->addComponent<TransformComponent>(sponza, TransformComponent(glm::vec3(0.0f, -3.0f, 0.0f), glm::vec3(1.0f), glm::vec3(0.0f)));
+	m_scene->addComponent<MeshComponent>(sponza, MeshComponent(ResourceManager::GetMesh("sponza")));
+	m_scene->addComponent<MaterialComponent>(sponza, MaterialComponent(glm::vec3(0.0, 1.0, 0.0), 0.0, 0.3, 1.0));
 
 	// plane
 	auto plane = m_scene->createEntity();

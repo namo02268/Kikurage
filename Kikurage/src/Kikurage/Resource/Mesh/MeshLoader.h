@@ -1,10 +1,16 @@
 #pragma once
 
 #include "Kikurage/Resource/Mesh/Vertex.h"
+#include "Kikurage/Resource/Mesh/AABB.h"
 
 struct MeshInfo {
+	const char* name;
 	std::vector<Vertex> vertices;
 	std::vector<unsigned int> indices;
+	AABB aabb;
+
+	bool hasNormals;
+	bool hasTextureCoords;
 };
 
 struct ObjectInfo {
@@ -13,5 +19,6 @@ struct ObjectInfo {
 
 class MeshLoader {
 public:
-	static MeshInfo LoadFromFile(const char* path);
+	static ObjectInfo LoadFromFile(const char* path);
+	static void GenerateNormals(std::vector<Vertex>& vertices, std::vector<unsigned int>& indices);
 };

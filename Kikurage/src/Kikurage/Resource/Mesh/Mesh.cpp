@@ -42,10 +42,13 @@ Mesh::~Mesh() {
 
 void Mesh::LoadFromFile(const char* path) {
 	this->path = path;
-	MeshInfo mesh = MeshLoader::LoadFromFile(path);
+	ObjectInfo object = MeshLoader::LoadFromFile(path);
+	auto& mesh = object.meshes[0];
 
 	this->vertexCount = mesh.vertices.size();
 	this->indiceCount = mesh.indices.size();
+
+	this->aabb = mesh.aabb;
 
 	{
 		// create buffers/arrays

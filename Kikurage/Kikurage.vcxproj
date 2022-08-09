@@ -94,6 +94,7 @@
     <ClInclude Include="src\Kikurage\GUI\Editor.h" />
     <ClInclude Include="src\Kikurage\GUI\ImGuiLayer.h" />
     <ClInclude Include="src\Kikurage\GUI\SceneWindow.h" />
+    <ClInclude Include="src\Kikurage\Resource\Mesh\AABB.h" />
     <ClInclude Include="src\Kikurage\Resource\Mesh\Mesh.h" />
     <ClInclude Include="src\Kikurage\Resource\Mesh\MeshLoader.h" />
     <ClInclude Include="src\Kikurage\Systems\Collision\CollisionEvent.h" />
@@ -120,6 +121,7 @@
     <ClInclude Include="src\Kikurage\Systems\IBL\IBL.h" />
     <ClInclude Include="src\Kikurage\Systems\Renderer\MeshRenderer.h" />
     <ClInclude Include="src\Kikurage\Systems\Physics\Physics.h" />
+    <ClInclude Include="src\Utils\Math.h" />
     <ClInclude Include="vendor\imgui\imconfig.h" />
     <ClInclude Include="vendor\imgui\imgui.h" />
     <ClInclude Include="vendor\imgui\imgui_impl_glfw.h" />

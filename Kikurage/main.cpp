@@ -3,14 +3,14 @@
 #include <iostream>
 
 int main() {
-	//new Application();
-	//Application::GetInstance().Run();
+	new Application();
+	Application::GetInstance().Run();
 
+	/*
 	MeshLoader::LoadFromFile("resources/objects/suzanne/suzanne.obj");
-
 	MeshLoader::LoadFromFile("resources/objects/testMesh/testMesh2.obj");
-
 	MeshLoader::LoadFromFile("resources/objects/sponza/sponza.obj");
+	*/
 
 	return 0;
 }
