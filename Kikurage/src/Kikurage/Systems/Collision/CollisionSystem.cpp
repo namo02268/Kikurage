@@ -28,10 +28,9 @@ void CollisionSystem::update(float dt) {
 	for (auto& a : m_entityArray) {
 		auto a_parent = m_parentScene->getComponent<Relationship>(a)->parent;
 		for (auto& b : m_entityArray) {
-			auto b_parent = m_parentScene->getComponent<Relationship>(b)->parent;
-			if (a == b)
-				break;
+			if (a == b) break;
 
+			auto b_parent = m_parentScene->getComponent<Relationship>(b)->parent;
 			auto a_trans = m_parentScene->getComponent<TransformComponent>(a);
 			TransformComponent a_result = *a_trans;
 			if (a_parent) {
