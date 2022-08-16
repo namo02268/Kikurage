@@ -28,7 +28,6 @@ public:
 	CameraController();
 	~CameraController() = default;
 
-	// Event listner(window size)
 	void CameraInputUpdate();
 	void Resize(int width, int height);
 	void ListenWindowResizeEvent(WindowResizeEvent* event);
