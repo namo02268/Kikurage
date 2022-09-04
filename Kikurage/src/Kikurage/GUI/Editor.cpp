@@ -41,7 +41,7 @@ void SceneEditor::draw() {
 	ImGui::PushItemWidth(200);
 
 	if (selected != -1) {
-		ImGui::PushID(entityArray[selected].GetID());
+		ImGui::PushID(entityArray[selected]);
 		for (int i = 0; i < MAX_COMPONENTS_FAMILY; i++) {
 			if (m_parentScene->getComponentMask(entityArray[selected])[i] && m_componentGUIbit[i]) {
 				ImGui::SetNextItemOpen(true, ImGuiCond_Once);

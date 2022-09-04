@@ -75,10 +75,10 @@
     <ClCompile Include="src\Kikurage\Resource\ResourceManager\ResourceManager.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="src\Kikurage\Resource\Shader\Shader.cpp">
+    <ClCompile Include="src\OpenGL\Shader.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="src\Kikurage\Resource\Texture\Texture2D.cpp">
+    <ClCompile Include="src\OpenGL\Texture2D.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
     <ClCompile Include="src\Kikurage\Systems\Camera\CameraSystem.cpp">
@@ -96,7 +96,7 @@
     <ClCompile Include="src\Kikurage\Systems\IBL\IBL.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="src\Kikurage\Systems\MeshRenderer\MeshRenderer.cpp">
+    <ClCompile Include="src\Kikurage\Systems\Renderer\MeshRenderer.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
     <ClCompile Include="src\Kikurage\Systems\Physics\Physics.cpp">
@@ -105,13 +105,31 @@
     <ClCompile Include="src\Kikurage\Scene\Scene3D.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="src\Kikurage\Scene\PBR_Renderer.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
     <ClCompile Include="src\Kikurage\Core\Renderer.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="src\Kikurage\Core\Application.cpp">
+    <ClCompile Include="src\Kikurage\Core\Application\Application.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="src\OpenGL\FrameBuffer.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="src\OpenGL\RenderBuffer.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Kikurage\Systems\Renderer\CameraController.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Kikurage\Systems\Transform\TransformUpdator.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Kikurage\Resource\Mesh\MeshLoader.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Kikurage\Resource\Mesh\Mesh.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Kikurage\Systems\AABBCollision\AABBCollision.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
   </ItemGroup>
@@ -220,7 +238,7 @@
     <ClInclude Include="src\Kikurage\ECS\EntityMap.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="src\Kikurage\Events\EventHandler.h">
+    <ClInclude Include="src\Kikurage\Core\EventHandler.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
     <ClInclude Include="src\Kikurage\ECS\IdGenerator.h">
@@ -250,16 +268,16 @@
     <ClInclude Include="src\Kikurage\Core\Window.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="src\Kikurage\Resource\Mesh\Mesh.h">
+    <ClInclude Include="src\Kikurage\Resource\Mesh\Vertex.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
     <ClInclude Include="src\Kikurage\Resource\ResourceManager\ResourceManager.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="src\Kikurage\Resource\Shader\Shader.h">
+    <ClInclude Include="src\OpenGL\Shader.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="src\Kikurage\Resource\Texture\Texture2D.h">
+    <ClInclude Include="src\OpenGL\Texture2D.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
     <ClInclude Include="src\Kikurage\Systems\Camera\CameraSystem.h">
@@ -286,7 +304,7 @@
     <ClInclude Include="src\Kikurage\Systems\IBL\IBL.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="src\Kikurage\Systems\MeshRenderer\MeshRenderer.h">
+    <ClInclude Include="src\Kikurage\Systems\Renderer\MeshRenderer.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
     <ClInclude Include="src\Kikurage\Systems\Physics\Physics.h">
@@ -295,13 +313,10 @@
     <ClInclude Include="src\Kikurage\Scene\Scene3D.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="src\Kikurage\Scene\PBR_Renderer.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
     <ClInclude Include="src\Kikurage\Core\Renderer.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="src\Kikurage\Core\Application.h">
+    <ClInclude Include="src\Kikurage\Core\Application\Application.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
     <ClInclude Include="src\Kikurage\Core\Event.h">
@@ -310,7 +325,43 @@
     <ClInclude Include="src\Kikurage\Events\WindowResizeEvent.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="src\Kikurage\Events\EventBase.h">
+    <ClInclude Include="src\Kikurage\Components\Relationship.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Kikurage\Systems\Renderer\CameraController.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="src\OpenGL\FrameBuffer.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="src\OpenGL\RenderBuffer.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Kikurage\Systems\Collision\CollisionEvent.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Kikurage\Systems\Renderer\PerspectiveCamera.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Kikurage\Systems\Renderer\RenderController.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Kikurage\Systems\Transform\TransformUpdator.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Kikurage\Resource\Mesh\MeshLoader.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Kikurage\Resource\Mesh\Mesh.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Utils\Math.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Kikurage\Resource\Mesh\AABB.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Kikurage\Systems\AABBCollision\AABBCollision.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
     <ClInclude Include="src\Kikurage\Events\CollisionEvent.h">

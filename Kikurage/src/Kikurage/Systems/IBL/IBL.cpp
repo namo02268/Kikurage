@@ -77,7 +77,7 @@ void IBL::init() {
 	equirectangularToCubemapShader->SetInteger("equirectangularMap", 0);
 	equirectangularToCubemapShader->SetMatrix4("projection", captureProjection);
 	glActiveTexture(GL_TEXTURE0);
-	glBindTexture(GL_TEXTURE_2D, ResourceManager::GetTexture("hdrTexture")->ID);
+	glBindTexture(GL_TEXTURE_2D, ResourceManager::GetTexture("hdrTexture")->id);
 
 	glViewport(0, 0, 512, 512); // don't forget to configure the viewport to the capture dimensions.
 	glBindFramebuffer(GL_FRAMEBUFFER, captureFBO);

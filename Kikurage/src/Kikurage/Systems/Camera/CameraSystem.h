@@ -2,7 +2,7 @@
 
 #include "Kikurage/ECS/System.h"
 #include "Kikurage/Core/Window.h"
-#include "Kikurage/Resource/Shader/Shader.h"
+#include "OpenGL//Shader.h"
 #include <GLFW/glfw3.h>
 
 class CameraSystem : public System {

@@ -4,12 +4,4 @@
 #include <iomanip>
 #include "Kikurage/ECS/ECS_def.h"
 
-class Entity {
-private:
-	EntityID m_id;
-
-public:
-	Entity(EntityID id) : m_id(id) {}
-	~Entity() = default;
-	inline EntityID GetID() { return m_id; }
-};
+using Entity = EntityID;

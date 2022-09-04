@@ -53,7 +53,7 @@ public:
 	}
 
 	void iterateAll(std::function<void(ComponentType* c)> lambda) {
-		for (int i = 0; i < m_newInstance; i++) {
+		for (int i = 0; i < m_newInstance; ++i) {
 			lambda(&m_componentArray->at(i));
 		}
 	}

@@ -7,8 +7,8 @@
 #include <assimp/scene.h>
 #include <assimp/postprocess.h>
 
-#include "Kikurage/Resource/Shader/Shader.h"
-#include "Kikurage/Resource/Texture/Texture2D.h"
+#include "OpenGL/Shader.h"
+#include "OpenGL/Texture2D.h"
 #include "Kikurage/Resource/Mesh/Mesh.h"
 
 enum class TextureType {
@@ -51,9 +51,4 @@ public:
 
 private:
 	ResourceManager() {}
-
-	//-------------------------Model-------------------------//
-	static void processNode(aiNode* node, const aiScene* scene, Mesh* mesh);
-
-	static void processMesh(aiMesh* aimesh, const aiScene* scene, Mesh* mesh);
 };

@@ -3,7 +3,7 @@
 
 #include "Kikurage/ECS/Component.h"
 
-class MaterialComponent : public Component {
+struct MaterialComponent : public Component {
 public:
 	glm::vec3 albedo = glm::vec3(1.0f);
 	float metallic = 0.0f;

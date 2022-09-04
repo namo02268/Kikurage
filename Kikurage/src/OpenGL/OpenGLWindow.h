@@ -8,7 +8,7 @@
 #include <glm/glm.hpp>
 
 #include "Kikurage/Core/Window.h"
-#include "Kikurage/Resource/Shader/Shader.h"
+#include "OpenGL/Shader.h"
 
 class OpenGLWindow : public Window
 {
@@ -22,7 +22,7 @@ public:
 	OpenGLWindow(int width, int height, const char* title);
 	~OpenGLWindow();
 
-	void Draw(Texture2D renderTexture) override;
+	void Draw(Texture2D* renderTexture) override;
 
 	void Clear();
 	void Update();

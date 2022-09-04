@@ -14,5 +14,3 @@ public:
 	CollisionEvent(Entity a, Entity b, CollisionPoints points) : a(a), b(b), points(points) {}
 	~CollisionEvent() {}
 };
-
-

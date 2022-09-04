@@ -5,7 +5,7 @@
 #include "Kikurage/ECS/ECS_def.h"
 
 inline EntityID getEntityID() {
-	static EntityID entityID = 0;
+	static EntityID entityID = 1;
 	return entityID++;
 }
 

@@ -3,7 +3,7 @@
 
 #include "Kikurage/ECS/Component.h"
 
-class RigidBodyComponent : public Component {
+struct RigidBodyComponent : public Component {
 public:
 	glm::vec3 velocity = glm::vec3(0.0f);
 	glm::vec3 force = glm::vec3(0.0f);
