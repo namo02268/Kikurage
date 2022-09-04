@@ -5,7 +5,7 @@
 #include "Kikurage/GUI/ImGuiLayer.h"
 #include "Kikurage/GUI/SceneWindow.h"
 #include "Kikurage/GUI/Editor.h"
-#include "Kikurage/Core/EventHandler.h"
+#include "Kikurage/Events/EventHandler.h"
 
 #include "Kikurage/Scene/Scene3D.h"
 

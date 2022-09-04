@@ -46,7 +46,7 @@ Application::Run
 ====================================================
 */
 void Application::Run() {
-	while (!m_window->Closed())
+	while (m_window->IsOpen())
 	{
 		UpdateTime();
 		m_window->Clear();

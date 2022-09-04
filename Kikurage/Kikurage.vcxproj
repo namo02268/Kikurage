@@ -92,7 +92,6 @@
     <ClInclude Include="src\Kikurage\ECS\IdGenerator.h" />
     <ClInclude Include="src\Kikurage\ECS\Scene.h" />
     <ClInclude Include="src\Kikurage\ECS\System.h" />
-    <ClInclude Include="src\Kikurage\Events\CollisionEvent.h" />
     <ClInclude Include="src\Kikurage\Events\WindowResizeEvent.h" />
     <ClInclude Include="src\Kikurage\GUI\ComponentEditors.h" />
     <ClInclude Include="src\Kikurage\GUI\Editor.h" />
@@ -102,7 +101,6 @@
     <ClInclude Include="src\Kikurage\Resource\Mesh\Mesh.h" />
     <ClInclude Include="src\Kikurage\Resource\Mesh\MeshLoader.h" />
     <ClInclude Include="src\Kikurage\Systems\AABBCollision\AABBCollision.h" />
-    <ClInclude Include="src\Kikurage\Systems\Collision\CollisionEvent.h" />
     <ClInclude Include="src\Kikurage\Systems\Renderer\PerspectiveCamera.h" />
     <ClInclude Include="src\Kikurage\Systems\Renderer\RenderController.h" />
     <ClInclude Include="src\Kikurage\Systems\Transform\TransformUpdator.h" />
