@@ -1,14 +1,17 @@
-#include "Kikurage/GUI/Editor.h"
+#include "Kikurage/GUI/ComponentEditor.h"
+#include "Kikurage/Core/Application/Application.h"
 
-void SceneEditor::init() {
+void ComponentEditor::Init() {
+	auto scene = Application::GetInstance().GetScene();
+
 	// add Component GUIs
-	auto transformComponentGUI = std::make_unique<TransfromEditor>(m_parentScene);
+	auto transformComponentGUI = std::make_unique<TransfromEditor>(scene);
 	m_componentGUIbit[transformComponentGUI->ID] = true;
-	auto materialComponentGUI = std::make_unique<MaterialEditor>(m_parentScene);
+	auto materialComponentGUI = std::make_unique<MaterialEditor>(scene);
 	m_componentGUIbit[materialComponentGUI->ID] = true;
-	auto rigidBodyComponentGUI = std::make_unique<RigidBodyEditor>(m_parentScene);
+	auto rigidBodyComponentGUI = std::make_unique<RigidBodyEditor>(scene);
 	m_componentGUIbit[rigidBodyComponentGUI->ID] = true;
-	auto cameraComponentGUI = std::make_unique<CameraEditor>(m_parentScene);
+	auto cameraComponentGUI = std::make_unique<CameraEditor>(scene);
 	m_componentGUIbit[cameraComponentGUI->ID] = true;
 
 	m_componentGUIs[transformComponentGUI->ID] = std::move(transformComponentGUI);
@@ -17,12 +20,14 @@ void SceneEditor::init() {
 	m_componentGUIs[cameraComponentGUI->ID] = std::move(cameraComponentGUI);
 }
 
-void SceneEditor::draw() {
+void ComponentEditor::Render() {
+	auto scene = Application::GetInstance().GetScene();
+
 	// Hierarchy
 	ImGui::Begin("Hierarchy");
 	ImGui::PushID("Hierarchy");
 
-	auto& entityArray = m_parentScene->getAllEntityArray();
+	auto& entityArray = scene->getAllEntityArray();
 
 	static int selected = -1;
 	char buf[32];
@@ -43,7 +48,7 @@ void SceneEditor::draw() {
 	if (selected != -1) {
 		ImGui::PushID(entityArray[selected]);
 		for (int i = 0; i < MAX_COMPONENTS_FAMILY; i++) {
-			if (m_parentScene->getComponentMask(entityArray[selected])[i] && m_componentGUIbit[i]) {
+			if (scene->getComponentMask(entityArray[selected])[i] && m_componentGUIbit[i]) {
 				ImGui::SetNextItemOpen(true, ImGuiCond_Once);
 				m_componentGUIs[i]->draw(entityArray[selected]);
 				ImGui::Separator();
@@ -57,11 +62,11 @@ void SceneEditor::draw() {
 		if (ImGui::BeginPopup("Component"))
 		{
 			if (ImGui::Selectable("Transform"))
-				m_parentScene->addComponent<TransformComponent>(entityArray[selected], TransformComponent());
+				scene->addComponent<TransformComponent>(entityArray[selected], TransformComponent());
 			if (ImGui::Selectable("Material"))
-				m_parentScene->addComponent<MaterialComponent>(entityArray[selected], MaterialComponent());
+				scene->addComponent<MaterialComponent>(entityArray[selected], MaterialComponent());
 			if (ImGui::Selectable("RigidBody"))
-				m_parentScene->addComponent<RigidBodyComponent>(entityArray[selected], RigidBodyComponent());
+				scene->addComponent<RigidBodyComponent>(entityArray[selected], RigidBodyComponent());
 			ImGui::EndPopup();
 		}
 		ImGui::PopID();

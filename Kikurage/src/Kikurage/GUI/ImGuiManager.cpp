@@ -34,6 +34,8 @@ void ImGuiManager::Init() {
 
 	// imgui configuration
 	imgui_theme();
+
+	m_componentEditor->Init();
 }
 
 void ImGuiManager::Update() {
@@ -41,12 +43,12 @@ void ImGuiManager::Update() {
 	ImGui_ImplOpenGL3_NewFrame();
 	ImGui_ImplGlfw_NewFrame();
 	ImGui::NewFrame();
-
-	// set dockspace
-	DockSpace();
+	this->BeginDockSpace();
 }
 
 void ImGuiManager::Render() {
+	m_componentEditor->Render();
+
 	ImGui::Render();
 	ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
 
@@ -59,7 +61,7 @@ void ImGuiManager::Render() {
 	}
 }
 
-void ImGuiManager::DockSpace() {
+void ImGuiManager::BeginDockSpace() {
 	// Dock Space
 	{
 		static ImGuiDockNodeFlags dockspace_flags = ImGuiDockNodeFlags_None;

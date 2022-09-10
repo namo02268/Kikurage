@@ -3,8 +3,7 @@
 #include "OpenGL/OpenGLWindow.h"
 
 #include "Kikurage/GUI/ImGuiManager.h"
-#include "Kikurage/GUI/SceneWindow.h"
-#include "Kikurage/GUI/Editor.h"
+#include "Kikurage/GUI/SceneEditor.h"
 #include "Kikurage/Events/EventHandler.h"
 #include "Kikurage/Core/Renderer.h"
 
@@ -19,9 +18,11 @@ private:
 	ImGuiManager* m_imguiManager;
 	SceneWindow* m_sceneWindow;
 	Scene3D* m_scene3d;
-	SceneEditor* m_sceneEditor;
 	EventHandler* m_eventHandler;
 
+	// bool isEditorEnable = true;
+
+	// time
 	float timeScale = 1.0f;
 	float deltaTime = 0.0f;
 	std::size_t FPS = 0;
@@ -34,6 +35,7 @@ public:
 	EventHandler& GetEventHandler() { return *this->m_eventHandler; }
 	Window* GetWindow() { return this->m_window; }
 	Renderer* GetRenderer() { return this->m_renderer; }
+	Scene* GetScene() { return this->m_scene3d->GetScene(); }
 
 	void Run();
 

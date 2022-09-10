@@ -1,4 +1,4 @@
-#include "Kikurage/GUI/SceneWindow.h"
+#include "Kikurage/GUI/SceneEditor.h"
 
 #include <iostream>
 

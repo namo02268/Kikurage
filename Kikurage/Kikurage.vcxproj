@@ -22,9 +22,9 @@
     <ClCompile Include="src\Kikurage\Core\Application\Application.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="src\Kikurage\Core\Renderer.cpp" />
-    <ClCompile Include="src\Kikurage\GUI\Editor.cpp" />
+    <ClCompile Include="src\Kikurage\GUI\ComponentEditor.cpp" />
     <ClCompile Include="src\Kikurage\GUI\ImGuiManager.cpp" />
-    <ClCompile Include="src\Kikurage\GUI\SceneWindow.cpp" />
+    <ClCompile Include="src\Kikurage\GUI\SceneEditor.cpp" />
     <ClCompile Include="src\Kikurage\Resource\Mesh\Mesh.cpp" />
     <ClCompile Include="src\Kikurage\Resource\Mesh\MeshLoader.cpp" />
     <ClCompile Include="src\Kikurage\Systems\AABBCollision\AABBCollision.cpp" />
@@ -94,9 +94,9 @@
     <ClInclude Include="src\Kikurage\ECS\System.h" />
     <ClInclude Include="src\Kikurage\Events\WindowResizeEvent.h" />
     <ClInclude Include="src\Kikurage\GUI\ComponentEditors.h" />
-    <ClInclude Include="src\Kikurage\GUI\Editor.h" />
+    <ClInclude Include="src\Kikurage\GUI\ComponentEditor.h" />
     <ClInclude Include="src\Kikurage\GUI\ImGuiManager.h" />
-    <ClInclude Include="src\Kikurage\GUI\SceneWindow.h" />
+    <ClInclude Include="src\Kikurage\GUI\SceneEditor.h" />
     <ClInclude Include="src\Kikurage\Resource\Mesh\AABB.h" />
     <ClInclude Include="src\Kikurage\Resource\Mesh\Mesh.h" />
     <ClInclude Include="src\Kikurage\Resource\Mesh\MeshLoader.h" />

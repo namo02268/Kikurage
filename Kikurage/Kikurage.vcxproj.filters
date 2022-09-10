@@ -60,13 +60,13 @@
     <ClCompile Include="vendor\Glad\glad.c">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="src\Kikurage\GUI\Editor.cpp">
+    <ClCompile Include="src\Kikurage\GUI\ComponentEditor.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
     <ClCompile Include="src\Kikurage\GUI\ImGuiManager.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="src\Kikurage\GUI\SceneWindow.cpp">
+    <ClCompile Include="src\Kikurage\GUI\SceneEditor.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
     <ClCompile Include="src\OpenGL\OpenGLWindow.cpp">
@@ -250,13 +250,13 @@
     <ClInclude Include="src\Kikurage\GUI\ComponentEditors.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="src\Kikurage\GUI\Editor.h">
+    <ClInclude Include="src\Kikurage\GUI\ComponentEditor.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
     <ClInclude Include="src\Kikurage\GUI\ImGuiManager.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="src\Kikurage\GUI\SceneWindow.h">
+    <ClInclude Include="src\Kikurage\GUI\SceneEditor.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
     <ClInclude Include="src\OpenGL\OpenGLWindow.h">
