@@ -2,23 +2,7 @@
 #include "Kikurage/Systems/Renderer/CameraController.h"
 #include "Kikurage/Core/Event.h"
 
-//---------------------CameraBuffers---------------------//
-void CameraBuffers::Init(int width, int height) {
-	this->renderTexture.Generate(width, height, NULL);
-	this->framebuffer.AttachTexture(this->renderTexture);
-	this->renderbuffer.InitStorage(width, height);
-	this->renderbuffer.LinkToFrameBuffer(this->framebuffer);
-}
-
-void CameraBuffers::Resize(int width, int height) {
-	this->renderTexture.Generate(width, height, NULL);
-	this->renderbuffer.InitStorage(width, height);
-}
-
-//---------------------CameraController---------------------//
 CameraController::CameraController() {
-	Event::subscribe(this, &CameraController::ListenWindowResizeEvent);
-	this->cameraBuffers->Init(1920, 1080);
 }
 
 void CameraController::CameraInputUpdate() {
@@ -90,12 +74,4 @@ void CameraController::CameraInputUpdate() {
 		firstMouse = true;
 		window->normalMouseCursor();
 	}
-}
-
-void CameraController::Resize(int width, int height) {
-	cameraBuffers->Resize(width, height);
-}
-
-void CameraController::ListenWindowResizeEvent(WindowResizeEvent* event) {
-	this->Resize(event->width, event->height);
 }

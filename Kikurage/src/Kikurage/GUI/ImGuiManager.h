@@ -2,17 +2,17 @@
 
 #include "OpenGL/OpenGLWindow.h"
 
-class ImGuiLayer {
+class ImGuiManager {
 private:
 	OpenGLWindow* m_parentWindow;
 
 public:
-	ImGuiLayer(OpenGLWindow* window);
-	~ImGuiLayer();
+	ImGuiManager(OpenGLWindow* window);
+	~ImGuiManager();
 
-	void init();
-	void begin();
-	void end();
+	void Init();
+	void Update();
+	void Render();
 
 private:
 	void DockSpace();

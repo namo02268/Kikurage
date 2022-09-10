@@ -1,4 +1,4 @@
-#include "Kikurage/GUI/ImGuiLayer.h"
+#include "Kikurage/GUI/ImGuiManager.h"
 
 #include "imgui/imgui.h"
 #include "imgui/imgui_impl_glfw.h"
@@ -6,18 +6,17 @@
 
 void imgui_theme();
 
-ImGuiLayer::ImGuiLayer(OpenGLWindow* window) : m_parentWindow(window) {
-	init();
+ImGuiManager::ImGuiManager(OpenGLWindow* window) : m_parentWindow(window) {
 }
 
-ImGuiLayer::~ImGuiLayer() {
+ImGuiManager::~ImGuiManager() {
 	// Cleanup
 	ImGui_ImplOpenGL3_Shutdown();
 	ImGui_ImplGlfw_Shutdown();
 	ImGui::DestroyContext();
 }
 
-void ImGuiLayer::init() {
+void ImGuiManager::Init() {
 	// init imgui
 	IMGUI_CHECKVERSION();
 	ImGui::CreateContext();
@@ -37,7 +36,7 @@ void ImGuiLayer::init() {
 	imgui_theme();
 }
 
-void ImGuiLayer::begin() {
+void ImGuiManager::Update() {
 	// Start the Dear ImGui frame
 	ImGui_ImplOpenGL3_NewFrame();
 	ImGui_ImplGlfw_NewFrame();
@@ -47,7 +46,7 @@ void ImGuiLayer::begin() {
 	DockSpace();
 }
 
-void ImGuiLayer::end() {
+void ImGuiManager::Render() {
 	ImGui::Render();
 	ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
 
@@ -60,7 +59,7 @@ void ImGuiLayer::end() {
 	}
 }
 
-void ImGuiLayer::DockSpace() {
+void ImGuiManager::DockSpace() {
 	// Dock Space
 	{
 		static ImGuiDockNodeFlags dockspace_flags = ImGuiDockNodeFlags_None;

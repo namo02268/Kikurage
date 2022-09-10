@@ -3,32 +3,45 @@
 
 #include <iostream>
 
+//---------------------RenderBuffers---------------------//
+void RenderBuffers::Init(int width, int height) {
+	this->renderTexture.Generate(width, height, NULL);
+	this->framebuffer.AttachTexture(this->renderTexture);
+	this->renderbuffer.InitStorage(width, height);
+	this->renderbuffer.LinkToFrameBuffer(this->framebuffer);
+}
+
+void RenderBuffers::Resize(int width, int height) {
+	this->renderTexture.Generate(width, height, NULL);
+	this->renderbuffer.InitStorage(width, height);
+}
+
+//---------------------Renderer---------------------//
 Renderer::Renderer() {
-	Event::subscribe(this, &Renderer::ResizeBuffer);
-	GenerateRenderTexture();
 }
 
 Renderer::~Renderer() {
 }
 
-void Renderer::GenerateRenderTexture() {
-	textureColorbuffer.Generate(1920, 1080, NULL);
-	frameBuffer.AttachTexture(textureColorbuffer);
-	renderBuffer.InitStorage(1920, 1080);
-	renderBuffer.LinkToFrameBuffer(frameBuffer);
+void Renderer::Init() {
+	Event::subscribe(this, &Renderer::ListenWindowResizeEvent);
+	this->renderBuffers->Init(1920, 1080);
 }
 
-void Renderer::ResizeBuffer(WindowResizeEvent* event) {
-	textureColorbuffer.Generate(event->width, event->height, NULL);
-	renderBuffer.InitStorage(event->width, event->height);
+void Renderer::ResizeBuffers(int width, int height) {
+	this->renderBuffers->Resize(width, height);
+}
+
+void Renderer::ListenWindowResizeEvent(WindowResizeEvent* event) {
+	this->ResizeBuffers(event->width, event->height);
 }
 
 void Renderer::BindFBO() {
-	frameBuffer.Bind();
+	this->renderBuffers->framebuffer.Bind();
 	glClearColor(0.2f, 0.2f, 0.2f, 1.0f);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 }
 
 void Renderer::UnbindFBO() { 
-	frameBuffer.Unbind();
+	this->renderBuffers->framebuffer.Unbind();
 }

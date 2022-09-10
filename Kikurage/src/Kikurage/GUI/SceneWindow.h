@@ -8,7 +8,7 @@ public:
 	SceneWindow(int width, int height, const char* title);
 	~SceneWindow() = default;
 
-	void Draw(Texture2D* renderTexture) override;
+	void Draw(Texture2D& renderTexture) override;
 
 	void disableMouseCursor() const override;
 	void normalMouseCursor() const override;

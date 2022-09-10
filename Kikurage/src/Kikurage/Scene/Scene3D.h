@@ -2,7 +2,6 @@
 
 #include "Kikurage/Core/Window.h"
 #include "Kikurage/ECS/Scene.h"
-#include "Kikurage/Core/Renderer.h"
 
 class Scene3D {
 public:
@@ -18,7 +17,6 @@ public:
 private:
 	Window* m_window;
 	Scene* m_scene;
-	Renderer* renderer;
 	// TODO : SkyBox* skyBox;
 
 	int m_width = 600;

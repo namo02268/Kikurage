@@ -27,7 +27,7 @@ protected:
 public:
 	virtual ~Window() = default;
 
-	virtual void Draw(Texture2D* renderTexture) = 0;
+	virtual void Draw(Texture2D& renderTexture) = 0;
 
 	int GetWidth() const { return m_width; }
 	int GetHeight() const { return m_height; }

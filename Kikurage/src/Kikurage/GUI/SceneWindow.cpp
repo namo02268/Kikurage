@@ -13,7 +13,7 @@ SceneWindow::SceneWindow(int width, int height, const char* title) {
 	m_title = title;
 }
 
-void SceneWindow::Draw(Texture2D* renderTexture) {
+void SceneWindow::Draw(Texture2D& renderTexture) {
 	// Scene Window
 	ImGui::Begin("Scene", nullptr, ImGuiWindowFlags_NoScrollbar);
 	ImGui::PushID("Scene");
@@ -41,7 +41,7 @@ void SceneWindow::Draw(Texture2D* renderTexture) {
 	// window size
 	m_width = ImGui::GetWindowWidth();
 	m_height = ImGui::GetWindowHeight();
-	ImGui::Image((void*)renderTexture->id, ImVec2(m_width, m_height), ImVec2(0, 1), ImVec2(1, 0));
+	ImGui::Image((void*)renderTexture.id, ImVec2(m_width, m_height), ImVec2(0, 1), ImVec2(1, 0));
 
 	ImGui::PopID();
 	ImGui::End();

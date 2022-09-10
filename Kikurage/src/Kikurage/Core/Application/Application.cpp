@@ -14,14 +14,12 @@ Application::Application() {
 	s_Instance = this;
 
 	m_window = new OpenGLWindow(1200, 800, "Kikurage");
-	m_guiLayer = new ImGuiLayer(m_window);
-	m_sceneWindow = new SceneWindow(800, 600, "Scene");
-
 	m_eventHandler = new EventHandler();
-
+	m_imguiManager = new ImGuiManager(m_window);
+	m_renderer = new Renderer();
+	m_sceneWindow = new SceneWindow(800, 600, "Scene");
 	m_scene3d = new Scene3D(m_sceneWindow);
 	m_sceneEditor = new SceneEditor(m_scene3d->GetScene());
-
 }
 
 /*
@@ -33,31 +31,40 @@ Application::~Application() {
 	ResourceManager::Clear();
 
 	delete m_window;
-	delete m_guiLayer;
+	delete m_renderer;
+	delete m_imguiManager;
 	delete m_sceneWindow;
 	delete m_scene3d;
 	delete m_sceneEditor;
 	delete m_eventHandler;
 }
 
-/*
-====================================================
-Application::Run
-====================================================
-*/
+void Application::Init() {
+	m_imguiManager->Init();
+	m_renderer->Init();
+}
+
+void Application::Update(float timeStep) {
+	m_imguiManager->Update();
+	m_scene3d->Update(timeStep);
+}
+
+void Application::Render() {
+	m_scene3d->Draw();
+	m_sceneEditor->draw();
+	m_imguiManager->Render();
+}
+
 void Application::Run() {
+	this->Init();
+
 	while (m_window->IsOpen())
 	{
 		UpdateTime();
 		m_window->Clear();
 		{
-			m_guiLayer->begin();
-			{
-				m_scene3d->Update(this->deltaTime);
-				m_scene3d->Draw();
-			}
-			m_sceneEditor->draw();
-			m_guiLayer->end();
+			this->Update(this->deltaTime);
+			this->Render();
 		}
 		m_window->Update();
 	}

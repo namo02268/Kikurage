@@ -1,4 +1,5 @@
 #include "Kikurage/Scene/Scene3D.h"
+#include "Kikurage/Core/Application/Application.h"
 
 //------------Resource------------
 #include "stb_image/stb_image.h"
@@ -30,14 +31,12 @@ Scene3D::Scene3D(Window* window) : m_window(window) {
 
 Scene3D::~Scene3D() {
 	delete m_scene;
-	delete renderer;
 }
 
 void Scene3D::Init() {
 	//-------------------------------add scene & renderer-------------------------------//
 	auto entityManager = std::make_unique<EntityManager>();
 	m_scene = new Scene(std::move(entityManager));
-	renderer = new Renderer();
 
 	//-----------------------------------Resources-----------------------------------//
 	stbi_set_flip_vertically_on_load(true);
@@ -109,6 +108,7 @@ void Scene3D::Update(float dt) {
 }
 
 void Scene3D::Draw() {
+	auto renderer = Application::GetInstance().GetRenderer();
 	renderer->BindFBO();
 	m_scene->draw();
 	renderer->UnbindFBO();

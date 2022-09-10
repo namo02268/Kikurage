@@ -63,7 +63,7 @@
     <ClCompile Include="src\Kikurage\GUI\Editor.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="src\Kikurage\GUI\ImGuiLayer.cpp">
+    <ClCompile Include="src\Kikurage\GUI\ImGuiManager.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
     <ClCompile Include="src\Kikurage\GUI\SceneWindow.cpp">
@@ -238,9 +238,6 @@
     <ClInclude Include="src\Kikurage\ECS\EntityMap.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="src\Kikurage\Core\EventHandler.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
     <ClInclude Include="src\Kikurage\ECS\IdGenerator.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
@@ -256,7 +253,7 @@
     <ClInclude Include="src\Kikurage\GUI\Editor.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="src\Kikurage\GUI\ImGuiLayer.h">
+    <ClInclude Include="src\Kikurage\GUI\ImGuiManager.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
     <ClInclude Include="src\Kikurage\GUI\SceneWindow.h">
@@ -337,9 +334,6 @@
     <ClInclude Include="src\OpenGL\RenderBuffer.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="src\Kikurage\Systems\Collision\CollisionEvent.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
     <ClInclude Include="src\Kikurage\Systems\Renderer\PerspectiveCamera.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
@@ -365,6 +359,12 @@
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
     <ClInclude Include="src\Kikurage\Events\CollisionEvent.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Kikurage\Events\EventBase.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Kikurage\Events\EventHandler.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
   </ItemGroup>
