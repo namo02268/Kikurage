@@ -7,13 +7,13 @@
 #include "imgui/imgui_impl_opengl3.h"
 
 
-SceneWindow::SceneWindow(int width, int height, const char* title) {
+SceneEditor::SceneEditor(int width, int height, const char* title) {
 	m_width = width;
 	m_height = height;
 	m_title = title;
 }
 
-void SceneWindow::Draw(Texture2D& renderTexture) {
+void SceneEditor::Draw(Texture2D& renderTexture) {
 	// Scene Window
 	ImGui::Begin("Scene", nullptr, ImGuiWindowFlags_NoScrollbar);
 	ImGui::PushID("Scene");
@@ -41,16 +41,16 @@ void SceneWindow::Draw(Texture2D& renderTexture) {
 	// window size
 	m_width = ImGui::GetWindowWidth();
 	m_height = ImGui::GetWindowHeight();
-	ImGui::Image((void*)renderTexture.id, ImVec2(m_width, m_height), ImVec2(0, 1), ImVec2(1, 0));
+	ImGui::Image((void*)renderTexture.GetHandle(), ImVec2(m_width, m_height), ImVec2(0, 1), ImVec2(1, 0));
 
 	ImGui::PopID();
 	ImGui::End();
 }
 
-void SceneWindow::disableMouseCursor() const {
+void SceneEditor::disableMouseCursor() const {
 //	ImGui::SetMouseCursor(ImGuiMouseCursor_None);
 }
 
-void SceneWindow::normalMouseCursor() const {
+void SceneEditor::normalMouseCursor() const {
 //	ImGui::SetMouseCursor(ImGuiMouseCursor_Arrow);
 }

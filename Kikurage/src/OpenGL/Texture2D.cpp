@@ -1,13 +1,13 @@
 #include "OpenGL/Texture2D.h"
 
 Texture2D::Texture2D() {
-	glGenTextures(1, &this->id);
+	glGenTextures(1, &this->m_id);
 }
 
 Texture2D::Texture2D(Texture2D&& texture) noexcept {
-	this->id = texture.id;
-	this->width = texture.width;
-	this->height = texture.height;
+	this->m_id = texture.m_id;
+	this->m_width = texture.m_width;
+	this->m_height = texture.m_height;
 
 	this->Internal_Format = texture.Internal_Format;
 	this->Image_Format = texture.Image_Format;
@@ -18,9 +18,9 @@ Texture2D::Texture2D(Texture2D&& texture) noexcept {
 }
 
 Texture2D& Texture2D::operator=(Texture2D&& texture) noexcept {
-	this->id = texture.id;
-	this->width = texture.width;
-	this->height = texture.height;
+	this->m_id = texture.m_id;
+	this->m_width = texture.m_width;
+	this->m_height = texture.m_height;
 
 	this->Internal_Format = texture.Internal_Format;
 	this->Image_Format = texture.Image_Format;
@@ -37,11 +37,11 @@ Texture2D::~Texture2D() {
 }
 
 void Texture2D::Generate(unsigned int width, unsigned int height, unsigned char* data) {
-	this->width = width;
-	this->height = height;
+	this->m_width = width;
+	this->m_height = height;
 
 	// create Texture
-	glBindTexture(GL_TEXTURE_2D, this->id);
+	glBindTexture(GL_TEXTURE_2D, this->m_id);
 	glTexImage2D(GL_TEXTURE_2D, 0, this->Internal_Format, width, height, 0, this->Image_Format, GL_UNSIGNED_BYTE, data);
 
 	// set Texture wrap and filter modes
@@ -55,7 +55,7 @@ void Texture2D::Generate(unsigned int width, unsigned int height, unsigned char*
 }
 
 void Texture2D::Bind() const {
-	glBindTexture(GL_TEXTURE_2D, this->id);
+	glBindTexture(GL_TEXTURE_2D, this->m_id);
 }
 
 void Texture2D::Unbind() const {
@@ -63,8 +63,8 @@ void Texture2D::Unbind() const {
 }
 
 void Texture2D::FreeTexture() {
-	if (this->id != 0) {
-		glDeleteTextures(1, &id);
-		this->id = 0;
+	if (this->m_id != 0) {
+		glDeleteTextures(1, &m_id);
+		this->m_id = 0;
 	}
 }

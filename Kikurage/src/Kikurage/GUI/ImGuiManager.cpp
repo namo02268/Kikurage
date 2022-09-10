@@ -38,7 +38,7 @@ void ImGuiManager::Init() {
 	m_componentEditor->Init();
 }
 
-void ImGuiManager::Update() {
+void ImGuiManager::Update(float dt) {
 	// Start the Dear ImGui frame
 	ImGui_ImplOpenGL3_NewFrame();
 	ImGui_ImplGlfw_NewFrame();

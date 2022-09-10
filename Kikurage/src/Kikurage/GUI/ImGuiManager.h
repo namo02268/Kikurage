@@ -15,7 +15,7 @@ public:
 	~ImGuiManager();
 
 	void Init();
-	void Update();
+	void Update(float dt);
 	void Render();
 
 private:

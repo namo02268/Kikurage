@@ -17,8 +17,8 @@ Application::Application() {
 	m_eventHandler = new EventHandler();
 	m_imguiManager = new ImGuiManager(m_window);
 	m_renderer = new Renderer();
-	m_sceneWindow = new SceneWindow(800, 600, "Scene");
-	m_scene3d = new Scene3D(m_sceneWindow);
+	m_sceneEditor = new SceneEditor(800, 600, "Scene");
+	m_scene3d = new Scene3D(m_sceneEditor);
 }
 
 /*
@@ -32,7 +32,7 @@ Application::~Application() {
 	delete m_window;
 	delete m_renderer;
 	delete m_imguiManager;
-	delete m_sceneWindow;
+	delete m_sceneEditor;
 	delete m_scene3d;
 	delete m_eventHandler;
 }
@@ -43,7 +43,7 @@ void Application::Init() {
 }
 
 void Application::Update(float timeStep) {
-	m_imguiManager->Update();
+	m_imguiManager->Update(timeStep);
 	m_scene3d->Update(timeStep);
 }
 

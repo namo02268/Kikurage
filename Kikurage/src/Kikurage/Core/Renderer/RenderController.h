@@ -1,5 +1,5 @@
 #pragma once
-#include "Kikurage/Systems/Renderer/CameraController.h"
+#include "Kikurage/Core/Renderer/CameraController.h"
 
 class RenderController {
 private:

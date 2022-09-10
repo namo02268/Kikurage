@@ -21,14 +21,14 @@
   <ItemGroup>
     <ClCompile Include="src\Kikurage\Core\Application\Application.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="src\Kikurage\Core\Renderer.cpp" />
+    <ClCompile Include="src\Kikurage\Core\Renderer\Renderer.cpp" />
     <ClCompile Include="src\Kikurage\GUI\ComponentEditor.cpp" />
     <ClCompile Include="src\Kikurage\GUI\ImGuiManager.cpp" />
     <ClCompile Include="src\Kikurage\GUI\SceneEditor.cpp" />
     <ClCompile Include="src\Kikurage\Resource\Mesh\Mesh.cpp" />
     <ClCompile Include="src\Kikurage\Resource\Mesh\MeshLoader.cpp" />
     <ClCompile Include="src\Kikurage\Systems\AABBCollision\AABBCollision.cpp" />
-    <ClCompile Include="src\Kikurage\Systems\Renderer\CameraController.cpp" />
+    <ClCompile Include="src\Kikurage\Core\Renderer\CameraController.cpp" />
     <ClCompile Include="src\Kikurage\Systems\Transform\TransformUpdator.cpp" />
     <ClCompile Include="src\OpenGL\FrameBuffer.cpp" />
     <ClCompile Include="src\OpenGL\RenderBuffer.cpp" />
@@ -79,7 +79,7 @@
     <ClInclude Include="src\Kikurage\Components\RigidBodyComponent.h" />
     <ClInclude Include="src\Kikurage\Components\TransformComponent.h" />
     <ClInclude Include="src\Kikurage\Core\Event.h" />
-    <ClInclude Include="src\Kikurage\Core\Renderer.h" />
+    <ClInclude Include="src\Kikurage\Core\Renderer\Renderer.h" />
     <ClInclude Include="src\Kikurage\ECS\Component.h" />
     <ClInclude Include="src\Kikurage\ECS\ComponentManager.h" />
     <ClInclude Include="src\Kikurage\ECS\ECS_def.h" />
@@ -101,13 +101,13 @@
     <ClInclude Include="src\Kikurage\Resource\Mesh\Mesh.h" />
     <ClInclude Include="src\Kikurage\Resource\Mesh\MeshLoader.h" />
     <ClInclude Include="src\Kikurage\Systems\AABBCollision\AABBCollision.h" />
-    <ClInclude Include="src\Kikurage\Systems\Renderer\PerspectiveCamera.h" />
-    <ClInclude Include="src\Kikurage\Systems\Renderer\RenderController.h" />
+    <ClInclude Include="src\Kikurage\Core\Renderer\PerspectiveCamera.h" />
+    <ClInclude Include="src\Kikurage\Core\Renderer\RenderController.h" />
     <ClInclude Include="src\Kikurage\Systems\Transform\TransformUpdator.h" />
     <ClInclude Include="src\OpenGL\FrameBuffer.h" />
     <ClInclude Include="src\OpenGL\RenderBuffer.h" />
     <ClInclude Include="src\Kikurage\Scene\Scene3D.h" />
-    <ClInclude Include="src\Kikurage\Systems\Renderer\CameraController.h" />
+    <ClInclude Include="src\Kikurage\Core\Renderer\CameraController.h" />
     <ClInclude Include="src\OpenGL\OpenGLWindow.h" />
     <ClInclude Include="src\Kikurage\Core\Window.h" />
     <ClInclude Include="src\Kikurage\Resource\Mesh\Vertex.h" />

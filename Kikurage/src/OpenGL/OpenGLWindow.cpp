@@ -41,7 +41,7 @@ OpenGLWindow::~OpenGLWindow() { Terminate(); }
 void OpenGLWindow::Draw(Texture2D& renderTexture) {
 	screenShader->Use();
 	glBindVertexArray(renderVAO);
-	glBindTexture(GL_TEXTURE_2D, renderTexture.id);
+	glBindTexture(GL_TEXTURE_2D, renderTexture.GetHandle());
 	glDrawArrays(GL_TRIANGLES, 0, 6);
 }
 
@@ -79,7 +79,6 @@ void OpenGLWindow::Init() {
 	glfwSetWindowUserPointer(m_window, this);
 
 	glfwSetFramebufferSizeCallback(m_window, [](GLFWwindow* w, int width, int height) {
-		glViewport(0, 0, width, height);
 		OpenGLWindow& window = *(OpenGLWindow*)glfwGetWindowUserPointer(w);
 		window.m_width = width;
 		window.m_height = height;

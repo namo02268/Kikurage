@@ -3,10 +3,10 @@
 #include "Kikurage/Core/Window.h"
 #include "OpenGL/Texture2D.h"
 
-class SceneWindow : public Window {
+class SceneEditor : public Window {
 public:
-	SceneWindow(int width, int height, const char* title);
-	~SceneWindow() = default;
+	SceneEditor(int width, int height, const char* title);
+	~SceneEditor() = default;
 
 	void Draw(Texture2D& renderTexture) override;
 

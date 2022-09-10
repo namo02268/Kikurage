@@ -10,7 +10,10 @@ main
 
 int main() {
 	new Application();
+
 	Application::GetInstance().Run();
+
+	delete &Application::GetInstance();
 
 	return 0;
 }

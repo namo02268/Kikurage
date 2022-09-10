@@ -2,13 +2,15 @@
 
 #include <glm/glm.hpp>
 
-#include "Kikurage/Systems/Renderer/PerspectiveCamera.h"
+#include "Kikurage/Core/Renderer/PerspectiveCamera.h"
 #include "Kikurage/Events/WindowResizeEvent.h"
+#include "OpenGL/Shader.h"
 
 class CameraController {
 private:
-	PerspectiveCamera camera;
+	PerspectiveCamera mainCamera;
 	bool renderingEnabled = true;
+	std::vector<Shader*> m_shaders;
 
 public:
 	CameraController();
@@ -17,9 +19,13 @@ public:
 	void CameraInputUpdate();
 
 //	void SetRenderTexture(const Texture2D& texture);
+	void SetShader(Shader* shader);
+	void RemoveShader(Shader* shader);
 
-	glm::mat4 getProjectionMatrix() const { return camera.projection; }
-	glm::mat4 getViewMatrix() const { return camera.view; }
+	glm::mat4 GetProjectionMatrix() const { return mainCamera.projection; }
+	glm::mat4 GetViewMatrix() const { return mainCamera.view; }
+
+private:
 };
 
 // set camera position to shader

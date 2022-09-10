@@ -4,12 +4,14 @@
 
 class Texture2D {
 // TODO : make variables private
+private:
+	using TextureID = unsigned int;
+	TextureID m_id = 0;
+
+	unsigned int m_width = 0;
+	unsigned int m_height = 0;
+
 public:
-	unsigned int id = 0;
-
-	unsigned int width = 0;
-	unsigned int height = 0;
-
 	unsigned int Internal_Format = GL_RGB;
 	unsigned int Image_Format = GL_RGB;
 
@@ -26,6 +28,7 @@ public:
 	Texture2D& operator=(Texture2D&& texture) noexcept;
 	~Texture2D();
 
+	TextureID GetHandle() const { return m_id; }
 	void Generate(unsigned int width, unsigned int height, unsigned char* data);
 	void Bind() const;
 	void Unbind() const;
