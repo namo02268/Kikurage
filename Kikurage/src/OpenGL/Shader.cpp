@@ -2,9 +2,34 @@
 
 #include <iostream>
 
-Shader& Shader::Use() {
-    glUseProgram(this->ID);
+Shader::Shader() {}
+
+Shader::Shader(Shader&& shader) noexcept {
+    this->m_id = shader.m_id;
+    shader.m_id = 0;
+}
+
+Shader& Shader::operator=(Shader&& shader) noexcept {
+    this->m_id = shader.m_id;
+    shader.m_id = 0;
+
     return *this;
+}
+
+Shader::~Shader() {
+    this->FreeProgram();
+}
+
+Shader& Shader::Use() {
+    glUseProgram(this->m_id);
+    return *this;
+}
+
+void Shader::FreeProgram() {
+    if (this->m_id != 0) {
+        glDeleteProgram(this->m_id);
+        this->m_id = 0;
+    }
 }
 
 void Shader::Compile(const char* vertexSource, const char* fragmentSource, const char* geometrySource) {
@@ -28,13 +53,13 @@ void Shader::Compile(const char* vertexSource, const char* fragmentSource, const
         checkCompileErrors(gShader, "GEOMETRY");
     }
     // shader program
-    this->ID = glCreateProgram();
-    glAttachShader(this->ID, sVertex);
-    glAttachShader(this->ID, sFragment);
+    this->m_id = glCreateProgram();
+    glAttachShader(this->m_id, sVertex);
+    glAttachShader(this->m_id, sFragment);
     if (geometrySource != nullptr)
-        glAttachShader(this->ID, gShader);
-    glLinkProgram(this->ID);
-    checkCompileErrors(this->ID, "PROGRAM");
+        glAttachShader(this->m_id, gShader);
+    glLinkProgram(this->m_id);
+    checkCompileErrors(this->m_id, "PROGRAM");
     // delete the shaders as they're linked into our program now and no longer necessary
     glDeleteShader(sVertex);
     glDeleteShader(sFragment);
@@ -46,55 +71,55 @@ void Shader::SetFloat(const char* name, float value, bool useShader)
 {
     if (useShader)
         this->Use();
-    glUniform1f(glGetUniformLocation(this->ID, name), value);
+    glUniform1f(glGetUniformLocation(this->m_id, name), value);
 }
 void Shader::SetInteger(const char* name, int value, bool useShader)
 {
     if (useShader)
         this->Use();
-    glUniform1i(glGetUniformLocation(this->ID, name), value);
+    glUniform1i(glGetUniformLocation(this->m_id, name), value);
 }
 void Shader::SetVector2f(const char* name, float x, float y, bool useShader)
 {
     if (useShader)
         this->Use();
-    glUniform2f(glGetUniformLocation(this->ID, name), x, y);
+    glUniform2f(glGetUniformLocation(this->m_id, name), x, y);
 }
 void Shader::SetVector2f(const char* name, const glm::vec2& value, bool useShader)
 {
     if (useShader)
         this->Use();
-    glUniform2f(glGetUniformLocation(this->ID, name), value.x, value.y);
+    glUniform2f(glGetUniformLocation(this->m_id, name), value.x, value.y);
 }
 void Shader::SetVector3f(const char* name, float x, float y, float z, bool useShader)
 {
     if (useShader)
         this->Use();
-    glUniform3f(glGetUniformLocation(this->ID, name), x, y, z);
+    glUniform3f(glGetUniformLocation(this->m_id, name), x, y, z);
 }
 void Shader::SetVector3f(const char* name, const glm::vec3& value, bool useShader)
 {
     if (useShader)
         this->Use();
-    glUniform3f(glGetUniformLocation(this->ID, name), value.x, value.y, value.z);
+    glUniform3f(glGetUniformLocation(this->m_id, name), value.x, value.y, value.z);
 }
 void Shader::SetVector4f(const char* name, float x, float y, float z, float w, bool useShader)
 {
     if (useShader)
         this->Use();
-    glUniform4f(glGetUniformLocation(this->ID, name), x, y, z, w);
+    glUniform4f(glGetUniformLocation(this->m_id, name), x, y, z, w);
 }
 void Shader::SetVector4f(const char* name, const glm::vec4& value, bool useShader)
 {
     if (useShader)
         this->Use();
-    glUniform4f(glGetUniformLocation(this->ID, name), value.x, value.y, value.z, value.w);
+    glUniform4f(glGetUniformLocation(this->m_id, name), value.x, value.y, value.z, value.w);
 }
 void Shader::SetMatrix4(const char* name, const glm::mat4& matrix, bool useShader)
 {
     if (useShader)
         this->Use();
-    glUniformMatrix4fv(glGetUniformLocation(this->ID, name), 1, false, glm::value_ptr(matrix));
+    glUniformMatrix4fv(glGetUniformLocation(this->m_id, name), 1, false, glm::value_ptr(matrix));
 }
 
 void Shader::checkCompileErrors(unsigned int object, std::string type)

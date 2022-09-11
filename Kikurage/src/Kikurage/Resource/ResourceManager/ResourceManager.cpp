@@ -110,7 +110,4 @@ Mesh* ResourceManager::GetMesh(std::string name) {
 //-------------------------Utils-------------------------//
 void ResourceManager::Clear()
 {
-    // (properly) delete all shaders	
-    for (auto& iter : Shaders)
-        glDeleteProgram(iter.second->ID);
 }

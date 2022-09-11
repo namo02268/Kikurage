@@ -4,6 +4,18 @@ RenderBuffer::RenderBuffer() {
 	glGenRenderbuffers(1, &this->m_id);
 }
 
+RenderBuffer::RenderBuffer(RenderBuffer&& renderBuffer) noexcept {
+	this->m_id = renderBuffer.m_id;
+	renderBuffer.m_id = 0;
+}
+
+RenderBuffer& RenderBuffer::operator=(RenderBuffer&& renderBuffer) noexcept {
+	this->m_id = renderBuffer.m_id;
+	renderBuffer.m_id = 0;
+
+	return *this;
+}
+
 RenderBuffer::~RenderBuffer() {
 	this->FreeRenderBuffer();
 }

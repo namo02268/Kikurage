@@ -13,15 +13,19 @@ private:
 public:
 	RenderBuffer();
 	RenderBuffer(const RenderBuffer&) = delete;
+	RenderBuffer(RenderBuffer&& renderBuffer) noexcept;
 	RenderBuffer& operator=(const RenderBuffer&) = delete;
+	RenderBuffer& operator=(RenderBuffer&& renderBuffer) noexcept;
 	~RenderBuffer();
 
-	unsigned int GetHandle() const { return this->m_id; }
-	unsigned int GetWidth() const { return this->m_width; }
-	unsigned int GetHeight() const { return this->m_height; }
-	void InitStorage(int width, int height, GLenum format);
-	void LinkToFrameBuffer(const FrameBuffer& framebuffer) const;
 	void Bind() const;
 	void Unbind() const;
+	unsigned int GetHandle() const { return this->m_id; }
+
+	void InitStorage(int width, int height, GLenum format);
+	void LinkToFrameBuffer(const FrameBuffer& framebuffer) const;
 	void FreeRenderBuffer();
+
+	unsigned int GetWidth() const { return this->m_width; }
+	unsigned int GetHeight() const { return this->m_height; }
 };

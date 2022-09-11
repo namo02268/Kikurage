@@ -8,10 +8,13 @@ Texture2D::Texture2D(Texture2D&& texture) noexcept {
 	this->m_id = texture.m_id;
 	this->m_width = texture.m_width;
 	this->m_height = texture.m_height;
-
 	this->m_format = texture.m_format;
 	this->m_wrapType = texture.m_wrapType;
 	this->m_filter = texture.m_filter;
+
+	texture.m_id = 0;
+	texture.m_width = 0;
+	texture.m_height = 0;
 }
 
 Texture2D& Texture2D::operator=(Texture2D&& texture) noexcept {
@@ -22,6 +25,10 @@ Texture2D& Texture2D::operator=(Texture2D&& texture) noexcept {
 	this->m_format = texture.m_format;
 	this->m_wrapType = texture.m_wrapType;
 	this->m_filter = texture.m_filter;
+
+	texture.m_id = 0;
+	texture.m_width = 0;
+	texture.m_height = 0;
 
 	return *this;
 }
@@ -68,7 +75,6 @@ void Texture2D::Generate(unsigned char* data, unsigned int width, unsigned int h
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, this->m_wrapType);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, this->m_filter);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, this->m_filter);
-	glGenerateMipmap(GL_TEXTURE_2D);
 	this->Unbind();
 }
 
