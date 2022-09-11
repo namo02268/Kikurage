@@ -67,17 +67,15 @@ void ResourceManager::LoadTexture(const char* file, TextureType type, std::strin
 {
     // create texture object
     auto texture = std::make_unique<Texture2D>();
+    auto format = GL_RGB;
     if (type == TextureType::RGB) {
-        texture->Internal_Format = GL_RGB;
-        texture->Image_Format = GL_RGB;
+        format = GL_RGB;
     }
     if (type == TextureType::RGBA) {
-        texture->Internal_Format = GL_RGBA;
-        texture->Image_Format = GL_RGBA;
+        format = GL_RGBA;
     }
     if (type == TextureType::HDR) {
-        texture->Internal_Format = GL_RGB16F;
-        texture->Image_Format = GL_RGB;
+        format = GL_RGB16F;
         texture->Wrap_S = GL_CLAMP_TO_EDGE;
         texture->Wrap_T = GL_CLAMP_TO_EDGE;
     }
@@ -85,7 +83,7 @@ void ResourceManager::LoadTexture(const char* file, TextureType type, std::strin
     int width, height, nrChannels;
     unsigned char* data = stbi_load(file, &width, &height, &nrChannels, 0);
     // now generate texture
-    texture->Generate(width, height, data);
+    texture->Generate(width, height, nrChannels, format, data);
     // and finally free image data
     stbi_image_free(data);
 

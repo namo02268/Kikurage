@@ -8,9 +8,8 @@ Texture2D::Texture2D(Texture2D&& texture) noexcept {
 	this->m_id = texture.m_id;
 	this->m_width = texture.m_width;
 	this->m_height = texture.m_height;
+	this->m_format = texture.m_format;
 
-	this->Internal_Format = texture.Internal_Format;
-	this->Image_Format = texture.Image_Format;
 	this->Wrap_S = texture.Wrap_S;
 	this->Wrap_T = texture.Wrap_T;
 	this->Filter_Min = texture.Filter_Min;
@@ -21,9 +20,8 @@ Texture2D& Texture2D::operator=(Texture2D&& texture) noexcept {
 	this->m_id = texture.m_id;
 	this->m_width = texture.m_width;
 	this->m_height = texture.m_height;
+	this->m_format = texture.m_format;
 
-	this->Internal_Format = texture.Internal_Format;
-	this->Image_Format = texture.Image_Format;
 	this->Wrap_S = texture.Wrap_S;
 	this->Wrap_T = texture.Wrap_T;
 	this->Filter_Min = texture.Filter_Min;
@@ -36,13 +34,33 @@ Texture2D::~Texture2D() {
 	this->FreeTexture();
 }
 
-void Texture2D::Generate(unsigned int width, unsigned int height, unsigned char* data) {
+void Texture2D::Generate(unsigned int width, unsigned int height, unsigned int channels, unsigned int format, unsigned char* data) {
 	this->m_width = width;
 	this->m_height = height;
+	this->m_format = format;
+
+	GLenum dataChannels = GL_RGB;
+	switch (channels)
+	{
+	case 1:
+		dataChannels = GL_RED;
+		break;
+	case 2:
+		dataChannels = GL_RG;
+		break;
+	case 3:
+		dataChannels = GL_RGB;
+		break;
+	case 4:
+		dataChannels = GL_RGBA;
+		break;
+	default:
+		break;
+	}
 
 	// create Texture
 	glBindTexture(GL_TEXTURE_2D, this->m_id);
-	glTexImage2D(GL_TEXTURE_2D, 0, this->Internal_Format, width, height, 0, this->Image_Format, GL_UNSIGNED_BYTE, data);
+	glTexImage2D(GL_TEXTURE_2D, 0, this->m_format, this->m_width, this->m_height, 0, dataChannels, GL_UNSIGNED_BYTE, data);
 
 	// set Texture wrap and filter modes
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, this->Wrap_S);
