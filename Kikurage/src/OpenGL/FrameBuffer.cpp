@@ -1,7 +1,7 @@
 #include "OpenGL/FrameBuffer.h"
 
 FrameBuffer::FrameBuffer() {
-	glGenFramebuffers(1, &this->id);
+	glGenFramebuffers(1, &this->m_id);
 }
 
 FrameBuffer::~FrameBuffer() {
@@ -14,7 +14,7 @@ void FrameBuffer::AttachTexture(const Texture2D& texture) {
 }
 
 void FrameBuffer::Bind() const {
-	glBindFramebuffer(GL_FRAMEBUFFER, this->id);
+	glBindFramebuffer(GL_FRAMEBUFFER, this->m_id);
 }
 
 void FrameBuffer::Unbind() const {
@@ -22,8 +22,8 @@ void FrameBuffer::Unbind() const {
 }
 
 void FrameBuffer::FreeFrameBuffer() {
-	if (this->id != 0) {
-		glDeleteFramebuffers(1, &id);
-		this->id = 0;
+	if (this->m_id != 0) {
+		glDeleteFramebuffers(1, &m_id);
+		this->m_id = 0;
 	}
 }

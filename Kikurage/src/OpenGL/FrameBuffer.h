@@ -4,14 +4,16 @@
 #include "OpenGL/Texture2D.h"
 
 class FrameBuffer {
-public:
-	unsigned int id = 0;
+private:
+	unsigned int m_id = 0;
 
 public:
 	FrameBuffer();
 	FrameBuffer(const FrameBuffer&) = delete;
 	FrameBuffer& operator=(const FrameBuffer&) = delete;
 	~FrameBuffer();
+
+	unsigned int GetHandle() const { return m_id; }
 
 	void AttachTexture(const Texture2D& texture);
 	void Bind() const;

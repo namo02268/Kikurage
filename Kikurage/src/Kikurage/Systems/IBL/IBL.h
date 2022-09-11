@@ -2,6 +2,8 @@
 
 #include "Kikurage/ECS/System.h"
 #include "OpenGL/Shader.h"
+#include "OpenGL/FrameBuffer.h"
+#include "OpenGL/RenderBuffer.h"
 
 class IBL : public System {
 private:
