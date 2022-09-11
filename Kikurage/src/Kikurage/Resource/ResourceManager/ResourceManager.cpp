@@ -76,14 +76,14 @@ void ResourceManager::LoadTexture(const char* file, TextureType type, std::strin
     }
     if (type == TextureType::HDR) {
         format = GL_RGB16F;
-        texture->Wrap_S = GL_CLAMP_TO_EDGE;
-        texture->Wrap_T = GL_CLAMP_TO_EDGE;
+        texture->SetWrapType(GL_CLAMP_TO_EDGE);
     }
+
     // load image
     int width, height, nrChannels;
     unsigned char* data = stbi_load(file, &width, &height, &nrChannels, 0);
     // now generate texture
-    texture->Generate(width, height, nrChannels, format, data);
+    texture->Generate(data, width, height, nrChannels, format);
     // and finally free image data
     stbi_image_free(data);
 
