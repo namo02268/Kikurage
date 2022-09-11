@@ -28,12 +28,12 @@ void IBL::init() {
 	brdfShader = ResourceManager::GetShader("brdfShader");
 
 	//----------------------------------background----------------------------------//
-	pbrShader->Use();
-	pbrShader->SetInteger("irradianceMap", 0);
-	pbrShader->SetInteger("prefilterMap", 1);
-	pbrShader->SetInteger("brdfLUT", 2);
-	backgroundShader->Use();
-	backgroundShader->SetInteger("environmentMap", 0);
+	pbrShader->Bind();
+	pbrShader->SetUniform("irradianceMap", 0);
+	pbrShader->SetUniform("prefilterMap", 1);
+	pbrShader->SetUniform("brdfLUT", 2);
+	backgroundShader->Bind();
+	backgroundShader->SetUniform("environmentMap", 0);
 
 	// pbr: setup framebuffer
 	unsigned int captureFBO;
@@ -73,9 +73,9 @@ void IBL::init() {
 	};
 
 	// pbr: convert HDR equirectangular environment map to cubemap equivalent
-	equirectangularToCubemapShader->Use();
-	equirectangularToCubemapShader->SetInteger("equirectangularMap", 0);
-	equirectangularToCubemapShader->SetMatrix4("projection", captureProjection);
+	equirectangularToCubemapShader->Bind();
+	equirectangularToCubemapShader->SetUniform("equirectangularMap", 0);
+	equirectangularToCubemapShader->SetUniform("projection", captureProjection);
 	glActiveTexture(GL_TEXTURE0);
 	glBindTexture(GL_TEXTURE_2D, ResourceManager::GetTexture("hdrTexture")->GetHandle());
 
@@ -83,7 +83,7 @@ void IBL::init() {
 	glBindFramebuffer(GL_FRAMEBUFFER, captureFBO);
 	for (unsigned int i = 0; i < 6; ++i)
 	{
-		equirectangularToCubemapShader->SetMatrix4("view", captureViews[i]);
+		equirectangularToCubemapShader->SetUniform("view", captureViews[i]);
 		glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_CUBE_MAP_POSITIVE_X + i, envCubemap, 0);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
@@ -115,9 +115,9 @@ void IBL::init() {
 
 
 	// pbr: solve diffuse integral by convolution to create an irradiance (cube)map.
-	irradianceShader->Use();
-	irradianceShader->SetInteger("environmentMap", 0);
-	irradianceShader->SetMatrix4("projection", captureProjection);
+	irradianceShader->Bind();
+	irradianceShader->SetUniform("environmentMap", 0);
+	irradianceShader->SetUniform("projection", captureProjection);
 	glActiveTexture(GL_TEXTURE0);
 	glBindTexture(GL_TEXTURE_CUBE_MAP, envCubemap);
 
@@ -125,7 +125,7 @@ void IBL::init() {
 	glBindFramebuffer(GL_FRAMEBUFFER, captureFBO);
 	for (unsigned int i = 0; i < 6; ++i)
 	{
-		irradianceShader->SetMatrix4("view", captureViews[i]);
+		irradianceShader->SetUniform("view", captureViews[i]);
 		glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_CUBE_MAP_POSITIVE_X + i, irradianceMap, 0);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
@@ -149,9 +149,9 @@ void IBL::init() {
 	glGenerateMipmap(GL_TEXTURE_CUBE_MAP);
 
 	// pbr: run a quasi monte-carlo simulation on the environment lighting to create a prefilter (cube)map.
-	prefilterShader->Use();
-	prefilterShader->SetInteger("environmentMap", 0);
-	prefilterShader->SetMatrix4("projection", captureProjection);
+	prefilterShader->Bind();
+	prefilterShader->SetUniform("environmentMap", 0);
+	prefilterShader->SetUniform("projection", captureProjection);
 	glActiveTexture(GL_TEXTURE0);
 	glBindTexture(GL_TEXTURE_CUBE_MAP, envCubemap);
 
@@ -167,10 +167,10 @@ void IBL::init() {
 		glViewport(0, 0, mipWidth, mipHeight);
 
 		float roughness = (float)mip / (float)(maxMipLevels - 1);
-		prefilterShader->SetFloat("roughness", roughness);
+		prefilterShader->SetUniform("roughness", roughness);
 		for (unsigned int i = 0; i < 6; ++i)
 		{
-			prefilterShader->SetMatrix4("view", captureViews[i]);
+			prefilterShader->SetUniform("view", captureViews[i]);
 			glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_CUBE_MAP_POSITIVE_X + i, prefilterMap, mip);
 
 			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -198,7 +198,7 @@ void IBL::init() {
 	glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, brdfLUTTexture, 0);
 
 	glViewport(0, 0, 512, 512);
-	brdfShader->Use();
+	brdfShader->Bind();
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	renderQuad();
 
@@ -207,7 +207,7 @@ void IBL::init() {
 }
 
 void IBL::update(float dt) {
-	pbrShader->Use();
+	pbrShader->Bind();
 	// bind pre-computed IBL data
 	glActiveTexture(GL_TEXTURE0);
 	glBindTexture(GL_TEXTURE_CUBE_MAP, irradianceMap);
@@ -218,7 +218,7 @@ void IBL::update(float dt) {
 }
 
 void IBL::draw() {
-	backgroundShader->Use();
+	backgroundShader->Bind();
 	glActiveTexture(GL_TEXTURE0);
 	glBindTexture(GL_TEXTURE_CUBE_MAP, envCubemap);
 //	glBindTexture(GL_TEXTURE_CUBE_MAP, irradianceMap); // display irradiance map

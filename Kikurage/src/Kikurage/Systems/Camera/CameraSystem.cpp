@@ -107,10 +107,10 @@ void CameraSystem::draw() {
 		glm::mat4 view = glm::lookAt(transfromComponent->position, transfromComponent->position + cameraComponent->Front, cameraComponent->Up);
 
 		for (auto& shader : m_shaders) {
-			shader->Use();
-			shader->SetVector3f("cameraPos", transfromComponent->position);
-			shader->SetMatrix4("projection", projection);
-			shader->SetMatrix4("view", view);
+			shader->Bind();
+			shader->SetUniform("cameraPos", transfromComponent->position);
+			shader->SetUniform("projection", projection);
+			shader->SetUniform("view", view);
 		}
 	}
 }

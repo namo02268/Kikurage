@@ -38,7 +38,7 @@ void MeshRenderer::update(float dt) {
 }
 
 void MeshRenderer::draw() {
-	this->m_shader->Use();
+	this->m_shader->Bind();
 	for (auto& e : m_entityArray) {
 		auto cTrans = m_parentScene->getComponent<TransformComponent>(e);
 		auto cMesh = m_parentScene->getComponent<MeshComponent>(e);
@@ -46,13 +46,13 @@ void MeshRenderer::draw() {
 		auto cParent = m_parentScene->getComponent<Relationship>(e)->parent;
 
 		// material
-		this->m_shader->SetVector3f("albedo", cMat->albedo);
-		this->m_shader->SetFloat("metallic", cMat->metallic);
-		this->m_shader->SetFloat("roughness", cMat->roughness);
-		this->m_shader->SetFloat("ao", cMat->ao);
+		this->m_shader->SetUniform("albedo", cMat->albedo);
+		this->m_shader->SetUniform("metallic", cMat->metallic);
+		this->m_shader->SetUniform("roughness", cMat->roughness);
+		this->m_shader->SetUniform("ao", cMat->ao);
 
 		// model
-		this->m_shader->SetMatrix4("model", cTrans->model);
+		this->m_shader->SetUniform("model", cTrans->model);
 		glBindVertexArray(cMesh->mesh->VAO);
 		glDrawElements(GL_TRIANGLES, cMesh->mesh->indiceCount, GL_UNSIGNED_INT, 0);
 		glBindVertexArray(0);

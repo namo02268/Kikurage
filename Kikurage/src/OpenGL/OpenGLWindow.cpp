@@ -32,14 +32,14 @@ OpenGLWindow::OpenGLWindow(int width, int height, const char* title) {
 
 	ResourceManager::LoadShaderFromFile("resources/shaders/screen.vert", "resources/shaders/screen.frag", nullptr, "screen");
 	screenShader = ResourceManager::GetShader("screen");
-	screenShader->Use();
-	screenShader->SetInteger("screenTexture", 0);
+	screenShader->Bind();
+	screenShader->SetUniform("screenTexture", 0);
 }
 
 OpenGLWindow::~OpenGLWindow() { Terminate(); }
 
 void OpenGLWindow::Draw(Texture2D& renderTexture) {
-	screenShader->Use();
+	screenShader->Bind();
 	glBindVertexArray(renderVAO);
 	glBindTexture(GL_TEXTURE_2D, renderTexture.GetHandle());
 	glDrawArrays(GL_TRIANGLES, 0, 6);
