@@ -1,6 +1,8 @@
 #include "Kikurage/Systems/IBL/IBL.h"
 #include "Kikurage/Resource/ResourceManager/ResourceManager.h"
 #include "stb_image/stb_image.h"
+#include "OpenGL/FrameBuffer.h"
+#include "OpenGL/RenderBuffer.h"
 
 void renderCube();
 void renderQuad();
@@ -36,15 +38,11 @@ void IBL::init() {
 	backgroundShader->SetUniform("environmentMap", 0);
 
 	// pbr: setup framebuffer
-	unsigned int captureFBO;
-	unsigned int captureRBO;
-	glGenFramebuffers(1, &captureFBO);
-	glGenRenderbuffers(1, &captureRBO);
+	FrameBuffer FBO;
+	RenderBuffer RBO;
 
-	glBindFramebuffer(GL_FRAMEBUFFER, captureFBO);
-	glBindRenderbuffer(GL_RENDERBUFFER, captureRBO);
-	glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH_COMPONENT24, 512, 512);
-	glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_RENDERBUFFER, captureRBO);
+	RBO.InitStorage(512, 512, GL_DEPTH_COMPONENT24);
+	RBO.LinkToFrameBuffer(FBO, GL_DEPTH_ATTACHMENT);
 
 	// pbr: setup cubemap to render to and attach to framebuffer
 	glGenTextures(1, &envCubemap);
@@ -80,7 +78,7 @@ void IBL::init() {
 	glBindTexture(GL_TEXTURE_2D, ResourceManager::GetTexture("hdrTexture")->GetHandle());
 
 	glViewport(0, 0, 512, 512); // don't forget to configure the viewport to the capture dimensions.
-	glBindFramebuffer(GL_FRAMEBUFFER, captureFBO);
+	FBO.Bind();
 	for (unsigned int i = 0; i < 6; ++i)
 	{
 		equirectangularToCubemapShader->SetUniform("view", captureViews[i]);
@@ -89,7 +87,7 @@ void IBL::init() {
 
 		renderCube();
 	}
-	glBindFramebuffer(GL_FRAMEBUFFER, 0);
+	FBO.Unbind();
 
 
 	// then let OpenGL generate mipmaps from first mip face (combatting visible dots artifact)
@@ -109,10 +107,7 @@ void IBL::init() {
 	glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 	glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 
-	glBindFramebuffer(GL_FRAMEBUFFER, captureFBO);
-	glBindRenderbuffer(GL_RENDERBUFFER, captureRBO);
-	glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH_COMPONENT24, 32, 32);
-
+	RBO.InitStorage(32, 32, GL_DEPTH_COMPONENT24);
 
 	// pbr: solve diffuse integral by convolution to create an irradiance (cube)map.
 	irradianceShader->Bind();
@@ -122,7 +117,7 @@ void IBL::init() {
 	glBindTexture(GL_TEXTURE_CUBE_MAP, envCubemap);
 
 	glViewport(0, 0, 32, 32); // don't forget to configure the viewport to the capture dimensions.
-	glBindFramebuffer(GL_FRAMEBUFFER, captureFBO);
+	FBO.Bind();
 	for (unsigned int i = 0; i < 6; ++i)
 	{
 		irradianceShader->SetUniform("view", captureViews[i]);
@@ -131,7 +126,7 @@ void IBL::init() {
 
 		renderCube();
 	}
-	glBindFramebuffer(GL_FRAMEBUFFER, 0);
+	FBO.Unbind();
 
 	//-----------------------------pre-filter cubemap-----------------------------//
 	glGenTextures(1, &prefilterMap);
@@ -155,15 +150,15 @@ void IBL::init() {
 	glActiveTexture(GL_TEXTURE0);
 	glBindTexture(GL_TEXTURE_CUBE_MAP, envCubemap);
 
-	glBindFramebuffer(GL_FRAMEBUFFER, captureFBO);
+	FBO.Bind();
 	unsigned int maxMipLevels = 5;
 	for (unsigned int mip = 0; mip < maxMipLevels; ++mip)
 	{
 		// reisze framebuffer according to mip-level size.
 		unsigned int mipWidth = static_cast<unsigned int>(128 * std::pow(0.5, mip));
 		unsigned int mipHeight = static_cast<unsigned int>(128 * std::pow(0.5, mip));
-		glBindRenderbuffer(GL_RENDERBUFFER, captureRBO);
-		glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH_COMPONENT24, mipWidth, mipHeight);
+
+		RBO.InitStorage(mipWidth, mipHeight, GL_DEPTH_COMPONENT24);
 		glViewport(0, 0, mipWidth, mipHeight);
 
 		float roughness = (float)mip / (float)(maxMipLevels - 1);
@@ -177,7 +172,7 @@ void IBL::init() {
 			renderCube();
 		}
 	}
-	glBindFramebuffer(GL_FRAMEBUFFER, 0);
+	FBO.Unbind();
 
 	//-----------------------------2D LUT-----------------------------//
 	glGenTextures(1, &brdfLUTTexture);
@@ -192,9 +187,8 @@ void IBL::init() {
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 
 	// then re-configure capture framebuffer object and render screen-space quad with BRDF shader.
-	glBindFramebuffer(GL_FRAMEBUFFER, captureFBO);
-	glBindRenderbuffer(GL_RENDERBUFFER, captureRBO);
-	glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH_COMPONENT24, 512, 512);
+	FBO.Bind();
+	RBO.InitStorage(512, 512, GL_DEPTH_COMPONENT24);
 	glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, brdfLUTTexture, 0);
 
 	glViewport(0, 0, 512, 512);
@@ -202,8 +196,7 @@ void IBL::init() {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	renderQuad();
 
-	glBindFramebuffer(GL_FRAMEBUFFER, 0);
-
+	FBO.Unbind();
 }
 
 void IBL::update(float dt) {

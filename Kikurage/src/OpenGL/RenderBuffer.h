@@ -25,7 +25,7 @@ public:
 	unsigned int GetHandle() const { return this->m_id; }
 
 	void InitStorage(int width, int height, GLenum format);
-	void LinkToFrameBuffer(const FrameBuffer& framebuffer) const; // TODO : bool isBind()?
+	void LinkToFrameBuffer(const FrameBuffer& framebuffer, unsigned int mode) const; // TODO : bool isBind()?
 
 	unsigned int GetWidth() const { return this->m_width; }
 	unsigned int GetHeight() const { return this->m_height; }

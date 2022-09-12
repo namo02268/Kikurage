@@ -29,9 +29,9 @@ void RenderBuffer::InitStorage(int width, int height, GLenum format) {
 	glRenderbufferStorage(GL_RENDERBUFFER, m_format, m_width, m_height);
 }
 
-void RenderBuffer::LinkToFrameBuffer(const FrameBuffer& framebuffer) const {
+void RenderBuffer::LinkToFrameBuffer(const FrameBuffer& framebuffer, unsigned int mode) const {
 	framebuffer.Bind();
-	glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_STENCIL_ATTACHMENT, GL_RENDERBUFFER, this->m_id);
+	glFramebufferRenderbuffer(GL_FRAMEBUFFER, mode, GL_RENDERBUFFER, this->m_id);
 	framebuffer.Unbind();
 }
 

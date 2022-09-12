@@ -8,7 +8,7 @@ void RenderBuffers::Init(int width, int height) {
 	this->renderTexture.Generate(nullptr, width, height);
 	this->framebuffer.AttachTexture(this->renderTexture);
 	this->renderbuffer.InitStorage(width, height, GL_DEPTH24_STENCIL8);
-	this->renderbuffer.LinkToFrameBuffer(this->framebuffer);
+	this->renderbuffer.LinkToFrameBuffer(this->framebuffer, GL_DEPTH_STENCIL_ATTACHMENT);
 }
 
 void RenderBuffers::Resize(int width, int height) {
