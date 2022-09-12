@@ -6,14 +6,22 @@ VertexBuffer::VertexBuffer() {
 
 VertexBuffer::VertexBuffer(VertexBuffer&& vertexBuffer) noexcept {
     this->m_id = vertexBuffer.m_id;
+    this->m_size = vertexBuffer.m_size;
+    this->m_usage = vertexBuffer.m_usage;
 
     vertexBuffer.m_id = 0;
+    vertexBuffer.m_size = 0;
+    vertexBuffer.m_usage = GL_STATIC_DRAW;
 }
 
 VertexBuffer& VertexBuffer::operator=(VertexBuffer&& vertexBuffer) noexcept {
     this->m_id = vertexBuffer.m_id;
+    this->m_size = vertexBuffer.m_size;
+    this->m_usage = vertexBuffer.m_usage;
 
     vertexBuffer.m_id = 0;
+    vertexBuffer.m_size = 0;
+    vertexBuffer.m_usage = GL_STATIC_DRAW;
 
     return *this;
 }

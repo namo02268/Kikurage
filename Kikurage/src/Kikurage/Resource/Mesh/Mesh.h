@@ -2,12 +2,13 @@
 
 #include "Kikurage/Resource/Mesh/AABB.h"
 #include "OpenGL/VertexBuffer.h"
+#include "OpenGL/IndexBuffer.h"
 
 class Mesh {
 public:
 	unsigned int VAO = 0;
 	VertexBuffer VBO;
-	unsigned int EBO = 0;
+	IndexBuffer IBO;
 	const char* path = nullptr;
 
 	unsigned int vertexCount = 0;

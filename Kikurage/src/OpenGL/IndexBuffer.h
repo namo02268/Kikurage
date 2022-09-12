@@ -2,7 +2,7 @@
 
 #include <glad/glad.h>
 
-class VertexBuffer {
+class IndexBuffer {
 private:
 	unsigned int m_id = 0;
 	size_t m_size = 0;
@@ -11,12 +11,12 @@ private:
 	void FreeBuffer();
 
 public:
-	VertexBuffer();
-	VertexBuffer(const VertexBuffer&) = delete;
-	VertexBuffer(VertexBuffer&& vertexBuffer) noexcept;
-	VertexBuffer& operator=(const VertexBuffer&) = delete;
-	VertexBuffer& operator=(VertexBuffer&& vertexBuffer) noexcept;
-	~VertexBuffer();
+	IndexBuffer();
+	IndexBuffer(const IndexBuffer&) = delete;
+	IndexBuffer(IndexBuffer&& indexBuffer) noexcept;
+	IndexBuffer& operator=(const IndexBuffer&) = delete;
+	IndexBuffer& operator=(IndexBuffer&& indexBuffer) noexcept;
+	~IndexBuffer();
 
 	void Bind() const;
 	void Unbind() const;
