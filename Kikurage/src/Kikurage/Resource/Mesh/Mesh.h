@@ -1,11 +1,12 @@
 #pragma once
 
 #include "Kikurage/Resource/Mesh/AABB.h"
+#include "OpenGL/VertexBuffer.h"
 
 class Mesh {
 public:
 	unsigned int VAO = 0;
-	unsigned int VBO = 0;
+	VertexBuffer VBO;
 	unsigned int EBO = 0;
 	const char* path = nullptr;
 

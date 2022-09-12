@@ -13,6 +13,8 @@ private:
 	unsigned int m_id = 0;
 	static unsigned int CurrentlyAttachedShader;
 
+	void FreeProgram();
+
 public:
 	Shader();
 	Shader(const Shader&) = delete;
@@ -24,7 +26,6 @@ public:
 	void Bind() const;
 	void Unbind() const;
 	unsigned int GetHandle() const { return this->m_id; }
-	void FreeProgram();
 
 	int GetUniformLocation(const char* name) const;
 	void SetUniform(const char* name, const bool       value) const;

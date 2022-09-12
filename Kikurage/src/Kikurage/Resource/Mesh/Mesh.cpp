@@ -9,8 +9,7 @@ Mesh::Mesh() {
 Mesh::Mesh(Mesh&& mesh) noexcept {
 	this->VAO = mesh.VAO;
 	mesh.VAO = 0;
-	this->VBO = mesh.VBO;
-	mesh.VBO = 0;
+	this->VBO = std::move(mesh.VBO);
 	this->EBO = mesh.EBO;
 	mesh.EBO = 0;
 
@@ -23,8 +22,7 @@ Mesh::Mesh(Mesh&& mesh) noexcept {
 Mesh& Mesh::operator=(Mesh&& mesh) noexcept {
 	this->VAO = mesh.VAO;
 	mesh.VAO = 0;
-	this->VBO = mesh.VBO;
-	mesh.VBO = 0;
+	this->VBO = std::move(mesh.VBO);
 	this->EBO = mesh.EBO;
 	mesh.EBO = 0;
 
@@ -53,13 +51,11 @@ void Mesh::LoadFromFile(const char* path) {
 	{
 		// create buffers/arrays
 		glGenVertexArrays(1, &this->VAO);
-		glGenBuffers(1, &this->VBO);
 		glGenBuffers(1, &this->EBO);
 
 		glBindVertexArray(this->VAO);
 
-		glBindBuffer(GL_ARRAY_BUFFER, this->VBO);
-		glBufferData(GL_ARRAY_BUFFER, mesh.vertices.size() * sizeof(Vertex), &mesh.vertices[0], GL_STATIC_DRAW);
+		VBO.SetData(mesh.vertices.size() * sizeof(Vertex), &mesh.vertices[0], GL_STATIC_DRAW);
 
 		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, this->EBO);
 		glBufferData(GL_ELEMENT_ARRAY_BUFFER, mesh.indices.size() * sizeof(unsigned int), &mesh.indices[0], GL_STATIC_DRAW);
@@ -82,8 +78,6 @@ void Mesh::LoadFromFile(const char* path) {
 void Mesh::ClearBuffers() {
 	if (this->VAO != 0)
 		glDeleteVertexArrays(1, &this->VAO);
-	if (this->VBO != 0)
-		glDeleteBuffers(1, &this->VBO);
 	if (this->EBO != 0)
 		glDeleteBuffers(1, &this->EBO);
 }

@@ -13,6 +13,8 @@ private:
 	unsigned int m_wrapType = GL_REPEAT;
 	unsigned int m_filter = GL_LINEAR;
 
+	void FreeTexture();
+
 public:
 	Texture2D();
 	Texture2D(const Texture2D&) = delete;
@@ -26,7 +28,6 @@ public:
 	unsigned int GetHandle() const { return this->m_id; }
 
 	void Generate(unsigned char* data, unsigned int width, unsigned int height, unsigned int channels = 3, unsigned int format = GL_RGB);
-	void FreeTexture();
 
 	void SetWrapType(unsigned int wrapType);
 	void SetFilterType(unsigned int filterType);

@@ -44,6 +44,7 @@
     <ClCompile Include="src\Kikurage\Systems\IBL\IBL.cpp" />
     <ClCompile Include="src\Kikurage\Systems\Renderer\MeshRenderer.cpp" />
     <ClCompile Include="src\Kikurage\Systems\Physics\Physics.cpp" />
+    <ClCompile Include="src\OpenGL\VertexBuffer.cpp" />
     <ClCompile Include="vendor\Glad\glad.c" />
     <ClCompile Include="vendor\imgui\imgui.cpp" />
     <ClCompile Include="vendor\imgui\imgui_demo.cpp" />
@@ -104,6 +105,7 @@
     <ClInclude Include="src\Kikurage\Core\Renderer\PerspectiveCamera.h" />
     <ClInclude Include="src\Kikurage\Core\Renderer\RenderController.h" />
     <ClInclude Include="src\Kikurage\Systems\Transform\TransformUpdator.h" />
+    <ClInclude Include="src\OpenGL\VertexBuffer.h" />
     <ClInclude Include="src\OpenGL\FrameBuffer.h" />
     <ClInclude Include="src\OpenGL\RenderBuffer.h" />
     <ClInclude Include="src\Kikurage\Scene\Scene3D.h" />

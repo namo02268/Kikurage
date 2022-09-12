@@ -10,6 +10,8 @@ private:
 	unsigned int m_height = 0;
 	GLenum m_format = GL_DEPTH24_STENCIL8;
 
+	void FreeRenderBuffer();
+
 public:
 	RenderBuffer();
 	RenderBuffer(const RenderBuffer&) = delete;
@@ -24,7 +26,6 @@ public:
 
 	void InitStorage(int width, int height, GLenum format);
 	void LinkToFrameBuffer(const FrameBuffer& framebuffer) const; // TODO : bool isBind()?
-	void FreeRenderBuffer();
 
 	unsigned int GetWidth() const { return this->m_width; }
 	unsigned int GetHeight() const { return this->m_height; }
