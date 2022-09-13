@@ -6,13 +6,12 @@
 #include "Kikurage/GUI/SceneEditor.h"
 #include "Kikurage/Events/EventHandler.h"
 #include "Kikurage/Core/Renderer/Renderer.h"
-
 #include "Kikurage/Scene/Scene3D.h"
 
-class Application {
-private:
-	static inline Application* s_Instance = nullptr;
+#include "Utils/Singleton.h"
 
+class Application : public Singleton<Application> {
+private:
 	OpenGLWindow* m_window;
 	Renderer* m_renderer;
 	ImGuiManager* m_imguiManager;
@@ -27,14 +26,14 @@ private:
 	float deltaTime = 0.0f;
 	std::size_t FPS = 0;
 
-public:
+protected:
 	Application();
 	virtual ~Application();
 
-	static Application& GetInstance() { return *s_Instance; }
+public:
+	friend class Singleton<Application>;
 
 	void Run();
-
 	void Init();
 	void Update(float timeStep);
 	void Render();

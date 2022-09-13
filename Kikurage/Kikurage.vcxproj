@@ -130,6 +130,7 @@
     <ClInclude Include="src\Kikurage\Systems\Renderer\MeshRenderer.h" />
     <ClInclude Include="src\Kikurage\Systems\Physics\Physics.h" />
     <ClInclude Include="src\Utils\Math.h" />
+    <ClInclude Include="src\Utils\Singleton.h" />
     <ClInclude Include="vendor\imgui\imconfig.h" />
     <ClInclude Include="vendor\imgui\imgui.h" />
     <ClInclude Include="vendor\imgui\imgui_impl_glfw.h" />

@@ -9,11 +9,9 @@ main
 */
 
 int main() {
-	new Application();
-
+	Application::Create();
 	Application::GetInstance().Run();
-
-	delete &Application::GetInstance();
+	Application::Destroy();
 
 	return 0;
 }

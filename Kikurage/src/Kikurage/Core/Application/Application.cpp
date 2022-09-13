@@ -11,8 +11,6 @@ Application::Application
 ====================================================
 */
 Application::Application() {
-	s_Instance = this;
-
 	m_window = new OpenGLWindow(1200, 800, "Kikurage");
 	m_eventHandler = new EventHandler();
 	m_imguiManager = new ImGuiManager(m_window);

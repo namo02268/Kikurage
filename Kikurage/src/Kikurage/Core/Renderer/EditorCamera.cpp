@@ -51,10 +51,10 @@ void EditorCamera::HandleKeyboard(TransformComponent& transform, float dt) {
 	if (window->IsKeyHeld(GLFW_KEY_D)) {
 		velocity += transform.GetRightDirection() * speed;
 	}
-	if (window->IsKeyHeld(GLFW_KEY_Q)) {
+	if (window->IsKeyHeld(GLFW_KEY_LEFT_SHIFT)) {
 		velocity -= transform.GetUpDirection() * speed;
 	}
-	if (window->IsKeyHeld(GLFW_KEY_E)) {
+	if (window->IsKeyHeld(GLFW_KEY_SPACE)) {
 		velocity += transform.GetUpDirection() * speed;
 	}
 

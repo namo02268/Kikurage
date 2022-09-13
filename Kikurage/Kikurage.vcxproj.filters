@@ -382,5 +382,8 @@
     <ClInclude Include="src\Kikurage\Core\Renderer\BaseCamera.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
+    <ClInclude Include="src\Utils\Singleton.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
