@@ -2,8 +2,7 @@
 
 #include "Kikurage/ECS/System.h"
 #include "OpenGL/Shader.h"
-#include "OpenGL/FrameBuffer.h"
-#include "OpenGL/RenderBuffer.h"
+#include "OpenGL/Texture2D.h"
 
 class IBL : public System {
 private:
@@ -17,7 +16,7 @@ private:
 	unsigned int envCubemap;
 	unsigned int irradianceMap;
 	unsigned int prefilterMap;
-	unsigned int brdfLUTTexture;
+	Texture2D brdfLUTTexture;
 
 public:
 	IBL(Shader* pbrShader, Shader* backgroundShader);

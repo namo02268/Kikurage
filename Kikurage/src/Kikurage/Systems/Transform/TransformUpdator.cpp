@@ -29,7 +29,7 @@ void TransformUpdator::update(float dt) {
 
 		if (parent) {
 			auto ptrans = m_parentScene->getComponent<TransformComponent>(parent);
-			buf = glm::translate(buf, ptrans->position);
+			trans->parentMatrix = ptrans->localMatrix;
 		}
 
 		buf = glm::translate(buf, trans->position);
@@ -38,7 +38,8 @@ void TransformUpdator::update(float dt) {
 		buf = glm::rotate(buf, glm::radians(trans->rotation.x), Xaxis);
 		buf = glm::scale(buf, trans->scale);
 
-		trans->model = buf;
+		trans->localMatrix = buf;
+		trans->worldMatrix = trans->parentMatrix * trans->localMatrix;
 	}
 }
 

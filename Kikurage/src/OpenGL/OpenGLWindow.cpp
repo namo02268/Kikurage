@@ -53,6 +53,9 @@ void OpenGLWindow::Clear() {
 void OpenGLWindow::Update() {
 	this->anyKeyEvent = false;
 	this->anyMouseEvent = false;
+	this->m_mousePressed.reset();
+	this->m_keyPressed.reset();
+
 	glfwGetCursorPos(m_window, &m_cursorPos[0], &m_cursorPos[1]);
 	glfwSwapBuffers(m_window);
 	glfwPollEvents();
@@ -142,4 +145,8 @@ void OpenGLWindow::disableMouseCursor() const {
 
 void OpenGLWindow::normalMouseCursor() const {
 	glfwSetInputMode(m_window, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
+}
+
+void OpenGLWindow::SetCursorPos(const float xpos, const float ypos) {
+	glfwSetCursorPos(m_window, xpos, ypos);
 }

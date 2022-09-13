@@ -1,8 +1,6 @@
 #include "Kikurage/Systems/Renderer/MeshRenderer.h"
 #include "Kikurage/ECS/Scene.h"
 
-#include <glm/gtx/quaternion.hpp>
-
 #include "Kikurage/Components/TransformComponent.h"
 #include "Kikurage/Components/MeshComponent.h"
 #include "Kikurage/Components/MaterialComponent.h"
@@ -52,7 +50,7 @@ void MeshRenderer::draw() {
 		this->m_shader->SetUniform("ao", cMat->ao);
 
 		// model
-		this->m_shader->SetUniform("model", cTrans->model);
+		this->m_shader->SetUniform("model", cTrans->worldMatrix);
 		glBindVertexArray(cMesh->mesh->VAO);
 		glDrawElements(GL_TRIANGLES, cMesh->mesh->indiceCount, GL_UNSIGNED_INT, 0);
 		glBindVertexArray(0);

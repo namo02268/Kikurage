@@ -41,7 +41,9 @@ public:
 	bool IsMouseHeld(size_t button) const { return m_mouseHeld[button]; }
 	bool IsMousePressed(size_t button) const { return m_mousePressed[button]; }
 	bool IsMouseReleased(size_t button) const { return m_mouseReleased[button]; }
+	virtual float GetMouseScroll() const { return 0; }
 	const double* GetCursorPos() const { return m_cursorPos; }
+	virtual void SetCursorPos(const float xpos, const float ypos) {}
 	virtual void disableMouseCursor() const {}
 	virtual void normalMouseCursor() const {}
 };

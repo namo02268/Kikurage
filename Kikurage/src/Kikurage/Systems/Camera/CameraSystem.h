@@ -5,10 +5,13 @@
 #include "OpenGL//Shader.h"
 #include <GLFW/glfw3.h>
 
+#include "Kikurage/Core/Renderer/EditorCamera.h"
+
 class CameraSystem : public System {
 private:
 	Window* m_window;
 	std::vector<Shader*> m_shaders;
+	EditorCamera camera;
 
 	float lastX = 0.0f;
 	float lastY = 0.0f;

@@ -34,7 +34,8 @@ public:
 
 	void disableMouseCursor() const override;
 	void normalMouseCursor() const override;
-	float GetMouseScroll() const { return m_mouseScroll; }
+	void SetCursorPos(const float xpos, const float ypos) override;
+	float GetMouseScroll() const override { return m_mouseScroll; }
 
 private:
 	void Init();

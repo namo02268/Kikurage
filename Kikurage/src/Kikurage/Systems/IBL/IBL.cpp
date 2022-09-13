@@ -38,11 +38,11 @@ void IBL::init() {
 	backgroundShader->SetUniform("environmentMap", 0);
 
 	// pbr: setup framebuffer
-	FrameBuffer FBO;
-	RenderBuffer RBO;
+	FrameBuffer captureFBO;
+	RenderBuffer captureRBO;
 
-	RBO.InitStorage(512, 512, GL_DEPTH_COMPONENT24);
-	RBO.LinkToFrameBuffer(FBO, GL_DEPTH_ATTACHMENT);
+	captureRBO.InitStorage(512, 512, GL_DEPTH_COMPONENT24);
+	captureRBO.LinkToFrameBuffer(captureFBO, GL_DEPTH_ATTACHMENT);
 
 	// pbr: setup cubemap to render to and attach to framebuffer
 	glGenTextures(1, &envCubemap);
@@ -78,7 +78,7 @@ void IBL::init() {
 	glBindTexture(GL_TEXTURE_2D, ResourceManager::GetTexture("hdrTexture")->GetHandle());
 
 	glViewport(0, 0, 512, 512); // don't forget to configure the viewport to the capture dimensions.
-	FBO.Bind();
+	captureFBO.Bind();
 	for (unsigned int i = 0; i < 6; ++i)
 	{
 		equirectangularToCubemapShader->SetUniform("view", captureViews[i]);
@@ -87,7 +87,7 @@ void IBL::init() {
 
 		renderCube();
 	}
-	FBO.Unbind();
+	captureFBO.Unbind();
 
 
 	// then let OpenGL generate mipmaps from first mip face (combatting visible dots artifact)
@@ -107,7 +107,7 @@ void IBL::init() {
 	glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 	glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 
-	RBO.InitStorage(32, 32, GL_DEPTH_COMPONENT24);
+	captureRBO.InitStorage(32, 32, GL_DEPTH_COMPONENT24);
 
 	// pbr: solve diffuse integral by convolution to create an irradiance (cube)map.
 	irradianceShader->Bind();
@@ -117,7 +117,7 @@ void IBL::init() {
 	glBindTexture(GL_TEXTURE_CUBE_MAP, envCubemap);
 
 	glViewport(0, 0, 32, 32); // don't forget to configure the viewport to the capture dimensions.
-	FBO.Bind();
+	captureFBO.Bind();
 	for (unsigned int i = 0; i < 6; ++i)
 	{
 		irradianceShader->SetUniform("view", captureViews[i]);
@@ -126,7 +126,7 @@ void IBL::init() {
 
 		renderCube();
 	}
-	FBO.Unbind();
+	captureFBO.Unbind();
 
 	//-----------------------------pre-filter cubemap-----------------------------//
 	glGenTextures(1, &prefilterMap);
@@ -150,7 +150,7 @@ void IBL::init() {
 	glActiveTexture(GL_TEXTURE0);
 	glBindTexture(GL_TEXTURE_CUBE_MAP, envCubemap);
 
-	FBO.Bind();
+	captureFBO.Bind();
 	unsigned int maxMipLevels = 5;
 	for (unsigned int mip = 0; mip < maxMipLevels; ++mip)
 	{
@@ -158,7 +158,7 @@ void IBL::init() {
 		unsigned int mipWidth = static_cast<unsigned int>(128 * std::pow(0.5, mip));
 		unsigned int mipHeight = static_cast<unsigned int>(128 * std::pow(0.5, mip));
 
-		RBO.InitStorage(mipWidth, mipHeight, GL_DEPTH_COMPONENT24);
+		captureRBO.InitStorage(mipWidth, mipHeight, GL_DEPTH_COMPONENT24);
 		glViewport(0, 0, mipWidth, mipHeight);
 
 		float roughness = (float)mip / (float)(maxMipLevels - 1);
@@ -172,31 +172,23 @@ void IBL::init() {
 			renderCube();
 		}
 	}
-	FBO.Unbind();
+	captureFBO.Unbind();
 
 	//-----------------------------2D LUT-----------------------------//
-	glGenTextures(1, &brdfLUTTexture);
 
-	// pre-allocate enough memory for the LUT texture.
-	glBindTexture(GL_TEXTURE_2D, brdfLUTTexture);
-	glTexImage2D(GL_TEXTURE_2D, 0, GL_RG16F, 512, 512, 0, GL_RG, GL_FLOAT, 0);
-	// be sure to set wrapping mode to GL_CLAMP_TO_EDGE
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+	brdfLUTTexture.Generate(nullptr, 512, 512, 2, GL_RG16F);
+	brdfLUTTexture.SetWrapType(GL_CLAMP_TO_EDGE);
 
 	// then re-configure capture framebuffer object and render screen-space quad with BRDF shader.
-	FBO.Bind();
-	RBO.InitStorage(512, 512, GL_DEPTH_COMPONENT24);
-	glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, brdfLUTTexture, 0);
+	captureRBO.InitStorage(512, 512, GL_DEPTH_COMPONENT24);
+	captureFBO.AttachTexture(brdfLUTTexture);
 
 	glViewport(0, 0, 512, 512);
 	brdfShader->Bind();
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	renderQuad();
 
-	FBO.Unbind();
+	captureFBO.Unbind();
 }
 
 void IBL::update(float dt) {
@@ -207,7 +199,7 @@ void IBL::update(float dt) {
 	glActiveTexture(GL_TEXTURE1);
 	glBindTexture(GL_TEXTURE_CUBE_MAP, prefilterMap);
 	glActiveTexture(GL_TEXTURE2);
-	glBindTexture(GL_TEXTURE_2D, brdfLUTTexture);
+	brdfLUTTexture.Bind();
 }
 
 void IBL::draw() {
