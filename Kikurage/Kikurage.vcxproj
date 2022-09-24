@@ -26,7 +26,7 @@
     <ClCompile Include="src\Kikurage\Core\Renderer\Renderer.cpp" />
     <ClCompile Include="src\Kikurage\GUI\ComponentEditor.cpp" />
     <ClCompile Include="src\Kikurage\GUI\ImGuiManager.cpp" />
-    <ClCompile Include="src\Kikurage\GUI\SceneEditor.cpp" />
+    <ClCompile Include="src\Kikurage\GUI\ViewportEditor.cpp" />
     <ClCompile Include="src\Kikurage\Resource\Mesh\Mesh.cpp" />
     <ClCompile Include="src\Kikurage\Resource\Mesh\MeshLoader.cpp" />
     <ClCompile Include="src\Kikurage\Systems\AABBCollision\AABBCollision.cpp" />
@@ -100,13 +100,12 @@
     <ClInclude Include="src\Kikurage\GUI\ComponentEditors.h" />
     <ClInclude Include="src\Kikurage\GUI\ComponentEditor.h" />
     <ClInclude Include="src\Kikurage\GUI\ImGuiManager.h" />
-    <ClInclude Include="src\Kikurage\GUI\SceneEditor.h" />
+    <ClInclude Include="src\Kikurage\GUI\ViewportEditor.h" />
     <ClInclude Include="src\Kikurage\Resource\Mesh\AABB.h" />
     <ClInclude Include="src\Kikurage\Resource\Mesh\Mesh.h" />
     <ClInclude Include="src\Kikurage\Resource\Mesh\MeshLoader.h" />
     <ClInclude Include="src\Kikurage\Systems\AABBCollision\AABBCollision.h" />
     <ClInclude Include="src\Kikurage\Core\Renderer\EditorCamera.h" />
-    <ClInclude Include="src\Kikurage\Core\Renderer\RenderController.h" />
     <ClInclude Include="src\Kikurage\Systems\Transform\TransformUpdator.h" />
     <ClInclude Include="src\OpenGL\IndexBuffer.h" />
     <ClInclude Include="src\OpenGL\VertexBuffer.h" />

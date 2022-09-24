@@ -38,11 +38,13 @@ OpenGLWindow::OpenGLWindow(int width, int height, const char* title) {
 
 OpenGLWindow::~OpenGLWindow() { Terminate(); }
 
-void OpenGLWindow::Draw(Texture2D& renderTexture) {
+void OpenGLWindow::Draw() {
+	/*
 	screenShader->Bind();
 	glBindVertexArray(renderVAO);
 	glBindTexture(GL_TEXTURE_2D, renderTexture.GetHandle());
 	glDrawArrays(GL_TRIANGLES, 0, 6);
+	*/
 }
 
 void OpenGLWindow::Clear() {

@@ -3,12 +3,12 @@
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 
+#include "Kikurage/Core/Application/Application.h"
 #include "Kikurage/ECS/Scene.h"
 #include "Kikurage/Components/TransformComponent.h"
 #include "Kikurage/Components/cameraComponent.h"
 
-CameraSystem::CameraSystem(Window* window) {
-	this->m_window = window;
+CameraSystem::CameraSystem() {
 	auto family = getComponentTypeID<TransformComponent>();
 	m_requiredComponent[family] = true;
 	family = getComponentTypeID<CameraComponent>();
@@ -36,16 +36,15 @@ void CameraSystem::update(float dt) {
 	}
 }
 
-void CameraSystem::draw() {
-	glViewport(0, 0, m_window->GetWidth(), m_window->GetHeight());
-	
+void CameraSystem::draw() {	
 	for (auto& e : m_entityArray) {
 		auto trans = m_parentScene->getComponent<TransformComponent>(e);
 
 		for (auto& shader : m_shaders) {
 			auto view = glm::inverse(trans->worldMatrix);
+			auto renderer = Application::GetInstance().GetRenderer();
 
-			camera.SetAspectRatio((float)m_window->GetWidth() / (float)m_window->GetHeight());
+			camera.SetAspectRatio(static_cast<float>(renderer->GetWidth()) / static_cast<float>(renderer->GetHeight()));
 
 			shader->Bind();
 			shader->SetUniform("cameraPos", trans->position);

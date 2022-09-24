@@ -1,4 +1,5 @@
-#include "Kikurage/GUI/SceneEditor.h"
+#include "Kikurage/GUI/ViewportEditor.h"
+#include "Kikurage/Core/Application/Application.h"
 
 #include <iostream>
 
@@ -7,15 +8,15 @@
 #include "imgui/imgui_impl_opengl3.h"
 
 
-SceneEditor::SceneEditor(int width, int height, const char* title) {
+ViewportEditor::ViewportEditor(int width, int height, const char* title) {
 	m_width = width;
 	m_height = height;
 	m_title = title;
 }
 
-void SceneEditor::Draw(Texture2D& renderTexture) {
+void ViewportEditor::Draw() {
 	// Scene Window
-	ImGui::Begin("Scene", nullptr, ImGuiWindowFlags_NoScrollbar);
+	ImGui::Begin("Scene", nullptr, ImGuiWindowFlags_NoScrollbar | ImGuiWindowFlags_NoScrollWithMouse);
 	ImGui::PushID("Scene");
 
 	// mouse
@@ -41,16 +42,16 @@ void SceneEditor::Draw(Texture2D& renderTexture) {
 	// window size
 	m_width = ImGui::GetWindowWidth();
 	m_height = ImGui::GetWindowHeight();
-	ImGui::Image((void*)renderTexture.GetHandle(), ImVec2(m_width, m_height), ImVec2(0, 1), ImVec2(1, 0));
+	ImGui::Image((void*)Application::GetInstance().GetRenderer()->GetRenderTexture().GetHandle(), ImVec2(m_width, m_height), ImVec2(0, 1), ImVec2(1, 0));
 
 	ImGui::PopID();
 	ImGui::End();
 }
 
-void SceneEditor::disableMouseCursor() const {
+void ViewportEditor::disableMouseCursor() const {
 //	ImGui::SetMouseCursor(ImGuiMouseCursor_None);
 }
 
-void SceneEditor::normalMouseCursor() const {
+void ViewportEditor::normalMouseCursor() const {
 //	ImGui::SetMouseCursor(ImGuiMouseCursor_Arrow);
 }

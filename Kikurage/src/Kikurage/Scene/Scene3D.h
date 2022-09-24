@@ -5,7 +5,7 @@
 
 class Scene3D {
 public:
-	Scene3D(Window* window);
+	Scene3D();
 	~Scene3D();
 
 	void Init();
@@ -15,11 +15,6 @@ public:
 	Scene* GetScene() { return m_scene; }
 
 private:
-	Window* m_window;
 	Scene* m_scene;
-	// TODO : SkyBox* skyBox;
-
-	int m_width = 600;
-	int m_height = 800;
 };
 

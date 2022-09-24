@@ -3,7 +3,6 @@
 #include "OpenGL/OpenGLWindow.h"
 
 #include "Kikurage/GUI/ImGuiManager.h"
-#include "Kikurage/GUI/SceneEditor.h"
 #include "Kikurage/Events/EventHandler.h"
 #include "Kikurage/Core/Renderer/Renderer.h"
 #include "Kikurage/Scene/Scene3D.h"
@@ -15,7 +14,6 @@ private:
 	OpenGLWindow* m_window;
 	Renderer* m_renderer;
 	ImGuiManager* m_imguiManager;
-	SceneEditor* m_sceneEditor;
 	Scene3D* m_scene3d;
 	EventHandler* m_eventHandler;
 

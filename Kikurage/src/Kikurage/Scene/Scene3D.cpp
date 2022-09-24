@@ -4,7 +4,6 @@
 //------------Resource------------
 #include "stb_image/stb_image.h"
 #include "Kikurage/Resource/ResourceManager/ResourceManager.h"
-#include "Kikurage/Core/Event.h"
 
 //------------Systems------------
 #include "Kikurage/Systems/Transform/TransformUpdator.h"
@@ -25,7 +24,7 @@
 #include "Kikurage/Components/RigidBodyComponent.h"
 #include "Kikurage/Components/CollisionComponent.h"
 
-Scene3D::Scene3D(Window* window) : m_window(window) {
+Scene3D::Scene3D() {
 	Init();
 }
 
@@ -53,7 +52,7 @@ void Scene3D::Init() {
 	m_scene->addSystem(std::move(transformUpdator));
 
 	// camera system
-	auto cameraSystem = std::make_unique<CameraSystem>(m_window);
+	auto cameraSystem = std::make_unique<CameraSystem>();
 	cameraSystem->addShader(ResourceManager::GetShader("PBR"));
 	cameraSystem->addShader(ResourceManager::GetShader("backgroundShader"));
 	m_scene->addSystem(std::move(cameraSystem));
@@ -96,22 +95,9 @@ void Scene3D::Init() {
 }
 
 void Scene3D::Update(float dt) {
-	auto new_width = m_window->GetWidth();
-	auto new_height = m_window->GetHeight();
-	if (m_width != new_width || m_height != new_height) {
-		m_width = new_width;
-		m_height = new_height;
-		WindowResizeEvent event(m_width, m_height);
-		Event::publish(&event);
-	}
 	m_scene->update(dt);
 }
 
 void Scene3D::Draw() {
-	auto renderer = Application::GetInstance().GetRenderer();
-	renderer->BindFBO();
 	m_scene->draw();
-	renderer->UnbindFBO();
-
-	m_window->Draw(renderer->GetRenderTexture());
 }

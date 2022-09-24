@@ -9,16 +9,11 @@
 
 class CameraSystem : public System {
 private:
-	Window* m_window;
 	std::vector<Shader*> m_shaders;
 	EditorCamera camera;
 
-	float lastX = 0.0f;
-	float lastY = 0.0f;
-	bool firstMouse = true;
-
 public:
-	CameraSystem(Window* window);
+	CameraSystem();
 	~CameraSystem();
 
 	void addShader(Shader* shader);

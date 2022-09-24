@@ -22,7 +22,7 @@ public:
 	OpenGLWindow(int width, int height, const char* title);
 	~OpenGLWindow();
 
-	void Draw(Texture2D& renderTexture) override;
+	void Draw() override;
 
 	void Clear();
 	void Update();

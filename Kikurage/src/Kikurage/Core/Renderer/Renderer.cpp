@@ -28,11 +28,21 @@ void Renderer::Init() {
 	this->renderBuffers->Init(1920, 1080);
 }
 
+void Renderer::Start() {
+	this->BindFBO();
+}
+
+void Renderer::End() {
+	this->UnbindFBO();
+}
+
 void Renderer::ResizeBuffers(int width, int height) {
 	this->renderBuffers->Resize(width, height);
 }
 
 void Renderer::ListenWindowResizeEvent(WindowResizeEvent* event) {
+	this->m_renderSettings.width = event->width;
+	this->m_renderSettings.height = event->height;
 	this->ResizeBuffers(event->width, event->height);
 }
 

@@ -1,4 +1,5 @@
 #include "Kikurage/GUI/ImGuiManager.h"
+#include "Kikurage/Core/Event.h"
 
 #include "imgui/imgui.h"
 #include "imgui/imgui_impl_glfw.h"
@@ -39,6 +40,19 @@ void ImGuiManager::Init() {
 }
 
 void ImGuiManager::Update(float dt) {
+	static unsigned int width = 1200;
+	static unsigned int height = 800;
+
+	auto new_width = m_sceneEditor->GetWidth();
+	auto new_height = m_sceneEditor->GetHeight();
+	if (width != new_width || height != new_height) {
+		width = new_width;
+		height = new_height;
+		WindowResizeEvent event(width, height);
+		Event::publish(&event);
+	}
+	glViewport(0, 0, width, height);
+
 	// Start the Dear ImGui frame
 	ImGui_ImplOpenGL3_NewFrame();
 	ImGui_ImplGlfw_NewFrame();
@@ -48,6 +62,7 @@ void ImGuiManager::Update(float dt) {
 
 void ImGuiManager::Render() {
 	m_componentEditor->Render();
+	m_sceneEditor->Draw();
 
 	ImGui::Render();
 	ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
