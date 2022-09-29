@@ -6,11 +6,13 @@
 
 #include "stb_image/stb_image.h"
 
-std::map<std::string, std::unique_ptr<Shader>> ResourceManager::Shaders;
-std::map<std::string, std::unique_ptr<Texture2D>> ResourceManager::Textures;
-std::map<std::string, std::unique_ptr<Mesh>> ResourceManager::Meshes;
+ResourceManager::ResourceManager() {
 
-// TODO: template‰»
+}
+
+ResourceManager::~ResourceManager() {
+    this->Clear();
+}
 
 //------------------------Shader------------------------//
 void ResourceManager::LoadShaderFromFile(const char* vShaderFile, const char* fShaderFile, const char* gShaderFile, std::string name)

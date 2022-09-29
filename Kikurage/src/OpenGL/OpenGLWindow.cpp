@@ -30,8 +30,8 @@ OpenGLWindow::OpenGLWindow(int width, int height, const char* title) {
 	glEnableVertexAttribArray(1);
 	glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 4 * sizeof(float), (void*)(2 * sizeof(float)));
 
-	ResourceManager::LoadShaderFromFile("resources/shaders/screen.vert", "resources/shaders/screen.frag", nullptr, "screen");
-	screenShader = ResourceManager::GetShader("screen");
+	ResourceManager::GetInstance().LoadShaderFromFile("resources/shaders/screen.vert", "resources/shaders/screen.frag", nullptr, "screen");
+	screenShader = ResourceManager::GetInstance().GetShader("screen");
 	screenShader->Bind();
 	screenShader->SetUniform("screenTexture", 0);
 }

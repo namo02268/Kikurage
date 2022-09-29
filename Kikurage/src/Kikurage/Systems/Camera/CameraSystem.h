@@ -9,14 +9,11 @@
 
 class CameraSystem : public System {
 private:
-	std::vector<Shader*> m_shaders;
 	EditorCamera camera;
 
 public:
 	CameraSystem();
 	~CameraSystem();
-
-	void addShader(Shader* shader);
 
 	void init() override;
 	void update(float dt) override;

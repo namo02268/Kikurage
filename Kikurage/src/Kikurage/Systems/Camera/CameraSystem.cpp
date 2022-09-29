@@ -19,10 +19,6 @@ CameraSystem::~CameraSystem() {
 
 }
 
-void CameraSystem::addShader(Shader* shader) {
-	m_shaders.push_back(shader);
-}
-
 void CameraSystem::init() {
 
 }
@@ -33,23 +29,10 @@ void CameraSystem::update(float dt) {
 		camera.UpdateProjectionMatrix();
 		camera.HandleKeyboard(*trans, dt);
 		camera.HandleMouse(*trans, dt);
+
+		Application::GetInstance().GetRenderer()->BindCameraInformation(&camera, trans);
 	}
 }
 
 void CameraSystem::draw() {	
-	for (auto& e : m_entityArray) {
-		auto trans = m_parentScene->getComponent<TransformComponent>(e);
-
-		for (auto& shader : m_shaders) {
-			auto view = glm::inverse(trans->worldMatrix);
-			auto renderer = Application::GetInstance().GetRenderer();
-
-			camera.SetAspectRatio(static_cast<float>(renderer->GetWidth()) / static_cast<float>(renderer->GetHeight()));
-
-			shader->Bind();
-			shader->SetUniform("cameraPos", trans->position);
-			shader->SetUniform("projection", camera.GetProjectionMatrix());
-			shader->SetUniform("view", view);
-		}
-	}
 }

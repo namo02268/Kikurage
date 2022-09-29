@@ -55,3 +55,16 @@ void Renderer::BindFBO() {
 void Renderer::UnbindFBO() { 
 	this->renderBuffers->framebuffer.Unbind();
 }
+
+void Renderer::BindCameraInformation(BaseCamera* camera, const TransformComponent* transform) {
+	for (auto shader : m_shaders) {
+		auto view = glm::inverse(transform->worldMatrix);
+
+		camera->SetAspectRatio(static_cast<float>(this->GetWidth()) / static_cast<float>(this->GetHeight()));
+
+		shader->Bind();
+		shader->SetUniform("cameraPos", transform->position);
+		shader->SetUniform("projection", camera->GetProjectionMatrix());
+		shader->SetUniform("view", view);
+	}
+}

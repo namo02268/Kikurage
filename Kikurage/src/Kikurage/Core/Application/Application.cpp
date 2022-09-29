@@ -1,4 +1,5 @@
 #include "Kikurage/Core/Application/Application.h"
+#include "Kikurage/Resource/ResourceManager/ResourceManager.h"
 
 //------------Resource------------
 #define STB_IMAGE_IMPLEMENTATION
@@ -11,6 +12,8 @@ Application::Application
 ====================================================
 */
 Application::Application() {
+	ResourceManager::Create();
+
 	m_window = new OpenGLWindow(1200, 800, "Kikurage");
 	m_eventHandler = new EventHandler();
 	m_imguiManager = new ImGuiManager(m_window);
@@ -24,18 +27,19 @@ Application::~Application
 ====================================================
 */
 Application::~Application() {
-	ResourceManager::Clear();
-
 	delete m_window;
 	delete m_renderer;
 	delete m_imguiManager;
 	delete m_scene3d;
 	delete m_eventHandler;
+
+	ResourceManager::Destroy();
 }
 
 void Application::Init() {
-	m_imguiManager->Init();
 	m_renderer->Init();
+	m_imguiManager->Init();
+	m_scene3d->Init();
 }
 
 void Application::Update(float timeStep) {

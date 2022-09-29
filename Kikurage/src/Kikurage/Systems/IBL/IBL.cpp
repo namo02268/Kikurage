@@ -18,16 +18,16 @@ IBL::~IBL() {
 
 void IBL::init() {
 	// Resources
-	ResourceManager::LoadShaderFromFile("resources/shaders/cubemap.vert", "resources/shaders/equirectangular_to_cubemap.frag", nullptr, "equirectangularToCubemapShader");
-	ResourceManager::LoadShaderFromFile("resources/shaders/cubemap.vert", "resources/shaders/irradiance_convolution.frag", nullptr, "irradianceShader");
-	ResourceManager::LoadShaderFromFile("resources/shaders/cubemap.vert", "resources/shaders/prefilter.frag", nullptr, "prefilterShader");
-	ResourceManager::LoadShaderFromFile("resources/shaders/brdf.vert", "resources/shaders/brdf.frag", nullptr, "brdfShader");
-	ResourceManager::LoadTexture("resources/HDRIs/Newport_Loft/Newport_Loft_Ref.hdr", TextureType::HDR, "hdrTexture");
+	ResourceManager::GetInstance().LoadShaderFromFile("resources/shaders/cubemap.vert", "resources/shaders/equirectangular_to_cubemap.frag", nullptr, "equirectangularToCubemapShader");
+	ResourceManager::GetInstance().LoadShaderFromFile("resources/shaders/cubemap.vert", "resources/shaders/irradiance_convolution.frag", nullptr, "irradianceShader");
+	ResourceManager::GetInstance().LoadShaderFromFile("resources/shaders/cubemap.vert", "resources/shaders/prefilter.frag", nullptr, "prefilterShader");
+	ResourceManager::GetInstance().LoadShaderFromFile("resources/shaders/brdf.vert", "resources/shaders/brdf.frag", nullptr, "brdfShader");
+	ResourceManager::GetInstance().LoadTexture("resources/HDRIs/Newport_Loft/Newport_Loft_Ref.hdr", TextureType::HDR, "hdrTexture");
 
-	equirectangularToCubemapShader = ResourceManager::GetShader("equirectangularToCubemapShader");
-	irradianceShader = ResourceManager::GetShader("irradianceShader");
-	prefilterShader = ResourceManager::GetShader("prefilterShader");
-	brdfShader = ResourceManager::GetShader("brdfShader");
+	equirectangularToCubemapShader = ResourceManager::GetInstance().GetShader("equirectangularToCubemapShader");
+	irradianceShader = ResourceManager::GetInstance().GetShader("irradianceShader");
+	prefilterShader = ResourceManager::GetInstance().GetShader("prefilterShader");
+	brdfShader = ResourceManager::GetInstance().GetShader("brdfShader");
 
 	//----------------------------------background----------------------------------//
 	pbrShader->Bind();
@@ -75,7 +75,7 @@ void IBL::init() {
 	equirectangularToCubemapShader->SetUniform("equirectangularMap", 0);
 	equirectangularToCubemapShader->SetUniform("projection", captureProjection);
 	glActiveTexture(GL_TEXTURE0);
-	glBindTexture(GL_TEXTURE_2D, ResourceManager::GetTexture("hdrTexture")->GetHandle());
+	glBindTexture(GL_TEXTURE_2D, ResourceManager::GetInstance().GetTexture("hdrTexture")->GetHandle());
 
 	glViewport(0, 0, 512, 512); // don't forget to configure the viewport to the capture dimensions.
 	captureFBO.Bind();

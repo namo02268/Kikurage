@@ -26,7 +26,6 @@ struct RenderBuffers {
 class Renderer {
 private:
 	std::unique_ptr<RenderBuffers> renderBuffers = std::make_unique<RenderBuffers>();
-	std::vector<BaseCamera*> m_cameras;
 	std::vector<Shader*> m_shaders;
 
 public:
@@ -44,7 +43,7 @@ public:
 	void UnbindFBO();
 
 	void AddShader(Shader* shader) { m_shaders.push_back(shader); }
-	void AddCamera(BaseCamera* camera) { m_cameras.push_back(camera); }
+	void BindCameraInformation(BaseCamera* camera, const TransformComponent* transform);
 
 	Texture2D& GetRenderTexture() { return this->renderBuffers->renderTexture; }
 	unsigned int GetWidth() const { return this->m_renderSettings.width; }
