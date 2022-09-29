@@ -28,13 +28,9 @@ Scene3D::Scene3D() {
 }
 
 Scene3D::~Scene3D() {
-	delete m_scene;
 }
 
 void Scene3D::Init() {
-	//-------------------------------add scene & renderer-------------------------------//
-	m_scene = new ECS();
-
 	//-----------------------------------Resources-----------------------------------//
 	stbi_set_flip_vertically_on_load(true);
 
@@ -48,55 +44,58 @@ void Scene3D::Init() {
 	Application::GetInstance().GetRenderer()->AddShader(ResourceManager::GetInstance().GetShader("backgroundShader"));
 
 	//-----------------------------add systems to scene-----------------------------//
+	auto ecs = Application::GetInstance().GetECS();
 	// TransformUpdator
 	auto transformUpdator = std::make_unique<TransformUpdator>();
-	m_scene->addSystem(std::move(transformUpdator));
+	ecs->addSystem(std::move(transformUpdator));
 
 	// camera system
 	auto cameraSystem = std::make_unique<CameraSystem>();
-	m_scene->addSystem(std::move(cameraSystem));
+	ecs->addSystem(std::move(cameraSystem));
 	// meshRenderer
 	auto meshRenderer = std::make_unique<MeshRenderer>(ResourceManager::GetInstance().GetShader("PBR"));
-	m_scene->addSystem(std::move(meshRenderer));
+	ecs->addSystem(std::move(meshRenderer));
 	// IBL
 	auto ibl = std::make_unique<IBL>(ResourceManager::GetInstance().GetShader("PBR"), ResourceManager::GetInstance().GetShader("backgroundShader"));
-	m_scene->addSystem(std::move(ibl));
+	ecs->addSystem(std::move(ibl));
 	// AABB
 	auto aabbCollision = std::make_unique<AABBCollision>();
-	m_scene->addSystem(std::move(aabbCollision));
+	ecs->addSystem(std::move(aabbCollision));
 
 	//---------------------------------add entities---------------------------------//
 	// camera
-	auto cameraEntity = m_scene->createEntity();
-	m_scene->addComponent<TransformComponent>(cameraEntity, TransformComponent(glm::vec3(20.0f, 5.0f, 20.0f), glm::vec3(1.0f), glm::vec3(0.0f)));
-	m_scene->addComponent<CameraComponent>(cameraEntity, CameraComponent());
+	auto cameraEntity = ecs->createEntity();
+	ecs->addComponent<TransformComponent>(cameraEntity, TransformComponent(glm::vec3(20.0f, 5.0f, 20.0f), glm::vec3(1.0f), glm::vec3(0.0f)));
+	ecs->addComponent<CameraComponent>(cameraEntity, CameraComponent());
 
 	// sphere1
-	auto sphere1 = m_scene->createEntity();
-	m_scene->addComponent<TransformComponent>(sphere1, TransformComponent(glm::vec3(2.0f, 5.0f, 0.0f), glm::vec3(1.0f), glm::vec3(0.0f)));
-	m_scene->addComponent<MeshComponent>(sphere1, MeshComponent(ResourceManager::GetInstance().GetMesh("sphere")));
-	m_scene->addComponent<MaterialComponent>(sphere1, MaterialComponent(glm::vec3(0.0, 0.0, 1.0), 0.0, 0.0, 1.0));
+	auto sphere1 = ecs->createEntity();
+	ecs->addComponent<TransformComponent>(sphere1, TransformComponent(glm::vec3(2.0f, 5.0f, 0.0f), glm::vec3(1.0f), glm::vec3(0.0f)));
+	ecs->addComponent<MeshComponent>(sphere1, MeshComponent(ResourceManager::GetInstance().GetMesh("sphere")));
+	ecs->addComponent<MaterialComponent>(sphere1, MaterialComponent(glm::vec3(0.0, 0.0, 1.0), 0.0, 0.0, 1.0));
 
 	// sphere2
-	auto sphere2 = m_scene->createEntity();
-	m_scene->addComponent<TransformComponent>(sphere2, TransformComponent(glm::vec3(5.0f, 5.0f, 0.0f), glm::vec3(1.0f), glm::vec3(0.0f)));
-	m_scene->addComponent<MeshComponent>(sphere2, MeshComponent(ResourceManager::GetInstance().GetMesh("sphere")));
-	m_scene->addComponent<MaterialComponent>(sphere2, MaterialComponent(glm::vec3(0.0, 0.0, 1.0), 0.0, 0.0, 1.0));
+	auto sphere2 = ecs->createEntity();
+	ecs->addComponent<TransformComponent>(sphere2, TransformComponent(glm::vec3(5.0f, 5.0f, 0.0f), glm::vec3(1.0f), glm::vec3(0.0f)));
+	ecs->addComponent<MeshComponent>(sphere2, MeshComponent(ResourceManager::GetInstance().GetMesh("sphere")));
+	ecs->addComponent<MaterialComponent>(sphere2, MaterialComponent(glm::vec3(0.0, 0.0, 1.0), 0.0, 0.0, 1.0));
 
 	// suzanne
-	auto suzanne = m_scene->createEntity();
-	m_scene->addComponent<TransformComponent>(suzanne, TransformComponent(glm::vec3(5.0f, 5.0f, 0.0f), glm::vec3(1.0f), glm::vec3(0.0f)));
-	m_scene->addComponent<MeshComponent>(suzanne, MeshComponent(ResourceManager::GetInstance().GetMesh("suzanne")));
-	m_scene->addComponent<MaterialComponent>(suzanne, MaterialComponent(glm::vec3(0.0, 0.0, 1.0), 0.0, 0.0, 1.0));
+	auto suzanne = ecs->createEntity();
+	ecs->addComponent<TransformComponent>(suzanne, TransformComponent(glm::vec3(5.0f, 5.0f, 0.0f), glm::vec3(1.0f), glm::vec3(0.0f)));
+	ecs->addComponent<MeshComponent>(suzanne, MeshComponent(ResourceManager::GetInstance().GetMesh("suzanne")));
+	ecs->addComponent<MaterialComponent>(suzanne, MaterialComponent(glm::vec3(0.0, 0.0, 1.0), 0.0, 0.0, 1.0));
 
 	// init
-	m_scene->init();
+	ecs->init();
 }
 
 void Scene3D::Update(float dt) {
-	m_scene->update(dt);
+	auto ecs = Application::GetInstance().GetECS();
+	ecs->update(dt);
 }
 
 void Scene3D::Draw() {
-	m_scene->draw();
+	auto ecs = Application::GetInstance().GetECS();
+	ecs->draw();
 }

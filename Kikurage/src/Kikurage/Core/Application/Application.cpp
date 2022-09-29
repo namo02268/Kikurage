@@ -18,6 +18,7 @@ Application::Application() {
 	m_eventHandler = new EventHandler();
 	m_imguiManager = new ImGuiManager(m_window);
 	m_renderer = new Renderer();
+	m_ecs = new ECS();
 	m_scene3d = new Scene3D();
 }
 
@@ -27,11 +28,12 @@ Application::~Application
 ====================================================
 */
 Application::~Application() {
-	delete m_window;
+	delete m_scene3d;
+	delete m_ecs;
 	delete m_renderer;
 	delete m_imguiManager;
-	delete m_scene3d;
 	delete m_eventHandler;
+	delete m_window;
 
 	ResourceManager::Destroy();
 }

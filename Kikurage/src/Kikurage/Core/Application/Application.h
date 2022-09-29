@@ -14,6 +14,7 @@ private:
 	OpenGLWindow* m_window;
 	Renderer* m_renderer;
 	ImGuiManager* m_imguiManager;
+	ECS* m_ecs;
 	Scene3D* m_scene3d;
 	EventHandler* m_eventHandler;
 
@@ -43,7 +44,7 @@ public:
 	EventHandler& GetEventHandler() const { return *this->m_eventHandler; }
 	Window* GetWindow() const { return this->m_window; }
 	Renderer* GetRenderer() const { return this->m_renderer; }
-	ECS* GetScene() const { return this->m_scene3d->GetScene(); }
+	ECS* GetECS() const { return this->m_ecs; }
 };
 
 

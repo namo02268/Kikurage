@@ -2,7 +2,7 @@
 #include "Kikurage/Core/Application/Application.h"
 
 void ComponentEditor::Init() {
-	auto scene = Application::GetInstance().GetScene();
+	auto scene = Application::GetInstance().GetECS();
 
 	// add Component GUIs
 	auto transformComponentGUI = std::make_unique<TransfromEditor>(scene);
@@ -21,7 +21,7 @@ void ComponentEditor::Init() {
 }
 
 void ComponentEditor::Render() {
-	auto scene = Application::GetInstance().GetScene();
+	auto scene = Application::GetInstance().GetECS();
 
 	// Hierarchy
 	ImGui::Begin("Hierarchy");
