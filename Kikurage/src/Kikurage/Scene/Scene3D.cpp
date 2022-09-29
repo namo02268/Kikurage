@@ -33,8 +33,7 @@ Scene3D::~Scene3D() {
 
 void Scene3D::Init() {
 	//-------------------------------add scene & renderer-------------------------------//
-	auto entityManager = std::make_unique<EntityManager>();
-	m_scene = new Scene(std::move(entityManager));
+	m_scene = new ECS();
 
 	//-----------------------------------Resources-----------------------------------//
 	stbi_set_flip_vertically_on_load(true);

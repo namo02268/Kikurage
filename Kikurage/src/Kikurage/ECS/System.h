@@ -6,14 +6,14 @@
 #include "Kikurage/ECS/ECS_def.h"
 #include "Kikurage/Events/EventHandler.h"
 
-class Scene;
+class ECS;
 
 class System {
 protected:
 	std::vector<Entity> m_entityArray;
 
 public:
-	Scene* m_parentScene;
+	ECS* m_parentScene;
 	ComponentFamily m_requiredComponent;
 
 public:

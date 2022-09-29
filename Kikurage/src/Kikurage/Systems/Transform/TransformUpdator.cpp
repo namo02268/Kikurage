@@ -1,6 +1,6 @@
 #include "Kikurage/Systems/Transform/TransformUpdator.h"
 
-#include "Kikurage/ECS/Scene.h"
+#include "Kikurage/ECS/ECS.h"
 #include "Kikurage/Components/TransformComponent.h"
 
 #include "glm/gtx/transform.hpp"

@@ -1,6 +1,6 @@
 #include "Kikurage/Systems/AABBCollision/AABBCollision.h"
 
-#include "Kikurage/ECS/Scene.h"
+#include "Kikurage/ECS/ECS.h"
 #include "Kikurage/Components/TransformComponent.h"
 #include "Kikurage/Components/MeshComponent.h"
 #include "Kikurage/Components/MaterialComponent.h"

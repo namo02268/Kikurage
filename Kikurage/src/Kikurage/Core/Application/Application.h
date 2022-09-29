@@ -43,7 +43,7 @@ public:
 	EventHandler& GetEventHandler() const { return *this->m_eventHandler; }
 	Window* GetWindow() const { return this->m_window; }
 	Renderer* GetRenderer() const { return this->m_renderer; }
-	Scene* GetScene() const { return this->m_scene3d->GetScene(); }
+	ECS* GetScene() const { return this->m_scene3d->GetScene(); }
 };
 
 

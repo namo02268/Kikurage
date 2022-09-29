@@ -1,5 +1,5 @@
 #include "Kikurage/Systems/Collision/CollisionSystem.h"
-#include "Kikurage/ECS/Scene.h"
+#include "Kikurage/ECS/ECS.h"
 #include "Kikurage/Events/CollisionEvent.h"
 
 #include "Kikurage/Components/TransformComponent.h"

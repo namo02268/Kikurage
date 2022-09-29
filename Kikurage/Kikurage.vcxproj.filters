@@ -250,7 +250,7 @@
     <ClInclude Include="src\Kikurage\ECS\IdGenerator.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="src\Kikurage\ECS\Scene.h">
+    <ClInclude Include="src\Kikurage\ECS\ECS.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
     <ClInclude Include="src\Kikurage\ECS\System.h">

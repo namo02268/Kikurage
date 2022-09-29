@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Kikurage/ECS/Scene.h"
+#include "Kikurage/ECS/ECS.h"
 #include "Kikurage/ECS/ECS_def.h"
 
 #include "Kikurage/GUI/ComponentEditors.h"

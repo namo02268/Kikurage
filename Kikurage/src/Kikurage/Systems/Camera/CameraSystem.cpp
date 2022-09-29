@@ -4,7 +4,7 @@
 #include <glm/gtc/matrix_transform.hpp>
 
 #include "Kikurage/Core/Application/Application.h"
-#include "Kikurage/ECS/Scene.h"
+#include "Kikurage/ECS/ECS.h"
 #include "Kikurage/Components/TransformComponent.h"
 #include "Kikurage/Components/cameraComponent.h"
 

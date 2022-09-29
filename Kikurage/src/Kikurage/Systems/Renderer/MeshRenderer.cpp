@@ -1,5 +1,5 @@
 #include "Kikurage/Systems/Renderer/MeshRenderer.h"
-#include "Kikurage/ECS/Scene.h"
+#include "Kikurage/ECS/ECS.h"
 
 #include "Kikurage/Components/TransformComponent.h"
 #include "Kikurage/Components/MeshComponent.h"

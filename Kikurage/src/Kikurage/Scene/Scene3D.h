@@ -1,7 +1,7 @@
 #pragma once
 
 #include "Kikurage/Core/Window.h"
-#include "Kikurage/ECS/Scene.h"
+#include "Kikurage/ECS/ECS.h"
 
 class Scene3D {
 public:
@@ -12,9 +12,9 @@ public:
 	void Update(float dt);
 	void Draw();
 
-	Scene* GetScene() { return m_scene; }
+	ECS* GetScene() { return m_scene; }
 
 private:
-	Scene* m_scene;
+	ECS* m_scene;
 };
 

@@ -10,10 +10,10 @@
 
 #include "Kikurage/Components/Relationship.h"
 
-class Scene {
+class ECS {
 private:
 	// entity manager
-	std::unique_ptr<EntityManager> m_entityManager;
+	std::unique_ptr<EntityManager> m_entityManager = std::make_unique<EntityManager>();
 	// entity array
 	std::vector<Entity> m_allEntityArray;
 	// ComponentMask
@@ -26,11 +26,10 @@ private:
 	std::vector<std::unique_ptr<System>> m_systems;
 
 public:
-	Scene(std::unique_ptr<EntityManager> entityManager)
-		: m_entityManager(std::move(entityManager)) {};
-	Scene(const Scene&) = delete;
-	Scene& operator=(const Scene&) = delete;
-	~Scene() = default;
+	ECS(){};
+	ECS(const ECS&) = delete;
+	ECS& operator=(const ECS&) = delete;
+	~ECS() = default;
 
 	//---------------------------------------------Entity---------------------------------------------//
 	Entity createEntity() {

@@ -1,5 +1,5 @@
 #pragma once
-#include "Kikurage/ECS/Scene.h"
+#include "Kikurage/ECS/ECS.h"
 #include "imgui/imgui.h"
 #include "imgui/imgui_impl_glfw.h"
 #include "imgui/imgui_impl_opengl3.h"
@@ -13,7 +13,7 @@
 class ComponentEditorBase {
 public:
 	ComponentTypeID ID;
-	Scene* m_parentScene;
+	ECS* m_parentScene;
 
 public:
 	virtual ~ComponentEditorBase() {}
@@ -23,7 +23,7 @@ public:
 //----------------------------------------------Transform----------------------------------------------//
 class TransfromEditor : public ComponentEditorBase {
 public:
-	TransfromEditor(Scene* scene) {
+	TransfromEditor(ECS* scene) {
 		m_parentScene = scene;
 		ID = getComponentTypeID<TransformComponent>();
 	}
@@ -44,7 +44,7 @@ public:
 //----------------------------------------------Material----------------------------------------------//
 class MaterialEditor : public ComponentEditorBase {
 public:
-	MaterialEditor(Scene* scene) {
+	MaterialEditor(ECS* scene) {
 		m_parentScene = scene;
 		ID = getComponentTypeID<MaterialComponent>();
 	}
@@ -66,7 +66,7 @@ public:
 //----------------------------------------------RigidBody----------------------------------------------//
 class RigidBodyEditor : public ComponentEditorBase {
 public:
-	RigidBodyEditor(Scene* scene) {
+	RigidBodyEditor(ECS* scene) {
 		m_parentScene = scene;
 		ID = getComponentTypeID<RigidBodyComponent>();
 	}
@@ -92,7 +92,7 @@ public:
 //----------------------------------------------Camera----------------------------------------------//
 class CameraEditor : public ComponentEditorBase {
 public:
-	CameraEditor(Scene* scene) {
+	CameraEditor(ECS* scene) {
 		m_parentScene = scene;
 		ID = getComponentTypeID<CameraComponent>();
 	}

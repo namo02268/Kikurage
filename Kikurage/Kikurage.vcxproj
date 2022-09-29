@@ -94,7 +94,7 @@
     <ClInclude Include="src\Kikurage\Events\EventBase.h" />
     <ClInclude Include="src\Kikurage\Events\EventHandler.h" />
     <ClInclude Include="src\Kikurage\ECS\IdGenerator.h" />
-    <ClInclude Include="src\Kikurage\ECS\Scene.h" />
+    <ClInclude Include="src\Kikurage\ECS\ECS.h" />
     <ClInclude Include="src\Kikurage\ECS\System.h" />
     <ClInclude Include="src\Kikurage\Events\WindowResizeEvent.h" />
     <ClInclude Include="src\Kikurage\GUI\ComponentEditors.h" />
