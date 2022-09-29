@@ -244,7 +244,7 @@
     <ClInclude Include="src\Kikurage\ECS\EntityManager.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="src\Kikurage\ECS\EntityMap.h">
+    <ClInclude Include="src\Kikurage\ECS\SparseSet.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
     <ClInclude Include="src\Kikurage\ECS\IdGenerator.h">

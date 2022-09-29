@@ -2,7 +2,7 @@
 
 #include <functional>
 
-#include "Kikurage/ECS/EntityMap.h"
+#include "Kikurage/ECS/SparseSet.h"
 
 class BaseComponentManager {
 public:
@@ -13,7 +13,7 @@ template<typename ComponentType>
 class ComponentManager : public BaseComponentManager {
 private:
 	std::array<ComponentType, MAX_ENTITIES>* m_componentArray;
-	EntityMap m_entityMap;
+	SparseSet m_entityMap;
 	ComponentInstance m_newInstance = 0;
 
 public:
@@ -27,7 +27,7 @@ public:
 
 	void addComponent(Entity& e, ComponentType&& c) {
 		m_componentArray->at(m_newInstance) = std::forward<ComponentType>(c);
-		m_entityMap.add(e, m_newInstance);
+		m_entityMap.Add(e, m_newInstance);
 
 		m_newInstance++;
 	}
@@ -41,7 +41,7 @@ public:
 
 		if (instance != lastInstance) {
 			m_componentArray->at(instance) = m_componentArray->at(lastInstance);
-			m_entityMap.update(lastEntity, instance);
+			m_entityMap.Update(lastEntity, instance);
 		}
 
 		m_newInstance--;

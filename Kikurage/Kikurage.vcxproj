@@ -89,7 +89,7 @@
     <ClInclude Include="src\Kikurage\ECS\ECS_def.h" />
     <ClInclude Include="src\Kikurage\ECS\Entity.h" />
     <ClInclude Include="src\Kikurage\ECS\EntityManager.h" />
-    <ClInclude Include="src\Kikurage\ECS\EntityMap.h" />
+    <ClInclude Include="src\Kikurage\ECS\SparseSet.h" />
     <ClInclude Include="src\Kikurage\Events\CollisionEvent.h" />
     <ClInclude Include="src\Kikurage\Events\EventBase.h" />
     <ClInclude Include="src\Kikurage\Events\EventHandler.h" />
