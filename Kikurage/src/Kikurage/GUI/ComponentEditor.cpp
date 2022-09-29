@@ -27,7 +27,7 @@ void ComponentEditor::Render() {
 	ImGui::Begin("Hierarchy");
 	ImGui::PushID("Hierarchy");
 
-	auto& entityArray = scene->getAllEntityArray();
+	auto& entityArray = scene->GetAllEntityArray();
 
 	static int selected = -1;
 	char buf[32];
@@ -48,7 +48,7 @@ void ComponentEditor::Render() {
 	if (selected != -1) {
 		ImGui::PushID(entityArray[selected]);
 		for (int i = 0; i < MAX_COMPONENTS_FAMILY; i++) {
-			if (scene->getComponentMask(entityArray[selected])[i] && m_componentGUIbit[i]) {
+			if (scene->GetComponentMask(entityArray[selected])[i] && m_componentGUIbit[i]) {
 				ImGui::SetNextItemOpen(true, ImGuiCond_Once);
 				m_componentGUIs[i]->draw(entityArray[selected]);
 				ImGui::Separator();
@@ -62,11 +62,11 @@ void ComponentEditor::Render() {
 		if (ImGui::BeginPopup("Component"))
 		{
 			if (ImGui::Selectable("Transform"))
-				scene->addComponent<TransformComponent>(entityArray[selected], TransformComponent());
+				scene->AddComponent<TransformComponent>(entityArray[selected], TransformComponent());
 			if (ImGui::Selectable("Material"))
-				scene->addComponent<MaterialComponent>(entityArray[selected], MaterialComponent());
+				scene->AddComponent<MaterialComponent>(entityArray[selected], MaterialComponent());
 			if (ImGui::Selectable("RigidBody"))
-				scene->addComponent<RigidBodyComponent>(entityArray[selected], RigidBodyComponent());
+				scene->AddComponent<RigidBodyComponent>(entityArray[selected], RigidBodyComponent());
 			ImGui::EndPopup();
 		}
 		ImGui::PopID();

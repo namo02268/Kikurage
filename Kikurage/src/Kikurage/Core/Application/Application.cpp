@@ -41,6 +41,7 @@ Application::~Application() {
 void Application::Init() {
 	m_renderer->Init();
 	m_imguiManager->Init();
+	m_ecs->Init();
 	m_scene3d->Init();
 }
 

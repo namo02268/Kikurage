@@ -16,7 +16,7 @@ IBL::~IBL() {
 
 }
 
-void IBL::init() {
+void IBL::Init() {
 	// Resources
 	ResourceManager::GetInstance().LoadShaderFromFile("resources/shaders/cubemap.vert", "resources/shaders/equirectangular_to_cubemap.frag", nullptr, "equirectangularToCubemapShader");
 	ResourceManager::GetInstance().LoadShaderFromFile("resources/shaders/cubemap.vert", "resources/shaders/irradiance_convolution.frag", nullptr, "irradianceShader");
@@ -191,7 +191,7 @@ void IBL::init() {
 	captureFBO.Unbind();
 }
 
-void IBL::update(float dt) {
+void IBL::Update(float dt) {
 	pbrShader->Bind();
 	// bind pre-computed IBL data
 	glActiveTexture(GL_TEXTURE0);
@@ -202,7 +202,7 @@ void IBL::update(float dt) {
 	brdfLUTTexture.Bind();
 }
 
-void IBL::draw() {
+void IBL::Draw() {
 	backgroundShader->Bind();
 	glActiveTexture(GL_TEXTURE0);
 	glBindTexture(GL_TEXTURE_CUBE_MAP, envCubemap);

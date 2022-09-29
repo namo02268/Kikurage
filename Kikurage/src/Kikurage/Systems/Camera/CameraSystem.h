@@ -15,7 +15,7 @@ public:
 	CameraSystem();
 	~CameraSystem();
 
-	void init() override;
-	void update(float dt) override;
-	void draw() override;
+	void Init() override;
+	void Update(float dt) override;
+	void Draw() override;
 };

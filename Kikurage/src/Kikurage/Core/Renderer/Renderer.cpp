@@ -1,7 +1,6 @@
 #include "Kikurage/Core/Renderer/Renderer.h"
+#include "Kikurage/Core/Application/Application.h"
 #include "Kikurage/Core/Event.h"
-
-#include <iostream>
 
 //---------------------RenderBuffers---------------------//
 void RenderBuffers::Init(int width, int height) {

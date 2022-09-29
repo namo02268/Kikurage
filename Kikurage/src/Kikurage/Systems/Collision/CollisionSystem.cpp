@@ -21,30 +21,30 @@ CollisionSystem::~CollisionSystem() {
 
 }
 
-void CollisionSystem::init() {
+void CollisionSystem::Init() {
 }
 
-void CollisionSystem::update(float dt) {
+void CollisionSystem::Update(float dt) {
 	for (auto& a : m_entityArray) {
-		auto a_parent = m_parentScene->getComponent<Relationship>(a)->parent;
+		auto a_parent = m_parentScene->GetComponent<Relationship>(a)->parent;
 		for (auto& b : m_entityArray) {
 			if (a == b) break;
 
-			auto b_parent = m_parentScene->getComponent<Relationship>(b)->parent;
-			auto a_trans = m_parentScene->getComponent<TransformComponent>(a);
+			auto b_parent = m_parentScene->GetComponent<Relationship>(b)->parent;
+			auto a_trans = m_parentScene->GetComponent<TransformComponent>(a);
 			TransformComponent a_result = *a_trans;
 			if (a_parent) {
-				a_result += *(m_parentScene->getComponent<TransformComponent>(a_parent));
+				a_result += *(m_parentScene->GetComponent<TransformComponent>(a_parent));
 			}
 
-			auto b_trans = m_parentScene->getComponent<TransformComponent>(b);
+			auto b_trans = m_parentScene->GetComponent<TransformComponent>(b);
 			TransformComponent b_result = *b_trans;
 			if (b_parent) {
-				b_result += *(m_parentScene->getComponent<TransformComponent>(b_parent));
+				b_result += *(m_parentScene->GetComponent<TransformComponent>(b_parent));
 			}
 
-			auto a_col = m_parentScene->getComponent<CollisionComponent>(a);
-			auto b_col = m_parentScene->getComponent<CollisionComponent>(b);
+			auto a_col = m_parentScene->GetComponent<CollisionComponent>(a);
+			auto b_col = m_parentScene->GetComponent<CollisionComponent>(b);
 			CollisionPoints points = a_col->collider->TestCollision(
 				&a_result,
 				b_col->collider,
@@ -57,6 +57,6 @@ void CollisionSystem::update(float dt) {
 	}
 }
 
-void CollisionSystem::draw() {
+void CollisionSystem::Draw() {
 
 }

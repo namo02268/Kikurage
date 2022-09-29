@@ -16,19 +16,19 @@ TransformUpdator::TransformUpdator() {
 	m_requiredComponent[family] = true;
 }
 
-void TransformUpdator::init() {
+void TransformUpdator::Init() {
 
 }
 
-void TransformUpdator::update(float dt) {
+void TransformUpdator::Update(float dt) {
 	for (auto& e : m_entityArray) {
-		auto trans = m_parentScene->getComponent<TransformComponent>(e);
-		auto parent = m_parentScene->getComponent<Relationship>(e)->parent;
+		auto trans = m_parentScene->GetComponent<TransformComponent>(e);
+		auto parent = m_parentScene->GetComponent<Relationship>(e)->parent;
 
 		glm::mat4 buf{ 1.0f };
 
 		if (parent) {
-			auto ptrans = m_parentScene->getComponent<TransformComponent>(parent);
+			auto ptrans = m_parentScene->GetComponent<TransformComponent>(parent);
 			trans->parentMatrix = ptrans->localMatrix;
 		}
 
@@ -43,6 +43,6 @@ void TransformUpdator::update(float dt) {
 	}
 }
 
-void TransformUpdator::draw() {
+void TransformUpdator::Draw() {
 
 }

@@ -20,14 +20,14 @@ Physics::~Physics() {
 
 }
 
-void Physics::init() {
+void Physics::Init() {
 	Event::subscribe(this, &Physics::onCollisionEvent);
 }
 
-void Physics::update(float dt) {
+void Physics::Update(float dt) {
 	for (auto& e : m_entityArray) {
-		auto transfromComponent = m_parentScene->getComponent<TransformComponent>(e);
-		auto rigidBodyComponent = m_parentScene->getComponent<RigidBodyComponent>(e);
+		auto transfromComponent = m_parentScene->GetComponent<TransformComponent>(e);
+		auto rigidBodyComponent = m_parentScene->GetComponent<RigidBodyComponent>(e);
 
 		if (rigidBodyComponent->isGravity) {
 			rigidBodyComponent->force += rigidBodyComponent->mass * m_gravity;
@@ -40,15 +40,15 @@ void Physics::update(float dt) {
 	}
 }
 
-void Physics::draw() {
+void Physics::Draw() {
 
 }
 
 void Physics::onCollisionEvent(CollisionEvent* collision) {
-	auto a_trans = m_parentScene->getComponent<TransformComponent>(collision->a);
-	auto b_trans = m_parentScene->getComponent<TransformComponent>(collision->b);
-	auto a_rigid = m_parentScene->getComponent<RigidBodyComponent>(collision->a);
-	auto b_rigid = m_parentScene->getComponent<RigidBodyComponent>(collision->b);
+	auto a_trans = m_parentScene->GetComponent<TransformComponent>(collision->a);
+	auto b_trans = m_parentScene->GetComponent<TransformComponent>(collision->b);
+	auto a_rigid = m_parentScene->GetComponent<RigidBodyComponent>(collision->a);
+	auto b_rigid = m_parentScene->GetComponent<RigidBodyComponent>(collision->b);
 
 	if (a_rigid != nullptr && b_rigid != nullptr) {
 		// position solver

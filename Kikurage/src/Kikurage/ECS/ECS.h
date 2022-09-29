@@ -32,14 +32,14 @@ public:
 	~ECS() = default;
 
 	//---------------------------------------------Entity---------------------------------------------//
-	Entity createEntity() {
+	Entity CreateEntity() {
 		Entity e = m_entityManager->createEntity();
 		m_allEntityArray.emplace_back(e);
-		addComponent<Relationship>(e, Relationship());
+		AddComponent<Relationship>(e, Relationship());
 		return e;
 	}
 
-	void destroyEntity(Entity e) {
+	void DestroyEntity(Entity e) {
 		for (auto itr = m_allEntityArray.begin(); itr != m_allEntityArray.end(); ++itr) {
 			Entity e_itr = *itr;
 			if (e_itr == e) {
@@ -49,39 +49,39 @@ public:
 		}
 
 		for (auto& system : m_systems) {
-			system->removeEntity(e);
+			system->RemoveEntity(e);
 		}
 		m_entityManager->destroyEnitity(e);
 	}
 
-	std::vector<Entity>& getAllEntityArray() {
+	std::vector<Entity>& GetAllEntityArray() {
 		return m_allEntityArray;
 	}
 
 	//---------------------------------------------System---------------------------------------------//
-	void addSystem(std::unique_ptr<System> system) {
+	void AddSystem(std::unique_ptr<System> system) {
 		system->m_parentScene = this;
 		m_systems.push_back(std::move(system));
 	}
 
-	void init() {
+	void Init() {
 		for (const auto& system : m_systems)
-			system->init();
+			system->Init();
 	}
 
-	void update(float dt) {
+	void Update(float dt) {
 		for (const auto& system : m_systems)
-			system->update(dt);
+			system->Update(dt);
 	}
 
-	void draw() {
+	void Draw() {
 		for (const auto& system : m_systems)
-			system->draw();
+			system->Draw();
 	}
 
 	//---------------------------------------------Component---------------------------------------------//
 	template<typename ComponentType>
-	void addComponent(Entity& e, ComponentType&& c) {
+	void AddComponent(Entity& e, ComponentType&& c) {
 		auto family = getComponentTypeID<ComponentType>();
 		if (!m_componentMask[e][family]) {
 			m_componentMask[e][family] = true;
@@ -94,7 +94,7 @@ public:
 			}
 
 			static_cast<ComponentManager<ComponentType>&>(*m_componentManagers[family]).addComponent(e, std::forward<ComponentType>(c));
-			updateComponentMap(e, family);
+			UpdateComponentMap(e, family);
 		}
 		else {
 			std::cout << typeid(ComponentType).name() << " is already attached! Entity ID:" << e << std::endl;
@@ -102,12 +102,12 @@ public:
 	}
 
 	template<typename ComponentType>
-	void removeComponent(Entity& e) {
+	void RemoveComponent(Entity& e) {
 		auto family = getComponentTypeID<ComponentType>();
 		if (m_componentMask[e][family]) {
 			m_componentMask[e][family] = false;
 			static_cast<ComponentManager<ComponentType>&>(*m_componentManagers[family]).removeComponent(e);
-			updateComponentMap(e, family);
+			UpdateComponentMap(e, family);
 		}
 		else {
 			std::cout << typeid(ComponentType).name() << " does not exist! Entity ID:" << e << std::endl;
@@ -115,7 +115,7 @@ public:
 	}
 
 	template<typename ComponentType>
-	ComponentType* getComponent(Entity& e) {
+	ComponentType* GetComponent(Entity& e) {
 		auto family = getComponentTypeID<ComponentType>();
 		if (m_componentMask[e][family]) {
 			return static_cast<ComponentManager<ComponentType>&>(*m_componentManagers[family]).getComponent(e);
@@ -127,27 +127,27 @@ public:
 	}
 
 	template<typename ComponentType>
-	void iterateAll(std::function<void(ComponentType* c)> lambda) {
+	void IterateAll(std::function<void(ComponentType* c)> lambda) {
 		auto family = getComponentTypeID<ComponentType>();
 		static_cast<ComponentManager<ComponentType>&>(*m_componentManagers[family]).iterateAll(lambda);
 	}
 
-	ComponentFamily getComponentMask(Entity& e) {
+	ComponentFamily GetComponentMask(Entity& e) {
 		return m_componentMask[e];
 	}
 
 private:
-	void updateComponentMap(Entity& e, ComponentTypeID family) {
+	void UpdateComponentMap(Entity& e, ComponentTypeID family) {
 		for (const auto& system : m_systems) {
 			auto& componentMap = m_componentMask[e];
 			auto requiredComponent = system->m_requiredComponent;
 			if (requiredComponent[family]) {
 				auto andbit = requiredComponent & componentMap;
 				if (andbit == system->m_requiredComponent) {
-					system->addEntity(e);
+					system->AddEntity(e);
 				}
 				else {
-					system->removeEntity(e);
+					system->RemoveEntity(e);
 				}
 
 			}

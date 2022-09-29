@@ -30,12 +30,12 @@ public:
 
 	void draw(Entity& e) {
 		if (ImGui::TreeNode("Transform")) {
-			auto transfromComponent = m_parentScene->getComponent<TransformComponent>(e);
+			auto transfromComponent = m_parentScene->GetComponent<TransformComponent>(e);
 			ImGui::DragFloat3("Position", &transfromComponent->position.x, 0.01f);
 			ImGui::DragFloat3("Scale", &transfromComponent->scale.x, 0.01f);
 			ImGui::DragFloat3("Rotation", &transfromComponent->rotation.x, 1.0f);
 			if (ImGui::Button("Remove Component"))
-				m_parentScene->removeComponent<TransformComponent>(e);
+				m_parentScene->RemoveComponent<TransformComponent>(e);
 			ImGui::TreePop();
 		}
 	}
@@ -51,13 +51,13 @@ public:
 
 	void draw(Entity& e) {
 		if (ImGui::TreeNode("Material")) {
-			auto materialComponent = m_parentScene->getComponent<MaterialComponent>(e);
+			auto materialComponent = m_parentScene->GetComponent<MaterialComponent>(e);
 			ImGui::ColorEdit3("Albedo", &materialComponent->albedo.x);
 			ImGui::SliderFloat("Metallic", &materialComponent->metallic, 0.0f, 1.0f);
 			ImGui::SliderFloat("Roughness", &materialComponent->roughness, 0.0f, 1.0f);
 			ImGui::SliderFloat("ao", &materialComponent->ao, 0.0f, 1.0f);
 			if (ImGui::Button("Remove Component"))
-				m_parentScene->removeComponent<MaterialComponent>(e);
+				m_parentScene->RemoveComponent<MaterialComponent>(e);
 			ImGui::TreePop();
 		}
 	}
@@ -73,7 +73,7 @@ public:
 
 	void draw(Entity& e) {
 		if (ImGui::TreeNode("RigidBody")) {
-			auto rigidBodyComponent = m_parentScene->getComponent<RigidBodyComponent>(e);
+			auto rigidBodyComponent = m_parentScene->GetComponent<RigidBodyComponent>(e);
 			ImGui::DragFloat3("Velocity", &rigidBodyComponent->velocity.x, 0.01f);
 			ImGui::DragFloat3("Force", &rigidBodyComponent->force.x, 0.01f);
 			ImGui::DragFloat("Mass", &rigidBodyComponent->mass, 0.1f);
@@ -83,7 +83,7 @@ public:
 			ImGui::Checkbox("Is Gravity", &rigidBodyComponent->isGravity);
 			ImGui::Checkbox("Is Kinematic", &rigidBodyComponent->isKinematic);
 			if (ImGui::Button("Remove Component"))
-				m_parentScene->removeComponent<RigidBodyComponent>(e);
+				m_parentScene->RemoveComponent<RigidBodyComponent>(e);
 			ImGui::TreePop();
 		}
 	}
@@ -99,7 +99,7 @@ public:
 
 	void draw(Entity& e) {
 		if (ImGui::TreeNode("Camera")) {
-			auto cameraComponent = m_parentScene->getComponent<CameraComponent>(e);
+			auto cameraComponent = m_parentScene->GetComponent<CameraComponent>(e);
 			ImGui::DragFloat("Near", &cameraComponent->Near, 0.01f);
 			ImGui::DragFloat("Far", &cameraComponent->Far, 1.0f);
 

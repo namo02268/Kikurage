@@ -19,13 +19,13 @@ CameraSystem::~CameraSystem() {
 
 }
 
-void CameraSystem::init() {
+void CameraSystem::Init() {
 
 }
 
-void CameraSystem::update(float dt) {
+void CameraSystem::Update(float dt) {
 	for (auto& e : m_entityArray) {
-		auto trans = m_parentScene->getComponent<TransformComponent>(e);
+		auto trans = m_parentScene->GetComponent<TransformComponent>(e);
 		camera.UpdateProjectionMatrix();
 		camera.HandleKeyboard(*trans, dt);
 		camera.HandleMouse(*trans, dt);
@@ -34,5 +34,5 @@ void CameraSystem::update(float dt) {
 	}
 }
 
-void CameraSystem::draw() {	
+void CameraSystem::Draw() {	
 }

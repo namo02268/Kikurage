@@ -1,10 +1,10 @@
 #include "Kikurage/Systems/Renderer/MeshRenderer.h"
 #include "Kikurage/ECS/ECS.h"
 
+#include "Kikurage/Core/Application/Application.h"
 #include "Kikurage/Components/TransformComponent.h"
 #include "Kikurage/Components/MeshComponent.h"
 #include "Kikurage/Components/MaterialComponent.h"
-#include "Kikurage/Components/Relationship.h"
 
 #define Xaxis glm::vec3(1.0, 0.0, 0.0)
 #define Yaxis glm::vec3(0.0, 1.0, 0.0)
@@ -27,32 +27,31 @@ MeshRenderer::~MeshRenderer() {
 
 }
 
-void MeshRenderer::init	() {
+void MeshRenderer::Init	() {
 
 }
 
-void MeshRenderer::update(float dt) {
+void MeshRenderer::Update(float dt) {
 
 }
 
-void MeshRenderer::draw() {
+void MeshRenderer::Draw() {
 	this->m_shader->Bind();
 	for (auto& e : m_entityArray) {
-		auto cTrans = m_parentScene->getComponent<TransformComponent>(e);
-		auto cMesh = m_parentScene->getComponent<MeshComponent>(e);
-		auto cMat = m_parentScene->getComponent<MaterialComponent>(e);
-		auto cParent = m_parentScene->getComponent<Relationship>(e)->parent;
+		auto transform = m_parentScene->GetComponent<TransformComponent>(e);
+		auto mesh = m_parentScene->GetComponent<MeshComponent>(e);
+		auto material = m_parentScene->GetComponent<MaterialComponent>(e);
 
 		// material
-		this->m_shader->SetUniform("albedo", cMat->albedo);
-		this->m_shader->SetUniform("metallic", cMat->metallic);
-		this->m_shader->SetUniform("roughness", cMat->roughness);
-		this->m_shader->SetUniform("ao", cMat->ao);
+		this->m_shader->SetUniform("albedo", material->albedo);
+		this->m_shader->SetUniform("metallic", material->metallic);
+		this->m_shader->SetUniform("roughness", material->roughness);
+		this->m_shader->SetUniform("ao", material->ao);
 
 		// model
-		this->m_shader->SetUniform("model", cTrans->worldMatrix);
-		glBindVertexArray(cMesh->mesh->VAO);
-		glDrawElements(GL_TRIANGLES, cMesh->mesh->indiceCount, GL_UNSIGNED_INT, 0);
+		this->m_shader->SetUniform("model", transform->worldMatrix);
+		glBindVertexArray(mesh->mesh->VAO);
+		glDrawElements(GL_TRIANGLES, mesh->mesh->indiceCount, GL_UNSIGNED_INT, 0);
 		glBindVertexArray(0);
 	}
 }

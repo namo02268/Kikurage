@@ -18,24 +18,24 @@ AABBCollision::~AABBCollision() {
 
 }
 
-void AABBCollision::init() {
+void AABBCollision::Init() {
 
 }
 
-void AABBCollision::update(float dt) {
+void AABBCollision::Update(float dt) {
 	for(auto& e : m_entityArray)
-		m_parentScene->getComponent<MaterialComponent>(e)->albedo = glm::vec3(0.0f, 0.0f, 1.0f);
+		m_parentScene->GetComponent<MaterialComponent>(e)->albedo = glm::vec3(0.0f, 0.0f, 1.0f);
 
 	for (auto& a : m_entityArray) {
-		auto aTrans = m_parentScene->getComponent<TransformComponent>(a);
-		auto aMesh = m_parentScene->getComponent<MeshComponent>(a);
-		auto aMat = m_parentScene->getComponent<MaterialComponent>(a);
+		auto aTrans = m_parentScene->GetComponent<TransformComponent>(a);
+		auto aMesh = m_parentScene->GetComponent<MeshComponent>(a);
+		auto aMat = m_parentScene->GetComponent<MaterialComponent>(a);
 
 		for (auto& b : m_entityArray) {
 			if (a == b) break;
-			auto bTrans = m_parentScene->getComponent<TransformComponent>(b);
-			auto bMesh = m_parentScene->getComponent<MeshComponent>(b);
-			auto bMat = m_parentScene->getComponent<MaterialComponent>(b);
+			auto bTrans = m_parentScene->GetComponent<TransformComponent>(b);
+			auto bMesh = m_parentScene->GetComponent<MeshComponent>(b);
+			auto bMat = m_parentScene->GetComponent<MaterialComponent>(b);
 			AABB aAABB = { aMesh->mesh->aabb.Min + aTrans->position, aMesh->mesh->aabb.Max + aTrans->position };
 			AABB bAABB = { bMesh->mesh->aabb.Min + bTrans->position, bMesh->mesh->aabb.Max + bTrans->position };
 			if (this->intersect(aAABB, bAABB)) {
@@ -46,7 +46,7 @@ void AABBCollision::update(float dt) {
 	}
 }
 
-void AABBCollision::draw() {
+void AABBCollision::Draw() {
 
 }
 
