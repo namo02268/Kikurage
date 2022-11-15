@@ -1,5 +1,7 @@
 #pragma once
 
+#include <vector>
+
 #include "Kikurage/Resource/Mesh/Vertex.h"
 #include "Kikurage/Resource/Mesh/AABB.h"
 
