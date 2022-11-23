@@ -55,10 +55,10 @@ ObjectInfo MeshLoader::LoadFromFile(const char* path) {
 
         for (size_t i = 0; i < (size_t)mesh->mNumVertices; ++i) {
             MinX = std::min(mesh->mVertices[i].x, MinX);
-            MaxX = std::max(mesh->mVertices[i].y, MaxX);
-            MinY = std::min(mesh->mVertices[i].z, MinY);
-            MaxY = std::max(mesh->mVertices[i].x, MaxY);
-            MinZ = std::min(mesh->mVertices[i].y, MinZ);
+            MaxX = std::max(mesh->mVertices[i].x, MaxX);
+            MinY = std::min(mesh->mVertices[i].y, MinY);
+            MaxY = std::max(mesh->mVertices[i].y, MaxY);
+            MinZ = std::min(mesh->mVertices[i].z, MinZ);
             MaxZ = std::max(mesh->mVertices[i].z, MaxZ);
         }
 
