@@ -4,7 +4,7 @@ template <class T>
 class Singleton 
 {
 protected:
-    static T* m_pInstance;
+    static inline T* m_pInstance = nullptr;
 
     Singleton() = default;
     Singleton(const Singleton&) = delete;
@@ -27,6 +27,3 @@ public:
         }
     }
 };
-
-template <class T>
-T* Singleton<T>::m_pInstance = nullptr;
