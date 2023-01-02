@@ -3,6 +3,8 @@
 #include "Kikurage/ECS/Component.h"
 #include "Kikurage/ECS/Entity.h"
 
-struct Relationship : public Component {
-	Entity parent{};
-};
+namespace Kikurage {
+	struct Relationship : public Component {
+		Entity parent{};
+	};
+}

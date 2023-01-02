@@ -4,17 +4,19 @@
 
 #include "Kikurage/Events/CollisionEvent.h"
 
-class Physics : public System {
-private:
-	glm::vec3 m_gravity = glm::vec3(0, -9.81f, 0);
+namespace Kikurage {
+	class Physics : public System {
+	private:
+		glm::vec3 m_gravity = glm::vec3(0, -9.81f, 0);
 
-public:
-	Physics();
-	~Physics();
+	public:
+		Physics();
+		~Physics();
 
-	void Init() override;
-	void Update(float dt) override;
-	void Draw() override;
+		void Init() override;
+		void Update(float dt) override;
+		void Draw() override;
 
-	void onCollisionEvent(CollisionEvent* collision);
-};
+		void onCollisionEvent(CollisionEvent* collision);
+	};
+}

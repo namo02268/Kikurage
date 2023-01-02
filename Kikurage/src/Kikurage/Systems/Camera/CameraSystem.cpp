@@ -8,31 +8,33 @@
 #include "Kikurage/Components/TransformComponent.h"
 #include "Kikurage/Components/cameraComponent.h"
 
-CameraSystem::CameraSystem() {
-	auto family = getComponentTypeID<TransformComponent>();
-	m_requiredComponent[family] = true;
-	family = getComponentTypeID<CameraComponent>();
-	m_requiredComponent[family] = true;
-}
-
-CameraSystem::~CameraSystem() {
-
-}
-
-void CameraSystem::Init() {
-
-}
-
-void CameraSystem::Update(float dt) {
-	for (auto& e : m_entityArray) {
-		auto trans = m_parentScene->GetComponent<TransformComponent>(e);
-		camera.UpdateProjectionMatrix();
-		camera.HandleKeyboard(*trans, dt);
-		camera.HandleMouse(*trans, dt);
-
-		Application::GetInstance().GetRenderer()->BindCameraInformation(&camera, trans);
+namespace Kikurage {
+	CameraSystem::CameraSystem() {
+		auto family = getComponentTypeID<TransformComponent>();
+		m_requiredComponent[family] = true;
+		family = getComponentTypeID<CameraComponent>();
+		m_requiredComponent[family] = true;
 	}
-}
 
-void CameraSystem::Draw() {	
+	CameraSystem::~CameraSystem() {
+
+	}
+
+	void CameraSystem::Init() {
+
+	}
+
+	void CameraSystem::Update(float dt) {
+		for (auto& e : m_entityArray) {
+			auto trans = m_parentScene->GetComponent<TransformComponent>(e);
+			camera.UpdateProjectionMatrix();
+			camera.HandleKeyboard(*trans, dt);
+			camera.HandleMouse(*trans, dt);
+
+			Application::GetInstance().GetRenderer()->BindCameraInformation(&camera, trans);
+		}
+	}
+
+	void CameraSystem::Draw() {
+	}
 }

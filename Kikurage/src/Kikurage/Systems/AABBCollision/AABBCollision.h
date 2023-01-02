@@ -4,17 +4,19 @@
 
 #include "Kikurage/Resource/Mesh/AABB.h"
 
-class AABBCollision : public System {
-private:
+namespace Kikurage {
+	class AABBCollision : public System {
+	private:
 
-public:
-	AABBCollision();
-	~AABBCollision();
+	public:
+		AABBCollision();
+		~AABBCollision();
 
-	void Init() override;
-	void Update(float dt) override;
-	void Draw() override;
+		void Init() override;
+		void Update(float dt) override;
+		void Draw() override;
 
-private:
-	bool intersect(AABB& a, AABB& b);
-};
+	private:
+		bool intersect(AABB& a, AABB& b);
+	};
+}

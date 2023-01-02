@@ -1,5 +1,7 @@
 #pragma once
 
-struct Component {
-	virtual ~Component() {}
-};
+namespace Kikurage {
+	struct Component {
+		virtual ~Component() {}
+	};
+}

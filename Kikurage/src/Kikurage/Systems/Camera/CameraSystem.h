@@ -4,15 +4,17 @@
 
 #include "Kikurage/Core/Renderer/EditorCamera.h"
 
-class CameraSystem : public System {
-private:
-	EditorCamera camera;
+namespace Kikurage {
+	class CameraSystem : public System {
+	private:
+		EditorCamera camera;
 
-public:
-	CameraSystem();
-	~CameraSystem();
+	public:
+		CameraSystem();
+		~CameraSystem();
 
-	void Init() override;
-	void Update(float dt) override;
-	void Draw() override;
-};
+		void Init() override;
+		void Update(float dt) override;
+		void Draw() override;
+	};
+}

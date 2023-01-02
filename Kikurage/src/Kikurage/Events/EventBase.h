@@ -1,6 +1,8 @@
 #pragma once
 
-struct EventBase {
-public:
-	virtual ~EventBase() {}
-};
+namespace Kikurage {
+	struct EventBase {
+	public:
+		virtual ~EventBase() {}
+	};
+}

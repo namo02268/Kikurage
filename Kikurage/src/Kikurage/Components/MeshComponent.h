@@ -6,11 +6,12 @@
 #include "Kikurage/Resource/Mesh/Mesh.h"
 #include "Kikurage/ECS/Component.h"
 
+namespace Kikurage {
+	struct MeshComponent : public Component {
+	public:
+		Mesh* mesh;
 
-struct MeshComponent : public Component {
-public:
-	Mesh* mesh;
-
-public:
-	MeshComponent(Mesh* mesh) : mesh(mesh) {}
-};
+	public:
+		MeshComponent(Mesh* mesh) : mesh(mesh) {}
+	};
+}

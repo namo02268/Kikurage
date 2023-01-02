@@ -3,27 +3,28 @@
 #include "Kikurage/ECS/Component.h"
 #include "Kikurage/Systems/Collision/Collider.h"
 
+namespace Kikurage {
+	struct CollisionComponent : public Component {
+	public:
+		Collider* collider = nullptr;
 
-struct CollisionComponent : public Component {
-public:
-	Collider* collider = nullptr;
+	public:
+		CollisionComponent(Collider* collider) : collider(collider) {}
+		~CollisionComponent() {}
 
-public:
-	CollisionComponent(Collider* collider) : collider(collider) {}
-	~CollisionComponent() {}
+		CollisionComponent(const CollisionComponent&) = delete;
+		CollisionComponent& operator=(const CollisionComponent&) = delete;
 
-	CollisionComponent(const CollisionComponent&) = delete;
-	CollisionComponent& operator=(const CollisionComponent&) = delete;
-
-	CollisionComponent(CollisionComponent&& other) noexcept {
-		this->collider = other.collider;
-	}
-
-	CollisionComponent& operator=(CollisionComponent&& other) noexcept {
-		if (this != &other) {
+		CollisionComponent(CollisionComponent&& other) noexcept {
 			this->collider = other.collider;
 		}
-		return *this;
-	}
 
-};
+		CollisionComponent& operator=(CollisionComponent&& other) noexcept {
+			if (this != &other) {
+				this->collider = other.collider;
+			}
+			return *this;
+		}
+
+	};
+}

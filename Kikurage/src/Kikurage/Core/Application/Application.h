@@ -9,43 +9,43 @@
 
 #include "Utils/Singleton.h"
 
-class Application : public Singleton<Application> {
-private:
-	OpenGLWindow* m_window;
-	Renderer* m_renderer;
-	GuiManager* m_imguiManager;
-	ECS* m_ecs;
-	Scene3D* m_scene3d;
-	EventHandler* m_eventHandler;
+namespace Kikurage {
+	class Application : public Singleton<Application> {
+	private:
+		OpenGLWindow* m_window;
+		Renderer* m_renderer;
+		GuiManager* m_imguiManager;
+		ECS* m_ecs;
+		Scene3D* m_scene3d;
+		EventHandler* m_eventHandler;
 
-	bool isEditorEnable = true;
+		bool isEditorEnable = true;
 
-	// time
-	float timeScale = 1.0f;
-	float deltaTime = 0.0f;
-	std::size_t FPS = 0;
+		// time
+		float timeScale = 1.0f;
+		float deltaTime = 0.0f;
+		std::size_t FPS = 0;
 
-protected:
-	Application();
-	virtual ~Application();
+	protected:
+		Application();
+		virtual ~Application();
 
-public:
-	friend class Singleton<Application>;
+	public:
+		friend class Singleton<Application>;
 
-	void Run();
-	void Init();
-	void Update(float timeStep);
-	void Render();
+		void Run();
+		void Init();
+		void Update(float timeStep);
+		void Render();
 
-	void UpdateTime();
+		void UpdateTime();
 
-	float GetDeltaTime() const { return this->deltaTime; }
-	std::size_t GetFPS() const { return this->FPS; }
-	EventHandler& GetEventHandler() const { return *this->m_eventHandler; }
-	OpenGLWindow* GetWindow() const { return this->m_window; }
-	Renderer* GetRenderer() const { return this->m_renderer; }
-	ECS* GetECS() const { return this->m_ecs; }
-	GuiManager* GetGUIManager() const { return this->m_imguiManager; }
-};
-
-
+		float GetDeltaTime() const { return this->deltaTime; }
+		std::size_t GetFPS() const { return this->FPS; }
+		EventHandler& GetEventHandler() const { return *this->m_eventHandler; }
+		OpenGLWindow* GetWindow() const { return this->m_window; }
+		Renderer* GetRenderer() const { return this->m_renderer; }
+		ECS* GetECS() const { return this->m_ecs; }
+		GuiManager* GetGUIManager() const { return this->m_imguiManager; }
+	};
+}

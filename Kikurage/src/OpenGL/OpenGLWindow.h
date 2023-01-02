@@ -10,66 +10,67 @@
 
 #include "OpenGL/Shader.h"
 
-class OpenGLWindow {
-private:
-	// Window settings
-	int m_width;
-	int m_height;
-	const char* m_title;
-	GLFWwindow* m_window = nullptr;
-	
-	// Inputs
-	bool anyKeyEvent = false;
-	std::bitset<350> m_keyHeld;
-	std::bitset<350> m_keyPressed;
-	std::bitset<350> m_keyReleased;
+namespace Kikurage {
+	class OpenGLWindow {
+	private:
+		// Window settings
+		int m_width;
+		int m_height;
+		const char* m_title;
+		GLFWwindow* m_window = nullptr;
 
-	bool anyMouseEvent = false;
-	std::bitset<8> m_mouseHeld;
-	std::bitset<8> m_mousePressed;
-	std::bitset<8> m_mouseReleased;
-	float m_mouseScroll = 0;
-	double m_cursorPos[2] = { 0, 0 };
+		// Inputs
+		bool anyKeyEvent = false;
+		std::bitset<350> m_keyHeld;
+		std::bitset<350> m_keyPressed;
+		std::bitset<350> m_keyReleased;
 
-	// Drawing
-	unsigned int renderVAO, renderVBO;
-	Shader* screenShader;
+		bool anyMouseEvent = false;
+		std::bitset<8> m_mouseHeld;
+		std::bitset<8> m_mousePressed;
+		std::bitset<8> m_mouseReleased;
+		float m_mouseScroll = 0;
+		double m_cursorPos[2] = { 0, 0 };
 
-public:
-	OpenGLWindow(int width, int height, const char* title);
-	~OpenGLWindow();
+		// Drawing
+		unsigned int renderVAO, renderVBO;
+		Shader* screenShader;
 
-	void Draw();
+	public:
+		OpenGLWindow(int width, int height, const char* title);
+		~OpenGLWindow();
 
-	void Clear();
-	void Update();
-	bool IsOpen() { return !glfwWindowShouldClose(m_window); }
+		void Draw();
 
-	GLFWwindow* GetWindow() { return m_window; }
+		void Clear();
+		void Update();
+		bool IsOpen() { return !glfwWindowShouldClose(m_window); }
 
-	int GetWidth() const { return m_width; }
-	int GetHeight() const { return m_height; }
-	float GetTime() const { return (float)glfwGetTime(); }
+		GLFWwindow* GetWindowPtr() { return m_window; }
 
-	bool IsAnyKeyEvent() const { return anyKeyEvent; }
-	bool IsKeyHeld(size_t key) const { return m_keyHeld[key]; }
-	bool IsKeyPressed(size_t key) const { return m_keyPressed[key]; }
-	bool IsKeyReleased(size_t key) const { return m_keyReleased[key]; }
+		int GetWidth() const { return m_width; }
+		int GetHeight() const { return m_height; }
+		float GetTime() const { return (float)glfwGetTime(); }
 
-	bool IsAnyMouseEvent() const { return anyMouseEvent; }
-	bool IsMouseHeld(size_t button) const { return m_mouseHeld[button]; }
-	bool IsMousePressed(size_t button) const { return m_mousePressed[button]; }
-	bool IsMouseReleased(size_t button) const { return m_mouseReleased[button]; }
+		bool IsAnyKeyEvent() const { return anyKeyEvent; }
+		bool IsKeyHeld(size_t key) const { return m_keyHeld[key]; }
+		bool IsKeyPressed(size_t key) const { return m_keyPressed[key]; }
+		bool IsKeyReleased(size_t key) const { return m_keyReleased[key]; }
+
+		bool IsAnyMouseEvent() const { return anyMouseEvent; }
+		bool IsMouseHeld(size_t button) const { return m_mouseHeld[button]; }
+		bool IsMousePressed(size_t button) const { return m_mousePressed[button]; }
+		bool IsMouseReleased(size_t button) const { return m_mouseReleased[button]; }
 
 
-	void disableMouseCursor() const;
-	void normalMouseCursor() const;
-	const double* GetCursorPos() const { return m_cursorPos; }
-	float GetMouseScroll() const { return m_mouseScroll; }
-	void SetCursorPos(const float xpos, const float ypos);
+		void disableMouseCursor() const;
+		void normalMouseCursor() const;
+		const double* GetCursorPos() const { return m_cursorPos; }
+		float GetMouseScroll() const { return m_mouseScroll; }
+		void SetCursorPos(const float xpos, const float ypos);
 
-private:
-	void Init();
-	void Terminate();
-};
-
+	private:
+		void Init();
+		void Terminate();
+	};
+}

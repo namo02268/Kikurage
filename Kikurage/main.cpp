@@ -9,9 +9,9 @@ main
 */
 
 int main() {
-	Application::Create();
-	Application::GetInstance().Run();
-	Application::Destroy();
+	Kikurage::Application::Create();
+	Kikurage::Application::GetInstance().Run();
+	Kikurage::Application::Destroy();
 
 	return 0;
 }

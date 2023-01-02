@@ -1,12 +1,13 @@
 #pragma once
 
-class Scene3D {
-public:
-	Scene3D();
-	~Scene3D();
+namespace Kikurage {
+	class Scene3D {
+	public:
+		Scene3D();
+		~Scene3D();
 
-	void Init();
-	void Update(float dt);
-	void Draw();
-};
-
+		void Init();
+		void Update(float dt);
+		void Draw();
+	};
+}

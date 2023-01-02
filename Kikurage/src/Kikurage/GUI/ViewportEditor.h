@@ -1,16 +1,18 @@
 #pragma once
 
-class ViewportEditor {
-private:
-	unsigned int m_width = 0;
-	unsigned int m_height = 0;
+namespace Kikurage {
+	class ViewportEditor {
+	private:
+		unsigned int m_width = 0;
+		unsigned int m_height = 0;
 
-public:
-	ViewportEditor() = default;
-	~ViewportEditor() = default;
+	public:
+		ViewportEditor() = default;
+		~ViewportEditor() = default;
 
-	void Render();
+		void Render();
 
-	unsigned int GetWidth() { return this->m_width; }
-	unsigned int GetHeight() { return this->m_height; }
-};
+		unsigned int GetWidth() { return this->m_width; }
+		unsigned int GetHeight() { return this->m_height; }
+	};
+}
