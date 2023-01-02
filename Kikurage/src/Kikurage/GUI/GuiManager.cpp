@@ -39,28 +39,28 @@ void GuiManager::Init() {
 	m_componentEditor->Init();
 }
 
-void GuiManager::Update(float dt) {
-	// Start the Dear ImGui frame
+void GuiManager::StartGUIFrame() {
 	ImGui_ImplOpenGL3_NewFrame();
 	ImGui_ImplGlfw_NewFrame();
 	ImGui::NewFrame();
 	this->BeginDockSpace();
 }
 
-void GuiManager::Render() {
-	m_componentEditor->Render();
-	m_sceneEditor->Draw();
-
+void GuiManager::EndGUIFrame() {
 	ImGui::Render();
 	ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
 
-	if (ImGui::GetIO().ConfigFlags & ImGuiConfigFlags_ViewportsEnable)
-	{
+	if (ImGui::GetIO().ConfigFlags & ImGuiConfigFlags_ViewportsEnable) {
 		GLFWwindow* backup_current_context = glfwGetCurrentContext();
 		ImGui::UpdatePlatformWindows();
 		ImGui::RenderPlatformWindowsDefault();
 		glfwMakeContextCurrent(backup_current_context);
 	}
+}
+
+void GuiManager::Render() {
+	m_componentEditor->Render();
+	m_sceneEditor->Render();
 }
 
 glm::vec2 GuiManager::GetViewportSize() const {

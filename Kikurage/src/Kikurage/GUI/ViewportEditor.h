@@ -1,14 +1,16 @@
 #pragma once
 
-#include "Kikurage/Core/Window.h"
+class ViewportEditor {
+private:
+	unsigned int m_width = 0;
+	unsigned int m_height = 0;
 
-class ViewportEditor : public Window {
 public:
-	ViewportEditor(int width, int height, const char* title);
+	ViewportEditor() = default;
 	~ViewportEditor() = default;
 
-	void Draw() override;
+	void Render();
 
-	void disableMouseCursor() const override;
-	void normalMouseCursor() const override;
+	unsigned int GetWidth() { return this->m_width; }
+	unsigned int GetHeight() { return this->m_height; }
 };

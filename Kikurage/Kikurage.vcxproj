@@ -113,7 +113,6 @@
     <ClInclude Include="src\OpenGL\RenderBuffer.h" />
     <ClInclude Include="src\Kikurage\Scene\Scene3D.h" />
     <ClInclude Include="src\OpenGL\OpenGLWindow.h" />
-    <ClInclude Include="src\Kikurage\Core\Window.h" />
     <ClInclude Include="src\Kikurage\Resource\Mesh\Vertex.h" />
     <ClInclude Include="src\Kikurage\Resource\ResourceManager\ResourceManager.h" />
     <ClInclude Include="src\OpenGL\Shader.h" />

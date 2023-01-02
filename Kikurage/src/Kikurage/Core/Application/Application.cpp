@@ -46,7 +46,6 @@ void Application::Init() {
 }
 
 void Application::Update(float timeStep) {
-	m_imguiManager->Update(timeStep);
 	m_scene3d->Update(timeStep);
 }
 
@@ -55,7 +54,9 @@ void Application::Render() {
 	m_scene3d->Draw();
 	this->m_renderer->End();
 
+	m_imguiManager->StartGUIFrame();
 	m_imguiManager->Render();
+	m_imguiManager->EndGUIFrame();
 }
 
 void Application::Run() {

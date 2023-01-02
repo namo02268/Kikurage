@@ -42,7 +42,7 @@ public:
 	float GetDeltaTime() const { return this->deltaTime; }
 	std::size_t GetFPS() const { return this->FPS; }
 	EventHandler& GetEventHandler() const { return *this->m_eventHandler; }
-	Window* GetWindow() const { return this->m_window; }
+	OpenGLWindow* GetWindow() const { return this->m_window; }
 	Renderer* GetRenderer() const { return this->m_renderer; }
 	ECS* GetECS() const { return this->m_ecs; }
 	GuiManager* GetGUIManager() const { return this->m_imguiManager; }

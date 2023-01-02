@@ -1,8 +1,5 @@
 #pragma once
 
-#include "Kikurage/Core/Window.h"
-#include "Kikurage/ECS/ECS.h"
-
 class Scene3D {
 public:
 	Scene3D();

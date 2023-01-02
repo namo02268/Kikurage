@@ -1,9 +1,6 @@
 #pragma once
 
 #include "Kikurage/ECS/System.h"
-#include "Kikurage/Core/Window.h"
-#include "OpenGL//Shader.h"
-#include <GLFW/glfw3.h>
 
 #include "Kikurage/Core/Renderer/EditorCamera.h"
 

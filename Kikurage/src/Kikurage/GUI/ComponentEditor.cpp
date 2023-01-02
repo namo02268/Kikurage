@@ -38,9 +38,6 @@ void ComponentEditor::Render() {
 		}
 	}
 
-	ImGui::PopID();
-	ImGui::End();
-
 	// Component Editor
 	ImGui::Begin("Inspector");
 	ImGui::PushItemWidth(200);
@@ -73,5 +70,8 @@ void ComponentEditor::Render() {
 	}
 
 	ImGui::PopItemWidth();
+	ImGui::End();
+
+	ImGui::PopID();
 	ImGui::End();
 }

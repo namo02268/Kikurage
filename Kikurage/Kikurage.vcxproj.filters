@@ -271,9 +271,6 @@
     <ClInclude Include="src\OpenGL\OpenGLWindow.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="src\Kikurage\Core\Window.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
     <ClInclude Include="src\Kikurage\Resource\Mesh\Vertex.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
