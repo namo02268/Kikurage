@@ -2,7 +2,7 @@
 
 #include "OpenGL/OpenGLWindow.h"
 
-#include "Kikurage/GUI/ImGuiManager.h"
+#include "Kikurage/GUI/GuiManager.h"
 #include "Kikurage/Events/EventHandler.h"
 #include "Kikurage/Core/Renderer/Renderer.h"
 #include "Kikurage/Scene/Scene3D.h"
@@ -13,7 +13,7 @@ class Application : public Singleton<Application> {
 private:
 	OpenGLWindow* m_window;
 	Renderer* m_renderer;
-	ImGuiManager* m_imguiManager;
+	GuiManager* m_imguiManager;
 	ECS* m_ecs;
 	Scene3D* m_scene3d;
 	EventHandler* m_eventHandler;
@@ -45,6 +45,7 @@ public:
 	Window* GetWindow() const { return this->m_window; }
 	Renderer* GetRenderer() const { return this->m_renderer; }
 	ECS* GetECS() const { return this->m_ecs; }
+	GuiManager* GetGUIManager() const { return this->m_imguiManager; }
 };
 
 

@@ -63,7 +63,7 @@
     <ClCompile Include="src\Kikurage\GUI\ComponentEditor.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="src\Kikurage\GUI\ImGuiManager.cpp">
+    <ClCompile Include="src\Kikurage\GUI\GuiManager.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
     <ClCompile Include="src\Kikurage\GUI\ViewportEditor.cpp">
@@ -262,7 +262,7 @@
     <ClInclude Include="src\Kikurage\GUI\ComponentEditor.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="src\Kikurage\GUI\ImGuiManager.h">
+    <ClInclude Include="src\Kikurage\GUI\GuiManager.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
     <ClInclude Include="src\Kikurage\GUI\ViewportEditor.h">

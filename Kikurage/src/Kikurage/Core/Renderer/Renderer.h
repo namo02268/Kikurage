@@ -19,8 +19,8 @@ struct RenderBuffers {
 	FrameBuffer framebuffer;
 	RenderBuffer renderbuffer;
 
-	void Init(int width, int height);
-	void Resize(int width, int height);
+	void Init(unsigned int width, unsigned int height);
+	void Resize(unsigned int width, unsigned int height);
 };
 
 
@@ -37,8 +37,7 @@ public:
 	void Start();
 	void End();
 
-	void ResizeBuffers(int width, int height);
-	void ListenWindowResizeEvent(WindowResizeEvent* event);
+	void ResizeViewport();
 
 	void BindFBO();
 	void UnbindFBO();
@@ -51,8 +50,8 @@ public:
 	unsigned int GetHeight() const { return this->m_renderSettings.height; }
 
 	struct RenderSettings {
-		float width = 0;
-		float height = 0;
+		unsigned int width = 0;
+		unsigned int height = 0;
 	};
 
 	RenderSettings m_renderSettings;

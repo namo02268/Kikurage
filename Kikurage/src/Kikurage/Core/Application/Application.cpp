@@ -16,7 +16,7 @@ Application::Application() {
 
 	m_window = new OpenGLWindow(1200, 800, "Kikurage");
 	m_eventHandler = new EventHandler();
-	m_imguiManager = new ImGuiManager(m_window);
+	m_imguiManager = new GuiManager(m_window);
 	m_renderer = new Renderer();
 	m_ecs = new ECS();
 	m_scene3d = new Scene3D();

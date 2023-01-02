@@ -1,4 +1,4 @@
-#include "Kikurage/GUI/ImGuiManager.h"
+#include "Kikurage/GUI/GuiManager.h"
 #include "Kikurage/Core/Event.h"
 
 #include "imgui/imgui.h"
@@ -7,17 +7,17 @@
 
 void imgui_theme();
 
-ImGuiManager::ImGuiManager(OpenGLWindow* window) : m_parentWindow(window) {
+GuiManager::GuiManager(OpenGLWindow* window) : m_parentWindow(window) {
 }
 
-ImGuiManager::~ImGuiManager() {
+GuiManager::~GuiManager() {
 	// Cleanup
 	ImGui_ImplOpenGL3_Shutdown();
 	ImGui_ImplGlfw_Shutdown();
 	ImGui::DestroyContext();
 }
 
-void ImGuiManager::Init() {
+void GuiManager::Init() {
 	// init imgui
 	IMGUI_CHECKVERSION();
 	ImGui::CreateContext();
@@ -39,20 +39,7 @@ void ImGuiManager::Init() {
 	m_componentEditor->Init();
 }
 
-void ImGuiManager::Update(float dt) {
-	static unsigned int width = 1200;
-	static unsigned int height = 800;
-
-	auto new_width = m_sceneEditor->GetWidth();
-	auto new_height = m_sceneEditor->GetHeight();
-	if (width != new_width || height != new_height) {
-		width = new_width;
-		height = new_height;
-		WindowResizeEvent event(width, height);
-		Event::publish(&event);
-	}
-	glViewport(0, 0, width, height);
-
+void GuiManager::Update(float dt) {
 	// Start the Dear ImGui frame
 	ImGui_ImplOpenGL3_NewFrame();
 	ImGui_ImplGlfw_NewFrame();
@@ -60,7 +47,7 @@ void ImGuiManager::Update(float dt) {
 	this->BeginDockSpace();
 }
 
-void ImGuiManager::Render() {
+void GuiManager::Render() {
 	m_componentEditor->Render();
 	m_sceneEditor->Draw();
 
@@ -76,7 +63,11 @@ void ImGuiManager::Render() {
 	}
 }
 
-void ImGuiManager::BeginDockSpace() {
+glm::vec2 GuiManager::GetViewportSize() const {
+	return glm::vec2{ m_sceneEditor->GetWidth(), m_sceneEditor->GetHeight() };
+}
+
+void GuiManager::BeginDockSpace() {
 	// Dock Space
 	{
 		static ImGuiDockNodeFlags dockspace_flags = ImGuiDockNodeFlags_None;
