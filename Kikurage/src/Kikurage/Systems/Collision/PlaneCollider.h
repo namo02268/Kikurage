@@ -1,16 +1,16 @@
 #pragma once
-#include <glm/glm.hpp>
 
+#include "Utils/Math.h"
 #include "Kikurage/Systems/Collision/Collider.h"
 
 namespace Kikurage {
 	struct Collider;
 
 	struct PlaneCollider : Collider {
-		glm::vec3 Normal;
+		Vector3 Normal;
 		float Distance;
 
-		PlaneCollider(glm::vec3 Normal, float Distance) : Normal(Normal), Distance(Distance) {}
+		PlaneCollider(Vector3 Normal, float Distance) : Normal(Normal), Distance(Distance) {}
 
 		CollisionPoints TestCollision(
 			const TransformComponent* transform,

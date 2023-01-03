@@ -37,7 +37,7 @@ namespace Kikurage {
 			rigidBodyComponent->velocity += rigidBodyComponent->force / rigidBodyComponent->mass * dt;
 			transfromComponent->position += rigidBodyComponent->velocity * dt;
 
-			rigidBodyComponent->force = glm::vec3(0.0f);
+			rigidBodyComponent->force = Vector3(0.0f);
 		}
 	}
 
@@ -53,7 +53,7 @@ namespace Kikurage {
 
 		if (a_rigid != nullptr && b_rigid != nullptr) {
 			// position solver
-			glm::vec3 resolution = collision->points.B - collision->points.A;
+			Vector3 resolution = collision->points.B - collision->points.A;
 
 			if (!a_rigid->isKinematic)
 				a_trans->position -= resolution;
@@ -62,7 +62,7 @@ namespace Kikurage {
 
 			// impulse solver
 			auto r_velocity = b_rigid->velocity - a_rigid->velocity;
-			auto n_velocity = glm::dot(r_velocity, collision->points.Normal);
+			auto n_velocity = Dot(r_velocity, collision->points.Normal);
 			if (std::isnan(n_velocity)) n_velocity = 0.0f;
 
 			if (n_velocity >= 0)
@@ -79,19 +79,19 @@ namespace Kikurage {
 
 			// friction solver
 			r_velocity = b_rigid->velocity - a_rigid->velocity;
-			n_velocity = glm::dot(r_velocity, collision->points.Normal);
+			n_velocity = Dot(r_velocity, collision->points.Normal);
 			if (std::isnan(n_velocity)) n_velocity = 0.0f;
 
-			glm::vec3 tangent = glm::normalize(r_velocity - n_velocity * collision->points.Normal);
-			if (std::isnan(tangent.x) || std::isnan(tangent.y) || std::isnan(tangent.z)) tangent = glm::vec3(0.0f);
-			auto f_velocity = glm::dot(r_velocity, tangent);
+			Vector3 tangent = Normalize(r_velocity - n_velocity * collision->points.Normal);
+			if (std::isnan(tangent.x) || std::isnan(tangent.y) || std::isnan(tangent.z)) tangent = Vector3(0.0f);
+			auto f_velocity = Dot(r_velocity, tangent);
 			if (std::isnan(f_velocity)) f_velocity = 0.0f;
 
-			auto mu = glm::length(glm::vec2(a_rigid->staticFriction, b_rigid->staticFriction));
+			auto mu = Length(Vector2(a_rigid->staticFriction, b_rigid->staticFriction));
 			auto f = -f_velocity / (a_rigid->mass + b_rigid->mass);
 
-			glm::vec3 friction;
-			if (glm::abs(f) < j * mu) {
+			Vector3 friction;
+			if (std::abs(f) < j * mu) {
 				friction = f * tangent;
 
 			}

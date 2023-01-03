@@ -1,7 +1,5 @@
 #include "Kikurage/Resource/Mesh/MeshLoader.h"
 
-#include <iostream>
-
 #include <assimp/Importer.hpp>
 #include <assimp/scene.h>
 #include <assimp/postprocess.h>
@@ -9,9 +7,6 @@
 #include "Utils/Math.h"
 
 namespace Kikurage {
-    // TODO : move to math.h
-    std::pair<glm::vec3, glm::vec3> MinMaxVector(glm::vec3* vertices, size_t size);
-
     ObjectInfo MeshLoader::LoadFromFile(const char* path) {
         ObjectInfo object;
 
@@ -39,8 +34,8 @@ namespace Kikurage {
             // vertices
             meshInfo.vertices.resize((size_t)mesh->mNumVertices);
             for (size_t i = 0; i < (size_t)mesh->mNumVertices; ++i) {
-                meshInfo.vertices[i].Position = glm::vec3(mesh->mVertices[i].x, mesh->mVertices[i].y, mesh->mVertices[i].z);
-                meshInfo.vertices[i].Normal = glm::vec3(mesh->mNormals[i].x, mesh->mNormals[i].y, mesh->mNormals[i].z);
+                meshInfo.vertices[i].Position = Vector3(mesh->mVertices[i].x, mesh->mVertices[i].y, mesh->mVertices[i].z);
+                meshInfo.vertices[i].Normal = Vector3(mesh->mNormals[i].x, mesh->mNormals[i].y, mesh->mNormals[i].z);
 
                 if (meshInfo.hasTextureCoords) {
                     meshInfo.vertices[i].TexCoords = glm::vec2(mesh->mTextureCoords[0][i].x, mesh->mTextureCoords[0][i].y);
@@ -64,7 +59,7 @@ namespace Kikurage {
                 MaxZ = std::max(mesh->mVertices[i].z, MaxZ);
             }
 
-            meshInfo.aabb = { glm::vec3(MinX, MinY, MinZ), glm::vec3(MaxX, MaxY, MaxZ) };
+            meshInfo.aabb = { Vector3(MinX, MinY, MinZ), Vector3(MaxX, MaxY, MaxZ) };
 
             // indices
             meshInfo.indices.resize((size_t)mesh->mNumFaces * 3);
@@ -81,7 +76,7 @@ namespace Kikurage {
 
     void MeshLoader::GenerateNormals(std::vector<Vertex>& vertices, std::vector<unsigned int>& indices) {
         for (auto& vertex : vertices) {
-            vertex.Normal = glm::vec3(0.0f);
+            vertex.Normal = Vector3(0.0f);
         }
 
         for (size_t i = 0; i < indices.size() / 3; ++i) {
@@ -97,19 +92,7 @@ namespace Kikurage {
         }
 
         for (auto& vertex : vertices) {
-            vertex.Normal = glm::normalize(vertex.Normal);
+            vertex.Normal = Normalize(vertex.Normal);
         }
-    }
-
-
-    std::pair<glm::vec3, glm::vec3> MinMaxVector(glm::vec3* vertices, size_t size) {
-        glm::vec3 maxVec{ -1.0f * std::numeric_limits<float>::max() };
-        glm::vec3 minVec{ std::numeric_limits<float>::max() };
-        for (size_t i = 0; i < size; ++i) {
-            minVec = glm::min(minVec, vertices[i]);
-            maxVec = glm::max(maxVec, vertices[i]);
-        }
-
-        return { minVec, maxVec };
     }
 }

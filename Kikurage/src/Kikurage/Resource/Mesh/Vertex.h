@@ -1,13 +1,13 @@
 #pragma once
-#include <glm/glm.hpp>
+#include "Utils/Math.h"
 
 namespace Kikurage {
 	struct Vertex {
 		// position
-		glm::vec3 Position;
+		Vector3 Position;
 		// normal
-		glm::vec3 Normal;
+		Vector3 Normal;
 		// texCoords
-		glm::vec2 TexCoords;
+		Vector2 TexCoords;
 	};
 }

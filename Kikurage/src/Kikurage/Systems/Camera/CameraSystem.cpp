@@ -1,12 +1,8 @@
 #include "Kikurage/Systems/Camera/CameraSystem.h"
 
-#include <glm/glm.hpp>
-#include <glm/gtc/matrix_transform.hpp>
-
 #include "Kikurage/Core/Application/Application.h"
 #include "Kikurage/ECS/ECS.h"
 #include "Kikurage/Components/TransformComponent.h"
-#include "Kikurage/Components/cameraComponent.h"
 
 namespace Kikurage {
 	CameraSystem::CameraSystem() {

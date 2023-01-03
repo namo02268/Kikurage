@@ -1,12 +1,10 @@
 #pragma once
 
 #include <string>
-
 #include <iostream>
-
 #include <glad/glad.h>
-#include <glm/glm.hpp>
-#include <glm/gtc/type_ptr.hpp>
+
+#include "Utils/Math.h"
 
 namespace Kikurage {
 	class Shader {
@@ -32,10 +30,10 @@ namespace Kikurage {
 		void SetUniform(const char* name, const bool       value) const;
 		void SetUniform(const char* name, const int        value) const;
 		void SetUniform(const char* name, const float      value) const;
-		void SetUniform(const char* name, const glm::vec2& value) const;
-		void SetUniform(const char* name, const glm::vec3& value) const;
-		void SetUniform(const char* name, const glm::vec4& value) const;
-		void SetUniform(const char* name, const glm::mat4& value) const;
+		void SetUniform(const char* name, const Vector2& value) const;
+		void SetUniform(const char* name, const Vector3& value) const;
+		void SetUniform(const char* name, const Vector4& value) const;
+		void SetUniform(const char* name, const Matrix4& value) const;
 
 		void Compile(const char* vertexSource, const char* fragmentSource, const char* geometrySource = nullptr);
 

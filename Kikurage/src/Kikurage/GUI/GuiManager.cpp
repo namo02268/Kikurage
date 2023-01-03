@@ -7,6 +7,7 @@
 
 namespace Kikurage {
 	void imgui_theme();
+	void BeginDockSpace();
 
 	GuiManager::~GuiManager() {
 		// Cleanup
@@ -41,7 +42,7 @@ namespace Kikurage {
 		ImGui_ImplOpenGL3_NewFrame();
 		ImGui_ImplGlfw_NewFrame();
 		ImGui::NewFrame();
-		this->BeginDockSpace();
+		BeginDockSpace();
 	}
 
 	void GuiManager::EndGUIFrame() {
@@ -58,54 +59,45 @@ namespace Kikurage {
 
 	void GuiManager::Render() {
 		m_componentEditor->Render();
-		m_sceneEditor->Render();
+		m_viewport->Render();
 	}
 
-	void GuiManager::BeginDockSpace() {
-		// Dock Space
+	void BeginDockSpace() {
+		static ImGuiDockNodeFlags dockspace_flags = ImGuiDockNodeFlags_None;
+
+		ImGuiWindowFlags window_flags = ImGuiWindowFlags_MenuBar | ImGuiWindowFlags_NoDocking;
+		window_flags |= ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoMove;
+		window_flags |= ImGuiWindowFlags_NoBringToFrontOnFocus | ImGuiWindowFlags_NoNavFocus;
+		const ImGuiViewport* viewport = ImGui::GetMainViewport();
+		if (dockspace_flags & ImGuiDockNodeFlags_PassthruCentralNode)
+			window_flags |= ImGuiWindowFlags_NoBackground;
+
+		ImGui::SetNextWindowPos(viewport->WorkPos);
+		ImGui::SetNextWindowSize(viewport->WorkSize);
+		ImGui::SetNextWindowViewport(viewport->ID);
+
+		ImGui::PushStyleVar(ImGuiStyleVar_WindowRounding, 0.0f);
+		ImGui::PushStyleVar(ImGuiStyleVar_WindowBorderSize, 0.0f);
+		ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2(0.0f, 0.0f));
+
+		ImGui::Begin("DockSpace", nullptr, window_flags);
+		ImGui::PopStyleVar();
+		ImGui::PopStyleVar(2);
+
+		ImGuiID dockspace_id = ImGui::GetID("KikurageDockSpace");
+		ImGui::DockSpace(dockspace_id, ImVec2(0.0f, 0.0f), dockspace_flags);
+
+		if (ImGui::BeginMenuBar())
 		{
-			static ImGuiDockNodeFlags dockspace_flags = ImGuiDockNodeFlags_None;
-
-			ImGuiWindowFlags window_flags = ImGuiWindowFlags_MenuBar | ImGuiWindowFlags_NoDocking;
-			const ImGuiViewport* viewport = ImGui::GetMainViewport();
-			ImGui::SetNextWindowPos(viewport->WorkPos);
-			ImGui::SetNextWindowSize(viewport->WorkSize);
-			ImGui::SetNextWindowViewport(viewport->ID);
-			ImGui::PushStyleVar(ImGuiStyleVar_WindowRounding, 0.0f);
-			ImGui::PushStyleVar(ImGuiStyleVar_WindowBorderSize, 0.0f);
-			window_flags |= ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoMove;
-			window_flags |= ImGuiWindowFlags_NoBringToFrontOnFocus | ImGuiWindowFlags_NoNavFocus;
-
-			if (dockspace_flags & ImGuiDockNodeFlags_PassthruCentralNode)
-				window_flags |= ImGuiWindowFlags_NoBackground;
-
-			ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2(0.0f, 0.0f));
-			ImGui::Begin("DockSpace", nullptr, window_flags);
-			ImGui::PopStyleVar();
-
-			ImGui::PopStyleVar(2);
-
-			// Submit the DockSpace
-			ImGuiIO& io = ImGui::GetIO();
-			if (io.ConfigFlags & ImGuiConfigFlags_DockingEnable)
+			if (ImGui::BeginMenu("Menu"))
 			{
-				ImGuiID dockspace_id = ImGui::GetID("MyDockSpace");
-				ImGui::DockSpace(dockspace_id, ImVec2(0.0f, 0.0f), dockspace_flags);
+				ImGui::MenuItem("test", NULL);
+				ImGui::EndMenu();
 			}
-
-			if (ImGui::BeginMenuBar())
-			{
-				if (ImGui::BeginMenu("Menu"))
-				{
-					ImGui::MenuItem("test", NULL);
-					ImGui::EndMenu();
-				}
-
-				ImGui::EndMenuBar();
-			}
-
-			ImGui::End();
+			ImGui::EndMenuBar();
 		}
+
+		ImGui::End();
 	}
 
 	void imgui_theme() {

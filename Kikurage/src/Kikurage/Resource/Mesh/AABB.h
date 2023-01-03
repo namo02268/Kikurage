@@ -1,11 +1,11 @@
 #pragma once
 
-#include <glm/glm.hpp>
+#include "Utils/Math.h"
 
 namespace Kikurage {
 	class AABB {
 	public:
-		glm::vec3 Min{ 0.0f };
-		glm::vec3 Max{ 0.0f };
+		Vector3 Min{ 0.0f };
+		Vector3 Max{ 0.0f };
 	};
 }

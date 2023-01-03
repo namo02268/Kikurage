@@ -4,7 +4,7 @@
 namespace Kikurage {
 	void EditorCamera::HandleMouse(TransformComponent& transform, float dt) {
 		static bool mouseHeld = false;
-		auto rotateVelocity = glm::vec2(0.0f);
+		Vector2 rotateVelocity{ 0.0f };
 		auto window = Application::GetInstance().GetWindow();
 
 		if (window->IsMousePressed(GLFW_MOUSE_BUTTON_RIGHT)) {
@@ -16,15 +16,15 @@ namespace Kikurage {
 		if (window->IsMouseHeld(GLFW_MOUSE_BUTTON_RIGHT)) {
 			auto xpos = window->GetCursorPos()[0];
 			auto ypos = window->GetCursorPos()[1];
-			rotateVelocity = glm::vec2((xpos - m_prevCursorPos.x), (ypos - m_prevCursorPos.y)) * m_mouseSensitivity;
-			glm::quat rotation = transform.GetLocalOrientation();
-			glm::quat rotationX = glm::angleAxis(rotateVelocity.y, glm::vec3(1.0f, 0.0f, 0.0f));
-			glm::quat rotationY = glm::angleAxis(rotateVelocity.x, glm::vec3(0.0f, 1.0f, 0.0f));
+			rotateVelocity = Vector2((xpos - m_prevCursorPos.x), (ypos - m_prevCursorPos.y)) * m_mouseSensitivity;
+			Quaternion rotation = transform.GetLocalOrientation();
+			Quaternion rotationX = AngleAxis(rotateVelocity.y, Vector3(1.0f, 0.0f, 0.0f));
+			Quaternion rotationY = AngleAxis(rotateVelocity.x, Vector3(0.0f, 1.0f, 0.0f));
 
 			rotation = rotationY * rotation;
 			rotation = rotation * rotationX;
 			transform.SetRotation(rotation);
-			m_prevCursorPos = glm::vec2(xpos, ypos);
+			m_prevCursorPos = Vector2(xpos, ypos);
 		}
 		else {
 			if (mouseHeld) {
@@ -37,8 +37,8 @@ namespace Kikurage {
 
 	void EditorCamera::HandleKeyboard(TransformComponent& transform, float dt) {
 		auto speed = m_cameraSpeed * dt;
-		auto velocity = glm::vec3(0.0f);
 		auto window = Application::GetInstance().GetWindow();
+		Vector3 velocity{ 0.0f };
 
 		if (window->IsKeyHeld(GLFW_KEY_W)) {
 			velocity -= transform.GetForwardDirection() * speed;

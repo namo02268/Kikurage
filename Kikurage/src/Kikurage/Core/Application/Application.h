@@ -19,12 +19,13 @@ namespace Kikurage {
 		Scene3D* m_scene3d;
 		EventHandler* m_eventHandler;
 
-		bool isEditorEnable = true;
-
 		// time
 		float timeScale = 1.0f;
 		float deltaTime = 0.0f;
 		std::size_t FPS = 0;
+
+	public:
+		bool isEditorEnable = true;
 
 	protected:
 		Application();

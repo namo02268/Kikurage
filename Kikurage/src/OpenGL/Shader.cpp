@@ -1,6 +1,7 @@
 #include "OpenGL/Shader.h"
 
 #include <iostream>
+#include <glm/gtc/type_ptr.hpp>
 
 namespace Kikurage {
     unsigned int Shader::CurrentlyAttachedShader = 0;
@@ -62,25 +63,25 @@ namespace Kikurage {
         glUniform1f(this->GetUniformLocation(name), value);
     }
 
-    void Shader::SetUniform(const char* name, const glm::vec2& value) const {
+    void Shader::SetUniform(const char* name, const Vector2& value) const {
         if (this->m_id != Shader::CurrentlyAttachedShader)
             this->Bind();
         glUniform2f(this->GetUniformLocation(name), value.x, value.y);
     }
 
-    void Shader::SetUniform(const char* name, const glm::vec3& value) const {
+    void Shader::SetUniform(const char* name, const Vector3& value) const {
         if (this->m_id != Shader::CurrentlyAttachedShader)
             this->Bind();
         glUniform3f(this->GetUniformLocation(name), value.x, value.y, value.z);
     }
 
-    void Shader::SetUniform(const char* name, const glm::vec4& value) const {
+    void Shader::SetUniform(const char* name, const Vector4& value) const {
         if (this->m_id != Shader::CurrentlyAttachedShader)
             this->Bind();
         glUniform4f(this->GetUniformLocation(name), value.x, value.y, value.z, value.w);
     }
 
-    void Shader::SetUniform(const char* name, const glm::mat4& value) const {
+    void Shader::SetUniform(const char* name, const Matrix4& value) const {
         if (this->m_id != Shader::CurrentlyAttachedShader)
             this->Bind();
         glUniformMatrix4fv(this->GetUniformLocation(name), 1, false, glm::value_ptr(value));

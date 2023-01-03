@@ -1,13 +1,13 @@
 #pragma once
-#include <glm/glm.hpp>
-#include "Kikurage/ECS/System.h"
 
+#include "Utils/Math.h"
+#include "Kikurage/ECS/System.h"
 #include "Kikurage/Events/CollisionEvent.h"
 
 namespace Kikurage {
 	class Physics : public System {
 	private:
-		glm::vec3 m_gravity = glm::vec3(0, -9.81f, 0);
+		Vector3 m_gravity{ 0.0f, -9.81f, 0.0f };
 
 	public:
 		Physics();

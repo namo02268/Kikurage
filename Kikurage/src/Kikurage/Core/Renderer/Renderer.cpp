@@ -3,10 +3,10 @@
 
 namespace Kikurage {
 	//---------------------RenderBuffers---------------------//
-	void RenderBuffers::Init(unsigned int width, unsigned int height) {
-		this->renderTexture.Generate(nullptr, width, height);
+	void RenderBuffers::Init() {
+		this->renderTexture.Generate(nullptr, 0, 0);
 		this->framebuffer.AttachTexture(this->renderTexture);
-		this->renderbuffer.InitStorage(width, height, GL_DEPTH24_STENCIL8);
+		this->renderbuffer.InitStorage(0, 0, GL_DEPTH24_STENCIL8);
 		this->renderbuffer.LinkToFrameBuffer(this->framebuffer, GL_DEPTH_STENCIL_ATTACHMENT);
 	}
 
@@ -23,11 +23,8 @@ namespace Kikurage {
 	}
 
 	void Renderer::Init() {
-		unsigned int width = 1200;
-		unsigned int height = 800;
-		this->renderBuffers->Init(width, height);
-		this->m_renderSettings.width = width;
-		this->m_renderSettings.height = height;
+		this->renderBuffers->Init();
+		this->ResizeViewport();
 	}
 
 	void Renderer::Start() {
@@ -40,8 +37,17 @@ namespace Kikurage {
 	}
 
 	void Renderer::ResizeViewport() {
-		auto width = Application::GetInstance().GetGUIManager()->GetViewportWidth();
-		auto height = Application::GetInstance().GetGUIManager()->GetViewportHeight();
+		auto& app = Application::GetInstance();
+		unsigned int width = 0;
+		unsigned int height = 0;
+		if (app.isEditorEnable) {
+			width = app.GetGUIManager()->GetViewportWidth();
+			height = app.GetGUIManager()->GetViewportHeight();
+		}
+		else {
+			width = app.GetWindow()->GetWidth();
+			height = app.GetWindow()->GetHeight();
+		}
 
 		if (width != this->m_renderSettings.width || height != this->m_renderSettings.height) {
 			m_renderSettings.width = width;
@@ -63,7 +69,7 @@ namespace Kikurage {
 
 	void Renderer::BindCameraInformation(BaseCamera* camera, const TransformComponent* transform) {
 		for (auto shader : m_shaders) {
-			auto view = glm::inverse(transform->worldMatrix);
+			auto view = Inverse(transform->worldMatrix);
 
 			camera->SetAspectRatio(static_cast<float>(this->GetWidth()) / static_cast<float>(this->GetHeight()));
 

@@ -18,7 +18,7 @@ namespace Kikurage {
 		CollisionPoints points = sphere->TestCollision(sphereTransform, this, transform);
 
 		// swap
-		glm::vec3 T = points.A;
+		Vector3 T = points.A;
 		points.A = points.B;
 		points.B = T;
 

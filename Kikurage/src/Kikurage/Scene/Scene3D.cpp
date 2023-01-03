@@ -67,26 +67,26 @@ namespace Kikurage {
 		//---------------------------------add entities---------------------------------//
 		// camera
 		auto cameraEntity = ecs->CreateEntity();
-		ecs->AddComponent<TransformComponent>(cameraEntity, TransformComponent(glm::vec3(20.0f, 5.0f, 20.0f), glm::vec3(1.0f), glm::vec3(0.0f)));
+		ecs->AddComponent<TransformComponent>(cameraEntity, TransformComponent(Vector3(20.0f, 5.0f, 20.0f), Vector3(1.0f), Vector3(0.0f)));
 		ecs->AddComponent<CameraComponent>(cameraEntity, CameraComponent());
 
 		// sphere1
 		auto sphere1 = ecs->CreateEntity();
-		ecs->AddComponent<TransformComponent>(sphere1, TransformComponent(glm::vec3(2.0f, 5.0f, 0.0f), glm::vec3(1.0f), glm::vec3(0.0f)));
+		ecs->AddComponent<TransformComponent>(sphere1, TransformComponent(Vector3(2.0f, 5.0f, 0.0f), Vector3(1.0f), Vector3(0.0f)));
 		ecs->AddComponent<MeshComponent>(sphere1, MeshComponent(ResourceManager::GetInstance().GetMesh("sphere")));
-		ecs->AddComponent<MaterialComponent>(sphere1, MaterialComponent(glm::vec3(0.0, 0.0, 1.0), 0.0, 0.0, 1.0));
+		ecs->AddComponent<MaterialComponent>(sphere1, MaterialComponent(Vector3(0.0, 0.0, 1.0), 0.0, 0.0, 1.0));
 
 		// sphere2
 		auto sphere2 = ecs->CreateEntity();
-		ecs->AddComponent<TransformComponent>(sphere2, TransformComponent(glm::vec3(5.0f, 5.0f, 0.0f), glm::vec3(1.0f), glm::vec3(0.0f)));
+		ecs->AddComponent<TransformComponent>(sphere2, TransformComponent(Vector3(5.0f, 5.0f, 0.0f), Vector3(1.0f), Vector3(0.0f)));
 		ecs->AddComponent<MeshComponent>(sphere2, MeshComponent(ResourceManager::GetInstance().GetMesh("sphere")));
-		ecs->AddComponent<MaterialComponent>(sphere2, MaterialComponent(glm::vec3(0.0, 0.0, 1.0), 0.0, 0.0, 1.0));
+		ecs->AddComponent<MaterialComponent>(sphere2, MaterialComponent(Vector3(0.0, 0.0, 1.0), 0.0, 0.0, 1.0));
 
 		// suzanne
 		auto suzanne = ecs->CreateEntity();
-		ecs->AddComponent<TransformComponent>(suzanne, TransformComponent(glm::vec3(5.0f, 5.0f, 0.0f), glm::vec3(1.0f), glm::vec3(0.0f)));
+		ecs->AddComponent<TransformComponent>(suzanne, TransformComponent(Vector3(5.0f, 5.0f, 0.0f), Vector3(1.0f), Vector3(0.0f)));
 		ecs->AddComponent<MeshComponent>(suzanne, MeshComponent(ResourceManager::GetInstance().GetMesh("suzanne")));
-		ecs->AddComponent<MaterialComponent>(suzanne, MaterialComponent(glm::vec3(0.0, 0.0, 1.0), 0.0, 0.0, 1.0));
+		ecs->AddComponent<MaterialComponent>(suzanne, MaterialComponent(Vector3(0.0, 0.0, 1.0), 0.0, 0.0, 1.0));
 
 		// init
 		ecs->Init();

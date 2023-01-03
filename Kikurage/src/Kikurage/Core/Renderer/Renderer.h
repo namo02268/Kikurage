@@ -20,7 +20,7 @@ namespace Kikurage {
 		FrameBuffer framebuffer;
 		RenderBuffer renderbuffer;
 
-		void Init(unsigned int width, unsigned int height);
+		void Init();
 		void Resize(unsigned int width, unsigned int height);
 	};
 

@@ -7,10 +7,6 @@
 #include "Kikurage/Components/MaterialComponent.h"
 
 namespace Kikurage {
-#define Xaxis glm::vec3(1.0, 0.0, 0.0)
-#define Yaxis glm::vec3(0.0, 1.0, 0.0)
-#define Zaxis glm::vec3(0.0, 0.0, 1.0)
-
 	MeshRenderer::MeshRenderer(Shader* shader) {
 		this->m_shader = shader;
 

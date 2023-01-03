@@ -66,7 +66,7 @@
     <ClCompile Include="src\Kikurage\GUI\GuiManager.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="src\Kikurage\GUI\ViewportEditor.cpp">
+    <ClCompile Include="src\Kikurage\GUI\Viewport.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
     <ClCompile Include="src\OpenGL\OpenGLWindow.cpp">
@@ -211,9 +211,6 @@
     <ClInclude Include="vendor\stb_image\stb_image.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="src\Kikurage\Components\CameraComponent.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
     <ClInclude Include="src\Kikurage\Components\CollisionComponent.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
@@ -265,7 +262,7 @@
     <ClInclude Include="src\Kikurage\GUI\GuiManager.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="src\Kikurage\GUI\ViewportEditor.h">
+    <ClInclude Include="src\Kikurage\GUI\Viewport.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
     <ClInclude Include="src\OpenGL\OpenGLWindow.h">

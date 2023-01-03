@@ -1,12 +1,12 @@
 #pragma once
 
-#include <glm/glm.hpp>
+#include "Utils/Math.h"
 #include "Kikurage/Components/TransformComponent.h"
 
 namespace Kikurage {
 	class BaseCamera {
 	protected:
-		glm::mat4 m_projection{ 1.0f };
+		Matrix4 m_projection{ 1.0f };
 		float m_aspectRatio = 16.0f / 9.0f;
 		float m_fov = 45.0f;
 		float m_near = 0.1f;
@@ -17,7 +17,7 @@ namespace Kikurage {
 		float m_cameraSpeed = 500.0f;
 		float m_mouseSensitivity = 0.001f;
 
-		glm::vec2 m_prevCursorPos{ 0.0f };
+		Vector2 m_prevCursorPos{ 0.0f };
 
 	public:
 		BaseCamera() = default;
@@ -28,7 +28,7 @@ namespace Kikurage {
 		virtual void HandleScroll(TransformComponent& transform, float offset, float dt) {}
 
 		void UpdateProjectionMatrix();
-		const glm::mat4& GetProjectionMatrix() const { return this->m_projection; }
+		const Matrix4& GetProjectionMatrix() const { return this->m_projection; }
 
 		float GetAspectRatio() const { return this->m_aspectRatio; }
 		float GetFOV() const { return this->m_fov; }

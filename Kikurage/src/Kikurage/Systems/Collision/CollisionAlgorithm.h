@@ -1,9 +1,9 @@
 #pragma once
-#include <glm/glm.hpp>
 
 #include "Kikurage/Systems/Collision/CollisionPoints.h"
 #include "Kikurage/Systems/Collision/SphereCollider.h"
 #include "Kikurage/Systems/Collision/PlaneCollider.h"
+#include "Utils/Math.h"
 
 namespace Kikurage {
 	namespace algo {
@@ -11,35 +11,35 @@ namespace Kikurage {
 			const SphereCollider* a, const TransformComponent* ta,
 			const SphereCollider* b, const TransformComponent* tb)
 		{
-			glm::vec3 A = a->Center + ta->position;
-			glm::vec3 B = b->Center + tb->position;
+			Vector3 A = a->Center + ta->position;
+			Vector3 B = b->Center + tb->position;
 
 			auto Ar = a->Radius * ta->scale.x;
 			auto Br = b->Radius * tb->scale.x;
 
-			glm::vec3 AtoB = B - A;
+			Vector3 AtoB = B - A;
 
-			if (glm::length2(AtoB) > (Ar + Br) * (Ar + Br)) {
+			if (Length2(AtoB) > (Ar + Br) * (Ar + Br)) {
 				return {
-					glm::vec3(0.0f),
-					glm::vec3(0.0f),
-					glm::vec3(0.0f),
+					Vector3(0.0f),
+					Vector3(0.0f),
+					Vector3(0.0f),
 					0,
 					false
 				};
 			}
 
-			glm::vec3 BtoA = A - B;
+			Vector3 BtoA = A - B;
 
-			A += glm::normalize(AtoB) * Ar;
-			B += glm::normalize(BtoA) * Br;
+			A += Normalize(AtoB) * Ar;
+			B += Normalize(BtoA) * Br;
 
 			AtoB = B - A;
 
 			return {
 				A, B,
-				glm::normalize(AtoB),
-				glm::length(AtoB),
+				Normalize(AtoB),
+				Length(AtoB),
 				true
 			};
 		}
@@ -49,34 +49,34 @@ namespace Kikurage {
 			const SphereCollider* a, const TransformComponent* ta,
 			const PlaneCollider* b, const TransformComponent* tb)
 		{
-			glm::vec3 A = a->Center + ta->position;
+			Vector3 A = a->Center + ta->position;
 			// TODO: change to quat
-	//		glm::vec3 N = glm::normalize(b->Plane * tb->rotation);
-			glm::vec3 N = glm::normalize(b->Normal);
+	//		Vector3 N = Normalize(b->Plane * tb->rotation);
+			Vector3 N = Normalize(b->Normal);
 
-			glm::vec3 P = N * b->Distance + tb->position;
+			Vector3 P = N * b->Distance + tb->position;
 
 			float Ar = a->Radius * ta->scale.x;
 
-			float d = glm::dot((A - P), N);
+			float d = Dot((A - P), N);
 
 			if (d > Ar) {
 				return {
-					glm::vec3(0.0f),
-					glm::vec3(0.0f),
-					glm::vec3(0.0f),
+					Vector3(0.0f),
+					Vector3(0.0f),
+					Vector3(0.0f),
 					0,
 					false
 				};
 			}
 
-			glm::vec3 B = A - N * d;
+			Vector3 B = A - N * d;
 			A = A - N * Ar;
 
 			return {
 				A, B,
-				glm::normalize(N),
-				glm::length(B - A),
+				Normalize(N),
+				Length(B - A),
 				true
 			};
 

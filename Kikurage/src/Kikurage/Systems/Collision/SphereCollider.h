@@ -1,16 +1,16 @@
 #pragma once
-#include <glm/glm.hpp>
 
+#include "Utils/Math.h"
 #include "Kikurage/Systems/Collision/Collider.h"
 
 namespace Kikurage {
 	struct Collider;
 
 	struct SphereCollider : Collider {
-		glm::vec3 Center;
+		Vector3 Center;
 		float Radius;
 
-		SphereCollider(glm::vec3 Center, float Radius) : Center(Center), Radius(Radius) {}
+		SphereCollider(Vector3 Center, float Radius) : Center(Center), Radius(Radius) {}
 
 		CollisionPoints TestCollision(
 			const TransformComponent* transform,

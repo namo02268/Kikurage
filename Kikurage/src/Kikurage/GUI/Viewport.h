@@ -1,14 +1,14 @@
 #pragma once
 
 namespace Kikurage {
-	class ViewportEditor {
+	class Viewport {
 	private:
 		unsigned int m_width = 0;
 		unsigned int m_height = 0;
 
 	public:
-		ViewportEditor() = default;
-		~ViewportEditor() = default;
+		Viewport() = default;
+		~Viewport() = default;
 
 		void Render();
 

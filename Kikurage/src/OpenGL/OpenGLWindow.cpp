@@ -1,4 +1,6 @@
 ﻿#include "OpenGL/OpenGLWindow.h"
+
+#include "Kikurage/Core/Application/Application.h"
 #include "Kikurage/Resource/ResourceManager/ResourceManager.h"
 #include "Kikurage/Events/WindowResizeEvent.h"
 
@@ -40,12 +42,10 @@ namespace Kikurage {
 	OpenGLWindow::~OpenGLWindow() { Terminate(); }
 
 	void OpenGLWindow::Draw() {
-		/*
 		screenShader->Bind();
 		glBindVertexArray(renderVAO);
-		glBindTexture(GL_TEXTURE_2D, renderTexture.GetHandle());
+		glBindTexture(GL_TEXTURE_2D, Application::GetInstance().GetRenderer()->GetRenderTexture().GetHandle());
 		glDrawArrays(GL_TRIANGLES, 0, 6);
-		*/
 	}
 
 	void OpenGLWindow::Clear() {
@@ -84,6 +84,7 @@ namespace Kikurage {
 		glfwMakeContextCurrent(m_window);
 		glfwSetWindowUserPointer(m_window, this);
 
+		// framebuffer size
 		glfwSetFramebufferSizeCallback(m_window, [](GLFWwindow* w, int width, int height) {
 			OpenGLWindow& window = *(OpenGLWindow*)glfwGetWindowUserPointer(w);
 			window.m_width = width;
@@ -119,7 +120,7 @@ namespace Kikurage {
 		// mouse scroll
 		glfwSetScrollCallback(m_window, [](GLFWwindow* w, double xoffset, double yoffset) {
 			OpenGLWindow& window = *(OpenGLWindow*)glfwGetWindowUserPointer(w);
-			window.m_mouseScroll = yoffset;
+			window.m_mouseScroll = static_cast<float>(yoffset);
 			window.anyMouseEvent = true;
 			});
 

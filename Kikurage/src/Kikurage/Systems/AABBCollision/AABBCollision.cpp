@@ -25,7 +25,7 @@ namespace Kikurage {
 
 	void AABBCollision::Update(float dt) {
 		for (auto& e : m_entityArray)
-			m_parentScene->GetComponent<MaterialComponent>(e)->albedo = glm::vec3(0.0f, 0.0f, 1.0f);
+			m_parentScene->GetComponent<MaterialComponent>(e)->albedo = Vector3(0.0f, 0.0f, 1.0f);
 
 		for (auto& a : m_entityArray) {
 			auto aTrans = m_parentScene->GetComponent<TransformComponent>(a);
@@ -40,8 +40,8 @@ namespace Kikurage {
 				AABB aAABB = { aMesh->mesh->aabb.Min + aTrans->position, aMesh->mesh->aabb.Max + aTrans->position };
 				AABB bAABB = { bMesh->mesh->aabb.Min + bTrans->position, bMesh->mesh->aabb.Max + bTrans->position };
 				if (this->intersect(aAABB, bAABB)) {
-					aMat->albedo = glm::vec3(1.0f, 0.0f, 0.0f);
-					bMat->albedo = glm::vec3(1.0f, 0.0f, 0.0f);
+					aMat->albedo = Vector3(1.0f, 0.0f, 0.0f);
+					bMat->albedo = Vector3(1.0f, 0.0f, 0.0f);
 				}
 			}
 		}

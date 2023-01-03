@@ -1,13 +1,12 @@
 #pragma once
 
-#include <glm/glm.hpp>
-#include <glm/gtx/quaternion.hpp>
+#include "Utils/Math.h"
 
 namespace Kikurage {
 	struct CollisionPoints {
-		glm::vec3 A;
-		glm::vec3 B;
-		glm::vec3 Normal;
+		Vector3 A;
+		Vector3 B;
+		Vector3 Normal;
 		float Depth;
 		bool HasCollision;
 	};

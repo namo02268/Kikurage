@@ -26,7 +26,7 @@
     <ClCompile Include="src\Kikurage\Core\Renderer\Renderer.cpp" />
     <ClCompile Include="src\Kikurage\GUI\ComponentEditor.cpp" />
     <ClCompile Include="src\Kikurage\GUI\GuiManager.cpp" />
-    <ClCompile Include="src\Kikurage\GUI\ViewportEditor.cpp" />
+    <ClCompile Include="src\Kikurage\GUI\Viewport.cpp" />
     <ClCompile Include="src\Kikurage\Resource\Mesh\Mesh.cpp" />
     <ClCompile Include="src\Kikurage\Resource\Mesh\MeshLoader.cpp" />
     <ClCompile Include="src\Kikurage\Systems\AABBCollision\AABBCollision.cpp" />
@@ -75,7 +75,6 @@
   <ItemGroup>
     <ClInclude Include="src\Kikurage\Components\Relationship.h" />
     <ClInclude Include="src\Kikurage\Core\Application\Application.h" />
-    <ClInclude Include="src\Kikurage\Components\CameraComponent.h" />
     <ClInclude Include="src\Kikurage\Components\CollisionComponent.h" />
     <ClInclude Include="src\Kikurage\Components\MaterialComponent.h" />
     <ClInclude Include="src\Kikurage\Components\MeshComponent.h" />
@@ -100,7 +99,7 @@
     <ClInclude Include="src\Kikurage\GUI\ComponentEditors.h" />
     <ClInclude Include="src\Kikurage\GUI\ComponentEditor.h" />
     <ClInclude Include="src\Kikurage\GUI\GuiManager.h" />
-    <ClInclude Include="src\Kikurage\GUI\ViewportEditor.h" />
+    <ClInclude Include="src\Kikurage\GUI\Viewport.h" />
     <ClInclude Include="src\Kikurage\Resource\Mesh\AABB.h" />
     <ClInclude Include="src\Kikurage\Resource\Mesh\Mesh.h" />
     <ClInclude Include="src\Kikurage\Resource\Mesh\MeshLoader.h" />

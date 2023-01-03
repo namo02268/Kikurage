@@ -45,9 +45,14 @@ namespace Kikurage {
 		m_scene3d->Draw();
 		this->m_renderer->End();
 
-		m_imguiManager->StartGUIFrame();
-		m_imguiManager->Render();
-		m_imguiManager->EndGUIFrame();
+		if (isEditorEnable) {
+			m_imguiManager->StartGUIFrame();
+			m_imguiManager->Render();
+			m_imguiManager->EndGUIFrame();
+		}
+		else {
+			m_window->Draw();
+		}
 	}
 
 	void Application::Run() {

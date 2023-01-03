@@ -6,10 +6,6 @@
 #include "glm/gtx/transform.hpp"
 
 namespace Kikurage {
-#define Xaxis glm::vec3(1.0, 0.0, 0.0)
-#define Yaxis glm::vec3(0.0, 1.0, 0.0)
-#define Zaxis glm::vec3(0.0, 0.0, 1.0)
-
 	TransformUpdator::TransformUpdator() {
 		auto family = getComponentTypeID<TransformComponent>();
 		m_requiredComponent[family] = true;
@@ -26,18 +22,18 @@ namespace Kikurage {
 			auto trans = m_parentScene->GetComponent<TransformComponent>(e);
 			auto parent = m_parentScene->GetComponent<Relationship>(e)->parent;
 
-			glm::mat4 buf{ 1.0f };
+			Matrix4 buf{ 1.0f };
 
 			if (parent) {
 				auto ptrans = m_parentScene->GetComponent<TransformComponent>(parent);
 				trans->parentMatrix = ptrans->localMatrix;
 			}
 
-			buf = glm::translate(buf, trans->position);
-			buf = glm::rotate(buf, glm::radians(trans->rotation.z), Zaxis);
-			buf = glm::rotate(buf, glm::radians(trans->rotation.y), Yaxis);
-			buf = glm::rotate(buf, glm::radians(trans->rotation.x), Xaxis);
-			buf = glm::scale(buf, trans->scale);
+			buf = Translate(buf, trans->position);
+			buf = Rotate(buf, ToRadians(trans->rotation.z), ZAxis);
+			buf = Rotate(buf, ToRadians(trans->rotation.y), YAxis);
+			buf = Rotate(buf, ToRadians(trans->rotation.x), XAxis);
+			buf = Scale(buf, trans->scale);
 
 			trans->localMatrix = buf;
 			trans->worldMatrix = trans->parentMatrix * trans->localMatrix;

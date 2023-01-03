@@ -1,13 +1,13 @@
 #pragma once
-#include <glm/glm.hpp>
+#include "Utils/Math.h"
 
 #include "Kikurage/ECS/Component.h"
 
 namespace Kikurage {
 	struct RigidBodyComponent : public Component {
 	public:
-		glm::vec3 velocity = glm::vec3(0.0f);
-		glm::vec3 force = glm::vec3(0.0f);
+		Vector3 velocity{ 0.0f };
+		Vector3 force{ 0.0f };
 
 		float mass = 0.1f;
 		float restitution = 1.0f;

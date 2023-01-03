@@ -1,10 +1,10 @@
-#include "Kikurage/GUI/ViewportEditor.h"
+#include "Kikurage/GUI/Viewport.h"
 #include "Kikurage/Core/Application/Application.h"
 
 #include "imgui/imgui.h"
 
 namespace Kikurage {
-	void ViewportEditor::Render() {
+	void Viewport::Render() {
 		// Scene Window
 		ImGui::Begin("Scene", nullptr, ImGuiWindowFlags_NoScrollbar | ImGuiWindowFlags_NoScrollWithMouse);
 		ImGui::PushID("Scene");
