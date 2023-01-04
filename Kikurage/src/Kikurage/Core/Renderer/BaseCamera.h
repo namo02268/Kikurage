@@ -1,7 +1,7 @@
 #pragma once
 
 #include "Utils/Math.h"
-#include "Kikurage/Components/TransformComponent.h"
+#include "Kikurage/Components/Transform.h"
 
 namespace Kikurage {
 	class BaseCamera {
@@ -23,9 +23,9 @@ namespace Kikurage {
 		BaseCamera() = default;
 		virtual ~BaseCamera() = default;
 
-		virtual void HandleMouse(TransformComponent& transform, float dt) {}
-		virtual void HandleKeyboard(TransformComponent& transform, float dt) {}
-		virtual void HandleScroll(TransformComponent& transform, float offset, float dt) {}
+		virtual void HandleMouse(Transform& transform, float dt) {}
+		virtual void HandleKeyboard(Transform& transform, float dt) {}
+		virtual void HandleScroll(Transform& transform, float offset, float dt) {}
 
 		void UpdateProjectionMatrix();
 		const Matrix4& GetProjectionMatrix() const { return this->m_projection; }

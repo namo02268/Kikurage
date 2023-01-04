@@ -2,11 +2,11 @@
 
 #include "Kikurage/Core/Application/Application.h"
 #include "Kikurage/ECS/ECS.h"
-#include "Kikurage/Components/TransformComponent.h"
+#include "Kikurage/Components/Transform.h"
 
 namespace Kikurage {
 	CameraSystem::CameraSystem() {
-		auto family = getComponentTypeID<TransformComponent>();
+		auto family = getComponentTypeID<Transform>();
 		m_requiredComponent[family] = true;
 		family = getComponentTypeID<CameraComponent>();
 		m_requiredComponent[family] = true;
@@ -22,12 +22,12 @@ namespace Kikurage {
 
 	void CameraSystem::Update(float dt) {
 		for (auto& e : m_entityArray) {
-			auto trans = m_parentScene->GetComponent<TransformComponent>(e);
+			auto trans = m_parentScene->GetComponent<Transform>(e);
 			camera.UpdateProjectionMatrix();
 			camera.HandleKeyboard(*trans, dt);
 			camera.HandleMouse(*trans, dt);
 
-			Application::GetInstance().GetRenderer()->BindCameraInformation(&camera, trans);
+			Application::GetInstance().GetRenderer()->BindCameraInformation(camera, *trans);
 		}
 	}
 

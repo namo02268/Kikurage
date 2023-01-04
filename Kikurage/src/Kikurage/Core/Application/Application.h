@@ -41,12 +41,13 @@ namespace Kikurage {
 
 		void UpdateTime();
 
-		float GetDeltaTime() const { return this->deltaTime; }
-		std::size_t GetFPS() const { return this->FPS; }
-		EventHandler& GetEventHandler() const { return *this->m_eventHandler; }
+		const float GetDeltaTime() const { return this->deltaTime; }
+		const std::size_t GetFPS() const { return this->FPS; }
+
 		OpenGLWindow* GetWindow() const { return this->m_window; }
 		Renderer* GetRenderer() const { return this->m_renderer; }
-		ECS* GetECS() const { return this->m_ecs; }
 		GuiManager* GetGUIManager() const { return this->m_imguiManager; }
+		ECS* GetECS() const { return this->m_ecs; }
+		EventHandler& GetEventHandler() const { return *this->m_eventHandler; }
 	};
 }

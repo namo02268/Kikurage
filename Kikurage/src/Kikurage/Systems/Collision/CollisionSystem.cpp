@@ -2,7 +2,7 @@
 #include "Kikurage/ECS/ECS.h"
 #include "Kikurage/Events/CollisionEvent.h"
 
-#include "Kikurage/Components/TransformComponent.h"
+#include "Kikurage/Components/Transform.h"
 #include "Kikurage/Components/CollisionComponent.h"
 #include "Kikurage/Components/Relationship.h"
 
@@ -10,7 +10,7 @@
 
 namespace Kikurage {
 	CollisionSystem::CollisionSystem() {
-		auto family = getComponentTypeID<TransformComponent>();
+		auto family = getComponentTypeID<Transform>();
 		m_requiredComponent[family] = true;
 		family = getComponentTypeID<CollisionComponent>();
 		m_requiredComponent[family] = true;
@@ -32,16 +32,16 @@ namespace Kikurage {
 				if (a == b) break;
 
 				auto b_parent = m_parentScene->GetComponent<Relationship>(b)->parent;
-				auto a_trans = m_parentScene->GetComponent<TransformComponent>(a);
-				TransformComponent a_result = *a_trans;
+				auto a_trans = m_parentScene->GetComponent<Transform>(a);
+				Transform a_result = *a_trans;
 				if (a_parent) {
-					a_result += *(m_parentScene->GetComponent<TransformComponent>(a_parent));
+//					a_result += *(m_parentScene->GetComponent<Transform>(a_parent));
 				}
 
-				auto b_trans = m_parentScene->GetComponent<TransformComponent>(b);
-				TransformComponent b_result = *b_trans;
+				auto b_trans = m_parentScene->GetComponent<Transform>(b);
+				Transform b_result = *b_trans;
 				if (b_parent) {
-					b_result += *(m_parentScene->GetComponent<TransformComponent>(b_parent));
+//					b_result += *(m_parentScene->GetComponent<Transform>(b_parent));
 				}
 
 				auto a_col = m_parentScene->GetComponent<CollisionComponent>(a);

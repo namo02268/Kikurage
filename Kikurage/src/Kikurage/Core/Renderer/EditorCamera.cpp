@@ -2,7 +2,7 @@
 #include "Kikurage/Core/Application/Application.h"
 
 namespace Kikurage {
-	void EditorCamera::HandleMouse(TransformComponent& transform, float dt) {
+	void EditorCamera::HandleMouse(Transform& transform, float dt) {
 		static bool mouseHeld = false;
 		Vector2 rotateVelocity{ 0.0f };
 		auto window = Application::GetInstance().GetWindow();
@@ -35,7 +35,7 @@ namespace Kikurage {
 
 	}
 
-	void EditorCamera::HandleKeyboard(TransformComponent& transform, float dt) {
+	void EditorCamera::HandleKeyboard(Transform& transform, float dt) {
 		auto speed = m_cameraSpeed * dt;
 		auto window = Application::GetInstance().GetWindow();
 		Vector3 velocity{ 0.0f };
@@ -59,10 +59,10 @@ namespace Kikurage {
 			velocity += transform.GetUpDirection() * speed;
 		}
 
-		transform.position += velocity * dt;
+		transform.Translate(velocity * dt);
 	}
 
-	void EditorCamera::HandleScroll(TransformComponent& transform, float offset, float dt) {
+	void EditorCamera::HandleScroll(Transform& transform, float offset, float dt) {
 
 	}
 }

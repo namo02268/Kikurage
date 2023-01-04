@@ -1,7 +1,7 @@
 #include "Kikurage/Systems/Physics/Physics.h"
 #include "Kikurage/ECS/ECS.h"
 
-#include "Kikurage/Components/TransformComponent.h"
+#include "Kikurage/Components/Transform.h"
 #include "Kikurage/Components/RigidBodyComponent.h"
 #include "Kikurage/Components/Relationship.h"
 
@@ -9,7 +9,7 @@
 
 namespace Kikurage {
 	Physics::Physics() {
-		auto family = getComponentTypeID<TransformComponent>();
+		auto family = getComponentTypeID<Transform>();
 		m_requiredComponent[family] = true;
 		family = getComponentTypeID<RigidBodyComponent>();
 		m_requiredComponent[family] = true;
@@ -27,7 +27,7 @@ namespace Kikurage {
 
 	void Physics::Update(float dt) {
 		for (auto& e : m_entityArray) {
-			auto transfromComponent = m_parentScene->GetComponent<TransformComponent>(e);
+			auto transfromComponent = m_parentScene->GetComponent<Transform>(e);
 			auto rigidBodyComponent = m_parentScene->GetComponent<RigidBodyComponent>(e);
 
 			if (rigidBodyComponent->isGravity) {
@@ -35,7 +35,7 @@ namespace Kikurage {
 			}
 
 			rigidBodyComponent->velocity += rigidBodyComponent->force / rigidBodyComponent->mass * dt;
-			transfromComponent->position += rigidBodyComponent->velocity * dt;
+			transfromComponent->Translate(rigidBodyComponent->velocity * dt);
 
 			rigidBodyComponent->force = Vector3(0.0f);
 		}
@@ -46,8 +46,8 @@ namespace Kikurage {
 	}
 
 	void Physics::onCollisionEvent(CollisionEvent* collision) {
-		auto a_trans = m_parentScene->GetComponent<TransformComponent>(collision->a);
-		auto b_trans = m_parentScene->GetComponent<TransformComponent>(collision->b);
+		auto a_trans = m_parentScene->GetComponent<Transform>(collision->a);
+		auto b_trans = m_parentScene->GetComponent<Transform>(collision->b);
 		auto a_rigid = m_parentScene->GetComponent<RigidBodyComponent>(collision->a);
 		auto b_rigid = m_parentScene->GetComponent<RigidBodyComponent>(collision->b);
 
@@ -56,9 +56,9 @@ namespace Kikurage {
 			Vector3 resolution = collision->points.B - collision->points.A;
 
 			if (!a_rigid->isKinematic)
-				a_trans->position -= resolution;
+				a_trans->Translate(-resolution);
 			if (!b_rigid->isKinematic)
-				b_trans->position += resolution;
+				b_trans->Translate(resolution);
 
 			// impulse solver
 			auto r_velocity = b_rigid->velocity - a_rigid->velocity;

@@ -60,7 +60,7 @@ namespace Kikurage {
 			if (ImGui::BeginPopup("Component"))
 			{
 				if (ImGui::Selectable("Transform"))
-					scene->AddComponent<TransformComponent>(entityArray[selected], TransformComponent());
+					scene->AddComponent<Transform>(entityArray[selected], Transform());
 				if (ImGui::Selectable("Material"))
 					scene->AddComponent<MaterialComponent>(entityArray[selected], MaterialComponent());
 				if (ImGui::Selectable("RigidBody"))

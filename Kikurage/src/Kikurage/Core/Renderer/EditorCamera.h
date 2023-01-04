@@ -9,8 +9,8 @@ namespace Kikurage {
 		EditorCamera() {}
 		~EditorCamera() {}
 
-		virtual void HandleMouse(TransformComponent& transform, float dt) override;
-		virtual void HandleKeyboard(TransformComponent& transform, float dt) override;
-		virtual void HandleScroll(TransformComponent& transform, float offset, float dt) override;
+		virtual void HandleMouse(Transform& transform, float dt) override;
+		virtual void HandleKeyboard(Transform& transform, float dt) override;
+		virtual void HandleScroll(Transform& transform, float offset, float dt) override;
 	};
 }

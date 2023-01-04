@@ -3,11 +3,13 @@
 #include <iostream>
 #include <glm/glm.hpp>
 #include <glm/gtx/quaternion.hpp>
+#include <glm/gtx/euler_angles.hpp>
 
 namespace Kikurage {
 	using Vector2 = glm::vec2;
 	using Vector3 = glm::vec3;
 	using Vector4 = glm::vec4;
+	using Matrix3 = glm::mat3;
 	using Matrix4 = glm::mat4;
 	using Quaternion = glm::quat;
 
@@ -81,6 +83,10 @@ namespace Kikurage {
 		return glm::inverse(mat);
 	}
 
+	inline Matrix3 ToRotationMatrix(const Vector3& angles) {
+		return glm::yawPitchRoll(angles.y, angles.x, angles.z);
+	}
+
 	inline Matrix4 Translate(const Matrix4& mat, const Vector3& vec) {
 		return glm::translate(mat, vec);
 	}
@@ -91,6 +97,14 @@ namespace Kikurage {
 
 	inline Matrix4 Scale(const Matrix4& mat, const Vector3& vec) {
 		return glm::scale(mat, vec);
+	}
+
+	inline Vector3 Vec3fmod(Vector3 v1, Vector3 v2) {
+		return Vector3(
+			std::fmod(v1.x, v2.x),
+			std::fmod(v1.y, v2.y),
+			std::fmod(v1.z, v2.z)
+		);
 	}
 
 	inline Vector3 GetNormal(const Vector3& v1, const Vector3& v2, const Vector3& v3) {

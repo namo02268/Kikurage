@@ -11,8 +11,8 @@
 #include "OpenGL/Texture2D.h"
 #include "OpenGL/FrameBuffer.h"
 #include "OpenGL/RenderBuffer.h"
-#include "Kikurage/Events/WindowResizeEvent.h"
 #include "Kikurage/Core/Renderer/BaseCamera.h"
+#include "Kikurage/Components/Transform.h"
 
 namespace Kikurage {
 	struct RenderBuffers {
@@ -44,7 +44,7 @@ namespace Kikurage {
 		void UnbindFBO();
 
 		void AddShader(Shader* shader) { m_shaders.push_back(shader); }
-		void BindCameraInformation(BaseCamera* camera, const TransformComponent* transform);
+		void BindCameraInformation(BaseCamera& camera, Transform& transform);
 
 		Texture2D& GetRenderTexture() { return this->renderBuffers->renderTexture; }
 		unsigned int GetWidth() const { return this->m_renderSettings.width; }

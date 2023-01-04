@@ -1,7 +1,7 @@
 #include "Kikurage/Systems/AABBCollision/AABBCollision.h"
 
 #include "Kikurage/ECS/ECS.h"
-#include "Kikurage/Components/TransformComponent.h"
+#include "Kikurage/Components/Transform.h"
 #include "Kikurage/Components/MeshComponent.h"
 #include "Kikurage/Components/MaterialComponent.h"
 #include "Kikurage/Events/CollisionEvent.h"
@@ -9,7 +9,7 @@
 
 namespace Kikurage {
 	AABBCollision::AABBCollision() {
-		auto family = getComponentTypeID<TransformComponent>();
+		auto family = getComponentTypeID<Transform>();
 		m_requiredComponent[family] = true;
 		family = getComponentTypeID<MeshComponent>();
 		m_requiredComponent[family] = true;
@@ -28,17 +28,17 @@ namespace Kikurage {
 			m_parentScene->GetComponent<MaterialComponent>(e)->albedo = Vector3(0.0f, 0.0f, 1.0f);
 
 		for (auto& a : m_entityArray) {
-			auto aTrans = m_parentScene->GetComponent<TransformComponent>(a);
+			auto aTrans = m_parentScene->GetComponent<Transform>(a);
 			auto aMesh = m_parentScene->GetComponent<MeshComponent>(a);
 			auto aMat = m_parentScene->GetComponent<MaterialComponent>(a);
 
 			for (auto& b : m_entityArray) {
 				if (a == b) break;
-				auto bTrans = m_parentScene->GetComponent<TransformComponent>(b);
+				auto bTrans = m_parentScene->GetComponent<Transform>(b);
 				auto bMesh = m_parentScene->GetComponent<MeshComponent>(b);
 				auto bMat = m_parentScene->GetComponent<MaterialComponent>(b);
-				AABB aAABB = { aMesh->mesh->aabb.Min + aTrans->position, aMesh->mesh->aabb.Max + aTrans->position };
-				AABB bAABB = { bMesh->mesh->aabb.Min + bTrans->position, bMesh->mesh->aabb.Max + bTrans->position };
+				AABB aAABB = { aMesh->mesh->aabb.Min + aTrans->GetPosition(), aMesh->mesh->aabb.Max + aTrans->GetPosition() };
+				AABB bAABB = { bMesh->mesh->aabb.Min + bTrans->GetPosition(), bMesh->mesh->aabb.Max + bTrans->GetPosition() };
 				if (this->intersect(aAABB, bAABB)) {
 					aMat->albedo = Vector3(1.0f, 0.0f, 0.0f);
 					bMat->albedo = Vector3(1.0f, 0.0f, 0.0f);

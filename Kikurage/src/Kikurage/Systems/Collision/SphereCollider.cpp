@@ -3,26 +3,26 @@
 
 namespace Kikurage {
 	CollisionPoints SphereCollider::TestCollision(
-		const TransformComponent* transform,
+		const Transform* transform,
 		const Collider* collider,
-		const TransformComponent* colliderTransform) const
+		const Transform* colliderTransform) const
 	{
 		return collider->TestCollision(colliderTransform, this, transform);
 	}
 
 	CollisionPoints SphereCollider::TestCollision(
-		const TransformComponent* transform,
+		const Transform* transform,
 		const SphereCollider* sphere,
-		const TransformComponent* sphereTransform) const
+		const Transform* sphereTransform) const
 	{
 		return algo::FindSphereSphereCollisionPoints(
 			this, transform, sphere, sphereTransform);
 	}
 
 	CollisionPoints SphereCollider::TestCollision(
-		const TransformComponent* transform,
+		const Transform* transform,
 		const PlaneCollider* plane,
-		const TransformComponent* planeTransform) const
+		const Transform* planeTransform) const
 	{
 		return algo::FindSpherePlaneCollisionPoints(
 			this, transform, plane, planeTransform);

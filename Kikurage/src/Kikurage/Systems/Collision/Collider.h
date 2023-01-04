@@ -1,7 +1,7 @@
 #pragma once
 
 #include "Kikurage/Systems/Collision/CollisionPoints.h"
-#include "Kikurage/Components/TransformComponent.h"
+#include "Kikurage/Components/Transform.h"
 
 namespace Kikurage {
 	struct SphereCollider;
@@ -9,23 +9,23 @@ namespace Kikurage {
 
 	struct Collider {
 		virtual CollisionPoints TestCollision(
-			const TransformComponent* transform,
+			const Transform* transform,
 			const Collider* collider,
-			const TransformComponent* colliderTransform) const {
+			const Transform* colliderTransform) const {
 			return{};
 		}
 
 		virtual CollisionPoints TestCollision(
-			const TransformComponent* transform,
+			const Transform* transform,
 			const SphereCollider* sphere,
-			const TransformComponent* sphereTransform) const {
+			const Transform* sphereTransform) const {
 			return{};
 		}
 
 		virtual CollisionPoints TestCollision(
-			const TransformComponent* transform,
+			const Transform* transform,
 			const PlaneCollider* plane,
-			const TransformComponent* planeTransform) const {
+			const Transform* planeTransform) const {
 			return{};
 		}
 	};

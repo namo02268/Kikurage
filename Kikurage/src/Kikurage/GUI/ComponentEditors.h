@@ -4,7 +4,7 @@
 #include "imgui/imgui_impl_glfw.h"
 #include "imgui/imgui_impl_opengl3.h"
 
-#include "Kikurage/Components/TransformComponent.h"
+#include "Kikurage/Components/Transform.h"
 #include "Kikurage/Components/MaterialComponent.h"
 #include "Kikurage/Components/RigidBodyComponent.h"
 #include "Kikurage/Components/CameraComponent.h"
@@ -26,17 +26,20 @@ namespace Kikurage {
 	public:
 		TransfromEditor(ECS* scene) {
 			m_parentScene = scene;
-			ID = getComponentTypeID<TransformComponent>();
+			ID = getComponentTypeID<Transform>();
 		}
 
 		void draw(Entity& e) {
 			if (ImGui::TreeNode("Transform")) {
-				auto transfromComponent = m_parentScene->GetComponent<TransformComponent>(e);
-				ImGui::DragFloat3("Position", &transfromComponent->position.x, 0.01f);
-				ImGui::DragFloat3("Scale", &transfromComponent->scale.x, 0.01f);
-				ImGui::DragFloat3("Rotation", &transfromComponent->rotation.x, 1.0f);
+				auto transform = m_parentScene->GetComponent<Transform>(e);
+				auto position = transform->GetPosition();
+				auto rotation = transform->GetRotation();
+				auto scale = transform->GetScale();
+				if (ImGui::DragFloat3("Position", &position[0], 0.01f)) { transform->SetPosition(position); }
+				if (ImGui::DragFloat3("Rotation", &rotation[0], 1.0f)) { transform->SetRotation(rotation); }
+				if (ImGui::DragFloat3("Scale", &scale[0], 0.01f)) { transform->SetScale(scale); }
 				if (ImGui::Button("Remove Component"))
-					m_parentScene->RemoveComponent<TransformComponent>(e);
+					m_parentScene->RemoveComponent<Transform>(e);
 				ImGui::TreePop();
 			}
 		}

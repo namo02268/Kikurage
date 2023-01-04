@@ -2,7 +2,7 @@
 #include "Kikurage/ECS/ECS.h"
 
 #include "Kikurage/Core/Application/Application.h"
-#include "Kikurage/Components/TransformComponent.h"
+#include "Kikurage/Components/Transform.h"
 #include "Kikurage/Components/MeshComponent.h"
 #include "Kikurage/Components/MaterialComponent.h"
 
@@ -10,7 +10,7 @@ namespace Kikurage {
 	MeshRenderer::MeshRenderer(Shader* shader) {
 		this->m_shader = shader;
 
-		auto family = getComponentTypeID<TransformComponent>();
+		auto family = getComponentTypeID<Transform>();
 		m_requiredComponent[family] = true;
 		family = getComponentTypeID<MeshComponent>();
 		m_requiredComponent[family] = true;
@@ -35,7 +35,7 @@ namespace Kikurage {
 	void MeshRenderer::Draw() {
 		this->m_shader->Bind();
 		for (auto& e : m_entityArray) {
-			auto transform = m_parentScene->GetComponent<TransformComponent>(e);
+			auto transform = m_parentScene->GetComponent<Transform>(e);
 			auto mesh = m_parentScene->GetComponent<MeshComponent>(e);
 			auto material = m_parentScene->GetComponent<MaterialComponent>(e);
 
@@ -46,7 +46,7 @@ namespace Kikurage {
 			this->m_shader->SetUniform("ao", material->ao);
 
 			// model
-			this->m_shader->SetUniform("model", transform->worldMatrix);
+			this->m_shader->SetUniform("model", transform->GetMatrix());
 			glBindVertexArray(mesh->mesh->VAO);
 			glDrawElements(GL_TRIANGLES, mesh->mesh->indiceCount, GL_UNSIGNED_INT, 0);
 			glBindVertexArray(0);

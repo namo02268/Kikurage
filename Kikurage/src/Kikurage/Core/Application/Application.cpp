@@ -38,6 +38,9 @@ namespace Kikurage {
 
 	void Application::Update(float timeStep) {
 		m_scene3d->Update(timeStep);
+		if (m_window->IsKeyPressed(GLFW_KEY_E)) {
+			this->isEditorEnable = !this->isEditorEnable;
+		}
 	}
 
 	void Application::Render() {

@@ -73,13 +73,14 @@
     <None Include="resources\shaders\Simple.vert" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\Kikurage\Components\CameraComponent.h" />
     <ClInclude Include="src\Kikurage\Components\Relationship.h" />
     <ClInclude Include="src\Kikurage\Core\Application\Application.h" />
     <ClInclude Include="src\Kikurage\Components\CollisionComponent.h" />
     <ClInclude Include="src\Kikurage\Components\MaterialComponent.h" />
     <ClInclude Include="src\Kikurage\Components\MeshComponent.h" />
     <ClInclude Include="src\Kikurage\Components\RigidBodyComponent.h" />
-    <ClInclude Include="src\Kikurage\Components\TransformComponent.h" />
+    <ClInclude Include="src\Kikurage\Components\Transform.h" />
     <ClInclude Include="src\Kikurage\Core\Event.h" />
     <ClInclude Include="src\Kikurage\Core\Renderer\BaseCamera.h" />
     <ClInclude Include="src\Kikurage\Core\Renderer\Renderer.h" />

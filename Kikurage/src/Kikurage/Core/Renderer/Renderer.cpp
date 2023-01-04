@@ -67,15 +67,14 @@ namespace Kikurage {
 		this->renderBuffers->framebuffer.Unbind();
 	}
 
-	void Renderer::BindCameraInformation(BaseCamera* camera, const TransformComponent* transform) {
+	void Renderer::BindCameraInformation(BaseCamera& camera, Transform& transform) {
 		for (auto shader : m_shaders) {
-			auto view = Inverse(transform->worldMatrix);
-
-			camera->SetAspectRatio(static_cast<float>(this->GetWidth()) / static_cast<float>(this->GetHeight()));
+			auto view = Inverse(transform.GetMatrix());
+			camera.SetAspectRatio(static_cast<float>(this->GetWidth()) / static_cast<float>(this->GetHeight()));
 
 			shader->Bind();
-			shader->SetUniform("cameraPos", transform->position);
-			shader->SetUniform("projection", camera->GetProjectionMatrix());
+			shader->SetUniform("cameraPos", transform.GetPosition());
+			shader->SetUniform("projection", camera.GetProjectionMatrix());
 			shader->SetUniform("view", view);
 		}
 	}

@@ -13,18 +13,18 @@ namespace Kikurage {
 		SphereCollider(Vector3 Center, float Radius) : Center(Center), Radius(Radius) {}
 
 		CollisionPoints TestCollision(
-			const TransformComponent* transform,
+			const Transform* transform,
 			const Collider* collider,
-			const TransformComponent* colliderTransform) const override;
+			const Transform* colliderTransform) const override;
 
 		CollisionPoints TestCollision(
-			const TransformComponent* transform,
+			const Transform* transform,
 			const SphereCollider* sphere,
-			const TransformComponent* sphereTransform) const override;
+			const Transform* sphereTransform) const override;
 
 		CollisionPoints TestCollision(
-			const TransformComponent* transform,
+			const Transform* transform,
 			const PlaneCollider* plane,
-			const TransformComponent* planeTransform) const override;
+			const Transform* planeTransform) const override;
 	};
 }
