@@ -1,13 +1,14 @@
 #pragma once
 
 #include "Kikurage/Resource/Mesh/AABB.h"
+#include "OpenGL/VertexArray.h"
 #include "OpenGL/VertexBuffer.h"
 #include "OpenGL/IndexBuffer.h"
 
 namespace Kikurage {
 	class Mesh {
 	public:
-		unsigned int VAO = 0;
+		VertexArray VAO;
 		VertexBuffer VBO;
 		IndexBuffer IBO;
 		const char* path = nullptr;
@@ -26,8 +27,5 @@ namespace Kikurage {
 		~Mesh();
 
 		void LoadFromFile(const char* path);
-
-	private:
-		void ClearBuffers();
 	};
 }

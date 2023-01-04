@@ -49,9 +49,9 @@ namespace Kikurage {
 			height = app.GetWindow()->GetHeight();
 		}
 
-		if (width != this->m_renderSettings.width || height != this->m_renderSettings.height) {
-			m_renderSettings.width = width;
-			m_renderSettings.height = height;
+		if (width != this->m_renderInfo.width || height != this->m_renderInfo.height) {
+			m_renderInfo.width = width;
+			m_renderInfo.height = height;
 			this->renderBuffers->Resize(width, height);
 			glViewport(0, 0, width, height);
 		}

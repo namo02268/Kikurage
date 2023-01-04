@@ -10,7 +10,6 @@ namespace Kikurage {
 		Vector3 rotation{ 0.0f };
 		Vector3 scale{ 0.0f };
 		Matrix4 transform{ 1.0f };
-		Matrix3 normal{ 1.0f };
 		bool ShouldUpdate = true;
 
 	public:
@@ -26,16 +25,6 @@ namespace Kikurage {
 
 		bool operator!=(const Transform& other) const {
 			return !(*this == other);
-		}
-
-		void UpdateMatrix() {
-			Matrix4 mat{ 1.0f };
-			mat = Kikurage::Translate(mat, this->position);
-			mat = Kikurage::Rotate(mat, ToRadians(this->rotation.z), ZAxis);
-			mat = Kikurage::Rotate(mat, ToRadians(this->rotation.y), YAxis);
-			mat = Kikurage::Rotate(mat, ToRadians(this->rotation.x), XAxis);
-			mat = Kikurage::Scale(mat, this->scale);
-			this->transform = mat;
 		}
 
 		Matrix4& GetMatrix() {
@@ -80,5 +69,16 @@ namespace Kikurage {
 		void ScaleX(float x) { this->Scale(Vector3(x, 0.0f, 0.0f)); }
 		void ScaleY(float y) { this->Scale(Vector3(0.0f, y, 0.0f)); }
 		void ScaleZ(float z) { this->Scale(Vector3(0.0f, 0.0f, z)); }
+
+	private:
+		void UpdateMatrix() {
+			Matrix4 mat{ 1.0f };
+			mat = Kikurage::Translate(mat, this->position);
+			mat = Kikurage::Rotate(mat, ToRadians(this->rotation.z), ZAxis);
+			mat = Kikurage::Rotate(mat, ToRadians(this->rotation.y), YAxis);
+			mat = Kikurage::Rotate(mat, ToRadians(this->rotation.x), XAxis);
+			mat = Kikurage::Scale(mat, this->scale);
+			this->transform = mat;
+		}
 	};
 }

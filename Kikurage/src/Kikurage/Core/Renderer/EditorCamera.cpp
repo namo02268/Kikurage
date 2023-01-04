@@ -3,9 +3,9 @@
 
 namespace Kikurage {
 	void EditorCamera::HandleMouse(Transform& transform, float dt) {
+		auto window = Application::GetInstance().GetWindow();
 		static bool mouseHeld = false;
 		Vector2 rotateVelocity{ 0.0f };
-		auto window = Application::GetInstance().GetWindow();
 
 		if (window->IsMousePressed(GLFW_MOUSE_BUTTON_RIGHT)) {
 			mouseHeld = true;
@@ -32,14 +32,14 @@ namespace Kikurage {
 				window->normalMouseCursor();
 			}
 		}
-
 	}
 
 	void EditorCamera::HandleKeyboard(Transform& transform, float dt) {
-		auto speed = m_cameraSpeed * dt;
 		auto window = Application::GetInstance().GetWindow();
-		Vector3 velocity{ 0.0f };
 
+		auto speed = m_cameraSpeed * dt;
+
+		Vector3 velocity{ 0.0f };
 		if (window->IsKeyHeld(GLFW_KEY_W)) {
 			velocity -= transform.GetForwardDirection() * speed;
 		}

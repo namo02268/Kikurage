@@ -117,9 +117,6 @@
     <ClCompile Include="src\OpenGL\RenderBuffer.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="src\Kikurage\Systems\Transform\TransformUpdator.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
     <ClCompile Include="src\Kikurage\Resource\Mesh\MeshLoader.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
@@ -139,6 +136,9 @@
       <Filter>ソース ファイル</Filter>
     </ClCompile>
     <ClCompile Include="src\Kikurage\Core\Renderer\EditorCamera.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="src\OpenGL\VertexArray.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
   </ItemGroup>
@@ -337,9 +337,6 @@
     <ClInclude Include="src\Kikurage\Core\Renderer\EditorCamera.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="src\Kikurage\Systems\Transform\TransformUpdator.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
     <ClInclude Include="src\Kikurage\Resource\Mesh\MeshLoader.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
@@ -377,6 +374,9 @@
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
     <ClInclude Include="src\Kikurage\Components\CameraComponent.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="src\OpenGL\VertexArray.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
   </ItemGroup>

@@ -35,9 +35,10 @@ namespace Kikurage {
 				auto position = transform->GetPosition();
 				auto rotation = transform->GetRotation();
 				auto scale = transform->GetScale();
-				if (ImGui::DragFloat3("Position", &position[0], 0.01f)) { transform->SetPosition(position); }
-				if (ImGui::DragFloat3("Rotation", &rotation[0], 1.0f)) { transform->SetRotation(rotation); }
-				if (ImGui::DragFloat3("Scale", &scale[0], 0.01f)) { transform->SetScale(scale); }
+				if(ImGui::DragFloat3("Position", &position[0], 0.01f)) { transform->SetPosition(position); }
+				if(ImGui::DragFloat3("Rotation", &rotation[0], 1.0f)) { transform->SetRotation(rotation); }
+				if(ImGui::DragFloat3("Scale", &scale[0], 0.01f)) { transform->SetScale(scale); }
+
 				if (ImGui::Button("Remove Component"))
 					m_parentScene->RemoveComponent<Transform>(e);
 				ImGui::TreePop();
@@ -88,25 +89,6 @@ namespace Kikurage {
 				ImGui::Checkbox("Is Kinematic", &rigidBodyComponent->isKinematic);
 				if (ImGui::Button("Remove Component"))
 					m_parentScene->RemoveComponent<RigidBodyComponent>(e);
-				ImGui::TreePop();
-			}
-		}
-	};
-
-	//----------------------------------------------Camera----------------------------------------------//
-	class CameraEditor : public ComponentEditorBase {
-	public:
-		CameraEditor(ECS* scene) {
-			m_parentScene = scene;
-			ID = getComponentTypeID<CameraComponent>();
-		}
-
-		void draw(Entity& e) {
-			if (ImGui::TreeNode("Camera")) {
-				auto cameraComponent = m_parentScene->GetComponent<CameraComponent>(e);
-				ImGui::DragFloat("Near", &cameraComponent->Near, 0.01f);
-				ImGui::DragFloat("Far", &cameraComponent->Far, 1.0f);
-
 				ImGui::TreePop();
 			}
 		}

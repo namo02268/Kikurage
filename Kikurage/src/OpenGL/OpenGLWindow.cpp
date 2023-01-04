@@ -54,14 +54,16 @@ namespace Kikurage {
 	}
 
 	void OpenGLWindow::Update() {
+		glfwGetCursorPos(m_window, &m_cursorPos[0], &m_cursorPos[1]);
 		this->anyKeyEvent = false;
 		this->anyMouseEvent = false;
 		this->m_mousePressed.reset();
+		this->m_mouseReleased.reset();
 		this->m_keyPressed.reset();
-
-		glfwGetCursorPos(m_window, &m_cursorPos[0], &m_cursorPos[1]);
-		glfwSwapBuffers(m_window);
+		this->m_keyReleased.reset();
 		glfwPollEvents();
+
+		glfwSwapBuffers(m_window);
 	}
 
 	void OpenGLWindow::Init() {
@@ -98,10 +100,10 @@ namespace Kikurage {
 
 				OpenGLWindow& window = *(OpenGLWindow*)glfwGetWindowUserPointer(w);
 				if ((size_t)key >= 350) return; // TODO: handle all key input
+				window.anyKeyEvent = true;
 				window.m_keyPressed[(size_t)key] = (action == GLFW_PRESS);
 				window.m_keyReleased[(size_t)key] = (action == GLFW_RELEASE);
 				window.m_keyHeld[(size_t)key] = (action == GLFW_PRESS);
-				window.anyKeyEvent = true;
 			});
 
 		// mouse button input
@@ -111,10 +113,10 @@ namespace Kikurage {
 
 				OpenGLWindow& window = *(OpenGLWindow*)glfwGetWindowUserPointer(w);
 				if (button >= 8) return;
+				window.anyMouseEvent = true;
 				window.m_mousePressed[(size_t)button] = (action == GLFW_PRESS);
 				window.m_mouseReleased[(size_t)button] = (action == GLFW_RELEASE);
 				window.m_mouseHeld[(size_t)button] = (action == GLFW_PRESS);
-				window.anyMouseEvent = true;
 			});
 
 		// mouse scroll

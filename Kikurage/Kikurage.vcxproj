@@ -30,7 +30,6 @@
     <ClCompile Include="src\Kikurage\Resource\Mesh\Mesh.cpp" />
     <ClCompile Include="src\Kikurage\Resource\Mesh\MeshLoader.cpp" />
     <ClCompile Include="src\Kikurage\Systems\AABBCollision\AABBCollision.cpp" />
-    <ClCompile Include="src\Kikurage\Systems\Transform\TransformUpdator.cpp" />
     <ClCompile Include="src\OpenGL\FrameBuffer.cpp" />
     <ClCompile Include="src\OpenGL\IndexBuffer.cpp" />
     <ClCompile Include="src\OpenGL\RenderBuffer.cpp" />
@@ -46,6 +45,7 @@
     <ClCompile Include="src\Kikurage\Systems\IBL\IBL.cpp" />
     <ClCompile Include="src\Kikurage\Systems\Renderer\MeshRenderer.cpp" />
     <ClCompile Include="src\Kikurage\Systems\Physics\Physics.cpp" />
+    <ClCompile Include="src\OpenGL\VertexArray.cpp" />
     <ClCompile Include="src\OpenGL\VertexBuffer.cpp" />
     <ClCompile Include="vendor\Glad\glad.c" />
     <ClCompile Include="vendor\imgui\imgui.cpp" />
@@ -106,8 +106,8 @@
     <ClInclude Include="src\Kikurage\Resource\Mesh\MeshLoader.h" />
     <ClInclude Include="src\Kikurage\Systems\AABBCollision\AABBCollision.h" />
     <ClInclude Include="src\Kikurage\Core\Renderer\EditorCamera.h" />
-    <ClInclude Include="src\Kikurage\Systems\Transform\TransformUpdator.h" />
     <ClInclude Include="src\OpenGL\IndexBuffer.h" />
+    <ClInclude Include="src\OpenGL\VertexArray.h" />
     <ClInclude Include="src\OpenGL\VertexBuffer.h" />
     <ClInclude Include="src\OpenGL\FrameBuffer.h" />
     <ClInclude Include="src\OpenGL\RenderBuffer.h" />

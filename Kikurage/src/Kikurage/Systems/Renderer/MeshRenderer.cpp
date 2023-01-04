@@ -47,7 +47,7 @@ namespace Kikurage {
 
 			// model
 			this->m_shader->SetUniform("model", transform->GetMatrix());
-			glBindVertexArray(mesh->mesh->VAO);
+			mesh->mesh->VAO.Bind();
 			glDrawElements(GL_TRIANGLES, mesh->mesh->indiceCount, GL_UNSIGNED_INT, 0);
 			glBindVertexArray(0);
 		}

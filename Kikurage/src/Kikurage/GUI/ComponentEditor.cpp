@@ -12,13 +12,10 @@ namespace Kikurage {
 		m_componentGUIbit[materialComponentGUI->ID] = true;
 		auto rigidBodyComponentGUI = std::make_unique<RigidBodyEditor>(scene);
 		m_componentGUIbit[rigidBodyComponentGUI->ID] = true;
-		auto cameraComponentGUI = std::make_unique<CameraEditor>(scene);
-		m_componentGUIbit[cameraComponentGUI->ID] = true;
 
 		m_componentGUIs[transformComponentGUI->ID] = std::move(transformComponentGUI);
 		m_componentGUIs[materialComponentGUI->ID] = std::move(materialComponentGUI);
 		m_componentGUIs[rigidBodyComponentGUI->ID] = std::move(rigidBodyComponentGUI);
-		m_componentGUIs[cameraComponentGUI->ID] = std::move(cameraComponentGUI);
 	}
 
 	void ComponentEditor::Render() {

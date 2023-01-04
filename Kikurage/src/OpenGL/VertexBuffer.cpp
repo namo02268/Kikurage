@@ -5,24 +5,24 @@ namespace Kikurage {
         glGenBuffers(1, &this->m_id);
     }
 
-    VertexBuffer::VertexBuffer(VertexBuffer&& vertexBuffer) noexcept {
-        this->m_id = vertexBuffer.m_id;
-        this->m_size = vertexBuffer.m_size;
-        this->m_usage = vertexBuffer.m_usage;
+    VertexBuffer::VertexBuffer(VertexBuffer&& other) noexcept {
+        this->m_id = other.m_id;
+        this->m_size = other.m_size;
+        this->m_usage = other.m_usage;
 
-        vertexBuffer.m_id = 0;
-        vertexBuffer.m_size = 0;
-        vertexBuffer.m_usage = GL_STATIC_DRAW;
+        other.m_id = 0;
+        other.m_size = 0;
+        other.m_usage = GL_STATIC_DRAW;
     }
 
-    VertexBuffer& VertexBuffer::operator=(VertexBuffer&& vertexBuffer) noexcept {
-        this->m_id = vertexBuffer.m_id;
-        this->m_size = vertexBuffer.m_size;
-        this->m_usage = vertexBuffer.m_usage;
+    VertexBuffer& VertexBuffer::operator=(VertexBuffer&& other) noexcept {
+        this->m_id = other.m_id;
+        this->m_size = other.m_size;
+        this->m_usage = other.m_usage;
 
-        vertexBuffer.m_id = 0;
-        vertexBuffer.m_size = 0;
-        vertexBuffer.m_usage = GL_STATIC_DRAW;
+        other.m_id = 0;
+        other.m_size = 0;
+        other.m_usage = GL_STATIC_DRAW;
 
         return *this;
     }

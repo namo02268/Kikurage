@@ -14,14 +14,14 @@ namespace Kikurage {
 	public:
 		VertexBuffer();
 		VertexBuffer(const VertexBuffer&) = delete;
-		VertexBuffer(VertexBuffer&& vertexBuffer) noexcept;
+		VertexBuffer(VertexBuffer&& other) noexcept;
 		VertexBuffer& operator=(const VertexBuffer&) = delete;
-		VertexBuffer& operator=(VertexBuffer&& vertexBuffer) noexcept;
+		VertexBuffer& operator=(VertexBuffer&& other) noexcept;
 		~VertexBuffer();
 
 		void Bind() const;
 		void Unbind() const;
-		unsigned int GetHandle() const { return this->m_id; }
+		const unsigned int GetHandle() const { return this->m_id; }
 		void SetData(size_t size, const void* data, unsigned int usage);
 	};
 }

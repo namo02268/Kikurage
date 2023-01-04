@@ -47,14 +47,14 @@ namespace Kikurage {
 		void BindCameraInformation(BaseCamera& camera, Transform& transform);
 
 		Texture2D& GetRenderTexture() { return this->renderBuffers->renderTexture; }
-		unsigned int GetWidth() const { return this->m_renderSettings.width; }
-		unsigned int GetHeight() const { return this->m_renderSettings.height; }
+		unsigned int GetWidth() const { return this->m_renderInfo.width; }
+		unsigned int GetHeight() const { return this->m_renderInfo.height; }
 
-		struct RenderSettings {
+		struct RenderInfo {
 			unsigned int width = 0;
 			unsigned int height = 0;
 		};
 
-		RenderSettings m_renderSettings;
+		RenderInfo m_renderInfo;
 	};
 }
