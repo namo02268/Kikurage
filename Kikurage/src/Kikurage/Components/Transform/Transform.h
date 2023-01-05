@@ -8,7 +8,7 @@ namespace Kikurage {
 	private:
 		Vector3 position{ 0.0f };
 		Vector3 rotation{ 0.0f };
-		Vector3 scale{ 0.0f };
+		Vector3 scale{ 1.0f };
 		Matrix4 transform{ 1.0f };
 		bool ShouldUpdate = true;
 

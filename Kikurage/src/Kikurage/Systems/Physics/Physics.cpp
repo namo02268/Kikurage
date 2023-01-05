@@ -1,7 +1,7 @@
 #include "Kikurage/Systems/Physics/Physics.h"
 #include "Kikurage/ECS/ECS.h"
 
-#include "Kikurage/Components/Transform.h"
+#include "Kikurage/Components/Transform/Transform.h"
 #include "Kikurage/Components/RigidBodyComponent.h"
 #include "Kikurage/Components/Relationship.h"
 

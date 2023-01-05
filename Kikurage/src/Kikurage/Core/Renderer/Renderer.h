@@ -12,7 +12,7 @@
 #include "OpenGL/FrameBuffer.h"
 #include "OpenGL/RenderBuffer.h"
 #include "Kikurage/Core/Renderer/BaseCamera.h"
-#include "Kikurage/Components/Transform.h"
+#include "Kikurage/Components/Transform/Transform.h"
 
 namespace Kikurage {
 	struct RenderBuffers {

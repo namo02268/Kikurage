@@ -2,7 +2,7 @@
 #include "Kikurage/ECS/ECS.h"
 #include "Kikurage/Events/CollisionEvent.h"
 
-#include "Kikurage/Components/Transform.h"
+#include "Kikurage/Components/Transform/Transform.h"
 #include "Kikurage/Components/CollisionComponent.h"
 #include "Kikurage/Components/Relationship.h"
 

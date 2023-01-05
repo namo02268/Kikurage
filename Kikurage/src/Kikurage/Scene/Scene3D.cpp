@@ -5,6 +5,7 @@
 //------------Resource------------
 #include "stb_image/stb_image.h"
 #include "Kikurage/Resource/ResourceManager/ResourceManager.h"
+#include "Kikurage/Resource/Model/ModelLoader.h"
 
 //------------Systems------------
 #include "Kikurage/Systems/Renderer/MeshRenderer.h"
@@ -18,9 +19,7 @@
 
 //------------Components------------
 #include "Kikurage/Components/CameraComponent.h"
-#include "Kikurage/Components/Transform.h"
-#include "Kikurage/Components/MeshComponent.h"
-#include "Kikurage/Components/MaterialComponent.h"
+#include "Kikurage/Components/Transform/Transform.h"
 #include "Kikurage/Components/RigidBodyComponent.h"
 #include "Kikurage/Components/CollisionComponent.h"
 
@@ -36,11 +35,9 @@ namespace Kikurage {
 		stbi_set_flip_vertically_on_load(true);
 
 		auto& resouceManager = ResourceManager::GetInstance();
-		resouceManager.LoadShader("resources/shaders/Simple.vert", "resources/shaders/PBR_nonTexture.frag", nullptr, "PBR");
+//		resouceManager.LoadShader("resources/shaders/Simple.vert", "resources/shaders/PBR_nonTexture.frag", nullptr, "PBR");
+		resouceManager.LoadShader("resources/shaders/Simple.vert", "resources/shaders/depth.frag", nullptr, "PBR");
 		resouceManager.LoadShader("resources/shaders/background.vert", "resources/shaders/background.frag", nullptr, "backgroundShader");
-		resouceManager.LoadModel("resources/objects/sponza/sponza.obj", "suzanne");
-		resouceManager.LoadModel("resources/objects/sphere/sphere.obj", "sphere");
-		resouceManager.LoadModel("resources/objects/plane/plane.obj", "plane");
 
 		Application::GetInstance().GetRenderer()->AddShader(ResourceManager::GetInstance().GetShader("PBR"));
 		Application::GetInstance().GetRenderer()->AddShader(ResourceManager::GetInstance().GetShader("backgroundShader"));
@@ -63,26 +60,14 @@ namespace Kikurage {
 		//---------------------------------add entities---------------------------------//
 		// camera
 		auto cameraEntity = ecs->CreateEntity();
-		ecs->AddComponent<Transform>(cameraEntity, Transform(Vector3(20.0f, 5.0f, 20.0f), Vector3(1.0f), Vector3(0.0f)));
+		ecs->AddComponent<Transform>(cameraEntity, Transform(Vector3(50.0f, 5.0f, 0.0f), Vector3(1.0f), Vector3(0.0f, 90.0f, 0.0f)));
 		ecs->AddComponent<CameraComponent>(cameraEntity, CameraComponent());
 
-		// sphere1
-		auto sphere1 = ecs->CreateEntity();
-		ecs->AddComponent<Transform>(sphere1, Transform(Vector3(2.0f, 5.0f, 0.0f), Vector3(1.0f), Vector3(0.0f)));
-		ecs->AddComponent<ModelComponent>(sphere1, ModelComponent(ResourceManager::GetInstance().GetModel("sphere")));
-		ecs->AddComponent<MaterialComponent>(sphere1, MaterialComponent(Vector3(0.0, 0.0, 1.0), 0.0, 0.0, 1.0));
+		// sphere
+//		ModelLoader::LoadEntity("resources/objects/sphere/sphere.obj", 1.0f);
 
-		// sphere2
-		auto sphere2 = ecs->CreateEntity();
-		ecs->AddComponent<Transform>(sphere2, Transform(Vector3(5.0f, 5.0f, 0.0f), Vector3(1.0f), Vector3(0.0f)));
-		ecs->AddComponent<ModelComponent>(sphere2, ModelComponent(ResourceManager::GetInstance().GetModel("sphere")));
-		ecs->AddComponent<MaterialComponent>(sphere2, MaterialComponent(Vector3(0.0, 0.0, 1.0), 0.0, 0.0, 1.0));
-
-		// suzanne
-		auto suzanne = ecs->CreateEntity();
-		ecs->AddComponent<Transform>(suzanne, Transform(Vector3(5.0f, 5.0f, 0.0f), Vector3(0.1f), Vector3(0.0f)));
-		ecs->AddComponent<ModelComponent>(suzanne, ModelComponent(ResourceManager::GetInstance().GetModel("suzanne")));
-		ecs->AddComponent<MaterialComponent>(suzanne, MaterialComponent(Vector3(0.0, 0.0, 1.0), 0.0, 0.0, 1.0));
+		// suponza
+		ModelLoader::LoadEntity("resources/objects/sponza/sponza.obj", 0.1f);
 
 		// init
 		ecs->Init();

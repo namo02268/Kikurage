@@ -8,7 +8,7 @@ namespace Kikurage {
 	public:
 		Vector3 albedo{ 1.0f };
 		float metallic = 0.0f;
-		float roughness = 0.0f;
+		float roughness = 0.8f;
 		float ao = 1.0f;
 
 	public:

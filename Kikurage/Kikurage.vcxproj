@@ -19,6 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\Kikurage\Components\Mesh\Mesh.cpp" />
     <ClCompile Include="src\Kikurage\Core\Application\Application.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="src\Kikurage\Core\Renderer\BaseCamera.cpp" />
@@ -27,9 +28,7 @@
     <ClCompile Include="src\Kikurage\GUI\ComponentEditor.cpp" />
     <ClCompile Include="src\Kikurage\GUI\GuiManager.cpp" />
     <ClCompile Include="src\Kikurage\GUI\Viewport.cpp" />
-    <ClCompile Include="src\Kikurage\Resource\Mesh\Mesh.cpp" />
     <ClCompile Include="src\Kikurage\Resource\Model\ModelLoader.cpp" />
-    <ClCompile Include="src\Kikurage\Resource\Model\Model.cpp" />
     <ClCompile Include="src\Kikurage\Systems\AABBCollision\AABBCollision.cpp" />
     <ClCompile Include="src\OpenGL\FrameBuffer.cpp" />
     <ClCompile Include="src\OpenGL\IndexBuffer.cpp" />
@@ -64,6 +63,7 @@
     <None Include="resources\shaders\brdf.frag" />
     <None Include="resources\shaders\brdf.vert" />
     <None Include="resources\shaders\cubemap.vert" />
+    <None Include="resources\shaders\depth.frag" />
     <None Include="resources\shaders\equirectangular_to_cubemap.frag" />
     <None Include="resources\shaders\irradiance_convolution.frag" />
     <None Include="resources\shaders\PBR_nonTexture.frag" />
@@ -79,9 +79,9 @@
     <ClInclude Include="src\Kikurage\Core\Application\Application.h" />
     <ClInclude Include="src\Kikurage\Components\CollisionComponent.h" />
     <ClInclude Include="src\Kikurage\Components\MaterialComponent.h" />
-    <ClInclude Include="src\Kikurage\Components\MeshComponent.h" />
+    <ClInclude Include="src\Kikurage\Components\Mesh\Mesh.h" />
     <ClInclude Include="src\Kikurage\Components\RigidBodyComponent.h" />
-    <ClInclude Include="src\Kikurage\Components\Transform.h" />
+    <ClInclude Include="src\Kikurage\Components\Transform\Transform.h" />
     <ClInclude Include="src\Kikurage\Core\Event.h" />
     <ClInclude Include="src\Kikurage\Core\Renderer\BaseCamera.h" />
     <ClInclude Include="src\Kikurage\Core\Renderer\Renderer.h" />
@@ -103,9 +103,8 @@
     <ClInclude Include="src\Kikurage\GUI\GuiManager.h" />
     <ClInclude Include="src\Kikurage\GUI\Viewport.h" />
     <ClInclude Include="src\Kikurage\Resource\Mesh\AABB.h" />
-    <ClInclude Include="src\Kikurage\Resource\Mesh\Mesh.h" />
+    <ClInclude Include="src\Kikurage\Resource\Model\ModelInfo.h" />
     <ClInclude Include="src\Kikurage\Resource\Model\ModelLoader.h" />
-    <ClInclude Include="src\Kikurage\Resource\Model\Model.h" />
     <ClInclude Include="src\Kikurage\Systems\AABBCollision\AABBCollision.h" />
     <ClInclude Include="src\Kikurage\Core\Renderer\EditorCamera.h" />
     <ClInclude Include="src\OpenGL\IndexBuffer.h" />

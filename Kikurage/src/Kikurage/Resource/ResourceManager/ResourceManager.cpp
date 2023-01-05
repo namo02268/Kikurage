@@ -98,18 +98,6 @@ namespace Kikurage {
         return Textures[name].get();
     }
 
-    //------------------------Model------------------------//
-    void ResourceManager::LoadModel(const char* modelFile, std::string name) {
-        auto Uptr = std::make_unique<Model>();
-        Uptr->Load(modelFile);
-        Models[name] = std::move(Uptr);
-    }
-
-    Model* ResourceManager::GetModel(std::string name) {
-        return Models[name].get();
-    }
-
-
     //-------------------------Utils-------------------------//
     void ResourceManager::Clear()
     {

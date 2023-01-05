@@ -4,7 +4,7 @@
 #include "imgui/imgui_impl_glfw.h"
 #include "imgui/imgui_impl_opengl3.h"
 
-#include "Kikurage/Components/Transform.h"
+#include "Kikurage/Components/Transform/Transform.h"
 #include "Kikurage/Components/MaterialComponent.h"
 #include "Kikurage/Components/RigidBodyComponent.h"
 #include "Kikurage/Components/CameraComponent.h"

@@ -1,7 +1,7 @@
 #pragma once
 
 #include "Utils/Math.h"
-#include "Kikurage/Components/Transform.h"
+#include "Kikurage/Components/Transform/Transform.h"
 
 namespace Kikurage {
 	class BaseCamera {

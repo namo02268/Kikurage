@@ -2,8 +2,8 @@
 #include "Kikurage/ECS/ECS.h"
 
 #include "Kikurage/Core/Application/Application.h"
-#include "Kikurage/Components/Transform.h"
-#include "Kikurage/Components/MeshComponent.h"
+#include "Kikurage/Components/Transform/Transform.h"
+#include "Kikurage/Components/Mesh/Mesh.h"
 #include "Kikurage/Components/MaterialComponent.h"
 
 namespace Kikurage {
@@ -12,7 +12,7 @@ namespace Kikurage {
 
 		auto family = getComponentTypeID<Transform>();
 		m_requiredComponent[family] = true;
-		family = getComponentTypeID<ModelComponent>();
+		family = getComponentTypeID<Mesh>();
 		m_requiredComponent[family] = true;
 		family = getComponentTypeID<MaterialComponent>();
 		m_requiredComponent[family] = true;
@@ -36,7 +36,7 @@ namespace Kikurage {
 		this->m_shader->Bind();
 		for (auto& e : m_entityArray) {
 			auto transform = m_parentScene->GetComponent<Transform>(e);
-			auto model = m_parentScene->GetComponent<ModelComponent>(e);
+			auto mesh = m_parentScene->GetComponent<Mesh>(e);
 			auto material = m_parentScene->GetComponent<MaterialComponent>(e);
 
 			// material
@@ -46,12 +46,10 @@ namespace Kikurage {
 			this->m_shader->SetUniform("ao", material->ao);
 
 			// model
-			for (auto& mesh : *model->model->GetMeshes()) {
-				this->m_shader->SetUniform("model", transform->GetMatrix());
-				mesh.Bind();
-				glDrawElements(GL_TRIANGLES, mesh.GetIndiceCount(), GL_UNSIGNED_INT, 0);
-				glBindVertexArray(0);
-			}
+			this->m_shader->SetUniform("model", transform->GetMatrix());
+			mesh->Bind();
+			glDrawElements(GL_TRIANGLES, mesh->GetIndiceCount(), GL_UNSIGNED_INT, 0);
+			glBindVertexArray(0);
 		}
 	}
 }

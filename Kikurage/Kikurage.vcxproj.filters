@@ -120,9 +120,6 @@
     <ClCompile Include="src\Kikurage\Resource\Model\ModelLoader.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="src\Kikurage\Resource\Mesh\Mesh.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
     <ClCompile Include="src\Kikurage\Systems\AABBCollision\AABBCollision.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
@@ -141,7 +138,7 @@
     <ClCompile Include="src\OpenGL\VertexArray.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="src\Kikurage\Resource\Model\Model.cpp">
+    <ClCompile Include="src\Kikurage\Components\Mesh\Mesh.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
   </ItemGroup>
@@ -182,6 +179,7 @@
     <None Include="imgui.ini" />
     <None Include="resources\shaders\screen.vert" />
     <None Include="resources\shaders\screen.frag" />
+    <None Include="resources\shaders\depth.frag" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="vendor\imgui\imconfig.h">
@@ -220,13 +218,13 @@
     <ClInclude Include="src\Kikurage\Components\MaterialComponent.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="src\Kikurage\Components\MeshComponent.h">
+    <ClInclude Include="src\Kikurage\Components\Mesh\Mesh.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
     <ClInclude Include="src\Kikurage\Components\RigidBodyComponent.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="src\Kikurage\Components\Transform.h">
+    <ClInclude Include="src\Kikurage\Components\Transform\Transform.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
     <ClInclude Include="src\Kikurage\ECS\Component.h">
@@ -343,9 +341,6 @@
     <ClInclude Include="src\Kikurage\Resource\Model\ModelLoader.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="src\Kikurage\Resource\Mesh\Mesh.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
     <ClInclude Include="src\Utils\Math.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
@@ -382,7 +377,7 @@
     <ClInclude Include="src\OpenGL\VertexArray.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="src\Kikurage\Resource\Model\Model.h">
+    <ClInclude Include="src\Kikurage\Resource\Model\ModelInfo.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
   </ItemGroup>

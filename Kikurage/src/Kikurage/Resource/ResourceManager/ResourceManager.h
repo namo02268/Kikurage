@@ -10,7 +10,6 @@
 #include "Utils/Singleton.h"
 #include "OpenGL/Shader.h"
 #include "OpenGL/Texture2D.h"
-#include "Kikurage/Resource/Model/Model.h"
 
 namespace Kikurage {
 	// TODO : move to Texture.h
@@ -25,7 +24,6 @@ namespace Kikurage {
 		// resource storage
 		std::unordered_map<std::string, std::unique_ptr<Shader>> Shaders;
 		std::unordered_map<std::string, std::unique_ptr<Texture2D>> Textures;
-		std::unordered_map<std::string, std::unique_ptr<Model>> Models;
 
 	protected:
 		ResourceManager();
@@ -40,13 +38,6 @@ namespace Kikurage {
 
 		// retrieves a stored shader
 		Shader* GetShader(std::string name);
-
-		//-------------------------Model-------------------------//
-		// load a mesh form file
-		void LoadModel(const char* modelFile, std::string name);
-
-		// retrieves a stored mesh
-		Model* GetModel(std::string name);
 
 		//------------------------Texture------------------------//
 			// loads a texture from file

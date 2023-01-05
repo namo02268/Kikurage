@@ -1,27 +1,12 @@
 #pragma once
 
-#include <vector>
-
-#include "Kikurage/Resource/Mesh/Vertex.h"
-#include "Kikurage/Resource/Mesh/AABB.h"
+#include "Kikurage/Resource/Model/ModelInfo.h"
+#include "Kikurage/ECS/Entity.h"
 
 namespace Kikurage {
-	struct MeshInfo {
-		const char* name;
-		std::vector<Vertex> vertices;
-		std::vector<unsigned int> indices;
-		AABB aabb;
-
-		bool hasNormals;
-		bool hasTextureCoords;
-	};
-
-	struct ModelInfo {
-		std::vector<MeshInfo> meshes;
-	};
-
 	class ModelLoader {
 	public:
+		static void LoadEntity(const char* path, float size);
 		static ModelInfo LoadFromFile(const char* path);
 		static void GenerateNormals(std::vector<Vertex>& vertices, std::vector<unsigned int>& indices);
 	};

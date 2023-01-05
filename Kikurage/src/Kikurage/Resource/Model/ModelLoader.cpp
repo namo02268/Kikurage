@@ -1,12 +1,27 @@
 #include "Kikurage/Resource/Model/ModelLoader.h"
+#include "Kikurage/Core/Application/Application.h"
+#include "Kikurage/Components/Transform/Transform.h"
+#include "Kikurage/Components/Mesh/Mesh.h"
+#include "Kikurage/Components/MaterialComponent.h"
+#include "Utils/Math.h"
 
 #include <assimp/Importer.hpp>
 #include <assimp/scene.h>
 #include <assimp/postprocess.h>
 
-#include "Utils/Math.h"
-
 namespace Kikurage {
+    void ModelLoader::LoadEntity(const char* path, float size) {
+        auto model = LoadFromFile(path);
+        auto ecs = Application::GetInstance().GetECS();
+
+        for (auto& mesh : model.meshes) {
+            auto entity = ecs->CreateEntity();
+            ecs->AddComponent(entity, Transform(Vector3(0.0f), Vector3(size), Vector3(0.0f)));
+            ecs->AddComponent(entity, Mesh(mesh));
+            ecs->AddComponent<MaterialComponent>(entity, MaterialComponent());
+        }
+    }
+
     ModelInfo ModelLoader::LoadFromFile(const char* path) {
         ModelInfo object;
 

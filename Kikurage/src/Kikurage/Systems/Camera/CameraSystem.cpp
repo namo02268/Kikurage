@@ -2,7 +2,7 @@
 
 #include "Kikurage/Core/Application/Application.h"
 #include "Kikurage/ECS/ECS.h"
-#include "Kikurage/Components/Transform.h"
+#include "Kikurage/Components/Transform/Transform.h"
 
 namespace Kikurage {
 	CameraSystem::CameraSystem() {

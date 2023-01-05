@@ -1,7 +1,7 @@
 #pragma once
 
 #include "Kikurage/Systems/Collision/CollisionPoints.h"
-#include "Kikurage/Components/Transform.h"
+#include "Kikurage/Components/Transform/Transform.h"
 
 namespace Kikurage {
 	struct SphereCollider;

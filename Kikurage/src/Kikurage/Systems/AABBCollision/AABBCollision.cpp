@@ -1,8 +1,8 @@
 #include "Kikurage/Systems/AABBCollision/AABBCollision.h"
 
 #include "Kikurage/ECS/ECS.h"
-#include "Kikurage/Components/Transform.h"
-#include "Kikurage/Components/MeshComponent.h"
+#include "Kikurage/Components/Transform/Transform.h"
+#include "Kikurage/Components/Mesh/Mesh.h"
 #include "Kikurage/Components/MaterialComponent.h"
 #include "Kikurage/Events/CollisionEvent.h"
 #include "Kikurage/Core/Event.h"
@@ -11,7 +11,7 @@ namespace Kikurage {
 	AABBCollision::AABBCollision() {
 		auto family = getComponentTypeID<Transform>();
 		m_requiredComponent[family] = true;
-		family = getComponentTypeID<ModelComponent>();
+		family = getComponentTypeID<Mesh>();
 		m_requiredComponent[family] = true;
 	}
 
@@ -29,7 +29,7 @@ namespace Kikurage {
 
 		for (auto& a : m_entityArray) {
 			auto aTrans = m_parentScene->GetComponent<Transform>(a);
-			auto aMesh = m_parentScene->GetComponent<ModelComponent>(a);
+			auto aMesh = m_parentScene->GetComponent<Mesh>(a);
 			auto aMat = m_parentScene->GetComponent<MaterialComponent>(a);
 
 			/*

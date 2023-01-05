@@ -1,5 +1,4 @@
 ﻿#include "Kikurage/Core/Application/Application.h"
-#include "Kikurage/Resource/Mesh/MeshLoader.h"
 #include <iostream>
 
 /*
