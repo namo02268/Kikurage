@@ -13,6 +13,7 @@
 #include "OpenGL/RenderBuffer.h"
 #include "Kikurage/Core/Renderer/BaseCamera.h"
 #include "Kikurage/Components/Transform/Transform.h"
+#include "Kikurage/Components/Mesh/Mesh.h"
 
 namespace Kikurage {
 	struct RenderBuffers {
@@ -45,6 +46,8 @@ namespace Kikurage {
 
 		void AddShader(Shader* shader) { m_shaders.push_back(shader); }
 		void BindCameraInformation(BaseCamera& camera, Transform& transform);
+
+		void DrawObject(Mesh* mesh);
 
 		Texture2D& GetRenderTexture() { return this->renderBuffers->renderTexture; }
 		unsigned int GetWidth() const { return this->m_renderInfo.width; }

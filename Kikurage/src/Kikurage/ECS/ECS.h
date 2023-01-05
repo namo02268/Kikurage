@@ -8,6 +8,7 @@
 #include "Kikurage/ECS/System.h"
 #include "Kikurage/Events/EventHandler.h"
 
+#include "Kikurage/Components/Name/Name.h"
 #include "Kikurage/Components/Relationship.h"
 
 namespace Kikurage {
@@ -36,7 +37,10 @@ namespace Kikurage {
 		Entity CreateEntity() {
 			Entity e = m_entityManager->createEntity();
 			m_allEntityArray.emplace_back(e);
-			AddComponent<Relationship>(e, Relationship());
+			char name[MAX_NAME_SIZE];
+			sprintf_s(name, "Entity %d", e);
+			this->AddComponent<Name>(e, Name(name));
+			this->AddComponent<Relationship>(e, Relationship());
 			return e;
 		}
 

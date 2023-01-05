@@ -85,7 +85,6 @@ namespace Kikurage {
 		frameCount++;
 		if (lastFrame - lastSecond >= 1.0f) {
 			this->FPS = frameCount;
-			std::cout << FPS << std::endl;
 			lastSecond = currentFrame;
 			frameCount = 0;
 		}

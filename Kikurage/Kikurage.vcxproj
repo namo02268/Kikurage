@@ -75,6 +75,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Kikurage\Components\CameraComponent.h" />
+    <ClInclude Include="src\Kikurage\Components\Name\Name.h" />
     <ClInclude Include="src\Kikurage\Components\Relationship.h" />
     <ClInclude Include="src\Kikurage\Core\Application\Application.h" />
     <ClInclude Include="src\Kikurage\Components\CollisionComponent.h" />

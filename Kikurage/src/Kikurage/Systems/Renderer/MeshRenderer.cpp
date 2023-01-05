@@ -34,6 +34,7 @@ namespace Kikurage {
 
 	void MeshRenderer::Draw() {
 		this->m_shader->Bind();
+		auto renderer = Application::GetInstance().GetRenderer();
 		for (auto& e : m_entityArray) {
 			auto transform = m_parentScene->GetComponent<Transform>(e);
 			auto mesh = m_parentScene->GetComponent<Mesh>(e);
@@ -47,9 +48,7 @@ namespace Kikurage {
 
 			// model
 			this->m_shader->SetUniform("model", transform->GetMatrix());
-			mesh->Bind();
-			glDrawElements(GL_TRIANGLES, mesh->GetIndiceCount(), GL_UNSIGNED_INT, 0);
-			glBindVertexArray(0);
+			renderer->DrawObject(mesh);
 		}
 	}
 }

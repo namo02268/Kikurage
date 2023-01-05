@@ -19,19 +19,20 @@ namespace Kikurage {
 	}
 
 	void ComponentEditor::Render() {
-		auto scene = Application::GetInstance().GetECS();
+		auto ecs = Application::GetInstance().GetECS();
 
 		// Hierarchy
 		ImGui::Begin("Hierarchy");
 		ImGui::PushID("Hierarchy");
 
-		auto& entityArray = scene->GetAllEntityArray();
+		auto& entityArray = ecs->GetAllEntityArray();
 
 		static int selected = -1;
 		char buf[32];
 		for (int n = 0; n < entityArray.size(); n++) {
+			auto name = ecs->GetComponent<Name>(entityArray[n])->GetName();
 			sprintf_s(buf, "Entity %d", entityArray[n]);
-			if (ImGui::Selectable(buf, selected == n)) {
+			if (ImGui::Selectable(name, selected == n)) {
 				selected = n;
 			}
 		}
@@ -43,7 +44,7 @@ namespace Kikurage {
 		if (selected != -1) {
 			ImGui::PushID(entityArray[selected]);
 			for (int i = 0; i < MAX_COMPONENTS_FAMILY; i++) {
-				if (scene->GetComponentMask(entityArray[selected])[i] && m_componentGUIbit[i]) {
+				if (ecs->GetComponentMask(entityArray[selected])[i] && m_componentGUIbit[i]) {
 					ImGui::SetNextItemOpen(true, ImGuiCond_Once);
 					m_componentGUIs[i]->draw(entityArray[selected]);
 					ImGui::Separator();
@@ -57,11 +58,11 @@ namespace Kikurage {
 			if (ImGui::BeginPopup("Component"))
 			{
 				if (ImGui::Selectable("Transform"))
-					scene->AddComponent<Transform>(entityArray[selected], Transform());
+					ecs->AddComponent<Transform>(entityArray[selected], Transform());
 				if (ImGui::Selectable("Material"))
-					scene->AddComponent<MaterialComponent>(entityArray[selected], MaterialComponent());
+					ecs->AddComponent<MaterialComponent>(entityArray[selected], MaterialComponent());
 				if (ImGui::Selectable("RigidBody"))
-					scene->AddComponent<RigidBodyComponent>(entityArray[selected], RigidBodyComponent());
+					ecs->AddComponent<RigidBodyComponent>(entityArray[selected], RigidBodyComponent());
 				ImGui::EndPopup();
 			}
 			ImGui::PopID();

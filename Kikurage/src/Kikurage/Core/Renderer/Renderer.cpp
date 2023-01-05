@@ -78,4 +78,10 @@ namespace Kikurage {
 			shader->SetUniform("view", view);
 		}
 	}
+
+	void Renderer::DrawObject(Mesh* mesh) {
+		mesh->Bind();
+		glDrawElements(GL_TRIANGLES, mesh->GetIndiceCount(), GL_UNSIGNED_INT, 0);
+		mesh->Unbind();
+	}
 }

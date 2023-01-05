@@ -26,7 +26,7 @@ namespace Kikurage {
 		Mesh(MeshInfo& meshInfo) { this->CreateBuffers(meshInfo); }
 
 		void Bind() const { this->VAO.Bind(); }
-		void UnBind() const { this->VAO.Unbind(); }
+		void Unbind() const { this->VAO.Unbind(); }
 		unsigned int GetVertexCount() const { return this->vertexCount; }
 		unsigned int GetIndiceCount() const { return this->indiceCount; }
 		AABB& GetAABB() { return this->aabb; }

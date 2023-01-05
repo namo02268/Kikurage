@@ -1,5 +1,7 @@
 #include "Kikurage/Resource/Model/ModelLoader.h"
 #include "Kikurage/Core/Application/Application.h"
+
+#include "Kikurage/Components/Name/Name.h"
 #include "Kikurage/Components/Transform/Transform.h"
 #include "Kikurage/Components/Mesh/Mesh.h"
 #include "Kikurage/Components/MaterialComponent.h"
@@ -19,10 +21,13 @@ namespace Kikurage {
             ecs->AddComponent(entity, Transform(Vector3(0.0f), Vector3(size), Vector3(0.0f)));
             ecs->AddComponent(entity, Mesh(mesh));
             ecs->AddComponent<MaterialComponent>(entity, MaterialComponent());
+//            ecs->GetComponent<Name>(entity)->Rename(mesh.name);
         }
     }
 
     ModelInfo ModelLoader::LoadFromFile(const char* path) {
+        std::cout << "Loading " << path << "..." << std::endl;
+
         ModelInfo object;
 
         // read file via ASSIMP
@@ -43,6 +48,7 @@ namespace Kikurage {
             auto& meshInfo = object.meshes[i];
 
             meshInfo.name = mesh->mName.C_Str();
+            std::cout << strlen(meshInfo.name) << std::endl;
             meshInfo.hasNormals = mesh->HasNormals();
             meshInfo.hasTextureCoords = mesh->HasTextureCoords(0);
 
