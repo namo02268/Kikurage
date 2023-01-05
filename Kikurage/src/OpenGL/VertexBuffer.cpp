@@ -39,14 +39,6 @@ namespace Kikurage {
         }
     }
 
-    void VertexBuffer::Bind() const {
-        glBindBuffer(GL_ARRAY_BUFFER, this->m_id);
-    }
-
-    void VertexBuffer::Unbind() const {
-        glBindBuffer(GL_ARRAY_BUFFER, 0);
-    }
-
     void VertexBuffer::SetData(size_t size, const void* data, unsigned int usage) {
         this->m_size = size;
         this->m_usage = usage;

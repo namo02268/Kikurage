@@ -1,5 +1,4 @@
 #include "Kikurage/Resource/Mesh/Mesh.h"
-#include "Kikurage/Resource/Mesh/MeshLoader.h"
 
 #include <glad/glad.h>
 
@@ -33,27 +32,20 @@ namespace Kikurage {
 
 	Mesh::~Mesh() {}
 
-	void Mesh::LoadFromFile(const char* path) {
-		this->path = path;
-		ObjectInfo object = MeshLoader::LoadFromFile(path);
-		auto& mesh = object.meshes[0];
+	void Mesh::CreateBuffers(MeshInfo& meshInfo) {
+		this->vertexCount = meshInfo.vertices.size();
+		this->indiceCount = meshInfo.indices.size();
+		this->aabb = meshInfo.aabb;
 
-		this->vertexCount = mesh.vertices.size();
-		this->indiceCount = mesh.indices.size();
+		VAO.Bind();
 
-		this->aabb = mesh.aabb;
+		VBO.SetData(this->vertexCount * sizeof(Vertex), &meshInfo.vertices[0], GL_STATIC_DRAW);
+		IBO.SetData(this->indiceCount * sizeof(unsigned int), &meshInfo.indices[0], GL_STATIC_DRAW);
 
-		{
-			VAO.Bind();
+		VAO.BindAttribute(0, 3, GL_FLOAT, sizeof(Vertex), 0);
+		VAO.BindAttribute(1, 3, GL_FLOAT, sizeof(Vertex), offsetof(Vertex, Normal));
+		VAO.BindAttribute(2, 2, GL_FLOAT, sizeof(Vertex), offsetof(Vertex, TexCoords));
 
-			VBO.SetData(mesh.vertices.size() * sizeof(Vertex), &mesh.vertices[0], GL_STATIC_DRAW);
-			IBO.SetData(mesh.indices.size() * sizeof(unsigned int), &mesh.indices[0], GL_STATIC_DRAW);
-
-			VAO.BindAttribute(0, 3, GL_FLOAT, sizeof(Vertex), 0);
-			VAO.BindAttribute(1, 3, GL_FLOAT, sizeof(Vertex), offsetof(Vertex, Normal));
-			VAO.BindAttribute(2, 2, GL_FLOAT, sizeof(Vertex), offsetof(Vertex, TexCoords));
-
-			VAO.Unbind();
-		}
+		VAO.Unbind();
 	}
 }

@@ -28,7 +28,8 @@
     <ClCompile Include="src\Kikurage\GUI\GuiManager.cpp" />
     <ClCompile Include="src\Kikurage\GUI\Viewport.cpp" />
     <ClCompile Include="src\Kikurage\Resource\Mesh\Mesh.cpp" />
-    <ClCompile Include="src\Kikurage\Resource\Mesh\MeshLoader.cpp" />
+    <ClCompile Include="src\Kikurage\Resource\Model\ModelLoader.cpp" />
+    <ClCompile Include="src\Kikurage\Resource\Model\Model.cpp" />
     <ClCompile Include="src\Kikurage\Systems\AABBCollision\AABBCollision.cpp" />
     <ClCompile Include="src\OpenGL\FrameBuffer.cpp" />
     <ClCompile Include="src\OpenGL\IndexBuffer.cpp" />
@@ -103,7 +104,8 @@
     <ClInclude Include="src\Kikurage\GUI\Viewport.h" />
     <ClInclude Include="src\Kikurage\Resource\Mesh\AABB.h" />
     <ClInclude Include="src\Kikurage\Resource\Mesh\Mesh.h" />
-    <ClInclude Include="src\Kikurage\Resource\Mesh\MeshLoader.h" />
+    <ClInclude Include="src\Kikurage\Resource\Model\ModelLoader.h" />
+    <ClInclude Include="src\Kikurage\Resource\Model\Model.h" />
     <ClInclude Include="src\Kikurage\Systems\AABBCollision\AABBCollision.h" />
     <ClInclude Include="src\Kikurage\Core\Renderer\EditorCamera.h" />
     <ClInclude Include="src\OpenGL\IndexBuffer.h" />

@@ -1,17 +1,14 @@
 #pragma once
 
-#include <glad/glad.h>
-#include <GLFW/glfw3.h>
-
-#include "Kikurage/Resource/Mesh/Mesh.h"
+#include "Kikurage/Resource/Model/Model.h"
 #include "Kikurage/ECS/Component.h"
 
 namespace Kikurage {
-	struct MeshComponent : public Component {
+	struct ModelComponent : public Component {
 	public:
-		Mesh* mesh;
+		Model* model;
 
 	public:
-		MeshComponent(Mesh* mesh) : mesh(mesh) {}
+		ModelComponent(Model* model) : model(model) {}
 	};
 }

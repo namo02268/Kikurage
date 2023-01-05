@@ -19,10 +19,10 @@ namespace Kikurage {
 
 	void IBL::Init() {
 		// Resources
-		ResourceManager::GetInstance().LoadShaderFromFile("resources/shaders/cubemap.vert", "resources/shaders/equirectangular_to_cubemap.frag", nullptr, "equirectangularToCubemapShader");
-		ResourceManager::GetInstance().LoadShaderFromFile("resources/shaders/cubemap.vert", "resources/shaders/irradiance_convolution.frag", nullptr, "irradianceShader");
-		ResourceManager::GetInstance().LoadShaderFromFile("resources/shaders/cubemap.vert", "resources/shaders/prefilter.frag", nullptr, "prefilterShader");
-		ResourceManager::GetInstance().LoadShaderFromFile("resources/shaders/brdf.vert", "resources/shaders/brdf.frag", nullptr, "brdfShader");
+		ResourceManager::GetInstance().LoadShader("resources/shaders/cubemap.vert", "resources/shaders/equirectangular_to_cubemap.frag", nullptr, "equirectangularToCubemapShader");
+		ResourceManager::GetInstance().LoadShader("resources/shaders/cubemap.vert", "resources/shaders/irradiance_convolution.frag", nullptr, "irradianceShader");
+		ResourceManager::GetInstance().LoadShader("resources/shaders/cubemap.vert", "resources/shaders/prefilter.frag", nullptr, "prefilterShader");
+		ResourceManager::GetInstance().LoadShader("resources/shaders/brdf.vert", "resources/shaders/brdf.frag", nullptr, "brdfShader");
 		ResourceManager::GetInstance().LoadTexture("resources/HDRIs/Newport_Loft/Newport_Loft_Ref.hdr", TextureType::HDR, "hdrTexture");
 
 		equirectangularToCubemapShader = ResourceManager::GetInstance().GetShader("equirectangularToCubemapShader");

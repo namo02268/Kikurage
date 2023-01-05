@@ -17,19 +17,19 @@ namespace Kikurage {
 	public:
 		Shader();
 		Shader(const Shader&) = delete;
-		Shader(Shader&& shader) noexcept;
+		Shader(Shader&& other) noexcept;
 		Shader& operator=(const Shader&) = delete;
-		Shader& operator=(Shader&& shader) noexcept;
+		Shader& operator=(Shader&& other) noexcept;
 		~Shader();
 
-		void Bind() const;
-		void Unbind() const;
-		unsigned int GetHandle() const { return this->m_id; }
+		void Bind() const { glUseProgram(this->m_id); Shader::CurrentlyAttachedShader = this->m_id; }
+		void Unbind() const { glUseProgram(0); Shader::CurrentlyAttachedShader = 0; }
+		const unsigned int GetHandle() const { return this->m_id; }
+		const int GetUniformLocation(const char* name) const { return glGetUniformLocation(this->m_id, name); }
 
-		int GetUniformLocation(const char* name) const;
-		void SetUniform(const char* name, const bool       value) const;
-		void SetUniform(const char* name, const int        value) const;
-		void SetUniform(const char* name, const float      value) const;
+		void SetUniform(const char* name, const bool     value) const;
+		void SetUniform(const char* name, const int      value) const;
+		void SetUniform(const char* name, const float    value) const;
 		void SetUniform(const char* name, const Vector2& value) const;
 		void SetUniform(const char* name, const Vector3& value) const;
 		void SetUniform(const char* name, const Vector4& value) const;

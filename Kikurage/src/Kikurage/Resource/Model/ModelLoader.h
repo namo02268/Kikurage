@@ -16,13 +16,13 @@ namespace Kikurage {
 		bool hasTextureCoords;
 	};
 
-	struct ObjectInfo {
+	struct ModelInfo {
 		std::vector<MeshInfo> meshes;
 	};
 
-	class MeshLoader {
+	class ModelLoader {
 	public:
-		static ObjectInfo LoadFromFile(const char* path);
+		static ModelInfo LoadFromFile(const char* path);
 		static void GenerateNormals(std::vector<Vertex>& vertices, std::vector<unsigned int>& indices);
 	};
 }

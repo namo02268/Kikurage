@@ -11,7 +11,7 @@ namespace Kikurage {
 	AABBCollision::AABBCollision() {
 		auto family = getComponentTypeID<Transform>();
 		m_requiredComponent[family] = true;
-		family = getComponentTypeID<MeshComponent>();
+		family = getComponentTypeID<ModelComponent>();
 		m_requiredComponent[family] = true;
 	}
 
@@ -29,21 +29,23 @@ namespace Kikurage {
 
 		for (auto& a : m_entityArray) {
 			auto aTrans = m_parentScene->GetComponent<Transform>(a);
-			auto aMesh = m_parentScene->GetComponent<MeshComponent>(a);
+			auto aMesh = m_parentScene->GetComponent<ModelComponent>(a);
 			auto aMat = m_parentScene->GetComponent<MaterialComponent>(a);
 
+			/*
 			for (auto& b : m_entityArray) {
 				if (a == b) break;
 				auto bTrans = m_parentScene->GetComponent<Transform>(b);
 				auto bMesh = m_parentScene->GetComponent<MeshComponent>(b);
 				auto bMat = m_parentScene->GetComponent<MaterialComponent>(b);
-				AABB aAABB = { aMesh->mesh->aabb.Min + aTrans->GetPosition(), aMesh->mesh->aabb.Max + aTrans->GetPosition() };
-				AABB bAABB = { bMesh->mesh->aabb.Min + bTrans->GetPosition(), bMesh->mesh->aabb.Max + bTrans->GetPosition() };
+				AABB aAABB = { aMesh->mesh->GetAABB().Min + aTrans->GetPosition(), aMesh->mesh->GetAABB().Max + aTrans->GetPosition()};
+				AABB bAABB = { bMesh->mesh->GetAABB().Min + bTrans->GetPosition(), bMesh->mesh->GetAABB().Max + bTrans->GetPosition() };
 				if (this->intersect(aAABB, bAABB)) {
 					aMat->albedo = Vector3(1.0f, 0.0f, 0.0f);
 					bMat->albedo = Vector3(1.0f, 0.0f, 0.0f);
 				}
 			}
+			*/
 		}
 	}
 

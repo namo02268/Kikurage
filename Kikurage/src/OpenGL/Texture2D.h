@@ -7,7 +7,7 @@ namespace Kikurage {
 	class Texture2D {
 	private:
 		std::string filepath;
-		unsigned int  m_id = 0;
+		unsigned int m_id = 0;
 		unsigned int m_width = 0;
 		unsigned int m_height = 0;
 		unsigned int m_format = GL_RGB;
@@ -19,14 +19,14 @@ namespace Kikurage {
 	public:
 		Texture2D();
 		Texture2D(const Texture2D&) = delete;
-		Texture2D(Texture2D&& texture) noexcept;
+		Texture2D(Texture2D&& other) noexcept;
 		Texture2D& operator=(const Texture2D&) = delete;
-		Texture2D& operator=(Texture2D&& texture) noexcept;
+		Texture2D& operator=(Texture2D&& other) noexcept;
 		~Texture2D();
 
-		void Bind() const;
-		void Unbind() const;
-		unsigned int GetHandle() const { return this->m_id; }
+		void Bind() const { glBindTexture(GL_TEXTURE_2D, this->m_id); }
+		void Unbind() const { glBindTexture(GL_TEXTURE_2D, 0); }
+		const unsigned int GetHandle() const { return this->m_id; }
 
 		void Generate(unsigned char* data, unsigned int width, unsigned int height, unsigned int channels = 3, unsigned int format = GL_RGB);
 

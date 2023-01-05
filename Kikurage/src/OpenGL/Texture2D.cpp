@@ -5,45 +5,37 @@ namespace Kikurage {
 		glGenTextures(1, &this->m_id);
 	}
 
-	Texture2D::Texture2D(Texture2D&& texture) noexcept {
-		this->m_id = texture.m_id;
-		this->m_width = texture.m_width;
-		this->m_height = texture.m_height;
-		this->m_format = texture.m_format;
-		this->m_wrapType = texture.m_wrapType;
-		this->m_filter = texture.m_filter;
+	Texture2D::Texture2D(Texture2D&& other) noexcept {
+		this->m_id = other.m_id;
+		this->m_width = other.m_width;
+		this->m_height = other.m_height;
+		this->m_format = other.m_format;
+		this->m_wrapType = other.m_wrapType;
+		this->m_filter = other.m_filter;
 
-		texture.m_id = 0;
-		texture.m_width = 0;
-		texture.m_height = 0;
+		other.m_id = 0;
+		other.m_width = 0;
+		other.m_height = 0;
 	}
 
-	Texture2D& Texture2D::operator=(Texture2D&& texture) noexcept {
-		this->m_id = texture.m_id;
-		this->m_width = texture.m_width;
-		this->m_height = texture.m_height;
+	Texture2D& Texture2D::operator=(Texture2D&& other) noexcept {
+		this->m_id = other.m_id;
+		this->m_width = other.m_width;
+		this->m_height = other.m_height;
 
-		this->m_format = texture.m_format;
-		this->m_wrapType = texture.m_wrapType;
-		this->m_filter = texture.m_filter;
+		this->m_format = other.m_format;
+		this->m_wrapType = other.m_wrapType;
+		this->m_filter = other.m_filter;
 
-		texture.m_id = 0;
-		texture.m_width = 0;
-		texture.m_height = 0;
+		other.m_id = 0;
+		other.m_width = 0;
+		other.m_height = 0;
 
 		return *this;
 	}
 
 	Texture2D::~Texture2D() {
 		this->FreeTexture();
-	}
-
-	void Texture2D::Bind() const {
-		glBindTexture(GL_TEXTURE_2D, this->m_id);
-	}
-
-	void Texture2D::Unbind() const {
-		glBindTexture(GL_TEXTURE_2D, 0);
 	}
 
 	void Texture2D::Generate(unsigned char* data, unsigned int width, unsigned int height, unsigned int channels, unsigned int format) {

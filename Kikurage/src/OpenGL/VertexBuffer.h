@@ -19,8 +19,8 @@ namespace Kikurage {
 		VertexBuffer& operator=(VertexBuffer&& other) noexcept;
 		~VertexBuffer();
 
-		void Bind() const;
-		void Unbind() const;
+		void Bind() const { glBindBuffer(GL_ARRAY_BUFFER, this->m_id); }
+		void Unbind() const { glBindBuffer(GL_ARRAY_BUFFER, 0); }
 		const unsigned int GetHandle() const { return this->m_id; }
 		void SetData(size_t size, const void* data, unsigned int usage);
 	};

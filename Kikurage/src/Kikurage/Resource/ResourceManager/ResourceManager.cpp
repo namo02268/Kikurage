@@ -16,7 +16,7 @@ namespace Kikurage {
     }
 
     //------------------------Shader------------------------//
-    void ResourceManager::LoadShaderFromFile(const char* vShaderFile, const char* fShaderFile, const char* gShaderFile, std::string name)
+    void ResourceManager::LoadShader(const char* vShaderFile, const char* fShaderFile, const char* gShaderFile, std::string name)
     {
         // 1. retrieve the vertex/fragment source code from filePath
         std::string vertexCode;
@@ -99,14 +99,14 @@ namespace Kikurage {
     }
 
     //------------------------Model------------------------//
-    void ResourceManager::LoadMeshFromFile(const char* modelFile, std::string name) {
-        auto Uptr = std::make_unique<Mesh>();
-        Uptr->LoadFromFile(modelFile);
-        Meshes[name] = std::move(Uptr);
+    void ResourceManager::LoadModel(const char* modelFile, std::string name) {
+        auto Uptr = std::make_unique<Model>();
+        Uptr->Load(modelFile);
+        Models[name] = std::move(Uptr);
     }
 
-    Mesh* ResourceManager::GetMesh(std::string name) {
-        return Meshes[name].get();
+    Model* ResourceManager::GetModel(std::string name) {
+        return Models[name].get();
     }
 
 

@@ -12,7 +12,7 @@ namespace Kikurage {
 
 		auto family = getComponentTypeID<Transform>();
 		m_requiredComponent[family] = true;
-		family = getComponentTypeID<MeshComponent>();
+		family = getComponentTypeID<ModelComponent>();
 		m_requiredComponent[family] = true;
 		family = getComponentTypeID<MaterialComponent>();
 		m_requiredComponent[family] = true;
@@ -36,7 +36,7 @@ namespace Kikurage {
 		this->m_shader->Bind();
 		for (auto& e : m_entityArray) {
 			auto transform = m_parentScene->GetComponent<Transform>(e);
-			auto mesh = m_parentScene->GetComponent<MeshComponent>(e);
+			auto model = m_parentScene->GetComponent<ModelComponent>(e);
 			auto material = m_parentScene->GetComponent<MaterialComponent>(e);
 
 			// material
@@ -46,10 +46,12 @@ namespace Kikurage {
 			this->m_shader->SetUniform("ao", material->ao);
 
 			// model
-			this->m_shader->SetUniform("model", transform->GetMatrix());
-			mesh->mesh->VAO.Bind();
-			glDrawElements(GL_TRIANGLES, mesh->mesh->indiceCount, GL_UNSIGNED_INT, 0);
-			glBindVertexArray(0);
+			for (auto& mesh : *model->model->GetMeshes()) {
+				this->m_shader->SetUniform("model", transform->GetMatrix());
+				mesh.Bind();
+				glDrawElements(GL_TRIANGLES, mesh.GetIndiceCount(), GL_UNSIGNED_INT, 0);
+				glBindVertexArray(0);
+			}
 		}
 	}
 }

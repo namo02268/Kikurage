@@ -1,4 +1,4 @@
-#include "Kikurage/Resource/Mesh/MeshLoader.h"
+#include "Kikurage/Resource/Model/ModelLoader.h"
 
 #include <assimp/Importer.hpp>
 #include <assimp/scene.h>
@@ -7,8 +7,8 @@
 #include "Utils/Math.h"
 
 namespace Kikurage {
-    ObjectInfo MeshLoader::LoadFromFile(const char* path) {
-        ObjectInfo object;
+    ModelInfo ModelLoader::LoadFromFile(const char* path) {
+        ModelInfo object;
 
         // read file via ASSIMP
         Assimp::Importer importer;
@@ -74,7 +74,7 @@ namespace Kikurage {
         return object;
     }
 
-    void MeshLoader::GenerateNormals(std::vector<Vertex>& vertices, std::vector<unsigned int>& indices) {
+    void ModelLoader::GenerateNormals(std::vector<Vertex>& vertices, std::vector<unsigned int>& indices) {
         for (auto& vertex : vertices) {
             vertex.Normal = Vector3(0.0f);
         }

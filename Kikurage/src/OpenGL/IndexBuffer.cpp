@@ -5,24 +5,24 @@ namespace Kikurage {
         glGenBuffers(1, &this->m_id);
     }
 
-    IndexBuffer::IndexBuffer(IndexBuffer&& indexBuffer) noexcept {
-        this->m_id = indexBuffer.m_id;
-        this->m_size = indexBuffer.m_size;
-        this->m_usage = indexBuffer.m_usage;
+    IndexBuffer::IndexBuffer(IndexBuffer&& other) noexcept {
+        this->m_id = other.m_id;
+        this->m_size = other.m_size;
+        this->m_usage = other.m_usage;
 
-        indexBuffer.m_id = 0;
-        indexBuffer.m_size = 0;
-        indexBuffer.m_usage = GL_STATIC_DRAW;
+        other.m_id = 0;
+        other.m_size = 0;
+        other.m_usage = GL_STATIC_DRAW;
     }
 
-    IndexBuffer& IndexBuffer::operator=(IndexBuffer&& indexBuffer) noexcept {
-        this->m_id = indexBuffer.m_id;
-        this->m_size = indexBuffer.m_size;
-        this->m_usage = indexBuffer.m_usage;
+    IndexBuffer& IndexBuffer::operator=(IndexBuffer&& other) noexcept {
+        this->m_id = other.m_id;
+        this->m_size = other.m_size;
+        this->m_usage = other.m_usage;
 
-        indexBuffer.m_id = 0;
-        indexBuffer.m_size = 0;
-        indexBuffer.m_usage = GL_STATIC_DRAW;
+        other.m_id = 0;
+        other.m_size = 0;
+        other.m_usage = GL_STATIC_DRAW;
 
         return *this;
     }
@@ -37,14 +37,6 @@ namespace Kikurage {
             glDeleteBuffers(1, &this->m_id);
             this->m_id = 0;
         }
-    }
-
-    void IndexBuffer::Bind() const {
-        glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, this->m_id);
-    }
-
-    void IndexBuffer::Unbind() const {
-        glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
     }
 
     void IndexBuffer::SetData(size_t size, const void* data, unsigned int usage) {

@@ -117,7 +117,7 @@
     <ClCompile Include="src\OpenGL\RenderBuffer.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="src\Kikurage\Resource\Mesh\MeshLoader.cpp">
+    <ClCompile Include="src\Kikurage\Resource\Model\ModelLoader.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
     <ClCompile Include="src\Kikurage\Resource\Mesh\Mesh.cpp">
@@ -139,6 +139,9 @@
       <Filter>ソース ファイル</Filter>
     </ClCompile>
     <ClCompile Include="src\OpenGL\VertexArray.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Kikurage\Resource\Model\Model.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
   </ItemGroup>
@@ -337,7 +340,7 @@
     <ClInclude Include="src\Kikurage\Core\Renderer\EditorCamera.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="src\Kikurage\Resource\Mesh\MeshLoader.h">
+    <ClInclude Include="src\Kikurage\Resource\Model\ModelLoader.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
     <ClInclude Include="src\Kikurage\Resource\Mesh\Mesh.h">
@@ -377,6 +380,9 @@
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
     <ClInclude Include="src\OpenGL\VertexArray.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Kikurage\Resource\Model\Model.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
   </ItemGroup>

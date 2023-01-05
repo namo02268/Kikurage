@@ -5,14 +5,14 @@ namespace Kikurage {
 		glGenRenderbuffers(1, &this->m_id);
 	}
 
-	RenderBuffer::RenderBuffer(RenderBuffer&& renderBuffer) noexcept {
-		this->m_id = renderBuffer.m_id;
-		renderBuffer.m_id = 0;
+	RenderBuffer::RenderBuffer(RenderBuffer&& other) noexcept {
+		this->m_id = other.m_id;
+		other.m_id = 0;
 	}
 
-	RenderBuffer& RenderBuffer::operator=(RenderBuffer&& renderBuffer) noexcept {
-		this->m_id = renderBuffer.m_id;
-		renderBuffer.m_id = 0;
+	RenderBuffer& RenderBuffer::operator=(RenderBuffer&& other) noexcept {
+		this->m_id = other.m_id;
+		other.m_id = 0;
 
 		return *this;
 	}
@@ -34,14 +34,6 @@ namespace Kikurage {
 		framebuffer.Bind();
 		glFramebufferRenderbuffer(GL_FRAMEBUFFER, mode, GL_RENDERBUFFER, this->m_id);
 		framebuffer.Unbind();
-	}
-
-	void RenderBuffer::Bind() const {
-		glBindRenderbuffer(GL_RENDERBUFFER, this->m_id);
-	}
-
-	void RenderBuffer::Unbind() const {
-		glBindRenderbuffer(GL_RENDERBUFFER, 0);
 	}
 
 	void RenderBuffer::FreeRenderBuffer() {

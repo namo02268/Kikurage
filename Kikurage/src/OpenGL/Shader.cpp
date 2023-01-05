@@ -8,14 +8,14 @@ namespace Kikurage {
 
     Shader::Shader() {}
 
-    Shader::Shader(Shader&& shader) noexcept {
-        this->m_id = shader.m_id;
-        shader.m_id = 0;
+    Shader::Shader(Shader&& other) noexcept {
+        this->m_id = other.m_id;
+        other.m_id = 0;
     }
 
-    Shader& Shader::operator=(Shader&& shader) noexcept {
-        this->m_id = shader.m_id;
-        shader.m_id = 0;
+    Shader& Shader::operator=(Shader&& other) noexcept {
+        this->m_id = other.m_id;
+        other.m_id = 0;
 
         return *this;
     }
@@ -24,25 +24,11 @@ namespace Kikurage {
         this->FreeProgram();
     }
 
-    void Shader::Bind() const {
-        glUseProgram(this->m_id);
-        Shader::CurrentlyAttachedShader = this->m_id;
-    }
-
-    void Shader::Unbind() const {
-        glUseProgram(0);
-        Shader::CurrentlyAttachedShader = 0;
-    }
-
     void Shader::FreeProgram() {
         if (this->m_id != 0) {
             glDeleteProgram(this->m_id);
             this->m_id = 0;
         }
-    }
-
-    int Shader::GetUniformLocation(const char* name) const {
-        return glGetUniformLocation(this->m_id, name);
     }
 
     void Shader::SetUniform(const char* name, const bool value) const {

@@ -36,11 +36,11 @@ namespace Kikurage {
 		stbi_set_flip_vertically_on_load(true);
 
 		auto& resouceManager = ResourceManager::GetInstance();
-		resouceManager.LoadShaderFromFile("resources/shaders/Simple.vert", "resources/shaders/PBR_nonTexture.frag", nullptr, "PBR");
-		resouceManager.LoadShaderFromFile("resources/shaders/background.vert", "resources/shaders/background.frag", nullptr, "backgroundShader");
-		resouceManager.LoadMeshFromFile("resources/objects/suzanne/suzanne.obj", "suzanne");
-		resouceManager.LoadMeshFromFile("resources/objects/sphere/sphere.obj", "sphere");
-		resouceManager.LoadMeshFromFile("resources/objects/plane/plane.obj", "plane");
+		resouceManager.LoadShader("resources/shaders/Simple.vert", "resources/shaders/PBR_nonTexture.frag", nullptr, "PBR");
+		resouceManager.LoadShader("resources/shaders/background.vert", "resources/shaders/background.frag", nullptr, "backgroundShader");
+		resouceManager.LoadModel("resources/objects/sponza/sponza.obj", "suzanne");
+		resouceManager.LoadModel("resources/objects/sphere/sphere.obj", "sphere");
+		resouceManager.LoadModel("resources/objects/plane/plane.obj", "plane");
 
 		Application::GetInstance().GetRenderer()->AddShader(ResourceManager::GetInstance().GetShader("PBR"));
 		Application::GetInstance().GetRenderer()->AddShader(ResourceManager::GetInstance().GetShader("backgroundShader"));
@@ -57,8 +57,8 @@ namespace Kikurage {
 		auto ibl = std::make_unique<IBL>(ResourceManager::GetInstance().GetShader("PBR"), ResourceManager::GetInstance().GetShader("backgroundShader"));
 		ecs->AddSystem(std::move(ibl));
 		// AABB
-		auto aabbCollision = std::make_unique<AABBCollision>();
-		ecs->AddSystem(std::move(aabbCollision));
+//		auto aabbCollision = std::make_unique<AABBCollision>();
+//		ecs->AddSystem(std::move(aabbCollision));
 
 		//---------------------------------add entities---------------------------------//
 		// camera
@@ -69,19 +69,19 @@ namespace Kikurage {
 		// sphere1
 		auto sphere1 = ecs->CreateEntity();
 		ecs->AddComponent<Transform>(sphere1, Transform(Vector3(2.0f, 5.0f, 0.0f), Vector3(1.0f), Vector3(0.0f)));
-		ecs->AddComponent<MeshComponent>(sphere1, MeshComponent(ResourceManager::GetInstance().GetMesh("sphere")));
+		ecs->AddComponent<ModelComponent>(sphere1, ModelComponent(ResourceManager::GetInstance().GetModel("sphere")));
 		ecs->AddComponent<MaterialComponent>(sphere1, MaterialComponent(Vector3(0.0, 0.0, 1.0), 0.0, 0.0, 1.0));
 
 		// sphere2
 		auto sphere2 = ecs->CreateEntity();
 		ecs->AddComponent<Transform>(sphere2, Transform(Vector3(5.0f, 5.0f, 0.0f), Vector3(1.0f), Vector3(0.0f)));
-		ecs->AddComponent<MeshComponent>(sphere2, MeshComponent(ResourceManager::GetInstance().GetMesh("sphere")));
+		ecs->AddComponent<ModelComponent>(sphere2, ModelComponent(ResourceManager::GetInstance().GetModel("sphere")));
 		ecs->AddComponent<MaterialComponent>(sphere2, MaterialComponent(Vector3(0.0, 0.0, 1.0), 0.0, 0.0, 1.0));
 
 		// suzanne
 		auto suzanne = ecs->CreateEntity();
-		ecs->AddComponent<Transform>(suzanne, Transform(Vector3(5.0f, 5.0f, 0.0f), Vector3(1.0f), Vector3(0.0f)));
-		ecs->AddComponent<MeshComponent>(suzanne, MeshComponent(ResourceManager::GetInstance().GetMesh("suzanne")));
+		ecs->AddComponent<Transform>(suzanne, Transform(Vector3(5.0f, 5.0f, 0.0f), Vector3(0.1f), Vector3(0.0f)));
+		ecs->AddComponent<ModelComponent>(suzanne, ModelComponent(ResourceManager::GetInstance().GetModel("suzanne")));
 		ecs->AddComponent<MaterialComponent>(suzanne, MaterialComponent(Vector3(0.0, 0.0, 1.0), 0.0, 0.0, 1.0));
 
 		// init

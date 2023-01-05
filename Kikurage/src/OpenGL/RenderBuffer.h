@@ -16,14 +16,14 @@ namespace Kikurage {
 	public:
 		RenderBuffer();
 		RenderBuffer(const RenderBuffer&) = delete;
-		RenderBuffer(RenderBuffer&& renderBuffer) noexcept;
+		RenderBuffer(RenderBuffer&& other) noexcept;
 		RenderBuffer& operator=(const RenderBuffer&) = delete;
-		RenderBuffer& operator=(RenderBuffer&& renderBuffer) noexcept;
+		RenderBuffer& operator=(RenderBuffer&& other) noexcept;
 		~RenderBuffer();
 
-		void Bind() const;
-		void Unbind() const;
-		unsigned int GetHandle() const { return this->m_id; }
+		void Bind() const { glBindRenderbuffer(GL_RENDERBUFFER, this->m_id); }
+		void Unbind() const { glBindRenderbuffer(GL_RENDERBUFFER, 0); }
+		const unsigned int GetHandle() const { return this->m_id; }
 
 		void InitStorage(int width, int height, GLenum format);
 		void LinkToFrameBuffer(const FrameBuffer& framebuffer, unsigned int mode) const; // TODO : bool isBind()?
