@@ -383,5 +383,8 @@
     <ClInclude Include="src\Kikurage\Components\Name\Name.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
+    <ClInclude Include="src\Utils\String.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

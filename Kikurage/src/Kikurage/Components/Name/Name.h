@@ -1,17 +1,17 @@
 #pragma once
 
 #include "Kikurage/ECS/Component.h"
+#include "Utils/String.h"
 
 namespace Kikurage {
-	constexpr int MAX_NAME_SIZE = 256;
-
 	struct Name : public Component {
 	private:
-		char name[MAX_NAME_SIZE];
+		fixedString<31> name;
 
 	public:
-		Name(const char* name) { strcpy_s(this->name, MAX_NAME_SIZE, name); }
-		char* GetName() { return this->name; }
-		void Rename(const char* name) { strcpy_s(this->name, MAX_NAME_SIZE, name); }
+		Name(fixedString<31>& name) : name(name) {}
+		Name(const char* name) : name(name) {}
+		fixedString<31>& GetName() { return this->name; }
+		void Rename(fixedString<31>& name) { this->name = name; }
 	};
 }

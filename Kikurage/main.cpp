@@ -1,11 +1,4 @@
 ﻿#include "Kikurage/Core/Application/Application.h"
-#include <iostream>
-
-/*
-====================================================
-main
-====================================================
-*/
 
 int main() {
 	Kikurage::Application::Create();

@@ -37,7 +37,7 @@ namespace Kikurage {
 		Entity CreateEntity() {
 			Entity e = m_entityManager->createEntity();
 			m_allEntityArray.emplace_back(e);
-			char name[MAX_NAME_SIZE];
+			char name[64];
 			sprintf_s(name, "Entity %d", e);
 			this->AddComponent<Name>(e, Name(name));
 			this->AddComponent<Relationship>(e, Relationship());

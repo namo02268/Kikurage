@@ -28,11 +28,10 @@ namespace Kikurage {
 		auto& entityArray = ecs->GetAllEntityArray();
 
 		static int selected = -1;
-		char buf[32];
+
 		for (int n = 0; n < entityArray.size(); n++) {
-			auto name = ecs->GetComponent<Name>(entityArray[n])->GetName();
-			sprintf_s(buf, "Entity %d", entityArray[n]);
-			if (ImGui::Selectable(name, selected == n)) {
+			auto& name = ecs->GetComponent<Name>(entityArray[n])->GetName();
+			if (ImGui::Selectable(name.c_str(), selected == n)) {
 				selected = n;
 			}
 		}

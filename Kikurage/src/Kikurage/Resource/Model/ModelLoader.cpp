@@ -21,7 +21,7 @@ namespace Kikurage {
             ecs->AddComponent(entity, Transform(Vector3(0.0f), Vector3(size), Vector3(0.0f)));
             ecs->AddComponent(entity, Mesh(mesh));
             ecs->AddComponent<MaterialComponent>(entity, MaterialComponent());
-//            ecs->GetComponent<Name>(entity)->Rename(mesh.name);
+            ecs->GetComponent<Name>(entity)->Rename(mesh.name);
         }
     }
 
@@ -48,7 +48,6 @@ namespace Kikurage {
             auto& meshInfo = object.meshes[i];
 
             meshInfo.name = mesh->mName.C_Str();
-            std::cout << strlen(meshInfo.name) << std::endl;
             meshInfo.hasNormals = mesh->HasNormals();
             meshInfo.hasTextureCoords = mesh->HasTextureCoords(0);
 
