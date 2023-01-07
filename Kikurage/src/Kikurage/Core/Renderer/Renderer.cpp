@@ -24,12 +24,11 @@ namespace Kikurage {
 
 	void Renderer::Init() {
 		this->renderBuffers->Init();
-		this->ResizeViewport();
 	}
 
 	void Renderer::Start() {
-		this->BindFBO();
 		this->ResizeViewport();
+		this->BindFBO();
 	}
 
 	void Renderer::End() {

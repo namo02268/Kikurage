@@ -25,7 +25,7 @@ namespace Kikurage {
 		std::size_t FPS = 0;
 
 	public:
-		bool isEditorEnable = true;
+		bool isEditorEnable = false;
 
 	protected:
 		Application();
