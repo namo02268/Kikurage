@@ -10,74 +10,62 @@ namespace Kikurage {
 	Application::Application() {
 		ResourceManager::Create();
 
-		m_window = new OpenGLWindow(1200, 800, "Kikurage");
 		m_eventHandler = new EventHandler();
-		m_imguiManager = new GuiManager();
-		m_renderer = new Renderer();
 		m_ecs = new ECS();
+		m_window = new OpenGLWindow(1200, 800, "Kikurage");
+		m_renderer = new Renderer();
 		m_scene3d = new Scene3D();
 	}
 
-	Application::~Application() {
-		std::cout << "Terminate Application..." << std::endl;
-		delete m_scene3d;
-		delete m_ecs;
-		delete m_renderer;
-		delete m_imguiManager;
-		delete m_eventHandler;
-		delete m_window;
+	Application::~Application() {}
 
-		ResourceManager::Destroy();
+	void Application::Run() {
+		this->Init();
+
+		while (this->ShouldClose())
+		{
+			this->Update();
+			this->Render();
+			this->PollEvents();
+		}
+
+		this->Shutdown();
 	}
 
 	void Application::Init() {
+		std::cout << "Hello Kikurage!" << "\n";
 		std::cout << "Initialize ECS..." << "\n";
 		m_ecs->Init();
 		std::cout << "Initialize Renderer..." << "\n";
 		m_renderer->Init();
-		std::cout << "Initialize Editor..." << "\n";
-		m_imguiManager->Init();
 		std::cout << "Loading the Scene..." << "\n";
 		m_scene3d->Init();
 	}
 
-	void Application::Update(float timeStep) {
-		m_scene3d->Update(timeStep);
-		if (m_window->IsKeyPressed(GLFW_KEY_E)) {
-			this->isEditorEnable = !this->isEditorEnable;
-		}
+	void Application::Shutdown() {
+		std::cout << "Shutdown Application..." << std::endl;
+		delete m_scene3d;
+		delete m_renderer;
+		delete m_window;
+		delete m_ecs;
+		delete m_eventHandler;
+
+		ResourceManager::Destroy();
+	}
+
+	void Application::Update() {
+		this->UpdateTime();
+		m_scene3d->Update(this->deltaTime);
 	}
 
 	void Application::Render() {
 		this->m_renderer->Start();
 		m_scene3d->Draw();
 		this->m_renderer->End();
-
-		if (isEditorEnable) {
-			m_imguiManager->StartGUIFrame();
-			m_imguiManager->Render();
-			m_imguiManager->EndGUIFrame();
-		}
-		else {
-			m_window->Draw();
-		}
 	}
 
-	void Application::Run() {
-		std::cout << "Hello Kikurage!" << "\n";
-		this->Init();
-
-		std::cout << "Start main loop!" << std::endl;
-		while (m_window->IsOpen())
-		{
-			UpdateTime();
-			m_window->Clear();
-			{
-				this->Update(this->deltaTime);
-				this->Render();
-			}
-			m_window->Update();
-		}
+	void Application::PollEvents() {
+		this->m_window->PollEvents();
 	}
 
 	void Application::UpdateTime() {

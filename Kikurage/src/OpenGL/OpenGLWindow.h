@@ -41,8 +41,7 @@ namespace Kikurage {
 
 		void Draw();
 
-		void Clear();
-		void Update();
+		void PollEvents();
 		bool IsOpen() { return !glfwWindowShouldClose(m_window); }
 
 		GLFWwindow* GetWindowPtr() { return m_window; }

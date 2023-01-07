@@ -1,22 +1,34 @@
-#include "Kikurage/GUI/GuiManager.h"
-#include "Kikurage/Core/Event.h"
+#include "Editor/Editor.h"
 
 #include "imgui/imgui.h"
 #include "imgui/imgui_impl_glfw.h"
 #include "imgui/imgui_impl_opengl3.h"
 
+#include "Editor/Viewport.h"
+#include "Editor/Hierarchy.h"
+#include "Editor/Inspector.h"
+
 namespace Kikurage {
 	void imgui_theme();
 	void BeginDockSpace();
 
-	GuiManager::~GuiManager() {
-		// Cleanup
-		ImGui_ImplOpenGL3_Shutdown();
-		ImGui_ImplGlfw_Shutdown();
-		ImGui::DestroyContext();
+	void Editor::Run() {
+		app->Init();
+		this->InitImGUI();
+		app->GetRenderer()->IsDefaultFboEnable = false;
+
+		while (app->ShouldClose()) {
+			app->Update();
+			app->Render();
+			this->Render();
+			app->PollEvents();
+		}
+
+		this->ShutdownImGUI();
+		app->Shutdown();
 	}
 
-	void GuiManager::Init() {
+	void Editor::InitImGUI() {
 		// init imgui
 		IMGUI_CHECKVERSION();
 		ImGui::CreateContext();
@@ -29,23 +41,37 @@ namespace Kikurage {
 		//io.ConfigViewportsNoTaskBarIcon = true;
 
 		const char* glsl_version = "#version 130";
-		ImGui_ImplGlfw_InitForOpenGL(Application::GetInstance().GetWindow()->GetWindowPtr(), true);
+		ImGui_ImplGlfw_InitForOpenGL(app->GetWindow()->GetWindowPtr(), true);
 		ImGui_ImplOpenGL3_Init(glsl_version);
 
 		// imgui configuration
 		imgui_theme();
-
-		m_componentEditor->Init();
 	}
 
-	void GuiManager::StartGUIFrame() {
+	void Editor::ShutdownImGUI() {
+		ImGui_ImplOpenGL3_Shutdown();
+		ImGui_ImplGlfw_Shutdown();
+		ImGui::DestroyContext();
+	}
+
+	void Editor::Render() {
+		this->StartGUIFrame();
+
+		Viewport(app->GetRenderer());
+		auto targetEntity = Hierarchy(app->GetECS());
+		Inspector(targetEntity, app->GetECS());
+
+		this->EndGUIFrame();
+	}
+
+	void Editor::StartGUIFrame() {
 		ImGui_ImplOpenGL3_NewFrame();
 		ImGui_ImplGlfw_NewFrame();
 		ImGui::NewFrame();
 		BeginDockSpace();
 	}
 
-	void GuiManager::EndGUIFrame() {
+	void Editor::EndGUIFrame() {
 		ImGui::Render();
 		ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
 
@@ -57,10 +83,8 @@ namespace Kikurage {
 		}
 	}
 
-	void GuiManager::Render() {
-		m_componentEditor->Render();
-		m_viewport->Render();
-	}
+
+
 
 	void BeginDockSpace() {
 		static ImGuiDockNodeFlags dockspace_flags = ImGuiDockNodeFlags_None;

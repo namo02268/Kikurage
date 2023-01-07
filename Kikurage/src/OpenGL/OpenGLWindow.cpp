@@ -48,13 +48,7 @@ namespace Kikurage {
 		glDrawArrays(GL_TRIANGLES, 0, 6);
 	}
 
-	void OpenGLWindow::Clear() {
-		glClearColor(0.2f, 0.2f, 0.2f, 1.0f);
-		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-	}
-
-	void OpenGLWindow::Update() {
-		glfwGetCursorPos(m_window, &m_cursorPos[0], &m_cursorPos[1]);
+	void OpenGLWindow::PollEvents() {
 		this->anyKeyEvent = false;
 		this->anyMouseEvent = false;
 		this->m_mousePressed.reset();
@@ -72,7 +66,6 @@ namespace Kikurage {
 		glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
 		glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
 		glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
-		glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
 #ifdef __APPLE__
 		glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
 #endif
@@ -117,6 +110,14 @@ namespace Kikurage {
 				window.m_mousePressed[(size_t)button] = (action == GLFW_PRESS);
 				window.m_mouseReleased[(size_t)button] = (action == GLFW_RELEASE);
 				window.m_mouseHeld[(size_t)button] = (action == GLFW_PRESS);
+			});
+
+		// mouse position
+		glfwSetCursorPosCallback(m_window, [](GLFWwindow* w, double xpos, double ypos)
+			{
+				OpenGLWindow& window = *(OpenGLWindow*)glfwGetWindowUserPointer(w);
+				window.m_cursorPos[0] = xpos;
+				window.m_cursorPos[1] = ypos;
 			});
 
 		// mouse scroll

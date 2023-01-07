@@ -60,15 +60,6 @@
     <ClCompile Include="vendor\Glad\glad.c">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="src\Kikurage\GUI\ComponentEditor.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Kikurage\GUI\GuiManager.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Kikurage\GUI\Viewport.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
     <ClCompile Include="src\OpenGL\OpenGLWindow.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
@@ -142,6 +133,9 @@
       <Filter>ソース ファイル</Filter>
     </ClCompile>
     <ClCompile Include="src\Kikurage\Systems\TransformUpdater\TransformUpdater.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Editor\Editor.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
   </ItemGroup>
@@ -258,16 +252,10 @@
     <ClInclude Include="src\Kikurage\ECS\System.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="src\Kikurage\GUI\ComponentEditors.h">
+    <ClInclude Include="src\Editor\ComponentEditors.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="src\Kikurage\GUI\ComponentEditor.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Kikurage\GUI\GuiManager.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Kikurage\GUI\Viewport.h">
+    <ClInclude Include="src\Editor\Viewport.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
     <ClInclude Include="src\OpenGL\OpenGLWindow.h">
@@ -391,6 +379,15 @@
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
     <ClInclude Include="src\Kikurage\Systems\TransformUpdater\TransformUpdater.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Editor\Editor.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Editor\Hierarchy.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Editor\Inspector.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
   </ItemGroup>

@@ -32,6 +32,9 @@ namespace Kikurage {
 		std::vector<Shader*> m_shaders;
 
 	public:
+		bool IsDefaultFboEnable = true;
+
+	public:
 		Renderer();
 		virtual ~Renderer();
 
@@ -52,10 +55,14 @@ namespace Kikurage {
 		Texture2D& GetRenderTexture() { return this->renderBuffers->renderTexture; }
 		unsigned int GetWidth() const { return this->m_renderInfo.width; }
 		unsigned int GetHeight() const { return this->m_renderInfo.height; }
+		void SetWidth(const unsigned int width) { this->m_renderInfo.width = width; }
+		void SetHeight(const unsigned int height) { this->m_renderInfo.height = height; }
 
 		struct RenderInfo {
 			unsigned int width = 0;
 			unsigned int height = 0;
+			unsigned int lastWidth = 0;
+			unsigned int lastHeight = 0;
 		};
 
 		RenderInfo m_renderInfo;

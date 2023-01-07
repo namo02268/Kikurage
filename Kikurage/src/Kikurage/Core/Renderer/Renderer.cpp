@@ -28,7 +28,11 @@ namespace Kikurage {
 
 	void Renderer::Start() {
 		this->ResizeViewport();
-		this->BindFBO();
+		if (!IsDefaultFboEnable) {
+			this->BindFBO();
+		}
+		glClearColor(0.2f, 0.2f, 0.2f, 1.0f);
+		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	}
 
 	void Renderer::End() {
@@ -37,29 +41,21 @@ namespace Kikurage {
 
 	void Renderer::ResizeViewport() {
 		auto& app = Application::GetInstance();
-		unsigned int width = 0;
-		unsigned int height = 0;
-		if (app.isEditorEnable) {
-			width = app.GetGUIManager()->GetViewportWidth();
-			height = app.GetGUIManager()->GetViewportHeight();
-		}
-		else {
-			width = app.GetWindow()->GetWidth();
-			height = app.GetWindow()->GetHeight();
+		if (IsDefaultFboEnable) {
+			m_renderInfo.width = app.GetWindow()->GetWidth();
+			m_renderInfo.height = app.GetWindow()->GetHeight();
 		}
 
-		if (width != this->m_renderInfo.width || height != this->m_renderInfo.height) {
-			m_renderInfo.width = width;
-			m_renderInfo.height = height;
-			this->renderBuffers->Resize(width, height);
-			glViewport(0, 0, width, height);
+		if (m_renderInfo.lastWidth != this->m_renderInfo.width || m_renderInfo.lastHeight != this->m_renderInfo.height) {
+			m_renderInfo.lastWidth = m_renderInfo.width;
+			m_renderInfo.lastHeight = m_renderInfo.lastHeight;
+			this->renderBuffers->Resize(m_renderInfo.width, m_renderInfo.height);
+			glViewport(0, 0, m_renderInfo.width, m_renderInfo.height);
 		}
 	}
 
 	void Renderer::BindFBO() {
 		this->renderBuffers->framebuffer.Bind();
-		glClearColor(0.2f, 0.2f, 0.2f, 1.0f);
-		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	}
 
 	void Renderer::UnbindFBO() {
