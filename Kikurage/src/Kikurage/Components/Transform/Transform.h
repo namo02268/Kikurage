@@ -40,7 +40,7 @@ namespace Kikurage {
 		}
 
 		void UpdateWorldMatrix(Matrix4& parent) {
-			this->worldMatrix = this->localMatrix * parent;
+			this->worldMatrix = parent * this->localMatrix;
 		}
 
 		bool IsUpdated() { return this->ShouldUpdate; }

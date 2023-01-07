@@ -22,7 +22,7 @@ namespace Kikurage {
 
         for (auto& mesh : model.meshes) {
             auto entity = ecs->CreateEntity();
-            ecs->AddComponent(entity, Transform());
+            ecs->AddComponent(entity, Transform(mesh.position, Vector3(1.0f), Vector3(0.0f)));
             ecs->AddComponent(entity, Mesh(mesh));
             ecs->AddComponent<MaterialComponent>(entity, MaterialComponent());
             ecs->GetComponent<Name>(entity)->Rename(mesh.name);
@@ -53,10 +53,28 @@ namespace Kikurage {
             meshInfo.hasNormals = mesh->HasNormals();
             meshInfo.hasTextureCoords = mesh->HasTextureCoords(0);
 
+            // Center
+            Vector3 Min{ std::numeric_limits<float>::max() };
+            Vector3 Max{ std::numeric_limits<float>::min() };
+
+            for (size_t i = 0; i < (size_t)mesh->mNumVertices; ++i) {
+                Min.x = std::min(mesh->mVertices[i].x, Min.x);
+                Max.x = std::max(mesh->mVertices[i].x, Max.x);
+                Min.y = std::min(mesh->mVertices[i].y, Min.y);
+                Max.y = std::max(mesh->mVertices[i].y, Max.y);
+                Min.z = std::min(mesh->mVertices[i].z, Min.z);
+                Max.z = std::max(mesh->mVertices[i].z, Max.z);
+            }
+
+            auto center = (Min + Max) * 0.5f;
+            Min -= center;
+            Max -= center;
+            meshInfo.position = center;
+
             // vertices
             meshInfo.vertices.resize((size_t)mesh->mNumVertices);
             for (size_t i = 0; i < (size_t)mesh->mNumVertices; ++i) {
-                meshInfo.vertices[i].Position = Vector3(mesh->mVertices[i].x, mesh->mVertices[i].y, mesh->mVertices[i].z);
+                meshInfo.vertices[i].Position = Vector3(mesh->mVertices[i].x, mesh->mVertices[i].y, mesh->mVertices[i].z) - center;
                 meshInfo.vertices[i].Normal = Vector3(mesh->mNormals[i].x, mesh->mNormals[i].y, mesh->mNormals[i].z);
 
                 if (meshInfo.hasTextureCoords) {
@@ -65,23 +83,7 @@ namespace Kikurage {
             }
 
             // aabb
-            float MinX = std::numeric_limits<float>::max();
-            float MaxX = -std::numeric_limits<float>::max();
-            float MinY = std::numeric_limits<float>::max();
-            float MaxY = -std::numeric_limits<float>::max();
-            float MinZ = std::numeric_limits<float>::max();
-            float MaxZ = -std::numeric_limits<float>::max();
-
-            for (size_t i = 0; i < (size_t)mesh->mNumVertices; ++i) {
-                MinX = std::min(mesh->mVertices[i].x, MinX);
-                MaxX = std::max(mesh->mVertices[i].x, MaxX);
-                MinY = std::min(mesh->mVertices[i].y, MinY);
-                MaxY = std::max(mesh->mVertices[i].y, MaxY);
-                MinZ = std::min(mesh->mVertices[i].z, MinZ);
-                MaxZ = std::max(mesh->mVertices[i].z, MaxZ);
-            }
-
-            meshInfo.aabb = { Vector3(MinX, MinY, MinZ), Vector3(MaxX, MaxY, MaxZ) };
+            meshInfo.aabb = { Min, Max };
 
             // indices
             meshInfo.indices.resize((size_t)mesh->mNumFaces * 3);

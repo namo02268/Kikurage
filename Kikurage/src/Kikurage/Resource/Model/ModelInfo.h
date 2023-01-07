@@ -11,10 +11,11 @@ namespace Kikurage {
 		fixedString<63> name;
 		std::vector<Vertex> vertices;
 		std::vector<unsigned int> indices;
+		Vector3 position{ 0.0f };
 		AABB aabb;
 
-		bool hasNormals;
-		bool hasTextureCoords;
+		bool hasNormals{ false };
+		bool hasTextureCoords{ false };
 	};
 
 	struct ModelInfo {

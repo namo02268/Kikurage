@@ -45,6 +45,7 @@ namespace Kikurage {
 						if (ImGui::IsItemClicked()) {
 							selected = currentEntity;
 						}
+						ImGui::Indent();
 						while (next) {
 							auto& childname = ecs->GetComponent<Name>(next)->GetName();
 							if (ImGui::Selectable(childname.c_str(), selected == next)) {

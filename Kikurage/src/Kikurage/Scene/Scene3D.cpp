@@ -37,7 +37,8 @@ namespace Kikurage {
 
 		auto& resouceManager = ResourceManager::GetInstance();
 //		resouceManager.LoadShader("resources/shaders/Simple.vert", "resources/shaders/PBR_nonTexture.frag", nullptr, "PBR");
-		resouceManager.LoadShader("resources/shaders/Simple.vert", "resources/shaders/depth.frag", nullptr, "PBR");
+//		resouceManager.LoadShader("resources/shaders/Simple.vert", "resources/shaders/depth.frag", nullptr, "PBR");
+		resouceManager.LoadShader("resources/shaders/Simple.vert", "resources/shaders/normal.frag", nullptr, "PBR");
 		resouceManager.LoadShader("resources/shaders/background.vert", "resources/shaders/background.frag", nullptr, "backgroundShader");
 
 		Application::GetInstance().GetRenderer()->AddShader(ResourceManager::GetInstance().GetShader("PBR"));

@@ -183,6 +183,7 @@
     <None Include="resources\shaders\screen.vert" />
     <None Include="resources\shaders\screen.frag" />
     <None Include="resources\shaders\depth.frag" />
+    <None Include="resources\shaders\normal.frag" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="vendor\imgui\imconfig.h">

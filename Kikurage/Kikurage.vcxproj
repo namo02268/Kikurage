@@ -67,6 +67,7 @@
     <None Include="resources\shaders\depth.frag" />
     <None Include="resources\shaders\equirectangular_to_cubemap.frag" />
     <None Include="resources\shaders\irradiance_convolution.frag" />
+    <None Include="resources\shaders\normal.frag" />
     <None Include="resources\shaders\PBR_nonTexture.frag" />
     <None Include="resources\shaders\Phong.frag" />
     <None Include="resources\shaders\prefilter.frag" />
