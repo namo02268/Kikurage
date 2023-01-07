@@ -27,12 +27,39 @@ namespace Kikurage {
 
 		auto& entityArray = ecs->GetAllEntityArray();
 
-		static int selected = -1;
-
+		static EntityID selected = 0;
+		ImGui::Indent();
 		for (int n = 0; n < entityArray.size(); n++) {
-			auto& name = ecs->GetComponent<Name>(entityArray[n])->GetName();
-			if (ImGui::Selectable(name.c_str(), selected == n)) {
-				selected = n;
+			auto currentEntity = entityArray[n];
+			if (!ecs->GetComponent<Relationship>(currentEntity)->parent) {
+				auto& name = ecs->GetComponent<Name>(currentEntity)->GetName();
+				auto next = ecs->GetComponent<Relationship>(currentEntity)->first;
+				if (next) {
+					ImGui::Unindent(ImGui::GetTreeNodeToLabelSpacing());
+					ImGuiTreeNodeFlags node_flags = ImGuiTreeNodeFlags_OpenOnArrow | ImGuiTreeNodeFlags_OpenOnDoubleClick | ImGuiTreeNodeFlags_SpanAvailWidth;
+					if(selected == currentEntity) node_flags |= ImGuiTreeNodeFlags_Selected;
+					bool node_open = ImGui::TreeNodeEx((void*)(intptr_t)currentEntity, node_flags, name.c_str());
+					if (ImGui::IsItemClicked() && !ImGui::IsItemToggledOpen())
+						selected = currentEntity;
+					if (node_open) {
+						if (ImGui::IsItemClicked()) {
+							selected = currentEntity;
+						}
+						while (next) {
+							auto& childname = ecs->GetComponent<Name>(next)->GetName();
+							if (ImGui::Selectable(childname.c_str(), selected == next)) {
+								selected = next;
+							}
+							next = ecs->GetComponent<Relationship>(next)->next;
+						}
+						ImGui::TreePop();
+					}
+				}
+				else {
+					if (ImGui::Selectable(name.c_str(), selected == currentEntity)) {
+						selected = currentEntity;
+					}
+				}
 			}
 		}
 
@@ -40,28 +67,29 @@ namespace Kikurage {
 		ImGui::Begin("Inspector");
 		ImGui::PushItemWidth(200);
 
-		if (selected != -1) {
-			ImGui::PushID(entityArray[selected]);
+		if (selected != 0) {
+			ImGui::PushID(selected);
 			for (int i = 0; i < MAX_COMPONENTS_FAMILY; i++) {
-				if (ecs->GetComponentMask(entityArray[selected])[i] && m_componentGUIbit[i]) {
+				if (ecs->GetComponentMask(selected)[i] && m_componentGUIbit[i]) {
 					ImGui::SetNextItemOpen(true, ImGuiCond_Once);
-					m_componentGUIs[i]->draw(entityArray[selected]);
+					m_componentGUIs[i]->draw(selected);
 					ImGui::Separator();
 				}
 			}
 
 			ImGui::PushItemWidth(50.0f);
-			if (ImGui::Button("Add Component"))
+			if (ImGui::Button("Add Component")) {
 				ImGui::OpenPopup("Component");
+			}
 
 			if (ImGui::BeginPopup("Component"))
 			{
 				if (ImGui::Selectable("Transform"))
-					ecs->AddComponent<Transform>(entityArray[selected], Transform());
+					ecs->AddComponent<Transform>(selected, Transform());
 				if (ImGui::Selectable("Material"))
-					ecs->AddComponent<MaterialComponent>(entityArray[selected], MaterialComponent());
+					ecs->AddComponent<MaterialComponent>(selected, MaterialComponent());
 				if (ImGui::Selectable("RigidBody"))
-					ecs->AddComponent<RigidBodyComponent>(entityArray[selected], RigidBodyComponent());
+					ecs->AddComponent<RigidBodyComponent>(selected, RigidBodyComponent());
 				ImGui::EndPopup();
 			}
 			ImGui::PopID();

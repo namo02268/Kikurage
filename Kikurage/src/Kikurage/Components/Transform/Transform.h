@@ -9,7 +9,8 @@ namespace Kikurage {
 		Vector3 position{ 0.0f };
 		Vector3 rotation{ 0.0f };
 		Vector3 scale{ 1.0f };
-		Matrix4 transform{ 1.0f };
+		Matrix4 localMatrix{ 1.0f };
+		Matrix4 worldMatrix{ 1.0f };
 		bool ShouldUpdate = true;
 
 	public:
@@ -27,13 +28,24 @@ namespace Kikurage {
 			return !(*this == other);
 		}
 
-		Matrix4& GetMatrix() {
-			if (this->ShouldUpdate) {
-				this->UpdateMatrix();
-				this->ShouldUpdate = false;
-			}
-			return this->transform;
+		void UpdateLocalMatrix() {
+			Matrix4 mat{ 1.0f };
+			mat = Kikurage::Translate(mat, this->position);
+			mat = Kikurage::Rotate(mat, ToRadians(this->rotation.z), ZAxis);
+			mat = Kikurage::Rotate(mat, ToRadians(this->rotation.y), YAxis);
+			mat = Kikurage::Rotate(mat, ToRadians(this->rotation.x), XAxis);
+			mat = Kikurage::Scale(mat, this->scale);
+			this->localMatrix = mat;
+			this->ShouldUpdate = false;
 		}
+
+		void UpdateWorldMatrix(Matrix4& parent) {
+			this->worldMatrix = this->localMatrix * parent;
+		}
+
+		bool IsUpdated() { return this->ShouldUpdate; }
+		Matrix4& GetLocalMatrix() { return this->localMatrix; }
+		Matrix4& GetWorldMatrix() { return this->worldMatrix; }
 
 		Vector3 GetPosition() const { return this->position; }
 		Vector3 GetRotation() const { return this->rotation; }
@@ -44,8 +56,8 @@ namespace Kikurage {
 		Vector3 GetRightDirection() const { return GetWorldOrientation() * VectorRight; }
 		Vector3 GetForwardDirection() const { return GetWorldOrientation() * VectorForward; }
 
-		Quaternion GetWorldOrientation() const { return ToQuat(transform); }
-		Quaternion GetLocalOrientation() const { return ToQuat(transform); }
+		Quaternion GetWorldOrientation() const { return ToQuat(localMatrix); }
+		Quaternion GetLocalOrientation() const { return ToQuat(localMatrix); }
 
 		void SetPosition(Vector3 position) { this->position = position; this->ShouldUpdate = true; }
 		void SetRotation(Vector3 angle) { this->rotation = Vec3fmod(angle + 360.0f, Vector3(360.0f)); this->ShouldUpdate = true; }
@@ -69,16 +81,5 @@ namespace Kikurage {
 		void ScaleX(float x) { this->Scale(Vector3(x, 0.0f, 0.0f)); }
 		void ScaleY(float y) { this->Scale(Vector3(0.0f, y, 0.0f)); }
 		void ScaleZ(float z) { this->Scale(Vector3(0.0f, 0.0f, z)); }
-
-	private:
-		void UpdateMatrix() {
-			Matrix4 mat{ 1.0f };
-			mat = Kikurage::Translate(mat, this->position);
-			mat = Kikurage::Rotate(mat, ToRadians(this->rotation.z), ZAxis);
-			mat = Kikurage::Rotate(mat, ToRadians(this->rotation.y), YAxis);
-			mat = Kikurage::Rotate(mat, ToRadians(this->rotation.x), XAxis);
-			mat = Kikurage::Scale(mat, this->scale);
-			this->transform = mat;
-		}
 	};
 }

@@ -69,7 +69,7 @@ namespace Kikurage {
 
 	void Renderer::BindCameraInformation(BaseCamera& camera, Transform& transform) {
 		for (auto shader : m_shaders) {
-			auto view = Inverse(transform.GetMatrix());
+			auto view = Inverse(transform.GetLocalMatrix());
 			camera.SetAspectRatio(static_cast<float>(this->GetWidth()) / static_cast<float>(this->GetHeight()));
 
 			shader->Bind();

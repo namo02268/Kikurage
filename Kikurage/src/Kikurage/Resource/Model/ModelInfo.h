@@ -8,7 +8,7 @@
 
 namespace Kikurage {
 	struct MeshInfo {
-		fixedString<31> name;
+		fixedString<63> name;
 		std::vector<Vertex> vertices;
 		std::vector<unsigned int> indices;
 		AABB aabb;

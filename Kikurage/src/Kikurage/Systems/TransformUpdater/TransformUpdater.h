@@ -1,19 +1,16 @@
 #pragma once
 
 #include "Kikurage/ECS/System.h"
-#include "OpenGL/Shader.h"
 
 namespace Kikurage {
-	class MeshRenderer : public System {
-	private:
-		Shader* m_shader;
-
+	class TransformUpdater : public System {
 	public:
-		MeshRenderer(Shader* shader);
-		~MeshRenderer();
+		TransformUpdater();
+		~TransformUpdater();
 
 		void Init() override;
 		void Update(float dt) override;
 		void Draw() override;
+
 	};
 }

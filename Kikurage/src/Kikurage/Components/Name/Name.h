@@ -6,12 +6,13 @@
 namespace Kikurage {
 	struct Name : public Component {
 	private:
-		fixedString<31> name;
+		fixedString<63> name;
 
 	public:
-		Name(fixedString<31>& name) : name(name) {}
+		Name(fixedString<63>& name) : name(name) {}
 		Name(const char* name) : name(name) {}
-		fixedString<31>& GetName() { return this->name; }
-		void Rename(fixedString<31>& name) { this->name = name; }
+		fixedString<63>& GetName() { return this->name; }
+		void Rename(fixedString<63>& name) { this->name = name; }
+		void Rename(const char* name) { this->name = name; }
 	};
 }

@@ -5,6 +5,9 @@
 
 namespace Kikurage {
 	struct Relationship : public Component {
-		Entity parent = 0;
+		Entity first{ ENTITY_NULL };
+		Entity prev{ ENTITY_NULL };
+		Entity next{ ENTITY_NULL };
+		Entity parent{ ENTITY_NULL };
 	};
 }

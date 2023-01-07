@@ -19,6 +19,7 @@ namespace Kikurage {
 	}
 
 	Application::~Application() {
+		std::cout << "Terminate Application..." << std::endl;
 		delete m_scene3d;
 		delete m_ecs;
 		delete m_renderer;
@@ -30,9 +31,13 @@ namespace Kikurage {
 	}
 
 	void Application::Init() {
-		m_renderer->Init();
-		m_imguiManager->Init();
+		std::cout << "Initialize ECS..." << "\n";
 		m_ecs->Init();
+		std::cout << "Initialize Renderer..." << "\n";
+		m_renderer->Init();
+		std::cout << "Initialize Editor..." << "\n";
+		m_imguiManager->Init();
+		std::cout << "Loading the Scene..." << "\n";
 		m_scene3d->Init();
 	}
 
@@ -59,8 +64,10 @@ namespace Kikurage {
 	}
 
 	void Application::Run() {
+		std::cout << "Hello Kikurage!" << "\n";
 		this->Init();
 
+		std::cout << "Start main loop!" << std::endl;
 		while (m_window->IsOpen())
 		{
 			UpdateTime();

@@ -47,7 +47,7 @@ namespace Kikurage {
 			this->m_shader->SetUniform("ao", material->ao);
 
 			// model
-			this->m_shader->SetUniform("model", transform->GetMatrix());
+			this->m_shader->SetUniform("model", transform->GetWorldMatrix());
 			renderer->DrawObject(mesh);
 		}
 	}

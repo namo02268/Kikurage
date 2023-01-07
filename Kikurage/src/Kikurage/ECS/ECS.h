@@ -59,6 +59,24 @@ namespace Kikurage {
 			m_entityManager->destroyEnitity(e);
 		}
 
+		// TODO : •Êƒtƒ@ƒCƒ‹
+		void AddRelationship(Entity parent, Entity child) {
+			this->GetComponent<Relationship>(child)->parent = parent;
+			auto current = this->GetComponent<Relationship>(parent)->first;
+			if (current) {
+				auto last = current;
+				while (current) {
+					last = current;
+					current = this->GetComponent<Relationship>(current)->next;
+				}
+				this->GetComponent<Relationship>(last)->next = child;
+				this->GetComponent<Relationship>(child)->prev = last;
+			}
+			else {
+				this->GetComponent<Relationship>(parent)->first = child;
+			}
+		}
+
 		std::vector<Entity>& GetAllEntityArray() {
 			return m_allEntityArray;
 		}
@@ -88,7 +106,7 @@ namespace Kikurage {
 		template<typename ComponentType>
 		void AddComponent(Entity& e, ComponentType&& c) {
 			auto family = getComponentTypeID<ComponentType>();
-			if (!m_componentMask[e][family]) {
+			if (!this->HasComponent<ComponentType>(e)) {
 				m_componentMask[e][family] = true;
 
 
@@ -107,9 +125,15 @@ namespace Kikurage {
 		}
 
 		template<typename ComponentType>
+		bool HasComponent(Entity& e) {
+			auto family = getComponentTypeID<ComponentType>();
+			return m_componentMask[e][family];
+		}
+
+		template<typename ComponentType>
 		void RemoveComponent(Entity& e) {
 			auto family = getComponentTypeID<ComponentType>();
-			if (m_componentMask[e][family]) {
+			if (this->HasComponent<ComponentType>(e)) {
 				m_componentMask[e][family] = false;
 				static_cast<ComponentManager<ComponentType>&>(*m_componentManagers[family]).removeComponent(e);
 				UpdateComponentMap(e, family);

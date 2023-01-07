@@ -8,6 +8,7 @@
 #include "Kikurage/Resource/Model/ModelLoader.h"
 
 //------------Systems------------
+#include "Kikurage/Systems/TransformUpdater/TransformUpdater.h"
 #include "Kikurage/Systems/Renderer/MeshRenderer.h"
 #include "Kikurage/Systems/Camera/CameraSystem.h"
 #include "Kikurage/Systems/IBL/IBL.h"
@@ -44,6 +45,9 @@ namespace Kikurage {
 
 		//-----------------------------add systems to scene-----------------------------//
 		auto ecs = Application::GetInstance().GetECS();
+		// transform updater
+		auto transformUpdater = std::make_unique<TransformUpdater>();
+		ecs->AddSystem(std::move(transformUpdater));
 		// camera system
 		auto cameraSystem = std::make_unique<CameraSystem>();
 		ecs->AddSystem(std::move(cameraSystem));
@@ -62,6 +66,7 @@ namespace Kikurage {
 		auto cameraEntity = ecs->CreateEntity();
 		ecs->AddComponent<Transform>(cameraEntity, Transform(Vector3(50.0f, 5.0f, 0.0f), Vector3(1.0f), Vector3(0.0f, 90.0f, 0.0f)));
 		ecs->AddComponent<CameraComponent>(cameraEntity, CameraComponent());
+		ecs->GetComponent<Name>(cameraEntity)->Rename("EditorCamera");
 
 		// sphere
 //		ModelLoader::LoadEntity("resources/objects/sphere/sphere.obj", 1.0f);

@@ -3,4 +3,5 @@
 
 namespace Kikurage {
 	using Entity = EntityID;
+	constexpr Entity ENTITY_NULL = 0;
 }

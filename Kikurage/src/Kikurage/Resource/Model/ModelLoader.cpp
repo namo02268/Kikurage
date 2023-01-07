@@ -16,12 +16,17 @@ namespace Kikurage {
         auto model = LoadFromFile(path);
         auto ecs = Application::GetInstance().GetECS();
 
+        auto root = ecs->CreateEntity();
+        ecs->AddComponent(root, Transform(Vector3(0.0f), Vector3(size), Vector3(0.0f)));
+        ecs->GetComponent<Name>(root)->Rename(path);
+
         for (auto& mesh : model.meshes) {
             auto entity = ecs->CreateEntity();
-            ecs->AddComponent(entity, Transform(Vector3(0.0f), Vector3(size), Vector3(0.0f)));
+            ecs->AddComponent(entity, Transform());
             ecs->AddComponent(entity, Mesh(mesh));
             ecs->AddComponent<MaterialComponent>(entity, MaterialComponent());
             ecs->GetComponent<Name>(entity)->Rename(mesh.name);
+            ecs->AddRelationship(root, entity);
         }
     }
 
@@ -39,9 +44,6 @@ namespace Kikurage {
         }
 
         object.meshes.resize((size_t)scene->mNumMeshes);
-
-        std::cout << "Meshes : " << scene->mNumMeshes << std::endl;
-        std::cout << "materials : " << scene->mNumMaterials << std::endl;
 
         for (size_t i = 0; i < (size_t)scene->mNumMeshes; ++i) {
             auto& mesh = scene->mMeshes[i];
