@@ -10,7 +10,7 @@
 //------------Systems------------
 #include "Kikurage/Systems/TransformUpdater/TransformUpdater.h"
 #include "Kikurage/Systems/Renderer/MeshRenderer.h"
-#include "Kikurage/Systems/Camera/CameraSystem.h"
+#include "Kikurage/Systems/Camera/CameraController.h"
 #include "Kikurage/Systems/IBL/IBL.h"
 #include "Kikurage/Systems/Physics/Physics.h"
 #include "Kikurage/Systems/Collision/CollisionSystem.h"
@@ -19,7 +19,7 @@
 #include "Kikurage/Systems/AABBCollision/AABBCollision.h"
 
 //------------Components------------
-#include "Kikurage/Components/CameraComponent.h"
+#include "Kikurage/Components/Camera/CameraComponent.h"
 #include "Kikurage/Components/Transform/Transform.h"
 #include "Kikurage/Components/RigidBodyComponent.h"
 #include "Kikurage/Components/CollisionComponent.h"
@@ -50,7 +50,7 @@ namespace Kikurage {
 		auto transformUpdater = std::make_unique<TransformUpdater>();
 		ecs->AddSystem(std::move(transformUpdater));
 		// camera system
-		auto cameraSystem = std::make_unique<CameraSystem>();
+		auto cameraSystem = std::make_unique<CameraController>();
 		ecs->AddSystem(std::move(cameraSystem));
 		// meshRenderer
 		auto meshRenderer = std::make_unique<MeshRenderer>(ResourceManager::GetInstance().GetShader("PBR"));

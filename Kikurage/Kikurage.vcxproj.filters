@@ -72,7 +72,7 @@
     <ClCompile Include="src\OpenGL\Texture2D.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="src\Kikurage\Systems\Camera\CameraSystem.cpp">
+    <ClCompile Include="src\Kikurage\Systems\Camera\CameraController.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
     <ClCompile Include="src\Kikurage\Systems\Collision\CollisionSystem.cpp">
@@ -273,7 +273,7 @@
     <ClInclude Include="src\OpenGL\Texture2D.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="src\Kikurage\Systems\Camera\CameraSystem.h">
+    <ClInclude Include="src\Kikurage\Systems\Camera\CameraController.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
     <ClInclude Include="src\Kikurage\Systems\Collision\Collider.h">
@@ -363,7 +363,7 @@
     <ClInclude Include="src\Utils\Singleton.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="src\Kikurage\Components\CameraComponent.h">
+    <ClInclude Include="src\Kikurage\Components\Camera\CameraComponent.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
     <ClInclude Include="src\OpenGL\VertexArray.h">

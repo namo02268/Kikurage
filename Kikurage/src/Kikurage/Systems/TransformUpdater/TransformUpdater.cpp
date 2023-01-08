@@ -21,15 +21,15 @@ namespace Kikurage {
 
 	void TransformUpdater::Update(float dt) {
 		for (auto& e : m_entityArray) {
-			auto transform = m_parentScene->GetComponent<Transform>(e);
-			auto relation = m_parentScene->GetComponent<Relationship>(e);
+			auto transform = m_ecs->GetComponent<Transform>(e);
+			auto relation = m_ecs->GetComponent<Relationship>(e);
 
 			if (transform->IsUpdated()) {
 				transform->UpdateLocalMatrix();
 			}
 			auto parent = relation->parent;
 			if (parent) {
-				transform->UpdateWorldMatrix(m_parentScene->GetComponent<Transform>(parent)->GetLocalMatrix());
+				transform->UpdateWorldMatrix(m_ecs->GetComponent<Transform>(parent)->GetLocalMatrix());
 			}
 		}
 	}

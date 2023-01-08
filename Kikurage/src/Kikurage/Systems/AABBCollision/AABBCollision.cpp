@@ -25,19 +25,19 @@ namespace Kikurage {
 
 	void AABBCollision::Update(float dt) {
 		for (auto& e : m_entityArray)
-			m_parentScene->GetComponent<MaterialComponent>(e)->albedo = Vector3(0.0f, 0.0f, 1.0f);
+			m_ecs->GetComponent<MaterialComponent>(e)->albedo = Vector3(0.0f, 0.0f, 1.0f);
 
 		for (auto& a : m_entityArray) {
-			auto aTrans = m_parentScene->GetComponent<Transform>(a);
-			auto aMesh = m_parentScene->GetComponent<Mesh>(a);
-			auto aMat = m_parentScene->GetComponent<MaterialComponent>(a);
+			auto aTrans = m_ecs->GetComponent<Transform>(a);
+			auto aMesh = m_ecs->GetComponent<Mesh>(a);
+			auto aMat = m_ecs->GetComponent<MaterialComponent>(a);
 
 			/*
 			for (auto& b : m_entityArray) {
 				if (a == b) break;
-				auto bTrans = m_parentScene->GetComponent<Transform>(b);
-				auto bMesh = m_parentScene->GetComponent<MeshComponent>(b);
-				auto bMat = m_parentScene->GetComponent<MaterialComponent>(b);
+				auto bTrans = m_ecs->GetComponent<Transform>(b);
+				auto bMesh = m_ecs->GetComponent<MeshComponent>(b);
+				auto bMat = m_ecs->GetComponent<MaterialComponent>(b);
 				AABB aAABB = { aMesh->mesh->GetAABB().Min + aTrans->GetPosition(), aMesh->mesh->GetAABB().Max + aTrans->GetPosition()};
 				AABB bAABB = { bMesh->mesh->GetAABB().Min + bTrans->GetPosition(), bMesh->mesh->GetAABB().Max + bTrans->GetPosition() };
 				if (this->intersect(aAABB, bAABB)) {

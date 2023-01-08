@@ -27,8 +27,8 @@ namespace Kikurage {
 
 	void Physics::Update(float dt) {
 		for (auto& e : m_entityArray) {
-			auto transfromComponent = m_parentScene->GetComponent<Transform>(e);
-			auto rigidBodyComponent = m_parentScene->GetComponent<RigidBodyComponent>(e);
+			auto transfromComponent = m_ecs->GetComponent<Transform>(e);
+			auto rigidBodyComponent = m_ecs->GetComponent<RigidBodyComponent>(e);
 
 			if (rigidBodyComponent->isGravity) {
 				rigidBodyComponent->force += rigidBodyComponent->mass * m_gravity;
@@ -46,10 +46,10 @@ namespace Kikurage {
 	}
 
 	void Physics::onCollisionEvent(CollisionEvent* collision) {
-		auto a_trans = m_parentScene->GetComponent<Transform>(collision->a);
-		auto b_trans = m_parentScene->GetComponent<Transform>(collision->b);
-		auto a_rigid = m_parentScene->GetComponent<RigidBodyComponent>(collision->a);
-		auto b_rigid = m_parentScene->GetComponent<RigidBodyComponent>(collision->b);
+		auto a_trans = m_ecs->GetComponent<Transform>(collision->a);
+		auto b_trans = m_ecs->GetComponent<Transform>(collision->b);
+		auto a_rigid = m_ecs->GetComponent<RigidBodyComponent>(collision->a);
+		auto b_rigid = m_ecs->GetComponent<RigidBodyComponent>(collision->b);
 
 		if (a_rigid != nullptr && b_rigid != nullptr) {
 			// position solver

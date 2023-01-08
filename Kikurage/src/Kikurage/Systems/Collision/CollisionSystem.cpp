@@ -27,25 +27,25 @@ namespace Kikurage {
 
 	void CollisionSystem::Update(float dt) {
 		for (auto& a : m_entityArray) {
-			auto a_parent = m_parentScene->GetComponent<Relationship>(a)->parent;
+			auto a_parent = m_ecs->GetComponent<Relationship>(a)->parent;
 			for (auto& b : m_entityArray) {
 				if (a == b) break;
 
-				auto b_parent = m_parentScene->GetComponent<Relationship>(b)->parent;
-				auto a_trans = m_parentScene->GetComponent<Transform>(a);
+				auto b_parent = m_ecs->GetComponent<Relationship>(b)->parent;
+				auto a_trans = m_ecs->GetComponent<Transform>(a);
 				Transform a_result = *a_trans;
 				if (a_parent) {
-//					a_result += *(m_parentScene->GetComponent<Transform>(a_parent));
+//					a_result += *(m_ecs->GetComponent<Transform>(a_parent));
 				}
 
-				auto b_trans = m_parentScene->GetComponent<Transform>(b);
+				auto b_trans = m_ecs->GetComponent<Transform>(b);
 				Transform b_result = *b_trans;
 				if (b_parent) {
-//					b_result += *(m_parentScene->GetComponent<Transform>(b_parent));
+//					b_result += *(m_ecs->GetComponent<Transform>(b_parent));
 				}
 
-				auto a_col = m_parentScene->GetComponent<CollisionComponent>(a);
-				auto b_col = m_parentScene->GetComponent<CollisionComponent>(b);
+				auto a_col = m_ecs->GetComponent<CollisionComponent>(a);
+				auto b_col = m_ecs->GetComponent<CollisionComponent>(b);
 				CollisionPoints points = a_col->collider->TestCollision(
 					&a_result,
 					b_col->collider,

@@ -83,7 +83,7 @@ namespace Kikurage {
 
 		//---------------------------------------------System---------------------------------------------//
 		void AddSystem(std::unique_ptr<System> system) {
-			system->m_parentScene = this;
+			system->m_ecs = this;
 			m_systems.push_back(std::move(system));
 		}
 

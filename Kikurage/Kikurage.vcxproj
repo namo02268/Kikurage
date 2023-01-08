@@ -37,7 +37,7 @@
     <ClCompile Include="src\Kikurage\Resource\ResourceManager\ResourceManager.cpp" />
     <ClCompile Include="src\OpenGL\Shader.cpp" />
     <ClCompile Include="src\OpenGL\Texture2D.cpp" />
-    <ClCompile Include="src\Kikurage\Systems\Camera\CameraSystem.cpp" />
+    <ClCompile Include="src\Kikurage\Systems\Camera\CameraController.cpp" />
     <ClCompile Include="src\Kikurage\Systems\Collision\CollisionSystem.cpp" />
     <ClCompile Include="src\Kikurage\Systems\Collision\PlaneCollider.cpp" />
     <ClCompile Include="src\Kikurage\Systems\Collision\SphereCollider.cpp" />
@@ -77,7 +77,7 @@
     <ClInclude Include="src\Editor\Editor.h" />
     <ClInclude Include="src\Editor\Hierarchy.h" />
     <ClInclude Include="src\Editor\Inspector.h" />
-    <ClInclude Include="src\Kikurage\Components\CameraComponent.h" />
+    <ClInclude Include="src\Kikurage\Components\Camera\CameraComponent.h" />
     <ClInclude Include="src\Kikurage\Components\Name\Name.h" />
     <ClInclude Include="src\Kikurage\Components\Relationship.h" />
     <ClInclude Include="src\Kikurage\Core\Application\Application.h" />
@@ -121,7 +121,7 @@
     <ClInclude Include="src\Kikurage\Resource\ResourceManager\ResourceManager.h" />
     <ClInclude Include="src\OpenGL\Shader.h" />
     <ClInclude Include="src\OpenGL\Texture2D.h" />
-    <ClInclude Include="src\Kikurage\Systems\Camera\CameraSystem.h" />
+    <ClInclude Include="src\Kikurage\Systems\Camera\CameraController.h" />
     <ClInclude Include="src\Kikurage\Systems\Collision\Collider.h" />
     <ClInclude Include="src\Kikurage\Systems\Collision\CollisionAlgorithm.h" />
     <ClInclude Include="src\Kikurage\Systems\Collision\CollisionPoints.h" />

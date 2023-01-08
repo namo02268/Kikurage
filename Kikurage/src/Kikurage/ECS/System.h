@@ -14,7 +14,7 @@ namespace Kikurage {
 		std::vector<Entity> m_entityArray;
 
 	public:
-		ECS* m_parentScene;
+		ECS* m_ecs;
 		ComponentFamily m_requiredComponent;
 
 	public:

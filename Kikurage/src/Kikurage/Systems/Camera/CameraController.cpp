@@ -1,29 +1,29 @@
-#include "Kikurage/Systems/Camera/CameraSystem.h"
+#include "Kikurage/Systems/Camera/CameraController.h"
 
 #include "Kikurage/Core/Application/Application.h"
 #include "Kikurage/ECS/ECS.h"
 #include "Kikurage/Components/Transform/Transform.h"
-#include "Kikurage/Components/CameraComponent.h"
+#include "Kikurage/Components/Camera/CameraComponent.h"
 
 namespace Kikurage {
-	CameraSystem::CameraSystem() {
+	CameraController::CameraController() {
 		auto family = getComponentTypeID<Transform>();
 		m_requiredComponent[family] = true;
 		family = getComponentTypeID<CameraComponent>();
 		m_requiredComponent[family] = true;
 	}
 
-	CameraSystem::~CameraSystem() {
+	CameraController::~CameraController() {
 
 	}
 
-	void CameraSystem::Init() {
+	void CameraController::Init() {
 
 	}
 
-	void CameraSystem::Update(float dt) {
+	void CameraController::Update(float dt) {
 		for (auto& e : m_entityArray) {
-			auto trans = m_parentScene->GetComponent<Transform>(e);
+			auto trans = m_ecs->GetComponent<Transform>(e);
 			camera.UpdateProjectionMatrix();
 			camera.HandleKeyboard(*trans, dt);
 			camera.HandleMouse(*trans, dt);
@@ -32,6 +32,17 @@ namespace Kikurage {
 		}
 	}
 
-	void CameraSystem::Draw() {
+	void CameraController::Draw() {
+	}
+
+	void CameraController::HandleMouse(Transform& transform, float dt) {
+
+	}
+
+	void CameraController::HandleKeyboard(Transform& transform, float dt) {
+
+	}
+
+	void CameraController::HandleScroll(Transform& transform, float dt){
 	}
 }

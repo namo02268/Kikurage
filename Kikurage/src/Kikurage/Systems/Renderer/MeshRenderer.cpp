@@ -36,9 +36,9 @@ namespace Kikurage {
 		this->m_shader->Bind();
 		auto renderer = Application::GetInstance().GetRenderer();
 		for (auto& e : m_entityArray) {
-			auto transform = m_parentScene->GetComponent<Transform>(e);
-			auto mesh = m_parentScene->GetComponent<Mesh>(e);
-			auto material = m_parentScene->GetComponent<MaterialComponent>(e);
+			auto transform = m_ecs->GetComponent<Transform>(e);
+			auto mesh = m_ecs->GetComponent<Mesh>(e);
+			auto material = m_ecs->GetComponent<MaterialComponent>(e);
 
 			// material
 			this->m_shader->SetUniform("albedo", material->albedo);
