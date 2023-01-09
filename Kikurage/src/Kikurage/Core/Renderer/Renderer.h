@@ -25,10 +25,21 @@ namespace Kikurage {
 		void Resize(unsigned int width, unsigned int height);
 	};
 
+	struct GBuffers {
+		FrameBuffer gBuffer;
+		Texture2D Position;
+		Texture2D Normal;
+		Texture2D AlbedoSpec;
+		RenderBuffer renderbuffer;
+
+		void Init();
+		void Resize(unsigned int width, unsigned int height);
+	};
 
 	class Renderer {
 	private:
 		std::unique_ptr<RenderBuffers> renderBuffers = std::make_unique<RenderBuffers>();
+		std::unique_ptr<GBuffers> gBuffers = std::make_unique<GBuffers>();
 		std::vector<Shader*> m_shaders;
 
 	public:
@@ -53,7 +64,11 @@ namespace Kikurage {
 		void DrawObject(Mesh* mesh);
 
 		Texture2D& GetRenderTexture() { return this->renderBuffers->renderTexture; }
+		Texture2D& GetPositionTexture() { return this->gBuffers->Position; }
+		Texture2D& GetNormalTexture() { return this->gBuffers->Normal; }
+		Texture2D& GetAlbedoSpecularTexture() { return this->gBuffers->AlbedoSpec; }
 		unsigned int GetWidth() const { return this->m_renderInfo.width; }
+
 		unsigned int GetHeight() const { return this->m_renderInfo.height; }
 		void SetWidth(const unsigned int width) { this->m_renderInfo.width = width; }
 		void SetHeight(const unsigned int height) { this->m_renderInfo.height = height; }

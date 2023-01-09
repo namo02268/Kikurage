@@ -43,8 +43,8 @@ namespace Kikurage {
             return object;
         }
 
+        // -----------------------Load Mesh----------------------- //
         object.meshes.resize((size_t)scene->mNumMeshes);
-
         for (size_t i = 0; i < (size_t)scene->mNumMeshes; ++i) {
             auto& mesh = scene->mMeshes[i];
             auto& meshInfo = object.meshes[i];
@@ -95,6 +95,18 @@ namespace Kikurage {
                 }
             }
         }
+
+        // -----------------------Load Material----------------------- //
+        object.materials.resize((size_t)scene->mNumMaterials);
+        for (size_t i = 0; i < object.materials.size(); ++i) {
+            auto& material = scene->mMaterials[i];
+            auto& materialInfo = object.materials[i];
+
+            materialInfo.name = material->GetName().C_Str();
+
+            std::cout << "Material Count" << material->GetTextureCount(aiTextureType_DIFFUSE) << std::endl;
+        }
+
         return object;
     }
 

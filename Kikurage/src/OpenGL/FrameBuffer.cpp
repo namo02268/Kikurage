@@ -21,11 +21,17 @@ namespace Kikurage {
 		this->FreeFrameBuffer();
 	}
 
-	void FrameBuffer::AttachTexture(const Texture2D& texture) {
+	void FrameBuffer::AttachTexture(const Texture2D& texture, const unsigned int attachment) {
 		this->Bind();
-		glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, texture.GetHandle(), 0);
+		glFramebufferTexture2D(GL_FRAMEBUFFER, attachment, GL_TEXTURE_2D, texture.GetHandle(), 0);
+		if (attachment != GL_DEPTH_ATTACHMENT && attachment != GL_STENCIL_ATTACHMENT && attachment != GL_DEPTH_STENCIL_ATTACHMENT) {
+			m_attachments.emplace_back(attachment);
+		}
 	}
 
+	void FrameBuffer::DrawBuffers() {
+		glDrawBuffers(m_attachments.size(), m_attachments.data());
+	}
 
 	void FrameBuffer::FreeFrameBuffer() {
 		if (this->m_id != 0) {

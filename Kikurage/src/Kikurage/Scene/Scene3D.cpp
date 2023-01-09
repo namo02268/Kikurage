@@ -35,14 +35,17 @@ namespace Kikurage {
 		//-----------------------------------Resources-----------------------------------//
 		stbi_set_flip_vertically_on_load(true);
 
-		auto& resouceManager = ResourceManager::GetInstance();
-//		resouceManager.LoadShader("resources/shaders/Simple.vert", "resources/shaders/PBR_nonTexture.frag", nullptr, "PBR");
-//		resouceManager.LoadShader("resources/shaders/Simple.vert", "resources/shaders/depth.frag", nullptr, "PBR");
-		resouceManager.LoadShader("resources/shaders/Simple.vert", "resources/shaders/normal.frag", nullptr, "PBR");
-		resouceManager.LoadShader("resources/shaders/background.vert", "resources/shaders/background.frag", nullptr, "backgroundShader");
+//		ResourceManager::LoadShader("resources/shaders/Simple.vert", "resources/shaders/PBR_nonTexture.frag", nullptr, "PBR");
+//		ResourceManager::LoadShader("resources/shaders/Simple.vert", "resources/shaders/depth.frag", nullptr, "PBR");
+//		ResourceManager::LoadShader("resources/shaders/Simple.vert", "resources/shaders/normal.frag", nullptr, "PBR");
+//		ResourceManager::LoadShader("resources/shaders/background.vert", "resources/shaders/background.frag", nullptr, "backgroundShader");
+		ResourceManager::LoadShader("resources/shaders/gBuffer.vert", "resources/shaders/gBuffer.frag", nullptr, "PBR");
 
-		Application::GetInstance().GetRenderer()->AddShader(ResourceManager::GetInstance().GetShader("PBR"));
-		Application::GetInstance().GetRenderer()->AddShader(ResourceManager::GetInstance().GetShader("backgroundShader"));
+		ResourceManager::LoadTexture("resources/objects/backpack/diffuse.jpg", TextureType::RGBA, "diffuse");
+		ResourceManager::LoadTexture("resources/objects/backpack/diffuse.jpg", TextureType::RGBA, "diffuse");
+
+		Application::GetInstance().GetRenderer()->AddShader(ResourceManager::GetShader("PBR"));
+//		Application::GetInstance().GetRenderer()->AddShader(ResourceManager::GetShader("backgroundShader"));
 
 		//-----------------------------add systems to scene-----------------------------//
 		auto ecs = Application::GetInstance().GetECS();
@@ -53,11 +56,11 @@ namespace Kikurage {
 		auto cameraSystem = std::make_unique<CameraController>();
 		ecs->AddSystem(std::move(cameraSystem));
 		// meshRenderer
-		auto meshRenderer = std::make_unique<MeshRenderer>(ResourceManager::GetInstance().GetShader("PBR"));
+		auto meshRenderer = std::make_unique<MeshRenderer>(ResourceManager::GetShader("PBR"));
 		ecs->AddSystem(std::move(meshRenderer));
 		// IBL
-		auto ibl = std::make_unique<IBL>(ResourceManager::GetInstance().GetShader("PBR"), ResourceManager::GetInstance().GetShader("backgroundShader"));
-		ecs->AddSystem(std::move(ibl));
+	//	auto ibl = std::make_unique<IBL>(ResourceManager::GetShader("PBR"), ResourceManager::GetShader("backgroundShader"));
+	//	ecs->AddSystem(std::move(ibl));
 		// AABB
 //		auto aabbCollision = std::make_unique<AABBCollision>();
 //		ecs->AddSystem(std::move(aabbCollision));

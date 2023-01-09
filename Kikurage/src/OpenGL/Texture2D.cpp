@@ -38,7 +38,7 @@ namespace Kikurage {
 		this->FreeTexture();
 	}
 
-	void Texture2D::Generate(unsigned char* data, unsigned int width, unsigned int height, unsigned int channels, unsigned int format) {
+	void Texture2D::Generate(unsigned char* data, unsigned int width, unsigned int height, unsigned int channels, unsigned int format, unsigned int dataType) {
 		this->m_width = width;
 		this->m_height = height;
 		this->m_format = format;
@@ -63,7 +63,7 @@ namespace Kikurage {
 		}
 
 		this->Bind();
-		glTexImage2D(GL_TEXTURE_2D, 0, this->m_format, this->m_width, this->m_height, 0, dataChannels, GL_UNSIGNED_BYTE, data);
+		glTexImage2D(GL_TEXTURE_2D, 0, this->m_format, this->m_width, this->m_height, 0, dataChannels, dataType, data);
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, this->m_wrapType);
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, this->m_wrapType);
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, this->m_filter);
@@ -76,6 +76,10 @@ namespace Kikurage {
 			glDeleteTextures(1, &m_id);
 			this->m_id = 0;
 		}
+	}
+
+	void Texture2D::SetFilepath(const char* path) {
+		this->m_filepath = path;
 	}
 
 	void Texture2D::SetWrapType(unsigned int wrapType) {

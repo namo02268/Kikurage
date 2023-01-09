@@ -4,40 +4,28 @@
 #include <sstream>
 #include <fstream>
 
+#define STB_IMAGE_IMPLEMENTATION
 #include "stb_image/stb_image.h"
 
 namespace Kikurage {
-    ResourceManager::ResourceManager() {
-
-    }
-
-    ResourceManager::~ResourceManager() {
-        this->Clear();
-    }
-
     //------------------------Shader------------------------//
-    void ResourceManager::LoadShader(const char* vShaderFile, const char* fShaderFile, const char* gShaderFile, std::string name)
-    {
+    Shader* ResourceManager::LoadShader(const char* vShaderFile, const char* fShaderFile, const char* gShaderFile, std::string name) {
         // 1. retrieve the vertex/fragment source code from filePath
         std::string vertexCode;
         std::string fragmentCode;
         std::string geometryCode;
         try
         {
-            // open files
             std::ifstream vertexShaderFile(vShaderFile);
             std::ifstream fragmentShaderFile(fShaderFile);
             std::stringstream vShaderStream, fShaderStream;
-            // read file's buffer contents into streams
             vShaderStream << vertexShaderFile.rdbuf();
             fShaderStream << fragmentShaderFile.rdbuf();
-            // close file handlers
             vertexShaderFile.close();
             fragmentShaderFile.close();
-            // convert stream into string
             vertexCode = vShaderStream.str();
             fragmentCode = fShaderStream.str();
-            // if geometry shader path is present, also load a geometry shader
+
             if (gShaderFile != nullptr)
             {
                 std::ifstream geometryShaderFile(gShaderFile);
@@ -51,25 +39,33 @@ namespace Kikurage {
         {
             std::cout << "ERROR::SHADER: Failed to read shader files" << std::endl;
         }
+
         const char* vShaderCode = vertexCode.c_str();
         const char* fShaderCode = fragmentCode.c_str();
         const char* gShaderCode = geometryCode.c_str();
-        // 2. now create shader object from source code
-        auto shader = std::make_unique<Shader>();
+
+        auto shader = std::make_shared<Shader>();
         shader->Compile(vShaderCode, fShaderCode, gShaderFile != nullptr ? gShaderCode : nullptr);
         Shaders[name] = std::move(shader);
+
+        return Shaders[name].get();
     }
 
-    Shader* ResourceManager::GetShader(std::string name)
-    {
+    Shader* ResourceManager::GetShader(std::string name) {
         return Shaders[name].get();
     }
 
     //------------------------Texture------------------------//
-    void ResourceManager::LoadTexture(const char* file, TextureType type, std::string name)
-    {
+    Texture2D* ResourceManager::LoadTexture(const char* file, TextureType type, std::string name) {
+        for (auto& texture : Textures) {
+            if (strcmp(texture.second->GetFilepath(), file) == 0) {
+                std::cout << file << " is already loaded." << std::endl;
+                return texture.second.get();
+            }
+        }
+
         // create texture object
-        auto texture = std::make_unique<Texture2D>();
+        auto texture = std::make_shared<Texture2D>();
         auto format = GL_RGB;
         if (type == TextureType::RGB) {
             format = GL_RGB;
@@ -82,24 +78,18 @@ namespace Kikurage {
             texture->SetWrapType(GL_CLAMP_TO_EDGE);
         }
 
-        // load image
+        texture->SetFilepath(file);
+
         int width, height, nrChannels;
         unsigned char* data = stbi_load(file, &width, &height, &nrChannels, 0);
-        // now generate texture
         texture->Generate(data, width, height, nrChannels, format);
-        // and finally free image data
         stbi_image_free(data);
 
         Textures[name] = std::move(texture);
-    }
-
-    Texture2D* ResourceManager::GetTexture(std::string name)
-    {
         return Textures[name].get();
     }
 
-    //-------------------------Utils-------------------------//
-    void ResourceManager::Clear()
-    {
+    Texture2D* ResourceManager::GetTexture(std::string name) {
+        return Textures[name].get();
     }
 }

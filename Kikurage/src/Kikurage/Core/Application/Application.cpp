@@ -1,15 +1,7 @@
 #include "Kikurage/Core/Application/Application.h"
-#include "Kikurage/Resource/ResourceManager/ResourceManager.h"
-
-//------------Resource------------
-#define STB_IMAGE_IMPLEMENTATION
-#include "stb_image/stb_image.h"
-#include "Kikurage/Resource/ResourceManager/ResourceManager.h"
 
 namespace Kikurage {
 	Application::Application() {
-		ResourceManager::Create();
-
 		m_eventHandler = new EventHandler();
 		m_ecs = new ECS();
 		m_window = new OpenGLWindow(1200, 800, "Kikurage");
@@ -49,8 +41,6 @@ namespace Kikurage {
 		delete m_window;
 		delete m_ecs;
 		delete m_eventHandler;
-
-		ResourceManager::Destroy();
 	}
 
 	void Application::Update() {

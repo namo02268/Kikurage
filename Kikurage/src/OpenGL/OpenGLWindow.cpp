@@ -33,8 +33,8 @@ namespace Kikurage {
 		glEnableVertexAttribArray(1);
 		glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 4 * sizeof(float), (void*)(2 * sizeof(float)));
 
-		ResourceManager::GetInstance().LoadShader("resources/shaders/screen.vert", "resources/shaders/screen.frag", nullptr, "screen");
-		screenShader = ResourceManager::GetInstance().GetShader("screen");
+		ResourceManager::LoadShader("resources/shaders/screen.vert", "resources/shaders/screen.frag", nullptr, "screen");
+		screenShader = ResourceManager::GetShader("screen");
 		screenShader->Bind();
 		screenShader->SetUniform("screenTexture", 0);
 	}

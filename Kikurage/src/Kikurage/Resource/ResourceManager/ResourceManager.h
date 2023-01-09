@@ -19,35 +19,21 @@ namespace Kikurage {
 		HDR
 	};
 
-	class ResourceManager : public Singleton<ResourceManager> {
+	class ResourceManager {
 	private:
 		// resource storage
-		std::unordered_map<std::string, std::unique_ptr<Shader>> Shaders;
-		std::unordered_map<std::string, std::unique_ptr<Texture2D>> Textures;
+		inline static std::unordered_map<std::string, std::shared_ptr<Shader>> Shaders;
+		inline static std::unordered_map<std::string, std::shared_ptr<Texture2D>> Textures;
 
-	protected:
-		ResourceManager();
-		virtual ~ResourceManager();
+	private:
+		ResourceManager() = default;
+		~ResourceManager() = default;
 
 	public:
-		friend class Singleton<ResourceManager>;
+		static Shader* LoadShader(const char* vShdaerFile, const char* fShaderFile, const char* gShaderFile, std::string name);
+		static Shader* GetShader(std::string name);
 
-		//------------------------Shader------------------------//
-		// loads a shader program from file
-		void LoadShader(const char* vShdaerFile, const char* fShaderFile, const char* gShaderFile, std::string name);
-
-		// retrieves a stored shader
-		Shader* GetShader(std::string name);
-
-		//------------------------Texture------------------------//
-			// loads a texture from file
-		void LoadTexture(const char* file, TextureType type, std::string name);
-
-		// retrieves a stored texture
-		Texture2D* GetTexture(std::string name);
-
-		//-------------------------Utils-------------------------//
-		// properly de-allocates all loaded resources
-		void Clear();
+		static Texture2D* LoadTexture(const char* file, TextureType type, std::string name);
+		static Texture2D* GetTexture(std::string name);
 	};
 }

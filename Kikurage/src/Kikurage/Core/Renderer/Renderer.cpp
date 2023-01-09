@@ -6,13 +6,40 @@ namespace Kikurage {
 	void RenderBuffers::Init() {
 		this->renderTexture.Generate(nullptr, 0, 0);
 		this->framebuffer.AttachTexture(this->renderTexture);
-		this->renderbuffer.InitStorage(0, 0, GL_DEPTH24_STENCIL8);
-		this->renderbuffer.LinkToFrameBuffer(this->framebuffer, GL_DEPTH_STENCIL_ATTACHMENT);
+		this->renderbuffer.InitStorage(0, 0, GL_DEPTH_COMPONENT);
+		this->renderbuffer.LinkToFrameBuffer(this->framebuffer, GL_DEPTH_ATTACHMENT);
 	}
 
 	void RenderBuffers::Resize(unsigned int width, unsigned int height) {
 		this->renderTexture.Generate(nullptr, width, height);
-		this->renderbuffer.InitStorage(width, height, GL_DEPTH24_STENCIL8);
+		this->renderbuffer.InitStorage(width, height, GL_DEPTH_COMPONENT);
+	}
+
+	void GBuffers::Init() {
+		// position
+		this->Position.Generate(nullptr, 0, 0, 4, GL_RGBA16F, GL_FLOAT);
+		this->Position.SetFilterType(GL_NEAREST);
+		this->gBuffer.AttachTexture(this->Position, GL_COLOR_ATTACHMENT0);
+		// normal
+		this->Normal.Generate(nullptr, 1200, 800, 4, GL_RGBA16F, GL_FLOAT);
+		this->Normal.SetFilterType(GL_NEAREST);
+		this->gBuffer.AttachTexture(this->Normal, GL_COLOR_ATTACHMENT1);
+		// albedo & specular
+		this->AlbedoSpec.Generate(nullptr, 1200, 800, 4, GL_RGBA, GL_UNSIGNED_BYTE);
+		this->AlbedoSpec.SetFilterType(GL_NEAREST);
+		this->gBuffer.AttachTexture(this->AlbedoSpec, GL_COLOR_ATTACHMENT2);
+		this->gBuffer.DrawBuffers();
+		this->renderbuffer.InitStorage(0, 0, GL_DEPTH_COMPONENT);
+		this->renderbuffer.LinkToFrameBuffer(this->gBuffer, GL_DEPTH_ATTACHMENT);
+	}
+
+	void GBuffers::Resize(unsigned int width, unsigned int height) {
+		// position
+		this->Position.Generate(nullptr, width, height, 4, GL_RGBA16F, GL_FLOAT);
+		this->Normal.Generate(nullptr, width, height, 4, GL_RGBA16F, GL_FLOAT);
+		this->AlbedoSpec.Generate(nullptr, width, height, 4, GL_RGBA, GL_UNSIGNED_BYTE);
+		this->gBuffer.DrawBuffers();
+		this->renderbuffer.InitStorage(width, height, GL_DEPTH_COMPONENT);
 	}
 
 	//---------------------Renderer---------------------//
@@ -23,7 +50,7 @@ namespace Kikurage {
 	}
 
 	void Renderer::Init() {
-		this->renderBuffers->Init();
+		this->gBuffers->Init();
 	}
 
 	void Renderer::Start() {
@@ -49,17 +76,17 @@ namespace Kikurage {
 		if (m_renderInfo.lastWidth != this->m_renderInfo.width || m_renderInfo.lastHeight != this->m_renderInfo.height) {
 			m_renderInfo.lastWidth = m_renderInfo.width;
 			m_renderInfo.lastHeight = m_renderInfo.lastHeight;
-			this->renderBuffers->Resize(m_renderInfo.width, m_renderInfo.height);
+			this->gBuffers->Resize(m_renderInfo.width, m_renderInfo.height);
 			glViewport(0, 0, m_renderInfo.width, m_renderInfo.height);
 		}
 	}
 
 	void Renderer::BindFBO() {
-		this->renderBuffers->framebuffer.Bind();
+		this->gBuffers->gBuffer.Bind();
 	}
 
 	void Renderer::UnbindFBO() {
-		this->renderBuffers->framebuffer.Unbind();
+		this->gBuffers->gBuffer.Unbind();
 	}
 
 	void Renderer::BindCameraInformation(BaseCamera& camera, Transform& transform) {

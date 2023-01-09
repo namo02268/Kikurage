@@ -1,5 +1,6 @@
 #pragma once
 
+#include <vector>
 #include <glad/glad.h>
 #include "OpenGL/Texture2D.h"
 
@@ -8,6 +9,7 @@ namespace Kikurage {
 	private:
 		unsigned int m_id = 0;
 		void FreeFrameBuffer();
+		std::vector<unsigned int> m_attachments;
 
 	public:
 		FrameBuffer();
@@ -21,8 +23,9 @@ namespace Kikurage {
 		void Unbind() const { glBindFramebuffer(GL_FRAMEBUFFER, 0); }
 		const unsigned int GetHandle() const { return m_id; }
 
-		void AttachTexture(const Texture2D& texture);
-
+		// TODO : Automatic addition without specification of attachment number
+		void AttachTexture(const Texture2D& texture, const unsigned int attachment = GL_COLOR_ATTACHMENT0);
+		void DrawBuffers();
 		// TODO : Get Texture Width & Height
 	};
 }

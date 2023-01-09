@@ -9,7 +9,7 @@ namespace Kikurage {
 		unsigned int m_id = 0;
 		unsigned int m_width = 0;
 		unsigned int m_height = 0;
-		GLenum m_format = GL_DEPTH24_STENCIL8;
+		GLenum m_format = GL_DEPTH_COMPONENT;
 
 		void FreeRenderBuffer();
 
