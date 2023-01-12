@@ -1,5 +1,8 @@
 #include "Kikurage/Core/Application/Application.h"
 
+#define STB_IMAGE_IMPLEMENTATION
+#include "stb_image/stb_image.h"
+
 namespace Kikurage {
 	Application::Application() {
 		m_eventHandler = new EventHandler();
@@ -25,6 +28,8 @@ namespace Kikurage {
 	}
 
 	void Application::Init() {
+		stbi_set_flip_vertically_on_load(true);
+
 		std::cout << "Hello Kikurage!" << "\n";
 		std::cout << "Initialize ECS..." << "\n";
 		m_ecs->Init();

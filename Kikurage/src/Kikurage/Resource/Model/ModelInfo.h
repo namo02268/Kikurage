@@ -9,11 +9,11 @@
 
 namespace Kikurage {
 	struct MaterialInfo {
-		const char* name;
-		const char* DeffuseMapPath{ nullptr };
-		const char* SpecularMapPath{ nullptr };
-		const char* NormalMapPath{ nullptr };
-		const char* HeightMapPath{ nullptr };
+		fixedString<63> name;
+		Texture2D* DeffuseMap{ nullptr };
+		Texture2D* SpecularMap{ nullptr };
+		Texture2D* NormalMap{ nullptr };
+		Texture2D* HeightMap{ nullptr };
 	};
 
 	struct MeshInfo {
@@ -26,6 +26,7 @@ namespace Kikurage {
 
 		bool hasNormals{ false };
 		bool hasTextureCoords{ false };
+//		bool useTexture{ false }; // TODO
 	};
 
 	struct ModelInfo {

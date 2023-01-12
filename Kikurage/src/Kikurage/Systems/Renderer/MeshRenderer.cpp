@@ -41,10 +41,28 @@ namespace Kikurage {
 			auto material = m_ecs->GetComponent<MaterialComponent>(e);
 
 			// material
+			int textureCount = 0;
+			if (material->DeffuseMap != nullptr) {
+				glActiveTexture(GL_TEXTURE0 + textureCount);
+				m_shader->SetUniform("texture_diffuse", textureCount);
+				material->DeffuseMap->Bind();
+				textureCount++;
+			}
+
+			if (material->SpecularMap != nullptr) {
+				glActiveTexture(GL_TEXTURE0 + textureCount);
+				m_shader->SetUniform("texture_specular", textureCount);
+				material->SpecularMap->Bind();
+				textureCount++;
+			}
+
+
+			/*
 			this->m_shader->SetUniform("albedo", material->albedo);
 			this->m_shader->SetUniform("metallic", material->metallic);
 			this->m_shader->SetUniform("roughness", material->roughness);
 			this->m_shader->SetUniform("ao", material->ao);
+			*/
 
 			// model
 			this->m_shader->SetUniform("model", transform->GetWorldMatrix());

@@ -1,5 +1,6 @@
 #include "Kikurage/Resource/Model/ModelLoader.h"
 #include "Kikurage/Core/Application/Application.h"
+#include "Kikurage/Resource/ResourceManager/ResourceManager.h"
 
 #include "Kikurage/Components/Name/Name.h"
 #include "Kikurage/Components/Transform/Transform.h"
@@ -10,8 +11,11 @@
 #include <assimp/Importer.hpp>
 #include <assimp/scene.h>
 #include <assimp/postprocess.h>
+#include <assimp/pbrmaterial.h>
 
 namespace Kikurage {
+    Texture2D* loadMaterialTexture(std::string& directory, const aiMaterial* material, const aiTextureType textureType);
+
     void ModelLoader::LoadEntity(const char* path, float size) {
         auto model = LoadFromFile(path);
         auto ecs = Application::GetInstance().GetECS();
@@ -22,10 +26,20 @@ namespace Kikurage {
 
         for (auto& mesh : model.meshes) {
             auto entity = ecs->CreateEntity();
+            // Transform
             ecs->AddComponent(entity, Transform(mesh.position, Vector3(1.0f), Vector3(0.0f)));
+            // Mesh
             ecs->AddComponent(entity, Mesh(mesh));
-            ecs->AddComponent<MaterialComponent>(entity, MaterialComponent());
+            // Material
+            MaterialComponent mat;
+            mat.SetDeffuseMap(mesh.material->DeffuseMap);
+            mat.SetSpecularMap(mesh.material->SpecularMap);
+            mat.SetNormalMap(mesh.material->NormalMap);
+            mat.SetHeightMap(mesh.material->HeightMap);
+            ecs->AddComponent<MaterialComponent>(entity, std::move(mat));
+            // Name
             ecs->GetComponent<Name>(entity)->Rename(mesh.name);
+            // Relationship
             ecs->AddRelationship(root, entity);
         }
     }
@@ -42,6 +56,28 @@ namespace Kikurage {
             std::cout << "ERROR::ASSIMP::" << importer.GetErrorString() << std::endl;
             return object;
         }
+
+        // -----------------------Load Material----------------------- //
+        object.materials.resize((size_t)scene->mNumMaterials);
+        std::string directory = path;
+        directory = directory.substr(0, directory.find_last_of('/'));
+
+        for (size_t i = 0; i < object.materials.size(); ++i) {
+            auto& material = scene->mMaterials[i];
+            auto& materialInfo = object.materials[i];
+
+            // Name
+            materialInfo.name = material->GetName().C_Str();
+            std::cout << "-------------------------------------------------" << std::endl;
+            std::cout << "Material Num : " << i << " Name : " << materialInfo.name << std::endl;
+
+            // Texture
+            materialInfo.DeffuseMap = loadMaterialTexture(directory, material, aiTextureType_DIFFUSE);
+            materialInfo.SpecularMap = loadMaterialTexture(directory, material, aiTextureType_SPECULAR);
+            materialInfo.NormalMap = loadMaterialTexture(directory, material, aiTextureType_HEIGHT);
+            materialInfo.HeightMap = loadMaterialTexture(directory, material, aiTextureType_AMBIENT);
+        }
+
 
         // -----------------------Load Mesh----------------------- //
         object.meshes.resize((size_t)scene->mNumMeshes);
@@ -94,17 +130,9 @@ namespace Kikurage {
                     meshInfo.indices[3 * i + 2] = mesh->mFaces[i].mIndices[2];
                 }
             }
-        }
 
-        // -----------------------Load Material----------------------- //
-        object.materials.resize((size_t)scene->mNumMaterials);
-        for (size_t i = 0; i < object.materials.size(); ++i) {
-            auto& material = scene->mMaterials[i];
-            auto& materialInfo = object.materials[i];
-
-            materialInfo.name = material->GetName().C_Str();
-
-            std::cout << "Material Count" << material->GetTextureCount(aiTextureType_DIFFUSE) << std::endl;
+            // material
+            meshInfo.material = object.materials.data() + static_cast<size_t>(mesh->mMaterialIndex);
         }
 
         return object;
@@ -130,5 +158,16 @@ namespace Kikurage {
         for (auto& vertex : vertices) {
             vertex.Normal = Normalize(vertex.Normal);
         }
+    }
+
+    Texture2D* loadMaterialTexture(std::string& directory, const aiMaterial* material, const aiTextureType textureType) {
+        if (material->GetTextureCount(textureType) > 0) {
+            aiString path;
+            if (material->GetTexture(textureType, 0, &path) == aiReturn_SUCCESS) {
+                std::string actualPath = directory + '/' + path.C_Str();
+                return ResourceManager::LoadTexture(actualPath.c_str(), TextureType::RGBA, path.C_Str());
+            }
+        }
+        return nullptr;
     }
 }

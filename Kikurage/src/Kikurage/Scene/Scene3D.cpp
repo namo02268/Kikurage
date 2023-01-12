@@ -32,17 +32,11 @@ namespace Kikurage {
 	}
 
 	void Scene3D::Init() {
-		//-----------------------------------Resources-----------------------------------//
-		stbi_set_flip_vertically_on_load(true);
-
 //		ResourceManager::LoadShader("resources/shaders/Simple.vert", "resources/shaders/PBR_nonTexture.frag", nullptr, "PBR");
 //		ResourceManager::LoadShader("resources/shaders/Simple.vert", "resources/shaders/depth.frag", nullptr, "PBR");
 //		ResourceManager::LoadShader("resources/shaders/Simple.vert", "resources/shaders/normal.frag", nullptr, "PBR");
 //		ResourceManager::LoadShader("resources/shaders/background.vert", "resources/shaders/background.frag", nullptr, "backgroundShader");
 		ResourceManager::LoadShader("resources/shaders/gBuffer.vert", "resources/shaders/gBuffer.frag", nullptr, "PBR");
-
-		ResourceManager::LoadTexture("resources/objects/backpack/diffuse.jpg", TextureType::RGBA, "diffuse");
-		ResourceManager::LoadTexture("resources/objects/backpack/diffuse.jpg", TextureType::RGBA, "diffuse");
 
 		Application::GetInstance().GetRenderer()->AddShader(ResourceManager::GetShader("PBR"));
 //		Application::GetInstance().GetRenderer()->AddShader(ResourceManager::GetShader("backgroundShader"));
@@ -76,7 +70,10 @@ namespace Kikurage {
 //		ModelLoader::LoadEntity("resources/objects/sphere/sphere.obj", 1.0f);
 
 		// suponza
-		ModelLoader::LoadEntity("resources/objects/sponza/sponza.obj", 0.1f);
+//		ModelLoader::LoadEntity("resources/objects/Sponza/glTF/Sponza.gltf", 0.1f);
+
+		// backpack
+		ModelLoader::LoadEntity("resources/objects/backpack/backpack.obj", 1.0f);
 
 		// init
 		ecs->Init();

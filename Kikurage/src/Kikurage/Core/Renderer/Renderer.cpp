@@ -21,13 +21,18 @@ namespace Kikurage {
 		this->Position.SetFilterType(GL_NEAREST);
 		this->gBuffer.AttachTexture(this->Position, GL_COLOR_ATTACHMENT0);
 		// normal
-		this->Normal.Generate(nullptr, 1200, 800, 4, GL_RGBA16F, GL_FLOAT);
+		this->Normal.Generate(nullptr, 0, 0, 4, GL_RGBA16F, GL_FLOAT);
 		this->Normal.SetFilterType(GL_NEAREST);
 		this->gBuffer.AttachTexture(this->Normal, GL_COLOR_ATTACHMENT1);
-		// albedo & specular
-		this->AlbedoSpec.Generate(nullptr, 1200, 800, 4, GL_RGBA, GL_UNSIGNED_BYTE);
-		this->AlbedoSpec.SetFilterType(GL_NEAREST);
-		this->gBuffer.AttachTexture(this->AlbedoSpec, GL_COLOR_ATTACHMENT2);
+		// albedo
+		this->Albedo.Generate(nullptr, 0, 0, 4, GL_RGBA, GL_UNSIGNED_BYTE);
+		this->Albedo.SetFilterType(GL_NEAREST);
+		this->gBuffer.AttachTexture(this->Albedo, GL_COLOR_ATTACHMENT2);
+		// specular
+		this->Specular.Generate(nullptr, 0, 0, 4, GL_RGBA, GL_UNSIGNED_BYTE);
+		this->Specular.SetFilterType(GL_NEAREST);
+		this->gBuffer.AttachTexture(this->Specular, GL_COLOR_ATTACHMENT3);
+
 		this->gBuffer.DrawBuffers();
 		this->renderbuffer.InitStorage(0, 0, GL_DEPTH_COMPONENT);
 		this->renderbuffer.LinkToFrameBuffer(this->gBuffer, GL_DEPTH_ATTACHMENT);
@@ -37,7 +42,8 @@ namespace Kikurage {
 		// position
 		this->Position.Generate(nullptr, width, height, 4, GL_RGBA16F, GL_FLOAT);
 		this->Normal.Generate(nullptr, width, height, 4, GL_RGBA16F, GL_FLOAT);
-		this->AlbedoSpec.Generate(nullptr, width, height, 4, GL_RGBA, GL_UNSIGNED_BYTE);
+		this->Albedo.Generate(nullptr, width, height, 4, GL_RGBA, GL_UNSIGNED_BYTE);
+		this->Specular.Generate(nullptr, width, height, 4, GL_RGBA, GL_UNSIGNED_BYTE);
 		this->gBuffer.DrawBuffers();
 		this->renderbuffer.InitStorage(width, height, GL_DEPTH_COMPONENT);
 	}

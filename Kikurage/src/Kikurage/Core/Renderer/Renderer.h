@@ -29,7 +29,8 @@ namespace Kikurage {
 		FrameBuffer gBuffer;
 		Texture2D Position;
 		Texture2D Normal;
-		Texture2D AlbedoSpec;
+		Texture2D Albedo;
+		Texture2D Specular;
 		RenderBuffer renderbuffer;
 
 		void Init();
@@ -66,7 +67,8 @@ namespace Kikurage {
 		Texture2D& GetRenderTexture() { return this->renderBuffers->renderTexture; }
 		Texture2D& GetPositionTexture() { return this->gBuffers->Position; }
 		Texture2D& GetNormalTexture() { return this->gBuffers->Normal; }
-		Texture2D& GetAlbedoSpecularTexture() { return this->gBuffers->AlbedoSpec; }
+		Texture2D& GetAlbedoTexture() { return this->gBuffers->Albedo; }
+		Texture2D& GetSpecularTexture() { return this->gBuffers->Specular; }
 		unsigned int GetWidth() const { return this->m_renderInfo.width; }
 
 		unsigned int GetHeight() const { return this->m_renderInfo.height; }
