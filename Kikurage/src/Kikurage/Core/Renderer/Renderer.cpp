@@ -69,6 +69,7 @@ namespace Kikurage {
 	}
 
 	void Renderer::End() {
+//		Application::GetInstance().GetWindow()->Draw();
 		this->UnbindFBO();
 	}
 

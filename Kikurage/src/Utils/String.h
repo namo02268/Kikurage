@@ -28,7 +28,7 @@ public:
 		this->m_string[m_size] = '\0';
 		return *this;
 	}
-	fixedString& operator+(const char* str) {
+	fixedString operator+(const char* str) const {
 		size_t length = this->Length();
 		size_t i = 0;
 		while (length < this->MaxLength() && str[i] != '\0') {
@@ -36,7 +36,7 @@ public:
 			++length;
 			++i;
 		}
-		this->m_string[this->MaxLength()] = '\0';
+		this->m_string[length] = '\0';
 		this->m_size = length;
 		return *this;
 	}
@@ -51,13 +51,13 @@ public:
 			++length;
 			++i;
 		}
-		this->m_string[this->MaxLength()] = '\0';
-		this->m_size;
+		this->m_string[length] = '\0';
+		this->m_size = length;
 		return *this;
 	}
 	fixedString& operator+=(const fixedString& other) { *this = *this + other; return *this; }
 
-	friend std::ostream& operator<<(std::ostream& os, fixedString& str) { return os << str.m_string; }
+	friend std::ostream& operator<<(std::ostream& os, const fixedString& str) { return os << str.m_string; }
 
 	struct fStringIterator {
 		using iterator_category = std::random_access_iterator_tag;

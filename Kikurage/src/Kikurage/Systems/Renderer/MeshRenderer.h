@@ -1,10 +1,10 @@
 #pragma once
 
-#include "Kikurage/ECS/System.h"
 #include "OpenGL/Shader.h"
+#include "Nameko/ECS.h"
 
 namespace Kikurage {
-	class MeshRenderer : public System {
+	class MeshRenderer : public Nameko::System {
 	private:
 		Shader* m_shader;
 

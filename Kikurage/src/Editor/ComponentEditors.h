@@ -1,12 +1,13 @@
 #pragma once
-#include "Kikurage/ECS/ECS.h"
+#include "Nameko/ECS.h"
 #include "imgui/imgui.h"
 
 #include "Kikurage/Components/Transform/Transform.h"
 #include "Kikurage/Components/MaterialComponent.h"
 
 namespace Kikurage {
-	void TransformEditor(Entity entity, ECS* ecs) {
+	void TransformEditor(Nameko::Entity entity, Nameko::ECS* ecs) {
+		/*
 		if (ImGui::TreeNode("Transform")) {
 			auto transform = ecs->GetComponent<Transform>(entity);
 			auto position = transform->GetPosition();
@@ -20,9 +21,11 @@ namespace Kikurage {
 				ecs->RemoveComponent<Transform>(entity);
 			ImGui::TreePop();
 		}
+		*/
 	}
 
-	void MaterialEditor(Entity entity, ECS* ecs) {
+	void MaterialEditor(Nameko::Entity entity, Nameko::ECS* ecs) {
+		/*
 		if (ImGui::TreeNode("Material")) {
 			auto materialComponent = ecs->GetComponent<MaterialComponent>(entity);
 			ImGui::ColorEdit3("Albedo", &materialComponent->albedo.x);
@@ -33,5 +36,6 @@ namespace Kikurage {
 				ecs->RemoveComponent<MaterialComponent>(entity);
 			ImGui::TreePop();
 		}
+		*/
 	}
 }

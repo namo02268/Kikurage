@@ -1,6 +1,6 @@
 #include "Kikurage/Scene/Scene3D.h"
 #include "Kikurage/Core/Application/Application.h"
-#include "Kikurage/ECS/ECS.h"
+#include "Nameko/ECS.h"
 
 //------------Resource------------
 #include "stb_image/stb_image.h"
@@ -12,17 +12,12 @@
 #include "Kikurage/Systems/Renderer/MeshRenderer.h"
 #include "Kikurage/Systems/Camera/CameraController.h"
 #include "Kikurage/Systems/IBL/IBL.h"
-#include "Kikurage/Systems/Physics/Physics.h"
-#include "Kikurage/Systems/Collision/CollisionSystem.h"
-#include "Kikurage/Systems/Collision/SphereCollider.h"
-#include "Kikurage/Systems/Collision/PlaneCollider.h"
 #include "Kikurage/Systems/AABBCollision/AABBCollision.h"
 
 //------------Components------------
 #include "Kikurage/Components/Camera/CameraComponent.h"
 #include "Kikurage/Components/Transform/Transform.h"
 #include "Kikurage/Components/RigidBodyComponent.h"
-#include "Kikurage/Components/CollisionComponent.h"
 
 namespace Kikurage {
 	Scene3D::Scene3D() {
@@ -52,28 +47,22 @@ namespace Kikurage {
 		// meshRenderer
 		auto meshRenderer = std::make_unique<MeshRenderer>(ResourceManager::GetShader("PBR"));
 		ecs->AddSystem(std::move(meshRenderer));
-		// IBL
-	//	auto ibl = std::make_unique<IBL>(ResourceManager::GetShader("PBR"), ResourceManager::GetShader("backgroundShader"));
-	//	ecs->AddSystem(std::move(ibl));
-		// AABB
-//		auto aabbCollision = std::make_unique<AABBCollision>();
-//		ecs->AddSystem(std::move(aabbCollision));
 
 		//---------------------------------add entities---------------------------------//
 		// camera
 		auto cameraEntity = ecs->CreateEntity();
 		ecs->AddComponent<Transform>(cameraEntity, Transform(Vector3(50.0f, 5.0f, 0.0f), Vector3(1.0f), Vector3(0.0f, 90.0f, 0.0f)));
 		ecs->AddComponent<CameraComponent>(cameraEntity, CameraComponent());
-		ecs->GetComponent<Name>(cameraEntity)->Rename("EditorCamera");
+//		ecs->GetComponent<Name>(cameraEntity)->Rename("EditorCamera");
 
 		// sphere
 //		ModelLoader::LoadEntity("resources/objects/sphere/sphere.obj", 1.0f);
 
 		// suponza
-//		ModelLoader::LoadEntity("resources/objects/Sponza/glTF/Sponza.gltf", 0.1f);
+		ModelLoader::LoadEntity("resources/objects/Sponza/glTF/Sponza.gltf", 0.1f);
 
 		// backpack
-		ModelLoader::LoadEntity("resources/objects/backpack/backpack.obj", 1.0f);
+//		ModelLoader::LoadEntity("resources/objects/backpack/backpack.obj", 1.0f);
 
 		// init
 		ecs->Init();

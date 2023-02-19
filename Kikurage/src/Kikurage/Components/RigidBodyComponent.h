@@ -1,10 +1,8 @@
 #pragma once
 #include "Utils/Math.h"
 
-#include "Kikurage/ECS/Component.h"
-
 namespace Kikurage {
-	struct RigidBodyComponent : public Component {
+	struct RigidBodyComponent {
 	public:
 		Vector3 velocity{ 0.0f };
 		Vector3 force{ 0.0f };

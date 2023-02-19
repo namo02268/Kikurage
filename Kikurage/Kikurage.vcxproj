@@ -38,12 +38,8 @@
     <ClCompile Include="src\OpenGL\Shader.cpp" />
     <ClCompile Include="src\OpenGL\Texture2D.cpp" />
     <ClCompile Include="src\Kikurage\Systems\Camera\CameraController.cpp" />
-    <ClCompile Include="src\Kikurage\Systems\Collision\CollisionSystem.cpp" />
-    <ClCompile Include="src\Kikurage\Systems\Collision\PlaneCollider.cpp" />
-    <ClCompile Include="src\Kikurage\Systems\Collision\SphereCollider.cpp" />
     <ClCompile Include="src\Kikurage\Systems\IBL\IBL.cpp" />
     <ClCompile Include="src\Kikurage\Systems\Renderer\MeshRenderer.cpp" />
-    <ClCompile Include="src\Kikurage\Systems\Physics\Physics.cpp" />
     <ClCompile Include="src\OpenGL\VertexArray.cpp" />
     <ClCompile Include="src\OpenGL\VertexBuffer.cpp" />
     <ClCompile Include="vendor\Glad\glad.c" />
@@ -83,7 +79,6 @@
     <ClInclude Include="src\Kikurage\Components\Name\Name.h" />
     <ClInclude Include="src\Kikurage\Components\Relationship.h" />
     <ClInclude Include="src\Kikurage\Core\Application\Application.h" />
-    <ClInclude Include="src\Kikurage\Components\CollisionComponent.h" />
     <ClInclude Include="src\Kikurage\Components\MaterialComponent.h" />
     <ClInclude Include="src\Kikurage\Components\Mesh\Mesh.h" />
     <ClInclude Include="src\Kikurage\Components\RigidBodyComponent.h" />
@@ -91,27 +86,24 @@
     <ClInclude Include="src\Kikurage\Core\Event.h" />
     <ClInclude Include="src\Kikurage\Core\Renderer\BaseCamera.h" />
     <ClInclude Include="src\Kikurage\Core\Renderer\Renderer.h" />
-    <ClInclude Include="src\Kikurage\ECS\Component.h" />
-    <ClInclude Include="src\Kikurage\ECS\ComponentManager.h" />
-    <ClInclude Include="src\Kikurage\ECS\ECS_def.h" />
-    <ClInclude Include="src\Kikurage\ECS\Entity.h" />
-    <ClInclude Include="src\Kikurage\ECS\EntityManager.h" />
-    <ClInclude Include="src\Kikurage\ECS\SparseSet.h" />
-    <ClInclude Include="src\Kikurage\Events\CollisionEvent.h" />
     <ClInclude Include="src\Kikurage\Events\EventBase.h" />
     <ClInclude Include="src\Kikurage\Events\EventHandler.h" />
-    <ClInclude Include="src\Kikurage\ECS\IdGenerator.h" />
-    <ClInclude Include="src\Kikurage\ECS\ECS.h" />
-    <ClInclude Include="src\Kikurage\ECS\System.h" />
     <ClInclude Include="src\Kikurage\Events\WindowResizeEvent.h" />
     <ClInclude Include="src\Editor\ComponentEditors.h" />
     <ClInclude Include="src\Editor\Viewport.h" />
+    <ClInclude Include="src\Nameko\Archtype.h" />
+    <ClInclude Include="src\Nameko\Config.h" />
+    <ClInclude Include="src\Nameko\ECS.h" />
+    <ClInclude Include="src\Nameko\Entity.h" />
+    <ClInclude Include="src\Nameko\IdGenerator.h" />
+    <ClInclude Include="src\Nameko\Pool.h" />
     <ClInclude Include="src\Kikurage\Resource\Mesh\AABB.h" />
     <ClInclude Include="src\Kikurage\Resource\Model\ModelInfo.h" />
     <ClInclude Include="src\Kikurage\Resource\Model\ModelLoader.h" />
     <ClInclude Include="src\Kikurage\Systems\AABBCollision\AABBCollision.h" />
     <ClInclude Include="src\Kikurage\Core\Renderer\EditorCamera.h" />
     <ClInclude Include="src\Kikurage\Systems\TransformUpdater\TransformUpdater.h" />
+    <ClInclude Include="src\Nameko\System.h" />
     <ClInclude Include="src\OpenGL\IndexBuffer.h" />
     <ClInclude Include="src\OpenGL\VertexArray.h" />
     <ClInclude Include="src\OpenGL\VertexBuffer.h" />
@@ -124,15 +116,8 @@
     <ClInclude Include="src\OpenGL\Shader.h" />
     <ClInclude Include="src\OpenGL\Texture2D.h" />
     <ClInclude Include="src\Kikurage\Systems\Camera\CameraController.h" />
-    <ClInclude Include="src\Kikurage\Systems\Collision\Collider.h" />
-    <ClInclude Include="src\Kikurage\Systems\Collision\CollisionAlgorithm.h" />
-    <ClInclude Include="src\Kikurage\Systems\Collision\CollisionPoints.h" />
-    <ClInclude Include="src\Kikurage\Systems\Collision\CollisionSystem.h" />
-    <ClInclude Include="src\Kikurage\Systems\Collision\PlaneCollider.h" />
-    <ClInclude Include="src\Kikurage\Systems\Collision\SphereCollider.h" />
     <ClInclude Include="src\Kikurage\Systems\IBL\IBL.h" />
     <ClInclude Include="src\Kikurage\Systems\Renderer\MeshRenderer.h" />
-    <ClInclude Include="src\Kikurage\Systems\Physics\Physics.h" />
     <ClInclude Include="src\Utils\Math.h" />
     <ClInclude Include="src\Utils\Singleton.h" />
     <ClInclude Include="src\Utils\String.h" />
@@ -221,7 +206,7 @@
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>$(SolutionDir)include;$(ProjectDir)src;$(ProjectDir)vendor;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <LanguageStandard_C>Default</LanguageStandard_C>
-      <LanguageStandard>stdcpp17</LanguageStandard>
+      <LanguageStandard>stdcpp20</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -240,7 +225,7 @@
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>$(SolutionDir)include;$(ProjectDir)src;$(ProjectDir)vendor;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <LanguageStandard_C>Default</LanguageStandard_C>
-      <LanguageStandard>stdcpp17</LanguageStandard>
+      <LanguageStandard>stdcpp20</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -259,7 +244,7 @@
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>$(SolutionDir)include;$(ProjectDir)src;$(ProjectDir)vendor;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <LanguageStandard_C>Default</LanguageStandard_C>
-      <LanguageStandard>stdcpp17</LanguageStandard>
+      <LanguageStandard>stdcpp20</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -277,7 +262,7 @@
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;IMGUI_IMPL_OPENGL_LOADER_GL3W;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>$(SolutionDir)include;$(ProjectDir)src;$(ProjectDir)vendor;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <LanguageStandard>stdcpp17</LanguageStandard>
+      <LanguageStandard>stdcpp20</LanguageStandard>
       <LanguageStandard_C>Default</LanguageStandard_C>
     </ClCompile>
     <Link>

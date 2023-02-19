@@ -6,7 +6,7 @@
 namespace Kikurage {
 	Application::Application() {
 		m_eventHandler = new EventHandler();
-		m_ecs = new ECS();
+		m_ecs = new Nameko::ECS();
 		m_window = new OpenGLWindow(1200, 800, "Kikurage");
 		m_renderer = new Renderer();
 		m_scene3d = new Scene3D();
@@ -31,8 +31,6 @@ namespace Kikurage {
 		stbi_set_flip_vertically_on_load(true);
 
 		std::cout << "Hello Kikurage!" << "\n";
-		std::cout << "Initialize ECS..." << "\n";
-		m_ecs->Init();
 		std::cout << "Initialize Renderer..." << "\n";
 		m_renderer->Init();
 		std::cout << "Loading the Scene..." << "\n";

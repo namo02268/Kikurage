@@ -6,7 +6,7 @@
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 
-#include "Kikurage/ECS/Entity.h"
+#include "Nameko/Entity.h"
 #include "OpenGL/Shader.h"
 #include "OpenGL/Texture2D.h"
 #include "OpenGL/FrameBuffer.h"

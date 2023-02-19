@@ -1,10 +1,9 @@
 #pragma once
 
-#include "Kikurage/ECS/Component.h"
 #include "Utils/Math.h"
 
 namespace Kikurage {
-	struct Transform : public Component {
+	struct Transform {
 	private:
 		Vector3 position{ 0.0f };
 		Vector3 rotation{ 0.0f };

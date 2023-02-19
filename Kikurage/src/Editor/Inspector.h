@@ -1,11 +1,12 @@
 #pragma once
 
 #include "imgui/imgui.h"
-#include "Kikurage/ECS/ECS.h"
+#include "Nameko/ECS.h"
 #include "Editor/ComponentEditors.h"
 
 namespace Kikurage {
-	void Inspector(Entity entity, ECS* ecs) {
+	void Inspector(Nameko::Entity entity, Nameko::ECS* ecs) {
+		/*
 		ImGui::Begin("Inspector");
 		ImGui::PushID("Inspector");
 
@@ -45,5 +46,6 @@ namespace Kikurage {
 
 			ImGui::End();
 		}
+		*/
 	}
 }

@@ -1,7 +1,5 @@
 #pragma once
 
-#include "Kikurage/ECS/Component.h"
-
 #include "Kikurage/Resource/Model/ModelInfo.h"
 #include "Kikurage/Resource/Mesh/AABB.h"
 #include "OpenGL/VertexArray.h"
@@ -10,7 +8,7 @@
 
 
 namespace Kikurage {
-	struct Mesh : public Component {
+	struct Mesh {
 	private:
 		VertexArray VAO;
 		VertexBuffer VBO;

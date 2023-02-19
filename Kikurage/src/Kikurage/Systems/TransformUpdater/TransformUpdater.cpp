@@ -1,18 +1,11 @@
 #include "Kikurage/Systems/TransformUpdater/TransformUpdater.h"
-#include "Kikurage/ECS/ECS.h"
-
 #include "Kikurage/Components/Transform/Transform.h"
 
 namespace Kikurage {
 	TransformUpdater::TransformUpdater() {
-		auto family = getComponentTypeID<Relationship>();
-		m_requiredComponent[family] = true;
-		family = getComponentTypeID<Transform>();
-		m_requiredComponent[family] = true;
 	}
 
 	TransformUpdater::~TransformUpdater() {
-
 	}
 
 	void TransformUpdater::Init() {
@@ -20,18 +13,15 @@ namespace Kikurage {
 	}
 
 	void TransformUpdater::Update(float dt) {
-		for (auto& e : m_entityArray) {
-			auto transform = m_ecs->GetComponent<Transform>(e);
-			auto relation = m_ecs->GetComponent<Relationship>(e);
-
-			if (transform->IsUpdated()) {
-				transform->UpdateLocalMatrix();
+		m_ecs->Each<Transform, Relationship>([&](Transform& transform, Relationship& relation) {
+			if (transform.IsUpdated()) {
+				transform.UpdateLocalMatrix();
 			}
-			auto parent = relation->parent;
+			auto parent = relation.parent;
 			if (parent) {
-				transform->UpdateWorldMatrix(m_ecs->GetComponent<Transform>(parent)->GetLocalMatrix());
+				transform.UpdateWorldMatrix(m_ecs->GetComponent<Transform>(parent)->GetLocalMatrix());
 			}
-		}
+		});
 	}
 
 	void TransformUpdater::Draw() {

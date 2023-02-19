@@ -1,10 +1,9 @@
 #pragma once
 
-#include "Kikurage/ECS/Component.h"
 #include "Utils/String.h"
 
 namespace Kikurage {
-	struct Name : public Component {
+	struct Name {
 	private:
 		fixedString<63> name;
 

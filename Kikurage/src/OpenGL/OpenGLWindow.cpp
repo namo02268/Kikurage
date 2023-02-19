@@ -44,7 +44,7 @@ namespace Kikurage {
 	void OpenGLWindow::Draw() {
 		screenShader->Bind();
 		glBindVertexArray(renderVAO);
-		glBindTexture(GL_TEXTURE_2D, Application::GetInstance().GetRenderer()->GetRenderTexture().GetHandle());
+		glBindTexture(GL_TEXTURE_2D, Application::GetInstance().GetRenderer()->GetNormalTexture().GetHandle());
 		glDrawArrays(GL_TRIANGLES, 0, 6);
 	}
 

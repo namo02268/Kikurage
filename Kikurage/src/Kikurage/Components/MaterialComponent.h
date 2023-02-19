@@ -1,11 +1,10 @@
 #pragma once
 
 #include "Utils/Math.h"
-#include "Kikurage/ECS/Component.h"
 #include "OpenGL/Texture2D.h"
 
 namespace Kikurage {
-	struct MaterialComponent : public Component {
+	struct MaterialComponent {
 	public:
 		Vector3 albedo{ 1.0f };
 		float metallic = 0.0f;

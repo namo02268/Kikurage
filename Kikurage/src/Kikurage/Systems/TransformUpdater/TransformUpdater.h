@@ -1,9 +1,9 @@
 #pragma once
 
-#include "Kikurage/ECS/System.h"
+#include "Nameko/ECS.h"
 
 namespace Kikurage {
-	class TransformUpdater : public System {
+	class TransformUpdater : public Nameko::System {
 	public:
 		TransformUpdater();
 		~TransformUpdater();

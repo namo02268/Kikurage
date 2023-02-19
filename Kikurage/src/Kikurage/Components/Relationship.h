@@ -1,13 +1,12 @@
 #pragma once
 
-#include "Kikurage/ECS/Component.h"
-#include "Kikurage/ECS/Entity.h"
+#include "Nameko/Entity.h"
 
 namespace Kikurage {
-	struct Relationship : public Component {
-		Entity first{ ENTITY_NULL };
-		Entity prev{ ENTITY_NULL };
-		Entity next{ ENTITY_NULL };
-		Entity parent{ ENTITY_NULL };
+	struct Relationship {
+		Nameko::Entity first{ Nameko::ENTITY_NULL };
+		Nameko::Entity prev{ Nameko::ENTITY_NULL };
+		Nameko::Entity next{ Nameko::ENTITY_NULL };
+		Nameko::Entity parent{ Nameko::ENTITY_NULL };
 	};
 }

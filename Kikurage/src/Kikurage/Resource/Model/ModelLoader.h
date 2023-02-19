@@ -1,7 +1,6 @@
 #pragma once
 
 #include "Kikurage/Resource/Model/ModelInfo.h"
-#include "Kikurage/ECS/Entity.h"
 
 namespace Kikurage {
 	class ModelLoader {

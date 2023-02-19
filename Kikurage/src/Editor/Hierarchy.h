@@ -1,12 +1,13 @@
 #pragma once
 
 #include "imgui/imgui.h"
-#include "Kikurage/ECS/ECS.h"
+#include "Nameko/ECS.h"
 #include "Kikurage/Components/Relationship.h"
 #include "Kikurage/Components/Name/Name.h"
 
 namespace Kikurage {
-	Entity Hierarchy(ECS* ecs) {
+	Nameko::Entity Hierarchy(Nameko::ECS* ecs) {
+		/*
 		auto& allEntity = ecs->GetAllEntityArray();
 		static EntityID selectedEntity = ENTITY_NULL;
 
@@ -52,5 +53,7 @@ namespace Kikurage {
 		ImGui::End();
 
 		return selectedEntity;
+		*/
+		return 0;
 	}
 }

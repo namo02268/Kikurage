@@ -1,10 +1,9 @@
 #pragma once
 
-#include "Kikurage/ECS/Component.h"
 #include "Utils/Math.h"
 
 namespace Kikurage {
-	struct CameraComponent : public Component {
+	struct CameraComponent {
 	private:
 		Matrix4 m_projection{ 1.0f };
 		float m_aspectRatio = 16.0f / 9.0f;

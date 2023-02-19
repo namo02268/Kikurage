@@ -1,11 +1,10 @@
 #pragma once
 
-#include "Kikurage/ECS/System.h"
-
 #include "Kikurage/Core/Renderer/EditorCamera.h"
+#include "Nameko/ECS.h"
 
 namespace Kikurage {
-	class CameraController : public System {
+	class CameraController : public Nameko::System {
 	private:
 		EditorCamera camera;
 
@@ -16,10 +15,5 @@ namespace Kikurage {
 		void Init() override;
 		void Update(float dt) override;
 		void Draw() override;
-
-	private:
-		void HandleMouse(Transform& transform, float dt);
-		void HandleKeyboard(Transform& transform, float dt);
-		void HandleScroll(Transform& transform, float dt);
 	};
 }
