@@ -6,7 +6,7 @@
 namespace Kikurage {
 	Application::Application() {
 		m_eventHandler = new EventHandler();
-		m_ecs = new Nameko::ECS();
+		m_ecs = new KikurageECS();
 		m_window = new OpenGLWindow(1200, 800, "Kikurage");
 		m_renderer = new Renderer();
 		m_scene3d = new Scene3D();

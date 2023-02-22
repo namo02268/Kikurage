@@ -13,7 +13,7 @@ namespace Kikurage {
 	}
 
 	void TransformUpdater::Update(float dt) {
-		m_ecs->Each<Transform, Relationship>([&](Transform& transform, Relationship& relation) {
+		m_ecs->EachComponent<Transform, Relationship>([&](Transform& transform, Relationship& relation) {
 			if (transform.IsUpdated()) {
 				transform.UpdateLocalMatrix();
 			}

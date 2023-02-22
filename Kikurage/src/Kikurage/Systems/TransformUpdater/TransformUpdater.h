@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Nameko/ECS.h"
+#include "Kikurage/Core/ECS/ECS.h"
 
 namespace Kikurage {
 	class TransformUpdater : public Nameko::System {

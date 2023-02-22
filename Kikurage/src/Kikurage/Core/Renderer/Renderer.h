@@ -11,12 +11,13 @@
 #include "OpenGL/Texture2D.h"
 #include "OpenGL/FrameBuffer.h"
 #include "OpenGL/RenderBuffer.h"
-#include "Kikurage/Core/Renderer/BaseCamera.h"
 #include "Kikurage/Components/Transform/Transform.h"
+#include "Kikurage/Components/Camera/Camera.h"
 #include "Kikurage/Components/Mesh/Mesh.h"
 
 namespace Kikurage {
-	struct RenderBuffers {
+	struct RenderBuffers
+	{
 		Texture2D renderTexture;
 		FrameBuffer framebuffer;
 		RenderBuffer renderbuffer;
@@ -25,7 +26,8 @@ namespace Kikurage {
 		void Resize(unsigned int width, unsigned int height);
 	};
 
-	struct GBuffers {
+	struct GBuffers
+	{
 		FrameBuffer gBuffer;
 		Texture2D Position;
 		Texture2D Normal;
@@ -37,7 +39,8 @@ namespace Kikurage {
 		void Resize(unsigned int width, unsigned int height);
 	};
 
-	class Renderer {
+	class Renderer
+	{
 	private:
 		std::unique_ptr<RenderBuffers> renderBuffers = std::make_unique<RenderBuffers>();
 		std::unique_ptr<GBuffers> gBuffers = std::make_unique<GBuffers>();
@@ -60,7 +63,7 @@ namespace Kikurage {
 		void UnbindFBO();
 
 		void AddShader(Shader* shader) { m_shaders.push_back(shader); }
-		void BindCameraInformation(BaseCamera& camera, Transform& transform);
+		void BindCameraInformation(Camera& camera, Transform& transform);
 
 		void DrawObject(Mesh* mesh);
 

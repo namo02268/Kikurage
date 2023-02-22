@@ -3,7 +3,8 @@
 #include "Utils/Math.h"
 
 namespace Kikurage {
-	struct Transform {
+	struct Transform
+	{
 	private:
 		Vector3 position{ 0.0f };
 		Vector3 rotation{ 0.0f };

@@ -15,7 +15,6 @@
 #include "Kikurage/Systems/AABBCollision/AABBCollision.h"
 
 //------------Components------------
-#include "Kikurage/Components/Camera/CameraComponent.h"
 #include "Kikurage/Components/Transform/Transform.h"
 #include "Kikurage/Components/RigidBodyComponent.h"
 
@@ -52,7 +51,7 @@ namespace Kikurage {
 		// camera
 		auto cameraEntity = ecs->CreateEntity();
 		ecs->AddComponent<Transform>(cameraEntity, Transform(Vector3(50.0f, 5.0f, 0.0f), Vector3(1.0f), Vector3(0.0f, 90.0f, 0.0f)));
-		ecs->AddComponent<CameraComponent>(cameraEntity, CameraComponent());
+		ecs->AddComponent<Camera>(cameraEntity, Camera());
 //		ecs->GetComponent<Name>(cameraEntity)->Rename("EditorCamera");
 
 		// sphere

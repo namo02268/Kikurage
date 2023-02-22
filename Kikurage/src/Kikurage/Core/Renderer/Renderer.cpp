@@ -96,7 +96,7 @@ namespace Kikurage {
 		this->gBuffers->gBuffer.Unbind();
 	}
 
-	void Renderer::BindCameraInformation(BaseCamera& camera, Transform& transform) {
+	void Renderer::BindCameraInformation(Camera& camera, Transform& transform) {
 		for (auto shader : m_shaders) {
 			auto view = Inverse(transform.GetLocalMatrix());
 			camera.SetAspectRatio(static_cast<float>(this->GetWidth()) / static_cast<float>(this->GetHeight()));

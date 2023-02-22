@@ -20,14 +20,14 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Editor\Editor.cpp" />
+    <ClCompile Include="src\Kikurage\Components\Camera\Camera.cpp" />
     <ClCompile Include="src\Kikurage\Components\Mesh\Mesh.cpp" />
     <ClCompile Include="src\Kikurage\Core\Application\Application.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="src\Kikurage\Core\Renderer\BaseCamera.cpp" />
-    <ClCompile Include="src\Kikurage\Core\Renderer\EditorCamera.cpp" />
     <ClCompile Include="src\Kikurage\Core\Renderer\Renderer.cpp" />
     <ClCompile Include="src\Kikurage\Resource\Model\ModelLoader.cpp" />
     <ClCompile Include="src\Kikurage\Systems\AABBCollision\AABBCollision.cpp" />
+    <ClCompile Include="src\Kikurage\Systems\Camera\CameraController.cpp" />
     <ClCompile Include="src\Kikurage\Systems\TransformUpdater\TransformUpdater.cpp" />
     <ClCompile Include="src\OpenGL\FrameBuffer.cpp" />
     <ClCompile Include="src\OpenGL\IndexBuffer.cpp" />
@@ -37,7 +37,6 @@
     <ClCompile Include="src\Kikurage\Resource\ResourceManager\ResourceManager.cpp" />
     <ClCompile Include="src\OpenGL\Shader.cpp" />
     <ClCompile Include="src\OpenGL\Texture2D.cpp" />
-    <ClCompile Include="src\Kikurage\Systems\Camera\CameraController.cpp" />
     <ClCompile Include="src\Kikurage\Systems\IBL\IBL.cpp" />
     <ClCompile Include="src\Kikurage\Systems\Renderer\MeshRenderer.cpp" />
     <ClCompile Include="src\OpenGL\VertexArray.cpp" />
@@ -75,7 +74,7 @@
     <ClInclude Include="src\Editor\Editor.h" />
     <ClInclude Include="src\Editor\Hierarchy.h" />
     <ClInclude Include="src\Editor\Inspector.h" />
-    <ClInclude Include="src\Kikurage\Components\Camera\CameraComponent.h" />
+    <ClInclude Include="src\Kikurage\Components\Camera\Camera.h" />
     <ClInclude Include="src\Kikurage\Components\Name\Name.h" />
     <ClInclude Include="src\Kikurage\Components\Relationship.h" />
     <ClInclude Include="src\Kikurage\Core\Application\Application.h" />
@@ -83,14 +82,15 @@
     <ClInclude Include="src\Kikurage\Components\Mesh\Mesh.h" />
     <ClInclude Include="src\Kikurage\Components\RigidBodyComponent.h" />
     <ClInclude Include="src\Kikurage\Components\Transform\Transform.h" />
+    <ClInclude Include="src\Kikurage\Core\ECS\ECS.h" />
     <ClInclude Include="src\Kikurage\Core\Event.h" />
-    <ClInclude Include="src\Kikurage\Core\Renderer\BaseCamera.h" />
     <ClInclude Include="src\Kikurage\Core\Renderer\Renderer.h" />
     <ClInclude Include="src\Kikurage\Events\EventBase.h" />
     <ClInclude Include="src\Kikurage\Events\EventHandler.h" />
     <ClInclude Include="src\Kikurage\Events\WindowResizeEvent.h" />
     <ClInclude Include="src\Editor\ComponentEditors.h" />
     <ClInclude Include="src\Editor\Viewport.h" />
+    <ClInclude Include="src\Kikurage\Systems\Camera\CameraController.h" />
     <ClInclude Include="src\Nameko\Archtype.h" />
     <ClInclude Include="src\Nameko\Config.h" />
     <ClInclude Include="src\Nameko\ECS.h" />
@@ -101,7 +101,6 @@
     <ClInclude Include="src\Kikurage\Resource\Model\ModelInfo.h" />
     <ClInclude Include="src\Kikurage\Resource\Model\ModelLoader.h" />
     <ClInclude Include="src\Kikurage\Systems\AABBCollision\AABBCollision.h" />
-    <ClInclude Include="src\Kikurage\Core\Renderer\EditorCamera.h" />
     <ClInclude Include="src\Kikurage\Systems\TransformUpdater\TransformUpdater.h" />
     <ClInclude Include="src\Nameko\System.h" />
     <ClInclude Include="src\OpenGL\IndexBuffer.h" />
@@ -115,7 +114,6 @@
     <ClInclude Include="src\Kikurage\Resource\ResourceManager\ResourceManager.h" />
     <ClInclude Include="src\OpenGL\Shader.h" />
     <ClInclude Include="src\OpenGL\Texture2D.h" />
-    <ClInclude Include="src\Kikurage\Systems\Camera\CameraController.h" />
     <ClInclude Include="src\Kikurage\Systems\IBL\IBL.h" />
     <ClInclude Include="src\Kikurage\Systems\Renderer\MeshRenderer.h" />
     <ClInclude Include="src\Utils\Math.h" />

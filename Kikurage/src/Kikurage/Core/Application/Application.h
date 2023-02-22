@@ -1,7 +1,7 @@
 #pragma once
 
 #include "Kikurage/Events/EventHandler.h"
-#include "Nameko/ECS.h"
+#include "Kikurage/Core/ECS/ECS.h"
 #include "OpenGL/OpenGLWindow.h"
 #include "Kikurage/Core/Renderer/Renderer.h"
 #include "Kikurage/Scene/Scene3D.h"
@@ -12,7 +12,7 @@ namespace Kikurage {
 	class Application : public Singleton<Application> {
 	private:
 		EventHandler* m_eventHandler;
-		Nameko::ECS* m_ecs;
+		KikurageECS* m_ecs;
 		OpenGLWindow* m_window;
 		Renderer* m_renderer;
 		Scene3D* m_scene3d;
@@ -45,7 +45,7 @@ namespace Kikurage {
 		const std::size_t GetFPS() const { return this->FPS; }
 
 		EventHandler& GetEventHandler() const { return *this->m_eventHandler; }
-		Nameko::ECS* GetECS() const { return this->m_ecs; }
+		KikurageECS* GetECS() const { return this->m_ecs; }
 		OpenGLWindow* GetWindow() const { return this->m_window; }
 		Renderer* GetRenderer() const { return this->m_renderer; }
 	};

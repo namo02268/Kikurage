@@ -6,15 +6,11 @@
 #include "Nameko/Entity.h"
 #include "Nameko/Archtype.h" 
 #include "Nameko/IdGenerator.h"
-#include "System.h"
-#include "Kikurage/Components/Relationship.h"
-#include "Kikurage/Components/Name/Name.h"
+#include "Nameko/System.h"
 
 namespace Nameko {
-	class System;
-
 	class ECS {
-	private:
+	protected:
 		EntityManager* m_entityManager;
 		std::unordered_map<ArcheID, Archetype*>  m_archetypes;
 		std::array<ArcheID, MAX_ENTITIES> m_entityToArche;
@@ -25,7 +21,7 @@ namespace Nameko {
 			m_entityManager = new EntityManager;
 		}
 
-		~ECS() {
+		virtual ~ECS() {
 			delete m_entityManager;
 			for (auto& pair : m_archetypes) {
 				delete pair.second;
@@ -55,30 +51,8 @@ namespace Nameko {
 			}
 		}
 
-		Entity CreateEntity() {
-			auto entity = m_entityManager->CreateEntity();
-			char name[64];
-			sprintf_s(name, "Entity %d", entity);
-			this->AddComponent<Kikurage::Name>(entity, Kikurage::Name(name));
-			this->AddComponent<Kikurage::Relationship>(entity, Kikurage::Relationship());
-			return entity;
-		}
-
-		void AddRelationship(Entity parent, Entity child) {
-			this->GetComponent<Kikurage::Relationship>(child)->parent = parent;
-			auto current = this->GetComponent<Kikurage::Relationship>(parent)->first;
-			if (current) {
-				auto last = current;
-				while (current) {
-					last = current;
-					current = this->GetComponent<Kikurage::Relationship>(current)->next;
-				}
-				this->GetComponent<Kikurage::Relationship>(last)->next = child;
-				this->GetComponent<Kikurage::Relationship>(child)->prev = last;
-			}
-			else {
-				this->GetComponent<Kikurage::Relationship>(parent)->first = child;
-			}
+		virtual Entity CreateEntity() {
+			return m_entityManager->CreateEntity();
 		}
 
 		void DestoryEntity(Entity e) {
@@ -143,11 +117,21 @@ namespace Nameko {
 		}
 
 		template<typename... Components>
-		void Each(const std::function<void(Components&...)>&& lambda) {
+		void EachComponent(const std::function<void(Components&...)>&& lambda) {
 			auto mask = IdGenerator::GetArche<Components...>();
 			for (const auto& [archeID, archetype] : this->m_archetypes) {
 				if ((archeID & mask) == mask) {
-					archetype->Each<Components...>(std::forward<const std::function<void(Components&...)>>(lambda));
+					archetype->EachComponent<Components...>(std::forward<const std::function<void(Components&...)>>(lambda));
+				}
+			}
+		}
+
+		template<typename... Components>
+		void EachEntity(const std::function<void(Entity&)>&& lambda) {
+			auto mask = IdGenerator::GetArche<Components...>();
+			for (const auto& [archeID, archetype] : this->m_archetypes) {
+				if ((archeID & mask) == mask) {
+					archetype->EachEntity(lambda);
 				}
 			}
 		}

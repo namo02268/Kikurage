@@ -23,7 +23,7 @@ namespace Kikurage {
 		this->m_shader->Bind();
 		auto renderer = Application::GetInstance().GetRenderer();
 
-		m_ecs->Each<Transform, Mesh, MaterialComponent>([&](Transform& transform, Mesh& mesh, MaterialComponent& material) {
+		m_ecs->EachComponent<Transform, Mesh, MaterialComponent>([&](Transform& transform, Mesh& mesh, MaterialComponent& material) {
 			// material
 			int textureCount = 0;
 			if (material.DeffuseMap != nullptr) {
