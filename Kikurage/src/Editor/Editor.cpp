@@ -83,9 +83,6 @@ namespace Kikurage {
 		}
 	}
 
-
-
-
 	void BeginDockSpace() {
 		static ImGuiDockNodeFlags dockspace_flags = ImGuiDockNodeFlags_None;
 

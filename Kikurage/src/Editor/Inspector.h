@@ -1,27 +1,32 @@
 #pragma once
 
 #include "imgui/imgui.h"
-#include "Nameko/ECS.h"
+#include "Kikurage/Core/ECS/ECS.h"
 #include "Editor/ComponentEditors.h"
 
 namespace Kikurage {
-	void Inspector(Nameko::Entity entity, Nameko::ECS* ecs) {
-		/*
+	void Inspector(Nameko::Entity entity, KikurageECS* ecs) {
+
 		ImGui::Begin("Inspector");
 		ImGui::PushID("Inspector");
 
-		if (entity != ENTITY_NULL) {
+		if (entity != Nameko::ENTITY_NULL) {
 			// Transform
-			auto typeID = getComponentTypeID<Transform>();
-			if (ecs->GetComponentMask(entity)[typeID]) {
+			if (ecs->HasComponent<Transform>(entity)) {
 				ImGui::SetNextItemOpen(true, ImGuiCond_Once);
 				TransformEditor(entity, ecs);
 				ImGui::Separator();
 			}
 
+			// Camera
+			if (ecs->HasComponent<Camera>(entity)) {
+				ImGui::SetNextItemOpen(true, ImGuiCond_Once);
+				CameraEditor(entity, ecs);
+				ImGui::Separator();
+			}
+
 			// Material
-			typeID = getComponentTypeID<MaterialComponent>();
-			if (ecs->GetComponentMask(entity)[typeID]) {
+			if (ecs->HasComponent<MaterialComponent>(entity)) {
 				ImGui::SetNextItemOpen(true, ImGuiCond_Once);
 				MaterialEditor(entity, ecs);
 				ImGui::Separator();
@@ -46,6 +51,5 @@ namespace Kikurage {
 
 			ImGui::End();
 		}
-		*/
 	}
 }
