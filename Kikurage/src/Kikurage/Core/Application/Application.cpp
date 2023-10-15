@@ -52,9 +52,11 @@ namespace Kikurage {
 	}
 
 	void Application::Render() {
-		this->m_renderer->Start();
+		this->m_renderer->StartPipeLine();
+		this->m_renderer->GeometryPass();
 		m_scene3d->Draw();
-		this->m_renderer->End();
+		this->m_renderer->LightingPass();
+		this->m_renderer->EndPipeLine();
 	}
 
 	void Application::PollEvents() {

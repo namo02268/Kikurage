@@ -14,6 +14,8 @@
 #include "Kikurage/Components/Transform/Transform.h"
 #include "Kikurage/Components/Camera/Camera.h"
 #include "Kikurage/Components/Mesh/Mesh.h"
+#include "Kikurage/Components/Material/Material.h"
+#include "Kikurage/Components/Light/Light.h"
 
 namespace Kikurage {
 	struct RenderBuffers
@@ -44,7 +46,11 @@ namespace Kikurage {
 	private:
 		std::unique_ptr<RenderBuffers> renderBuffers = std::make_unique<RenderBuffers>();
 		std::unique_ptr<GBuffers> gBuffers = std::make_unique<GBuffers>();
-		std::vector<Shader*> m_shaders;
+		Shader* gBufferShader = nullptr;
+		Shader* lightingShader = nullptr;
+		Shader* lightCubeShader = nullptr;
+		std::unique_ptr<Mesh> m_renderQuad;
+		std::unique_ptr<Mesh> m_lightCube;
 
 	public:
 		bool IsDefaultFboEnable = true;
@@ -54,24 +60,24 @@ namespace Kikurage {
 		virtual ~Renderer();
 
 		void Init();
-		void Start();
-		void End();
+
+		void StartPipeLine();
+		void GeometryPass();
+		void LightingPass();
+		void EndPipeLine();
 
 		void ResizeViewport();
 
-		void BindFBO();
-		void UnbindFBO();
-
-		void AddShader(Shader* shader) { m_shaders.push_back(shader); }
 		void BindCameraInformation(Camera& camera, Transform& transform);
 
-		void DrawObject(Mesh* mesh);
+		void DrawObject(Mesh& mesh, Material& material, Transform& transform);
+		void ApplyLight(Light& light, Transform& transform, size_t num);
 
-		Texture2D& GetRenderTexture() { return this->renderBuffers->renderTexture; }
-		Texture2D& GetPositionTexture() { return this->gBuffers->Position; }
-		Texture2D& GetNormalTexture() { return this->gBuffers->Normal; }
-		Texture2D& GetAlbedoTexture() { return this->gBuffers->Albedo; }
-		Texture2D& GetSpecularTexture() { return this->gBuffers->Specular; }
+		Texture2D& GetRenderTexture() const { return this->renderBuffers->renderTexture; }
+		Texture2D& GetPositionTexture() const { return this->gBuffers->Position; }
+		Texture2D& GetNormalTexture() const { return this->gBuffers->Normal; }
+		Texture2D& GetAlbedoTexture() const { return this->gBuffers->Albedo; }
+		Texture2D& GetSpecularTexture() const { return this->gBuffers->Specular; }
 		unsigned int GetWidth() const { return this->m_renderInfo.width; }
 
 		unsigned int GetHeight() const { return this->m_renderInfo.height; }
@@ -83,8 +89,14 @@ namespace Kikurage {
 			unsigned int height = 0;
 			unsigned int lastWidth = 0;
 			unsigned int lastHeight = 0;
+
 		};
 
 		RenderInfo m_renderInfo;
+
+	private:
+		// TODO : Primitive.h
+		void CreateRenderQuad();
+		void CreateLightCube();
 	};
 }

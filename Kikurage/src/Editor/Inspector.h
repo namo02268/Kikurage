@@ -25,8 +25,14 @@ namespace Kikurage {
 				ImGui::Separator();
 			}
 
+			if (ecs->HasComponent<Light>(entity)) {
+				ImGui::SetNextItemOpen(true, ImGuiCond_Once);
+				LightEditor(entity, ecs);
+				ImGui::Separator();
+			}
+
 			// Material
-			if (ecs->HasComponent<MaterialComponent>(entity)) {
+			if (ecs->HasComponent<Material>(entity)) {
 				ImGui::SetNextItemOpen(true, ImGuiCond_Once);
 				MaterialEditor(entity, ecs);
 				ImGui::Separator();
@@ -43,7 +49,7 @@ namespace Kikurage {
 				if (ImGui::Selectable("Transform"))
 					ecs->AddComponent<Transform>(entity, Transform());
 				if (ImGui::Selectable("Material"))
-					ecs->AddComponent<MaterialComponent>(entity, MaterialComponent());
+					ecs->AddComponent<Material>(entity, Material());
 				ImGui::EndPopup();
 			}
 			ImGui::PopItemWidth();

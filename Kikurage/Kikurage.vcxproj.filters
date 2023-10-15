@@ -123,6 +123,12 @@
     <ClCompile Include="src\Kikurage\Systems\Camera\CameraController.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
+    <ClCompile Include="src\Utils\Primitives.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Kikurage\Systems\Lighting\Lighting.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="resources\shaders\Phong.frag">
@@ -165,6 +171,10 @@
     <None Include="resources\shaders\normal.frag" />
     <None Include="resources\shaders\gBuffer.vert" />
     <None Include="resources\shaders\gBuffer.frag" />
+    <None Include="resources\shaders\deferred_shading.vert" />
+    <None Include="resources\shaders\deferred_shading.frag" />
+    <None Include="resources\shaders\light_cube.vert" />
+    <None Include="resources\shaders\light_cube.frag" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="vendor\imgui\imconfig.h">
@@ -197,13 +207,13 @@
     <ClInclude Include="vendor\stb_image\stb_image.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="src\Kikurage\Components\MaterialComponent.h">
+    <ClInclude Include="src\Kikurage\Components\Material\Material.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
     <ClInclude Include="src\Kikurage\Components\Mesh\Mesh.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="src\Kikurage\Components\RigidBodyComponent.h">
+    <ClInclude Include="src\Kikurage\Components\RigidBody\RigidBodyComponent.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
     <ClInclude Include="src\Kikurage\Components\Transform\Transform.h">
@@ -251,7 +261,7 @@
     <ClInclude Include="src\Kikurage\Events\WindowResizeEvent.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="src\Kikurage\Components\Relationship.h">
+    <ClInclude Include="src\Kikurage\Components\Relationship\Relationship.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
     <ClInclude Include="src\OpenGL\FrameBuffer.h">
@@ -339,6 +349,15 @@
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
     <ClInclude Include="src\Kikurage\Systems\Camera\CameraController.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Kikurage\Components\Light\Light.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Utils\Primitives.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Kikurage\Systems\Lighting\Lighting.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
   </ItemGroup>

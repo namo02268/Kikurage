@@ -135,5 +135,15 @@ namespace Nameko {
 				}
 			}
 		}
+
+		Entity DeplicateEntity(Entity src) {
+			// TODO : Deplicate Child Entity
+			Entity dst = this->CreateEntity();
+			auto mask = m_entityToArche[src];
+			m_entityToArche[dst] = mask;
+			m_archetypes[mask]->DeplicateEntity(src, dst);
+
+			return dst;
+		}
 	};
 }

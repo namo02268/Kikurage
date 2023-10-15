@@ -607,7 +607,7 @@ void ImGui::ShowDemoWindow(bool* p_open)
     ShowDemoWindowTables();
     ShowDemoWindowMisc();
 
-    // End of ShowDemoWindow()
+    // lightingShader of ShowDemoWindow()
     ImGui::PopItemWidth();
     ImGui::End();
 }
@@ -3341,7 +3341,7 @@ static void ShowDemoWindowPopups()
     // popups at any time.
 
     // Typical use for regular windows:
-    //   bool my_tool_is_active = false; if (ImGui::Button("Open")) my_tool_is_active = true; [...] if (my_tool_is_active) Begin("My Tool", &my_tool_is_active) { [...] } End();
+    //   bool my_tool_is_active = false; if (ImGui::Button("Open")) my_tool_is_active = true; [...] if (my_tool_is_active) Begin("My Tool", &my_tool_is_active) { [...] } lightingShader();
     // Typical use for popups:
     //   if (ImGui::Button("Open")) ImGui::OpenPopup("MyPopup"); if (ImGui::BeginPopup("MyPopup") { [...] EndPopup(); }
 
@@ -7044,7 +7044,7 @@ static void ShowExampleAppLog(bool* p_open)
     static ExampleAppLog log;
 
     // For the demo: add a debug button _BEFORE_ the normal log window contents
-    // We take advantage of a rarely used feature: multiple calls to Begin()/End() are appending to the _same_ window.
+    // We take advantage of a rarely used feature: multiple calls to Begin()/lightingShader() are appending to the _same_ window.
     // Most of the contents of the window will be added by the log.Draw() call.
     ImGui::SetNextWindowSize(ImVec2(500, 400), ImGuiCond_FirstUseEver);
     ImGui::Begin("Example: Log", p_open);
@@ -8205,7 +8205,7 @@ void ShowExampleAppDocuments(bool* p_open)
     ImGui::End();
 }
 
-// End of Demo code
+// lightingShader of Demo code
 #else
 
 void ImGui::ShowAboutWindow(bool*) {}

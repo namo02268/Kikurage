@@ -25,6 +25,10 @@ namespace Kikurage {
 		~Texture2D();
 
 		void Bind() const { glBindTexture(GL_TEXTURE_2D, this->m_id); }
+		void Bind(unsigned int bindid) const {
+			glActiveTexture(GL_TEXTURE0 + bindid);
+			this->Bind();
+		}
 		void Unbind() const { glBindTexture(GL_TEXTURE_2D, 0); }
 		const unsigned int GetHandle() const { return this->m_id; }
 

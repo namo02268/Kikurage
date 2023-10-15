@@ -17,10 +17,13 @@ namespace Kikurage {
 			if (transform.IsUpdated()) {
 				transform.UpdateLocalMatrix();
 			}
+			auto mat = Matrix4{ 1.0f };
+
 			auto parent = relation.parent;
 			if (parent) {
-				transform.UpdateWorldMatrix(m_ecs->GetComponent<Transform>(parent)->GetLocalMatrix());
+				mat = m_ecs->GetComponent<Transform>(parent)->GetLocalMatrix();
 			}
+			transform.UpdateWorldMatrix(mat);
 		});
 	}
 

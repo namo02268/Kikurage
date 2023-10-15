@@ -2,7 +2,7 @@
 
 #include "imgui/imgui.h"
 #include "Kikurage/Core/ECS/ECS.h"
-#include "Kikurage/Components/Relationship.h"
+#include "Kikurage/Components/Relationship/Relationship.h"
 #include "Kikurage/Components/Name/Name.h"
 
 namespace Kikurage {
@@ -18,10 +18,12 @@ namespace Kikurage {
 				auto& name = ecs->GetComponent<Name>(entity)->GetName();
 				auto nextEntity = ecs->GetComponent<Relationship>(entity)->first;
 				if (nextEntity != Nameko::ENTITY_NULL) {
-					ImGui::Unindent(ImGui::GetTreeNodeToLabelSpacing());
+//					ImGui::Unindent(ImGui::GetTreeNodeToLabelSpacing());
 					ImGuiTreeNodeFlags node_flags = ImGuiTreeNodeFlags_OpenOnArrow | ImGuiTreeNodeFlags_OpenOnDoubleClick | ImGuiTreeNodeFlags_SpanAvailWidth;
 					if (selectedEntity == entity) node_flags |= ImGuiTreeNodeFlags_Selected;
+					ImGui::PushID(entity);
 					bool node_open = ImGui::TreeNodeEx((void*)(intptr_t)entity, node_flags, name.c_str());
+					ImGui::PopID();
 					if (ImGui::IsItemClicked() && !ImGui::IsItemToggledOpen())
 						selectedEntity = entity;
 					if (node_open) {

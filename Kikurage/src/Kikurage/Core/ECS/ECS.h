@@ -1,7 +1,7 @@
 #pragma once
 
 #include "Nameko/ECS.h"
-#include "Kikurage/Components/Relationship.h"
+#include "Kikurage/Components/Relationship/Relationship.h"
 #include "Kikurage/Components/Name/Name.h"
 
 namespace Kikurage {
@@ -13,7 +13,7 @@ namespace Kikurage {
 		Nameko::Entity CreateEntity() override {
 			auto entity = m_entityManager->CreateEntity();
 			char name[64];
-			sprintf_s(name, "Entity %d", entity);
+			sprintf_s(name, "Entity %03d", entity);
 			this->AddComponent<Kikurage::Name>(entity, Kikurage::Name(name));
 			this->AddComponent<Kikurage::Relationship>(entity, Kikurage::Relationship());
 			return entity;
@@ -35,6 +35,5 @@ namespace Kikurage {
 				this->GetComponent<Kikurage::Relationship>(parent)->first = child;
 			}
 		}
-
 	};
 }

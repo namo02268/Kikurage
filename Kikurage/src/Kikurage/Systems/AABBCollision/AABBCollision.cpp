@@ -2,7 +2,6 @@
 
 #include "Kikurage/Components/Transform/Transform.h"
 #include "Kikurage/Components/Mesh/Mesh.h"
-#include "Kikurage/Components/MaterialComponent.h"
 #include "Kikurage/Core/Event.h"
 
 namespace Kikurage {

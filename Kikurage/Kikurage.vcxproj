@@ -28,6 +28,7 @@
     <ClCompile Include="src\Kikurage\Resource\Model\ModelLoader.cpp" />
     <ClCompile Include="src\Kikurage\Systems\AABBCollision\AABBCollision.cpp" />
     <ClCompile Include="src\Kikurage\Systems\Camera\CameraController.cpp" />
+    <ClCompile Include="src\Kikurage\Systems\Lighting\Lighting.cpp" />
     <ClCompile Include="src\Kikurage\Systems\TransformUpdater\TransformUpdater.cpp" />
     <ClCompile Include="src\OpenGL\FrameBuffer.cpp" />
     <ClCompile Include="src\OpenGL\IndexBuffer.cpp" />
@@ -41,6 +42,7 @@
     <ClCompile Include="src\Kikurage\Systems\Renderer\MeshRenderer.cpp" />
     <ClCompile Include="src\OpenGL\VertexArray.cpp" />
     <ClCompile Include="src\OpenGL\VertexBuffer.cpp" />
+    <ClCompile Include="src\Utils\Primitives.cpp" />
     <ClCompile Include="vendor\Glad\glad.c" />
     <ClCompile Include="vendor\imgui\imgui.cpp" />
     <ClCompile Include="vendor\imgui\imgui_demo.cpp" />
@@ -57,11 +59,15 @@
     <None Include="resources\shaders\brdf.frag" />
     <None Include="resources\shaders\brdf.vert" />
     <None Include="resources\shaders\cubemap.vert" />
+    <None Include="resources\shaders\deferred_shading.frag" />
+    <None Include="resources\shaders\deferred_shading.vert" />
     <None Include="resources\shaders\depth.frag" />
     <None Include="resources\shaders\equirectangular_to_cubemap.frag" />
     <None Include="resources\shaders\gBuffer.frag" />
     <None Include="resources\shaders\gBuffer.vert" />
     <None Include="resources\shaders\irradiance_convolution.frag" />
+    <None Include="resources\shaders\light_cube.frag" />
+    <None Include="resources\shaders\light_cube.vert" />
     <None Include="resources\shaders\normal.frag" />
     <None Include="resources\shaders\PBR_nonTexture.frag" />
     <None Include="resources\shaders\Phong.frag" />
@@ -75,12 +81,13 @@
     <ClInclude Include="src\Editor\Hierarchy.h" />
     <ClInclude Include="src\Editor\Inspector.h" />
     <ClInclude Include="src\Kikurage\Components\Camera\Camera.h" />
+    <ClInclude Include="src\Kikurage\Components\Light\Light.h" />
     <ClInclude Include="src\Kikurage\Components\Name\Name.h" />
-    <ClInclude Include="src\Kikurage\Components\Relationship.h" />
+    <ClInclude Include="src\Kikurage\Components\Relationship\Relationship.h" />
     <ClInclude Include="src\Kikurage\Core\Application\Application.h" />
-    <ClInclude Include="src\Kikurage\Components\MaterialComponent.h" />
+    <ClInclude Include="src\Kikurage\Components\Material\Material.h" />
     <ClInclude Include="src\Kikurage\Components\Mesh\Mesh.h" />
-    <ClInclude Include="src\Kikurage\Components\RigidBodyComponent.h" />
+    <ClInclude Include="src\Kikurage\Components\RigidBody\RigidBodyComponent.h" />
     <ClInclude Include="src\Kikurage\Components\Transform\Transform.h" />
     <ClInclude Include="src\Kikurage\Core\ECS\ECS.h" />
     <ClInclude Include="src\Kikurage\Core\Event.h" />
@@ -91,6 +98,7 @@
     <ClInclude Include="src\Editor\ComponentEditors.h" />
     <ClInclude Include="src\Editor\Viewport.h" />
     <ClInclude Include="src\Kikurage\Systems\Camera\CameraController.h" />
+    <ClInclude Include="src\Kikurage\Systems\Lighting\Lighting.h" />
     <ClInclude Include="src\Nameko\Archtype.h" />
     <ClInclude Include="src\Nameko\Config.h" />
     <ClInclude Include="src\Nameko\ECS.h" />
@@ -117,6 +125,7 @@
     <ClInclude Include="src\Kikurage\Systems\IBL\IBL.h" />
     <ClInclude Include="src\Kikurage\Systems\Renderer\MeshRenderer.h" />
     <ClInclude Include="src\Utils\Math.h" />
+    <ClInclude Include="src\Utils\Primitives.h" />
     <ClInclude Include="src\Utils\Singleton.h" />
     <ClInclude Include="src\Utils\String.h" />
     <ClInclude Include="vendor\imgui\imconfig.h" />

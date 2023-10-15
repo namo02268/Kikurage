@@ -265,7 +265,7 @@ CODE
 
         // Most of your application code here
         ImGui::Text("Hello, world!");
-        MyGameUpdate(); // may use any Dear ImGui functions, e.g. ImGui::Begin("My window"); ImGui::Text("Hello, world!"); ImGui::End();
+        MyGameUpdate(); // may use any Dear ImGui functions, e.g. ImGui::Begin("My window"); ImGui::Text("Hello, world!"); ImGui::lightingShader();
         MyGameRender(); // may use any Dear ImGui functions as well!
 
         // Render dear imgui, swap buffers
@@ -2463,7 +2463,7 @@ void ImGuiTextBuffer::appendfv(const char* fmt, va_list args)
 //-----------------------------------------------------------------------------
 
 // FIXME-TABLE: This prevents us from using ImGuiListClipper _inside_ a table cell.
-// The problem we have is that without a Begin/End scheme for rows using the clipper is ambiguous.
+// The problem we have is that without a Begin/lightingShader scheme for rows using the clipper is ambiguous.
 static bool GetSkipItemForListClipping()
 {
     ImGuiContext& g = *GImGui;
@@ -2589,7 +2589,7 @@ ImGuiListClipper::~ImGuiListClipper()
 
 // Use case A: Begin() called from constructor with items_height<0, then called again from Step() in StepNo 1
 // Use case B: Begin() called from constructor with items_height>0
-// FIXME-LEGACY: Ideally we should remove the Begin/End functions but they are part of the legacy API we still support. This is why some of the code in Step() calling Begin() and reassign some fields, spaghetti style.
+// FIXME-LEGACY: Ideally we should remove the Begin/lightingShader functions but they are part of the legacy API we still support. This is why some of the code in Step() calling Begin() and reassign some fields, spaghetti style.
 void ImGuiListClipper::Begin(int items_count, float items_height)
 {
     ImGuiContext& g = *GImGui;
@@ -5083,7 +5083,7 @@ void ImGui::EndFrame()
         g.DragDropWithinSource = false;
     }
 
-    // End frame
+    // lightingShader frame
     g.WithinFrameScope = false;
     g.FrameCountEnded = g.FrameCount;
 
@@ -6332,11 +6332,11 @@ static ImGuiWindow* ImGui::FindBlockingModal(ImGuiWindow* window)
 }
 
 // Push a new Dear ImGui window to add widgets to.
-// - A default window called "Debug" is automatically stacked at the beginning of every frame so you can use widgets without explicitly calling a Begin/End pair.
-// - Begin/End can be called multiple times during the frame with the same window name to append content.
+// - A default window called "Debug" is automatically stacked at the beginning of every frame so you can use widgets without explicitly calling a Begin/lightingShader pair.
+// - Begin/lightingShader can be called multiple times during the frame with the same window name to append content.
 // - The window name is used as a unique identifier to preserve window information across frames (and save rudimentary information to the .ini file).
 //   You can use the "##" or "###" markers to use the same label with different id, or same id with different label. See documentation at the top of this file.
-// - Return false when window is collapsed, so you can early out in your code. You always need to call ImGui::End() even if false is returned.
+// - Return false when window is collapsed, so you can early out in your code. You always need to call ImGui::lightingShader() even if false is returned.
 // - Passing 'bool* p_open' displays a Close button on the upper-right corner of the window, the pointed value will be set to false when the button is pressed.
 bool ImGui::Begin(const char* name, bool* p_open, ImGuiWindowFlags flags)
 {
@@ -7040,7 +7040,7 @@ bool ImGui::Begin(const char* name, bool* p_open, ImGuiWindowFlags flags)
         window->HitTestHoleSize.x = window->HitTestHoleSize.y = 0;
 
         // Pressing CTRL+C while holding on a window copy its content to the clipboard
-        // This works but 1. doesn't handle multiple Begin/End pairs, 2. recursing into another Begin/End pair - so we need to work that out and add better logging scope.
+        // This works but 1. doesn't handle multiple Begin/lightingShader pairs, 2. recursing into another Begin/lightingShader pair - so we need to work that out and add better logging scope.
         // Maybe we can support CTRL+C on every element?
         /*
         //if (g.NavWindow == window && g.ActiveId == 0)
@@ -7169,7 +7169,7 @@ void ImGui::End()
     ImGuiContext& g = *GImGui;
     ImGuiWindow* window = g.CurrentWindow;
 
-    // Error checking: verify that user hasn't called End() too many times!
+    // Error checking: verify that user hasn't called lightingShader() too many times!
     if (g.CurrentWindowStack.Size <= 1 && g.WithinFrameScopeWithImplicitWindow)
     {
         IM_ASSERT_USER_ERROR(g.CurrentWindowStack.Size > 1, "Calling End() too many times!");
@@ -7177,7 +7177,7 @@ void ImGui::End()
     }
     IM_ASSERT(g.CurrentWindowStack.Size > 0);
 
-    // Error checking: verify that user doesn't directly call End() on a child window.
+    // Error checking: verify that user doesn't directly call lightingShader() on a child window.
     if ((window->Flags & ImGuiWindowFlags_ChildWindow) && !(window->Flags & ImGuiWindowFlags_DockNodeHost) && !window->DockIsActive)
         IM_ASSERT_USER_ERROR(g.WithinEndChild, "Must call EndChild() and not End()!");
 
@@ -7574,7 +7574,7 @@ bool ImGui::IsWindowHovered(ImGuiHoveredFlags flags)
 
     if ((flags & ImGuiHoveredFlags_AnyWindow) == 0)
     {
-        IM_ASSERT(cur_window); // Not inside a Begin()/End()
+        IM_ASSERT(cur_window); // Not inside a Begin()/lightingShader()
         const bool popup_hierarchy = (flags & ImGuiHoveredFlags_NoPopupHierarchy) == 0;
         const bool dock_hierarchy = (flags & ImGuiHoveredFlags_DockHierarchy) != 0;
         if (flags & ImGuiHoveredFlags_RootWindow)
@@ -7608,7 +7608,7 @@ bool ImGui::IsWindowFocused(ImGuiFocusedFlags flags)
     if (flags & ImGuiFocusedFlags_AnyWindow)
         return true;
 
-    IM_ASSERT(cur_window); // Not inside a Begin()/End()
+    IM_ASSERT(cur_window); // Not inside a Begin()/lightingShader()
     const bool popup_hierarchy = (flags & ImGuiFocusedFlags_NoPopupHierarchy) == 0;
     const bool dock_hierarchy = (flags & ImGuiFocusedFlags_DockHierarchy) != 0;
     if (flags & ImGuiHoveredFlags_RootWindow)
@@ -8673,8 +8673,8 @@ static void ImGui::ErrorCheckEndFrameSanityChecks()
     // Recover from errors
     //ErrorCheckEndFrameRecover();
 
-    // Report when there is a mismatch of Begin/BeginChild vs End/EndChild calls. Important: Remember that the Begin/BeginChild API requires you
-    // to always call End/EndChild even if Begin/BeginChild returns false! (this is unfortunately inconsistent with most other Begin* API).
+    // Report when there is a mismatch of Begin/BeginChild vs lightingShader/EndChild calls. Important: Remember that the Begin/BeginChild API requires you
+    // to always call lightingShader/EndChild even if Begin/BeginChild returns false! (this is unfortunately inconsistent with most other Begin* API).
     if (g.CurrentWindowStack.Size != 1)
     {
         if (g.CurrentWindowStack.Size > 1)
@@ -8694,7 +8694,7 @@ static void ImGui::ErrorCheckEndFrameSanityChecks()
 
 // Experimental recovery from incorrect usage of BeginXXX/EndXXX/PushXXX/PopXXX calls.
 // Must be called during or before EndFrame().
-// This is generally flawed as we are not necessarily End/Popping things in the right order.
+// This is generally flawed as we are not necessarily lightingShader/Popping things in the right order.
 // FIXME: Can't recover from inside BeginTabItem/EndTabItem yet.
 // FIXME: Can't recover from interleaved BeginTabBar/Begin
 void    ImGui::ErrorCheckEndFrameRecover(ImGuiErrorLogCallback log_callback, void* user_data)
@@ -8724,7 +8724,7 @@ void    ImGui::ErrorCheckEndFrameRecover(ImGuiErrorLogCallback log_callback, voi
     }
 }
 
-// Must be called before End()/EndChild()
+// Must be called before lightingShader()/EndChild()
 void    ImGui::ErrorCheckEndWindowRecover(ImGuiErrorLogCallback log_callback, void* user_data)
 {
     ImGuiContext& g = *GImGui;
@@ -8812,7 +8812,7 @@ void ImGuiStackSizes::CompareWithCurrentState()
     IM_ASSERT(SizeOfIDStack         == window->IDStack.Size     && "PushID/PopID or TreeNode/TreePop Mismatch!");
 
     // Global stacks
-    // For color, style and font stacks there is an incentive to use Push/Begin/Pop/.../End patterns, so we relax our checks a little to allow them.
+    // For color, style and font stacks there is an incentive to use Push/Begin/Pop/.../lightingShader patterns, so we relax our checks a little to allow them.
     IM_ASSERT(SizeOfGroupStack      == g.GroupStack.Size        && "BeginGroup/EndGroup Mismatch!");
     IM_ASSERT(SizeOfBeginPopupStack == g.BeginPopupStack.Size   && "BeginPopup/EndPopup or BeginMenu/EndMenu Mismatch!");
     IM_ASSERT(SizeOfDisabledStack   == g.DisabledStackSize      && "BeginDisabled/EndDisabled Mismatch!");
@@ -10983,7 +10983,7 @@ void ImGui::NavUpdateCreateMoveRequest()
         g.NavScoringNoClipRect = ImRect(+FLT_MAX, +FLT_MAX, -FLT_MAX, -FLT_MAX);
     }
 
-    // Update PageUp/PageDown/Home/End scroll
+    // Update PageUp/PageDown/Home/lightingShader scroll
     // FIXME-NAV: Consider enabling those keys even without the master ImGuiConfigFlags_NavEnableKeyboard flag?
     const bool nav_keyboard_active = (io.ConfigFlags & ImGuiConfigFlags_NavEnableKeyboard) != 0;
     float scoring_rect_offset_y = 0.0f;
@@ -11221,10 +11221,10 @@ static void ImGui::NavUpdateCancelRequest()
     }
 }
 
-// Handle PageUp/PageDown/Home/End keys
+// Handle PageUp/PageDown/Home/lightingShader keys
 // Called from NavUpdateCreateMoveRequest() which will use our output to create a move request
 // FIXME-NAV: This doesn't work properly with NavFlattened siblings as we use NavWindow rectangle for reference
-// FIXME-NAV: how to get Home/End to aim at the beginning/end of a 2D grid?
+// FIXME-NAV: how to get Home/lightingShader to aim at the beginning/end of a 2D grid?
 static float ImGui::NavUpdatePageUpPageDown()
 {
     ImGuiContext& g = *GImGui;
@@ -11275,7 +11275,7 @@ static float ImGui::NavUpdatePageUpPageDown()
         }
         else if (home_pressed)
         {
-            // FIXME-NAV: handling of Home/End is assuming that the top/bottom most item will be visible with Scroll.y == 0/ScrollMax.y
+            // FIXME-NAV: handling of Home/lightingShader is assuming that the top/bottom most item will be visible with Scroll.y == 0/ScrollMax.y
             // Scrolling will be handled via the ImGuiNavMoveFlags_ScrollToEdgeY flag, we don't scroll immediately to avoid scrolling happening before nav result.
             // Preserve current horizontal position if we have any.
             nav_rect_rel.Min.y = nav_rect_rel.Max.y = 0.0f;
@@ -11429,7 +11429,7 @@ static void ImGui::NavUpdateWindowing()
             g.NavWindowingTargetAnim = NULL;
     }
 
-    // Start CTRL+Tab or Square+L/R window selection
+    // GeometryPass CTRL+Tab or Square+L/R window selection
     const bool start_windowing_with_gamepad = allow_windowing && !g.NavWindowingTarget && IsNavInputTest(ImGuiNavInput_Menu, ImGuiInputReadMode_Pressed);
     const bool start_windowing_with_keyboard = allow_windowing && !g.NavWindowingTarget && io.KeyCtrl && IsKeyPressed(ImGuiKey_Tab);
     if (start_windowing_with_gamepad || start_windowing_with_keyboard)
@@ -12042,7 +12042,7 @@ void ImGui::LogRenderedText(const ImVec2* ref_pos, const char* text, const char*
         LogRenderedText(ref_pos, suffix, suffix + strlen(suffix));
 }
 
-// Start logging/capturing text output
+// GeometryPass logging/capturing text output
 void ImGui::LogBegin(ImGuiLogType type, int auto_open_depth)
 {
     ImGuiContext& g = *GImGui;
@@ -12079,7 +12079,7 @@ void ImGui::LogToTTY(int auto_open_depth)
 #endif
 }
 
-// Start logging/capturing text output to given file
+// GeometryPass logging/capturing text output to given file
 void ImGui::LogToFile(int auto_open_depth, const char* filename)
 {
     ImGuiContext& g = *GImGui;
@@ -12104,7 +12104,7 @@ void ImGui::LogToFile(int auto_open_depth, const char* filename)
     g.LogFile = f;
 }
 
-// Start logging/capturing text output to clipboard
+// GeometryPass logging/capturing text output to clipboard
 void ImGui::LogToClipboard(int auto_open_depth)
 {
     ImGuiContext& g = *GImGui;
@@ -12175,7 +12175,7 @@ void ImGui::LogButtons()
     PopAllowKeyboardFocus();
     PopID();
 
-    // Start logging at the end of the function so that the buttons don't appear in the log
+    // GeometryPass logging at the end of the function so that the buttons don't appear in the log
     if (log_to_tty)
         LogToTTY();
     if (log_to_file)
@@ -13495,7 +13495,7 @@ void ImGui::DestroyPlatformWindows()
 // Docking: ImGuiDockNode Tree manipulation functions
 // Docking: Public Functions (SetWindowDock, DockSpace, DockSpaceOverViewport)
 // Docking: Builder Functions
-// Docking: Begin/End Support Functions (called from Begin/End)
+// Docking: Begin/lightingShader Support Functions (called from Begin/lightingShader)
 // Docking: Settings
 //-----------------------------------------------------------------------------
 
@@ -13533,7 +13533,7 @@ void ImGui::DestroyPlatformWindows()
 // - DockSpace()                              user submit a dockspace into a window
 //    | Begin(Child)                          - create a child window
 //    | DockNodeUpdate()                      - call main dock node update function
-//    | End(Child)
+//    | lightingShader(Child)
 //    | ItemSize()
 //-----------------------------------------------------------------------------
 // - Begin()
@@ -15111,7 +15111,7 @@ static void ImGui::DockNodeUpdate(ImGuiDockNode* node)
         host_window->DrawList->ChannelsSetCurrent(0);
     }
 
-    // End host window
+    // lightingShader host window
     if (beginned_into_host_window) //-V1020
         End();
 }
@@ -16357,7 +16357,7 @@ ImGuiID ImGui::DockSpace(ImGuiID id, const ImVec2& size_arg, ImGuiDockNodeFlags 
 
 // Tips: Use with ImGuiDockNodeFlags_PassthruCentralNode!
 // The limitation with this call is that your window won't have a menu bar.
-// Even though we could pass window flags, it would also require the user to be able to call BeginMenuBar() somehow meaning we can't Begin/End in a single function.
+// Even though we could pass window flags, it would also require the user to be able to call BeginMenuBar() somehow meaning we can't Begin/lightingShader in a single function.
 // But you can also use BeginMainMenuBar(). If you really want a menu bar inside the same window as the one hosting the dockspace, you will need to copy this code somewhere and tweak it.
 ImGuiID ImGui::DockSpaceOverViewport(const ImGuiViewport* viewport, ImGuiDockNodeFlags dockspace_flags, const ImGuiWindowClass* window_class)
 {
@@ -16808,7 +16808,7 @@ void ImGui::DockBuilderFinish(ImGuiID root_id)
 }
 
 //-----------------------------------------------------------------------------
-// Docking: Begin/End Support Functions (called from Begin/End)
+// Docking: Begin/lightingShader Support Functions (called from Begin/lightingShader)
 //-----------------------------------------------------------------------------
 // - GetWindowAlwaysWantOwnTabBar()
 // - DockContextBindNodeToWindow()

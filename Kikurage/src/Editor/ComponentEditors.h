@@ -3,7 +3,8 @@
 #include "imgui/imgui.h"
 
 #include "Kikurage/Components/Transform/Transform.h"
-#include "Kikurage/Components/MaterialComponent.h"
+#include "Kikurage/Components/Material/Material.h"
+#include "Kikurage/Components/Light/Light.h"
 
 namespace Kikurage {
 	void TransformEditor(Nameko::Entity entity, KikurageECS* ecs) {
@@ -45,15 +46,21 @@ namespace Kikurage {
 		}
 	}
 
+	void LightEditor(Nameko::Entity entity, KikurageECS* ecs) {
+		if (ImGui::TreeNode("Light")) {
+			ImGui::ColorEdit3("Light Color", (float*)&ecs->GetComponent<Light>(entity)->color);
+		}
+	}
+
 	void MaterialEditor(Nameko::Entity entity, KikurageECS* ecs) {
 		if (ImGui::TreeNode("Material")) {
-			auto material = ecs->GetComponent<MaterialComponent>(entity);
+			auto material = ecs->GetComponent<Material>(entity);
 			ImGui::ColorEdit3("Albedo", &material->albedo.x);
 			ImGui::SliderFloat("Metallic", &material->metallic, 0.0f, 1.0f);
 			ImGui::SliderFloat("Roughness", &material->roughness, 0.0f, 1.0f);
 			ImGui::SliderFloat("ao", &material->ao, 0.0f, 1.0f);
 			if (ImGui::Button("Remove Component"))
-				ecs->RemoveComponent<MaterialComponent>(entity);
+				ecs->RemoveComponent<Material>(entity);
 			ImGui::TreePop();
 		}
 	}

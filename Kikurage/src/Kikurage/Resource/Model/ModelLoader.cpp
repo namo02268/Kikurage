@@ -5,7 +5,7 @@
 #include "Kikurage/Components/Name/Name.h"
 #include "Kikurage/Components/Transform/Transform.h"
 #include "Kikurage/Components/Mesh/Mesh.h"
-#include "Kikurage/Components/MaterialComponent.h"
+#include "Kikurage/Components/Material/Material.h"
 #include "Utils/Math.h"
 
 #include <assimp/Importer.hpp>
@@ -16,7 +16,7 @@
 namespace Kikurage {
     Texture2D* loadMaterialTexture(std::string& directory, const aiMaterial* material, const aiTextureType textureType);
 
-    void ModelLoader::LoadEntity(const char* path, float size) {
+    Nameko::Entity ModelLoader::LoadEntity(const char* path, float size) {
         auto model = LoadFromFile(path);
         auto ecs = Application::GetInstance().GetECS();
 
@@ -31,17 +31,19 @@ namespace Kikurage {
             // Mesh
             ecs->AddComponent(entity, Mesh(mesh));
             // Material
-            MaterialComponent mat;
-            mat.SetDeffuseMap(mesh.material->DeffuseMap);
-            mat.SetSpecularMap(mesh.material->SpecularMap);
-            mat.SetNormalMap(mesh.material->NormalMap);
-            mat.SetHeightMap(mesh.material->HeightMap);
-            ecs->AddComponent<MaterialComponent>(entity, std::move(mat));
+            Material mat;
+            mat.DeffuseMap = mesh.material->DeffuseMap;
+            mat.SpecularMap = mesh.material->SpecularMap;
+            mat.NormalMap = mesh.material->NormalMap;
+            mat.HeightMap = mesh.material->HeightMap;
+            ecs->AddComponent<Material>(entity, std::move(mat));
             // Name
             ecs->GetComponent<Name>(entity)->Rename(mesh.name);
             // Relationship
             ecs->AddRelationship(root, entity);
         }
+
+        return root;
     }
 
     ModelInfo ModelLoader::LoadFromFile(const char* path) {

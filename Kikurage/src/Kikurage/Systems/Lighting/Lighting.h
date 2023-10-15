@@ -3,10 +3,10 @@
 #include "Nameko/ECS.h"
 
 namespace Kikurage {
-	class MeshRenderer : public Nameko::System {
+	class Lighting : public Nameko::System {
 	public:
-		MeshRenderer();
-		~MeshRenderer();
+		Lighting();
+		~Lighting();
 
 		void Init() override;
 		void Update(float dt) override;
