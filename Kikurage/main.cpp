@@ -1,5 +1,6 @@
 ﻿#include "Kikurage/Core/Application/Application.h"
 #include "Editor/Editor.h"
+#include "Utils/Factory.h"
 
 int main() {
 	/*
@@ -12,5 +13,9 @@ int main() {
 	editor.Run();
 	Kikurage::Application::Destroy();
 
+	/*
+	Resource<int> test;
+	std::cout << test.id << std::endl;
+	*/
 	return 0;
 }

@@ -124,6 +124,7 @@
     <ClInclude Include="src\OpenGL\Texture2D.h" />
     <ClInclude Include="src\Kikurage\Systems\IBL\IBL.h" />
     <ClInclude Include="src\Kikurage\Systems\Renderer\MeshRenderer.h" />
+    <ClInclude Include="src\Utils\Factory.h" />
     <ClInclude Include="src\Utils\Math.h" />
     <ClInclude Include="src\Utils\Primitives.h" />
     <ClInclude Include="src\Utils\Singleton.h" />
